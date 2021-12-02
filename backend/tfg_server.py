@@ -4,11 +4,7 @@ import requests
 
 app = Flask(__name__)
 
-<<<<<<< HEAD:backend/tfg_server.py
 @app.route('/', methods=['GET','POST','PUT','DELETE'])
-=======
-@app.route('/index', methods=['GET'])
->>>>>>> 6bd7169de6e3cdb5793ea9edbf4cca687ee7ef28:tfg_server.py
 def index():
     if request.method == 'GET':
         return
