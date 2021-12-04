@@ -17,9 +17,9 @@ En ```src``` se encuentra el código del proyecto. Tenemos tres carpetas:
 
 En ```resources``` de momento hay un esquema básico de la estructura del proyecto.
 
-
-
 Es posible que en el futuro se añada alguno más.
+
+**Importante**: El servidor de Flask solo funciona si **MySQL está en ejecución**. Arrancar primero MySQL antes de iniciar Flask.
 
 ## Preparación del entorno
 Para lanzar la aplicación, tanto el **backend** como el **frontend** deben de estar ejecutándose en algún tipo de servidor.
