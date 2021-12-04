@@ -20,8 +20,8 @@ Para lanzar la aplicación, tanto el **backend** y el **frontend** deben de esta
 Se presupone que todos los requisitos mencionados en [Requisitos](#Requisitos) se cumplen.
 
 ### Preparación del backend
-  1. Entrar dentro de la carpeta ```/TFG/backend```
-  2. Iniciar una terminal en la carpeta ```/TFG/backend```
+  1. Entrar dentro de la carpeta ```TFG/backend```
+  2. Iniciar una terminal en la carpeta ```TFG/backend```
   3. Ejecutar el comando ```python tfg_server.py``` en Windows o Mac o ```python3 tfg_server.py``` en Linux
   4. En el navegador, entrar en ```localhost:5000``` y comprobar que devuelve algo (puede ser una página totalmente en blanco 
   o un mensaje de error lanzado por el servidor)
