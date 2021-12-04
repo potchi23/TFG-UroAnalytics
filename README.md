@@ -2,9 +2,10 @@
 A continuación se proporciona una guía para poder iniciar el entorno y así poder probar la aplicación.
 
 ## Requisitos:
-  - **Python3**
+  - [**Python3**](https://www.python.org/downloads/)
     - Si falta alguna librería (el IDE os lo dirá), podéis instalarlo desde el terminal con ```pip install <libreria>```
-  - **XAMPP**. Se necesitan principalmente:
+  - [**XAMPP**](https://www.apachefriends.org/download.html)
+    <br>Se necesitan principalmente:
     - Apache
     - MySQL y phpMyAdmin (*Depende de si usamos MySQL como base de datos, posibilidad de cambio*)
 
