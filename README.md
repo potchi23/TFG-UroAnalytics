@@ -49,7 +49,7 @@ Se presupone que todos los requisitos mencionados en [Requisitos](#Requisitos) s
   
  #### Configuración de puertos de Apache<a name="configuracion_puertos"></a>
   1. Parar Apache
-  2. En la columna *Actions*, entrar *Config > Apache(httpd.conf)*
+  2. En la columna *Actions*, entrar en *Config > Apache(httpd.conf)*
   3. Buscar la línea ```Listen 80``` y cambirala por ```Listen 2000```
   4. Buscar la línea ```ServerName localhost:80``` y cambiarla por ```ServerName localhost:2000```
   5. En XAMPP, en la columna con botones a la derecha del todo, entrar en ```Config > Service and Port Settings```
