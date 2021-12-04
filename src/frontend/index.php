@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 
 <?php
-    session_start();
+    if(session_status() == PHP_SESSION_NONE){
+        session_start();
+    }
     $_SESSION["is_logged"] = false;
 ?>
 
 <html>
     <head>
-        <title>Bienvenidos a ... </title>
+        <title>Bienvenidos a savana </title>
     </head>
     <body>
         <?php

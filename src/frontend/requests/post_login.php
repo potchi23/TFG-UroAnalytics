@@ -1,9 +1,12 @@
 <?php
     $ch = curl_init();
 
-    $post_req = array("email" => $_POST["email"], "password" => $_POST["password"]);
+    $post_req = array(
+        "email" => $_POST["email"], 
+        "password" => $_POST["password"]
+    );
 
-    curl_setopt($ch, CURLOPT_URL,"http://localhost:5000/");
+    curl_setopt($ch, CURLOPT_URL,"http://localhost:5000/login");
     curl_setopt($ch, CURLOPT_POST, 1);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $post_req);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
