@@ -6,23 +6,23 @@ A continuación se proporciona una guía para poder iniciar el entorno y así po
     - Si falta alguna librería (el IDE os lo dirá), podéis instalarlo desde el terminal con ```pip install <libreria>```
   - [**XAMPP**](https://www.apachefriends.org/download.html)
     <br>Se necesitan principalmente:
-    - Apache
-    - MySQL y phpMyAdmin (*Depende de si usamos MySQL como base de datos, posibilidad de cambio*)
+    - **Apache**
+    - **MySQL** y **phpMyAdmin** (*Depende de si usamos MySQL como base de datos, posibilidad de cambio*)
 
 ## Descripción
-En ```src``` se encuentra el código del proyecto. Tenemos dos carpetas:
-  - **Backend**: Contiene toda la lógica de la aplicación. Dentro se encuentra la REST API hecha con Flask
-  - **Frontend**: Contiene la GUI de la aplicación. Dentro se incluyen los ficheros HTML, CSS, PHP y Javascript
-  - **SQL**: Contiene un fichero con la base de datos. Se puede **importar** directamente en **phpMyAdmin**
+En ```src``` se encuentra el código del proyecto. Tenemos tres carpetas:
+  - ```backend```: Contiene toda la lógica de la aplicación. Dentro se encuentra la REST API hecha con Flask
+  - ```frontend```: Contiene la GUI de la aplicación. Dentro se incluyen los ficheros HTML, CSS, PHP y Javascript
+  - ```sql```: Contiene un fichero con la base de datos. Se puede **importar** directamente en **phpMyAdmin**
 
-En ```resources``` de momento hay un esquema básico de la estructura del proyecto
+En ```resources``` de momento hay un esquema básico de la estructura del proyecto.
 
 
 
 Es posible que en el futuro se añada alguno más.
 
 ## Preparación del entorno
-Para lanzar la aplicación, tanto el **backend** y el **frontend** deben de estar ejecutándose en algún tipo de servidor.
+Para lanzar la aplicación, tanto el **backend** como el **frontend** deben de estar ejecutándose en algún tipo de servidor.
 Se presupone que todos los requisitos mencionados en [Requisitos](#Requisitos) se cumplen.
 
 ### Preparación del backend
@@ -39,7 +39,7 @@ Se presupone que todos los requisitos mencionados en [Requisitos](#Requisitos) s
   3. En la columna *Actions*, entrar *Config > Apache(httpd.conf)*
   4. Buscar dentro del fichero la línea ```DocumentRoot "C:\xampp\htdocs"``` y sustituirla por ```DocumentRoot "C:\<ruta_TFG>\TFG\src\frontend"```<a name="frontend_document_root"></a>
   <br>*Ejemplo*: ```DocumentRoot "C:\Users\<nombre>\Documents\GitHub\TFG\src\frontend"```
-  5. Buscar dentro del fichero la línea ```<Directory "C:\xampp\htdocs">``` y sustituirla por ```<Directory "C:\<ruta_TFG>\TFG\src\frontend">```<a name="frontend_directory">
+  5. Buscar dentro del fichero la línea ```<Directory "C:\xampp\htdocs">``` y sustituirla por ```<Directory "C:\<ruta_TFG>\TFG\src\frontend">```<a name="frontend_directory"></a>
   <br>*Ejemplo*: ```<Directory "C:\Users\<nombre>\Documents\GitHub\TFG\src\frontend">```
   6. Iniciar Apache<a name="frontend_init_apache"></a>
   7. En el navegador, entrar en ```localhost``` o en ```localhost:80``` y comprobar que devuelve el contenido de ```TFG/src/frontend/index.php```
