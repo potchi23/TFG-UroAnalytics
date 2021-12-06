@@ -1,9 +1,5 @@
-from typing import final
 from flask import Flask, request, session, redirect
-from urllib import parse
 from mysql import connector
-import requests
-
 
 app = Flask(__name__)
 

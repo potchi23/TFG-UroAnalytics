@@ -11,7 +11,8 @@ A continuación se proporciona una guía para poder iniciar el entorno y así po
 
 ## Descripción
 En ```src``` se encuentra el código del proyecto. Tenemos tres carpetas:
-  - ```backend```: Contiene toda la lógica de la aplicación. Dentro se encuentra la REST API hecha con Flask
+  - ```backend```: Contiene toda la lógica de la aplicación. Dentro se encuentra la REST API hecha con Flask. Tambien se encuentra el
+                   fichero ```requirements.txt``` con las dependencias necesarias para nuestro servidor
   - ```frontend```: Contiene la GUI de la aplicación. Dentro se incluyen los ficheros HTML, CSS, PHP y Javascript
   - ```sql```: Contiene un fichero con la base de datos. Se puede **importar** directamente en **phpMyAdmin**
 
@@ -28,8 +29,9 @@ Se presupone que todos los requisitos mencionados en [Requisitos](#Requisitos) s
 ### Preparación del backend
   1. Entrar dentro de la carpeta ```TFG/src/backend```
   2. Iniciar una terminal en la carpeta ```TFG/src/backend```
-  3. Ejecutar el comando ```python tfg_server.py``` en Windows o Mac o ```python3 tfg_server.py``` en Linux
-  4. En el navegador, entrar en ```localhost:5000``` y comprobar que devuelve algo (puede ser una página totalmente en blanco 
+  3. Ejecutar el comando ```pip install -r requirements.txt``` para instalar las dependencias del servidor
+  4. Ejecutar el comando ```python tfg_server.py``` en Windows o Mac o ```python3 tfg_server.py``` en Linux
+  5. En el navegador, entrar en ```localhost:5000``` y comprobar que devuelve algo (puede ser una página totalmente en blanco 
   o un mensaje de error lanzado por el servidor)
   
  ### Preparación del frontend
