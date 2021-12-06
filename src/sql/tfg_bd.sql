@@ -26,10 +26,10 @@ USE `phpmyadmin`;
 
 -- --------------------------------------------------------
 --
--- Database: `tfg_db`
+-- Database: `tfg_bd`
 --
-CREATE DATABASE IF NOT EXISTS `tfg_db` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `tfg_db`;
+CREATE DATABASE IF NOT EXISTS `tfg_bd` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `tfg_bd`;
 
 -- --------------------------------------------------------
 
