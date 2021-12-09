@@ -21,7 +21,7 @@
         ?>
         <h1>Login</h1>
 
-        <form action="requests/post_login.php" method="post" target="_self">
+        <form action="requests/postLogin.php" method="post" target="_self">
             <label for="email">Email:</label>
             <input type="text" id="email" name="email"><br><br>
             <label for="password">Contraseña:</label>

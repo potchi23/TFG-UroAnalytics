@@ -12,7 +12,7 @@
     </head>
     <body>
         <h1>Solicitar registro</h1>
-        <form action="requests/post_register.php" method="post" target="_blank">
+        <form action="requests/postRegister.php" method="post" target="_self">
             <label for="name">Nombre:</label>
             <input type="text" id="name" name="name"><br><br>
 
