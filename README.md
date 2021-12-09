@@ -4,7 +4,7 @@ A continuación se proporciona una guía para poder iniciar el entorno y así po
 ## Requisitos:
   - [**Python3**](https://www.python.org/downloads/)
     - Si falta alguna librería (el IDE os lo dirá), podéis instalarlo desde el terminal con ```pip install <libreria>```.
-    Otra opción es entrar en la carpeta de ```backend``` y ejecutar ```pip install -r requirements.txt``` para instalar
+    Otra opción es entrar en la carpeta ```src/backend``` y ejecutar ```pip install -r requirements.txt``` para instalar
     todas las dependencias del backend.
   - [**XAMPP**](https://www.apachefriends.org/download.html)
     <br>Se necesitan principalmente:
