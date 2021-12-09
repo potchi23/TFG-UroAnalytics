@@ -3,18 +3,19 @@ A continuación se proporciona una guía para poder iniciar el entorno y así po
 
 ## Requisitos:
   - [**Python3**](https://www.python.org/downloads/)
-    - Si falta alguna librería (el IDE os lo dirá), podéis instalarlo desde el terminal con ```pip install <libreria>```
+    - Si falta alguna librería (el IDE os lo dirá), podéis instalarlo desde el terminal con ```pip install <libreria>```.
+    Otra opción es entrar en la carpeta de ```backend``` y ejecutar ```pip install -r requirements.txt``` para instalar
+    todas las dependencias del backend.
   - [**XAMPP**](https://www.apachefriends.org/download.html)
     <br>Se necesitan principalmente:
     - **Apache**
-    - **MySQL** y **phpMyAdmin** (*Depende de si usamos MySQL como base de datos, posibilidad de cambio*)
-
+    - **MySQL** y **phpMyAdmin**
 ## Descripción
 En ```src``` se encuentra el código del proyecto. Tenemos tres carpetas:
   - ```backend```: Contiene toda la lógica de la aplicación. Dentro se encuentra la REST API hecha con Flask. Tambien se encuentra el
-                   fichero ```requirements.txt``` con las dependencias necesarias para nuestro servidor
-  - ```frontend```: Contiene la GUI de la aplicación. Dentro se incluyen los ficheros HTML, CSS, PHP y Javascript
-  - ```sql```: Contiene un fichero con la base de datos. Se puede **importar** directamente en **phpMyAdmin**
+                   fichero ```requirements.txt``` con las dependencias necesarias para nuestro servidor.
+  - ```frontend```: Contiene la GUI de la aplicación. Dentro se incluyen los ficheros HTML, CSS, PHP y Javascript.
+  - ```sql```: Contiene un fichero con la base de datos. Se puede **importar** directamente en **phpMyAdmin**.
 
 En ```resources``` de momento hay un esquema básico de la estructura del proyecto.
 
