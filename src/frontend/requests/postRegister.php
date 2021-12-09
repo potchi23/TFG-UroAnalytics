@@ -20,7 +20,7 @@
     $response_array = json_decode($response,true);
     $status = $response_array["status"];
     
-    if($status == 200){
+    if($status == 201){
         $email = $post_req["email"];
         header("Location: ../pending.php?email=$email");
     }
