@@ -1,7 +1,7 @@
-from flask import Flask, request, Response, redirect
-from mysql import connector
-from flask_cors import CORS, cross_origin
 import sys
+from flask import Flask, request, Response
+from mysql import connector
+from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)
@@ -50,7 +50,7 @@ def register():
             mydb.commit()
             status = 201
         except TypeError as e:
-            print(e)
+            print(e, file=sys.stderr)
         finally:
             cursor.close()
 
@@ -76,7 +76,6 @@ def register_petitions():
         }
 
         for register_request in cursor:
-            
             data = {
                 'id': register_request[0],
                 'name':register_request[1],
@@ -90,7 +89,6 @@ def register_petitions():
         cursor.close()
 
         response = Response(str(register_requests))
-
         status = 200
         
         return response, status
@@ -101,7 +99,8 @@ def register_petitions():
         query = f'UPDATE users SET accepted = 1 WHERE id = {user_id}'
         cursor.execute(query)
         mydb.commit()
-        
+        cursor.close()
+
         response = Response()
         status = 204
 
@@ -113,6 +112,7 @@ def register_petitions():
         query = f'DELETE FROM users WHERE id = {user_id}'
         cursor.execute(query)
         mydb.commit()
+        cursor.close()
 
         response = Response()
         status = 204
