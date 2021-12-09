@@ -117,6 +117,8 @@ def register_petitions():
         response = Response()
         status = 204
 
+        return response, status
+
     else:
         return 'Method not supported', status
 
