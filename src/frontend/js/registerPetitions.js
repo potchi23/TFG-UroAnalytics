@@ -9,7 +9,7 @@ function accept_register_petition(id){
         data: data,
        
         success: response =>{
-            $(`register_petition_${user_id}`).remove();
+            $(`#register_petition_${user_id}`).remove();
         },
 
         error: e =>{
@@ -31,7 +31,7 @@ function reject_register_petition(id){
         data: data,
        
         success: response =>{
-            $(`register_petition_${user_id}`).remove();
+            $(`#register_petition_${user_id}`).remove();
         },
 
         error: e =>{
