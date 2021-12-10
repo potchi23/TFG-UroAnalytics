@@ -1,12 +1,12 @@
 function sendEmail(email, message) {
 	Email.send({
-	Host: "smtp.gmail.com",
-	Username : "ucmtfg1234@gmail.com",
-	Password : "Tfgucm1234",
-	To : email,
-	From : "ucmtfg1234@gmail.com",
-	Subject : "Estado de solicitud de registro",
-	Body : message,
+	    Host: "smtp.gmail.com",
+	    Username : "ucmtfg1234@gmail.com",
+	    Password : "Tfgucm1234",
+	    To : email,
+	    From : "ucmtfg1234@gmail.com",
+	    Subject : "Estado de solicitud de registro",
+	    Body : message
 	}); 
 }
 
@@ -20,7 +20,7 @@ function accept_register_petition(id){
         url: "http://localhost:5000/register_petitions",
         data: data,
        
-        success: response =>{
+        success: response => {
             response = response.replaceAll("\'", "\"");
             let user_data = JSON.parse(response)["data"][0];
 
@@ -30,7 +30,7 @@ function accept_register_petition(id){
             sendEmail(user_data["email"], message);
         },
 
-        error: e =>{
+        error: e => {
             if(console && console.log) {
                 console.log("Request failed: " +  e);
             }
@@ -48,7 +48,7 @@ function reject_register_petition(id){
         url: "http://localhost:5000/register_petitions",
         data: data,
        
-        success: response =>{
+        success: response => {
             response = response.replaceAll("\'", "\"");
             let user_data = JSON.parse(response)["data"][0];
 
@@ -58,7 +58,7 @@ function reject_register_petition(id){
             sendEmail(user_data["email"], message);
         },
 
-        error: e =>{
+        error: e => {
             if(console && console.log) {
                 console.log("Request failed: " +  e);
             }
@@ -116,6 +116,6 @@ function print_register_petitions(){
     });
 }
 
-$(document).ready(function() {
+$(document).ready(() => {
     print_register_petitions();
 });
