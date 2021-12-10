@@ -48,7 +48,7 @@ def register():
         try:
             cursor.execute(query, values)
             mydb.commit()
-            status = 201
+            status = 200
         except TypeError as e:
             print(e, file=sys.stderr)
         finally:

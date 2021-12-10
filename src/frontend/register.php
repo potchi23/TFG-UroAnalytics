@@ -1,4 +1,8 @@
 <?php
+    if(session_status() == PHP_SESSION_NONE){
+        session_start();
+    }
+    
     if (isset($_SESSION["is_logged"]) && $_SESSION["is_logged"]){
         header("Location: /dashboard.php");
     }
@@ -28,7 +32,22 @@
             <label for="password">Contraseña:</label>
             <input type="password" id="password" name="password"><br><br>
 
+            <label for="password_confirm">Confirmar contraseña:</label>
+            <input type="password" id="password_confirm" name="password_confirm"><br><br>
+
             <input type="submit" value="Solicitar registro">
         </form>
+
+        <?php
+            if (isset($_GET["error"])){
+                $error_array = explode(",", $_GET["error"]);
+                
+                foreach($error_array as $error){
+                    echo "<p>$error</p>";
+                }
+
+                unset($_GET["error"]);
+            }
+        ?>
     </body>
 </html>
