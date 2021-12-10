@@ -85,7 +85,6 @@ def register_petitions():
             }
             
             register_requests['data'].append(data)
-        
         cursor.close()
 
         response = Response(str(register_requests))
@@ -96,26 +95,60 @@ def register_petitions():
     elif request.method == 'PATCH':
         cursor = mydb.cursor()
         user_id = request.form['id']
+
+        query = f'SELECT name, email FROM users WHERE id = {user_id}'
+        cursor.execute(query)
+
+        user_data = {
+            'data':[]
+        }
+
+        for register_request in cursor:
+            data = {
+                'name': register_request[0],
+                'email':register_request[1]
+            }
+            
+            user_data['data'].append(data)
+
         query = f'UPDATE users SET accepted = 1 WHERE id = {user_id}'
         cursor.execute(query)
         mydb.commit()
+
         cursor.close()
 
-        response = Response()
-        status = 204
+        response = Response(str(user_data))
+        status = 200
 
         return response, status
 
     elif request.method == 'DELETE':
         cursor = mydb.cursor()
         user_id = request.form['id']
+        
+        query = f'SELECT name, email FROM users WHERE id = {user_id}'
+        cursor.execute(query)
+
+        user_data = {
+            'data':[]
+        }
+
+        for register_request in cursor:
+            data = {
+                'name': register_request[0],
+                'email':register_request[1]
+            }
+            
+            user_data['data'].append(data)
+
         query = f'DELETE FROM users WHERE id = {user_id}'
         cursor.execute(query)
         mydb.commit()
+
         cursor.close()
 
-        response = Response()
-        status = 204
+        response = Response(str(user_data))
+        status = 200
 
         return response, status
 

@@ -1,3 +1,15 @@
+function sendEmail(email, message) {
+	Email.send({
+	Host: "smtp.gmail.com",
+	Username : "ucmtfg1234@gmail.com",
+	Password : "Tfgucm1234",
+	To : email,
+	From : "ucmtfg1234@gmail.com",
+	Subject : "Estado de solicitud de registro",
+	Body : message,
+	}); 
+}
+
 function accept_register_petition(id){
     let data = {
         "id":id
@@ -9,7 +21,13 @@ function accept_register_petition(id){
         data: data,
        
         success: response =>{
+            response = response.replaceAll("\'", "\"");
+            let user_data = JSON.parse(response)["data"][0];
+
             $(`#register_petition_${id}`).remove();
+
+            message = `Hola ${user_data["name"]}. Te informamos que hemos aceptado tu solicitud de registro.`;
+            sendEmail(user_data["email"], message);
         },
 
         error: e =>{
@@ -31,8 +49,13 @@ function reject_register_petition(id){
         data: data,
        
         success: response =>{
+            response = response.replaceAll("\'", "\"");
+            let user_data = JSON.parse(response)["data"][0];
+
             $(`#register_petition_${id}`).remove();
-            console.log()
+
+            message = `Hola ${user_data["name"]}. Te informamos que hemos rechazado tu solicitud de registro.`;
+            sendEmail(user_data["email"], message);
         },
 
         error: e =>{
