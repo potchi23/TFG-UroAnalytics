@@ -23,9 +23,9 @@
 
         <form action="requests/postLogin.php" method="post" target="_self">
             <label for="email">Email:</label>
-            <input type="text" id="email" name="email"><br><br>
+            <input type="text" id="email" name="email" placeholder="Email"><br><br>
             <label for="password">Contraseña:</label>
-            <input type="password" id="password" name="password"><br><br>
+            <input type="password" id="password" name="password" placeholder="Contraseña"><br><br>
             <input type="submit" value="Login">
         </form>
 

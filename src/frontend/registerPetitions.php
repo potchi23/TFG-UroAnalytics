@@ -13,6 +13,7 @@
     <head>
         <title>Solicitudes de registro</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>"https://smtpjs.com/v3/smtp.js"</script>
         <script src="js/registerPetitions.js"></script>
     </head>
     <body>
