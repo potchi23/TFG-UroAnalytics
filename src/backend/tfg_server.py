@@ -1,6 +1,7 @@
 import sys
 from flask import Flask, request, Response
 from mysql import connector
+from mysql.connector import errorcode
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -34,6 +35,10 @@ def index():
 @app.route('/register', methods=['POST'])
 def register():
     status = 400
+    response = {
+        'errno': ''
+    }
+    
     if request.method == 'POST':
         name = request.form['name']
         surname_1 = request.form['surname_1']
@@ -49,18 +54,16 @@ def register():
             cursor.execute(query, values)
             mydb.commit()
             status = 200
-        except TypeError as e:
+        except connector.Error as e:
             print(e, file=sys.stderr)
+            response['errno'] = e.errno
         finally:
             cursor.close()
 
-            response = {
-                "status":status
-            }
             return response, status
 
     else:
-        return 'Method not supported', status
+        return 'Method not supported', 400
 
 @app.route('/register_petitions', methods=['GET','PATCH','DELETE'])
 def register_petitions():

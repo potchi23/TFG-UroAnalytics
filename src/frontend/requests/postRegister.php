@@ -46,14 +46,19 @@
         
         curl_close($ch);
         $response_array = json_decode($response,true);
-        $status = $response_array["status"];
-        
-        if($status == 200){
+        $db_errno = $response_array["errno"];
+
+        if(curl_getinfo($ch, CURLINFO_RESPONSE_CODE) == 200){
             $email = $post_req["email"];
             header("Location: ../pending.php?email=$email");
         }
         else{
-            header("Location: ../login.php?message=Hay%20un%20error");
+            if($db_errno == 1062){ // 1062 - Error de MySQL cuando hay un dato duplicado en la base de datos
+                header("Location: ../register.php?error=El%20email%20introducido%20está%20en%20uso");
+            }
+            else{
+                header("Location: ../register.php?error=Hay%20un%20error%20desconocido%20en%20el%20servidor");
+            }
         }
     }
 
