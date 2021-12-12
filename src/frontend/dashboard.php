@@ -4,11 +4,10 @@
     <head>
         <title>Dashboard</title>
     </head>
-    <body>
-        <h2>Hola javi:)</h2>
+    <body>        
         <?php
             include_once("header/header.php");
-            echo $_GET["email"] . " " . $_GET["password"];
         ?>
+        <h2>Hola <?php echo $_GET["name"] . " " . $_GET["surname_1"]; ?></h2>
     </body>
 </html>
