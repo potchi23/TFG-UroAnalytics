@@ -8,21 +8,14 @@ app = Flask(__name__)
 CORS(app)
 
 @app.route('/login', methods=['GET','POST','PUT','DELETE'])
-def index():
+def login():
     if request.method == 'GET':
         return
     elif request.method == 'POST':
         # Cambiad todo esto, es de una prueba de concepto
 
         email = request.form['email']
-        password = request.form['password']
-
-        cursor = mydb.cursor()
-        cursor.execute('SELECT email FROM users')
-        result = cursor.fetchall()
-
-        for x in result:
-            email = x[0]
+        password = request.form['password']               
 
         return {'email':email, 'password':password}, 200
     elif request.method == 'PUT':
