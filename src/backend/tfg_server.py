@@ -3,23 +3,46 @@ from flask import Flask, request, Response
 from mysql import connector
 from mysql.connector import errorcode
 from flask_cors import CORS
+from flask_bcrypt import Bcrypt
 
 app = Flask(__name__)
 CORS(app)
+bcrypt = Bcrypt(app)
 
-@app.route('/login', methods=['GET','POST','PUT','DELETE'])
+@app.route('/login', methods=['GET','POST','DELETE'])
 def login():
+    status = 400
+    response = {
+        "errno": ''
+    }
+
     if request.method == 'GET':
         return
     elif request.method == 'POST':
-        # Cambiad todo esto, es de una prueba de concepto
-
         email = request.form['email']
-        password = request.form['password']               
+        password = request.form['password']
 
-        return {'email':email, 'password':password}, 200
-    elif request.method == 'PUT':
-        return
+        cursor = mydb.cursor()
+        query = f'SELECT name, surname_1, surname_2, email, password, accepted FROM users WHERE email=\"{email}\"'
+        cursor.execute(query)
+        
+        if cursor.rowcount == 0:
+            status = 404
+            response['errno'] = 'Not Found'
+        else:
+            user_info = cursor.fetchone()
+            if user_info[5] == 1 and bcrypt.check_password_hash(user_info[4], password) == True:
+                    status = 200
+                    response["name"] = user_info[0]
+                    response["surname_1"] = user_info[1]
+                    response["surname_2"] = user_info[2]
+                    response["email"] = user_info[3]
+            else:
+                status = 404
+                response["errno"] = 'Not Found'
+
+        return response, status 
+
     elif request.method == 'DELETE':
         return
     else:
@@ -37,7 +60,7 @@ def register():
         surname_1 = request.form['surname_1']
         surname_2 = request.form['surname_2']
         email = request.form['email']
-        password = request.form['password']
+        password = bcrypt.generate_password_hash(request.form['password']).decode('utf-8')
 
         cursor = mydb.cursor()
         query = "INSERT INTO users(name, surname_1, surname_2, email, password) VALUES (%s,%s,%s,%s,%s)"
