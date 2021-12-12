@@ -6,8 +6,8 @@
     $surname_1 = htmlspecialchars($_POST["surname_1"]);
     $surname_2 = htmlspecialchars($_POST["surname_2"]);
     $email = htmlspecialchars($_POST["email"]);
-    $password = password_hash(htmlspecialchars($_POST["password"]), PASSWORD_DEFAULT);
-    $password_confirm = password_hash(htmlspecialchars($_POST["password_confirm"]), PASSWORD_DEFAULT);
+    $password = htmlspecialchars($_POST["password"]);
+    $password_confirm = htmlspecialchars($_POST["password_confirm"]);
 
     $error = append_error_message($error, strlen($name) <= 0, "El%20nombre%20no%20puede%20ser%20vacío");
     $error = append_error_message($error, strlen($name) >= 20, "El%20nombre%20no%20puede%20tener%20más%20de%2020%20carácteres");

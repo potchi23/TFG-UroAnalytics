@@ -15,26 +15,13 @@
     
     curl_close($ch);
     $response_array = json_decode($response,true);
-    $email = $response_array["email"];
-    $password = $response_array["password"];
+    $name = $response_array["name"];
+    $surname_1 = $response_array["surname_1"];
 
-    // Create connection
-    $conn = mysqli_connect("localhost","root","","tfg_bd");
-
-    if(!$conn){
-        die("Connection error: " . mysqli_connect_error()); 
+    if(curl_getinfo($ch, CURLINFO_RESPONSE_CODE) == 200) {
+        header("Location: ../dashboard.php?name=$name&surname_1=$surname_1");
     }
-
-    $sql = "select * from users where email = '".$email."'";
-    $rs = mysqli_query($conn,$sql);
-    $numRows = mysqli_num_rows($rs);
-
-    if($numRows  == 1){
-        $row = mysqli_fetch_assoc($rs);
-        if(password_verify($password,$row['password'])){
-            header("Location: ../dashboard.php?email=$email&password=$password");
-        }else{
-            header("Location: ../dashboard.php?email=DoctorMalito&password=Tolai");;
-        }
+    else if(curl_getinfo($ch, CURLINFO_RESPONSE_CODE) == 404){
+        header("Location: ../login.php?error=email%20o%20password%incorrectos");
     }
 ?>
