@@ -18,5 +18,23 @@
     $email = $response_array["email"];
     $password = $response_array["password"];
 
-    header("Location: ../dashboard.php?email=$email&password=$password");
+    // Create connection
+    $conn = mysqli_connect("localhost","root","","tfg_bd");
+
+    if(!$conn){
+        die("Connection error: " . mysqli_connect_error()); 
+    }
+
+    $sql = "select * from users where email = '".$email."'";
+    $rs = mysqli_query($conn,$sql);
+    $numRows = mysqli_num_rows($rs);
+
+    if($numRows  == 1){
+        $row = mysqli_fetch_assoc($rs);
+        if(password_verify($password,$row['password'])){
+            header("Location: ../dashboard.php?email=$email&password=$password");
+        }else{
+            header("Location: ../dashboard.php?email=DoctorMalito&password=Tolai");;
+        }
+    }
 ?>
