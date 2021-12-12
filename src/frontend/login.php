@@ -33,5 +33,17 @@
             <label for="register">¿No estas registrado?</label>
             <input type="submit" value="Registro" id="register" name="register">
         </form>
+
+        <?php
+            if (isset($_GET["error"])){
+                $error_array = explode(",", $_GET["error"]);
+                
+                foreach($error_array as $error){
+                    echo "<p>$error</p>";
+                }
+
+                unset($_GET["error"]);
+            }
+        ?>
     </body>
 </html>

@@ -6,54 +6,50 @@ from flask_cors import CORS
 from flask_bcrypt import Bcrypt
 
 app = Flask(__name__)
+
 CORS(app)
 bcrypt = Bcrypt(app)
 
-@app.route('/login', methods=['GET','POST','DELETE'])
+@app.route('/login', methods=['POST'])
 def login():
     status = 400
-    response = {
-        "errno": ''
-    }
+    response = {}
 
-    if request.method == 'GET':
-        return
-    elif request.method == 'POST':
+    if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
 
         cursor = mydb.cursor()
         query = f'SELECT name, surname_1, surname_2, email, password, accepted FROM users WHERE email=\"{email}\"'
         cursor.execute(query)
+        user_info = cursor.fetchone()
         
-        if cursor.rowcount == 0:
+        if not user_info:
             status = 404
-            response['errno'] = 'Not Found'
+            response['user_exists'] = False
         else:
-            user_info = cursor.fetchone()
             if user_info[5] == 1 and bcrypt.check_password_hash(user_info[4], password) == True:
-                    status = 200
-                    response["name"] = user_info[0]
-                    response["surname_1"] = user_info[1]
-                    response["surname_2"] = user_info[2]
-                    response["email"] = user_info[3]
+                status = 200
+                response["name"] = user_info[0]
+                response["surname_1"] = user_info[1]
+                response["surname_2"] = user_info[2]
+                response["email"] = user_info[3]
+                response["user_exists"] = True
             else:
                 status = 404
-                response["errno"] = 'Not Found'
-
+                response["user_exists"] = True
+        
         return response, status 
 
-    elif request.method == 'DELETE':
-        return
     else:
-        return 'Method not supported', 400
+        response = 'Method not supported'
+        print(response, file=sys.stderr)
+        return response, status
 
 @app.route('/register', methods=['POST'])
 def register():
     status = 400
-    response = {
-        'errno': ''
-    }
+    response = {}
     
     if request.method == 'POST':
         name = request.form['name']
@@ -79,7 +75,9 @@ def register():
             return response, status
 
     else:
-        return 'Method not supported', 400
+        response = 'Method not supported'
+        print(response, file=sys.stderr)
+        return response, status
 
 @app.route('/register_petitions', methods=['GET','PATCH','DELETE'])
 def register_petitions():
@@ -172,7 +170,9 @@ def register_petitions():
         return response, status
 
     else:
-        return 'Method not supported', status
+        response = 'Method not supported'
+        print(response, file=sys.stderr)
+        return response, status
 
 class FlaskConfig:
     '''Configuración de Flask'''
