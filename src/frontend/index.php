@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 
 <?php
-    if(session_status() == PHP_SESSION_NONE){
-        session_start();
-    }
-    $_SESSION["is_logged"] = false;
+    //if(session_status() == PHP_SESSION_NONE){
+    include_once("models/User.php");
+    session_start();
+    //}
 ?>
 
 <html>
@@ -13,11 +13,11 @@
     </head>
     <body>
         <?php
-            if (isset($_SESSION["is_logged"]) && $_SESSION["is_logged"]){
-                include_once("dashboard.php");
+            if (isset($_SESSION["user"])){
+                header("Location: dashboard.php");
             }
             else{
-                include_once("login.php");
+                header("Location: login.php");
             }
         ?>
     </body>

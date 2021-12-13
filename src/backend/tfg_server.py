@@ -20,24 +20,30 @@ def login():
         password = request.form['password']
 
         cursor = mydb.cursor()
-        query = f'SELECT name, surname_1, surname_2, email, password, accepted FROM users WHERE email=\"{email}\"'
+        query = f'SELECT name, surname_1, surname_2, email, password, accepted, type FROM users WHERE email=\'{email}\''
         cursor.execute(query)
         user_info = cursor.fetchone()
         
         if not user_info:
             status = 404
-            response['user_exists'] = False
+            response['is_registered'] = False
         else:
             if user_info[5] == 1 and bcrypt.check_password_hash(user_info[4], password) == True:
                 status = 200
-                response["name"] = user_info[0]
-                response["surname_1"] = user_info[1]
-                response["surname_2"] = user_info[2]
-                response["email"] = user_info[3]
-                response["user_exists"] = True
+                response['name'] = user_info[0]
+                response['surname_1'] = user_info[1]
+                response['surname_2'] = user_info[2]
+                response['email'] = user_info[3]
+                response['is_registered'] = True
+                response['type'] = user_info[6]
+                response['accepted'] = True
             else:
                 status = 404
-                response["user_exists"] = True
+                response['is_registered'] = True
+                response['accepted'] = True
+
+                if user_info[5] == 0:
+                    response['accepted'] = False
         
         return response, status 
 
@@ -59,7 +65,7 @@ def register():
         password = bcrypt.generate_password_hash(request.form['password']).decode('utf-8')
 
         cursor = mydb.cursor()
-        query = "INSERT INTO users(name, surname_1, surname_2, email, password) VALUES (%s,%s,%s,%s,%s)"
+        query = 'INSERT INTO users(name, surname_1, surname_2, email, password) VALUES (%s,%s,%s,%s,%s)'
         values = (name, surname_1, surname_2, email, password)
         
         try:
@@ -89,7 +95,7 @@ def register_petitions():
         cursor.execute(query)
 
         register_requests = {
-            "data":[]
+            'data':[]
         }
 
         for register_request in cursor:

@@ -1,8 +1,11 @@
 <?php
-    $_SESSION["is_logged"] = true; // Linea para debugear borrar cuando todo este completo
-    $_SESSION["is_admin"] = true; // Linea para debugear borrar cuando todo este completo
+    include_once("models/User.php");
+    session_start();
 
-    if (!isset($_SESSION["is_logged"]) || !$_SESSION["is_logged"] || !isset($_SESSION["is_admin"]) || !$_SESSION["is_admin"]){
+
+    $user = $_SESSION["user"];
+
+    if (!isset($_SESSION["user"]) || !$user->is_admin()){
         header("Location: /index.php");
     }
 ?>

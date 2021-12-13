@@ -1,9 +1,7 @@
 <?php
-    if(session_status() == PHP_SESSION_NONE){
-        session_start();
-    }
+    session_start();
     
-    if (isset($_SESSION["is_logged"]) && $_SESSION["is_logged"]){
+    if (isset($_SESSION["user"])){
         header("Location: /dashboard.php");
     }
 ?>

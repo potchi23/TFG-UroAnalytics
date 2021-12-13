@@ -1,3 +1,13 @@
+<?php
+    include_once("models/User.php");
+    session_start();
+    if (!isset($_SESSION["user"])){
+        header("Location: /login.php");
+    }
+
+    $user = $_SESSION["user"];
+?>
+
 <!DOCTYPE html>
 
 <html>
@@ -8,6 +18,11 @@
         <?php
             include_once("header/header.php");
         ?>
-        <h2>Hola <?php echo $_GET["name"] . " " . $_GET["surname_1"]; ?></h2>
+
+        <h2>Hola, <?php echo $user->get_full_name();?></h2>
+        <h3>Tipo usuario: <?php echo $user->get_type()?></h3>
+        <a href="registerPetitions.php">Peticiones de registro</a>
+        <a href="logout.php">Logout</a>
+
     </body>
 </html>
