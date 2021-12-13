@@ -9,19 +9,19 @@
     $password = htmlspecialchars($_POST["password"]);
     $password_confirm = htmlspecialchars($_POST["password_confirm"]);
 
-    $error = append_error_message($error, strlen($name) <= 0, "El%20nombre%20no%20puede%20ser%20vacío");
-    $error = append_error_message($error, strlen($name) >= 20, "El%20nombre%20no%20puede%20tener%20más%20de%2020%20carácteres");
-    $error = append_error_message($error, strlen($surname_1) <= 0, "El%20apellido%201%20no%20puede%20ser%20vacío");
-    $error = append_error_message($error, strlen($surname_1) >= 20, "El%20Apellido%201%20no%20puede%20tener%20más%20de%2020%20carácteres");
-    $error = append_error_message($error, strlen($surname_2) <= 0, "El%20apellido%202%20no%20puede%20ser%20vacío");
-    $error = append_error_message($error, strlen($surname_2) >= 20, "El%20Apellido%202%20no%20puede%20tener%20más%20de%2020%20carácteres");
-    $error = append_error_message($error, strlen($email) <= 0, "El%20email%20no%20puede%20ser%20vacío");
-    $error = append_error_message($error, strlen($email) > 50, "El%20email%20%20no%20puede%20tener%20más%20de%2050%20carácteres");
-    $error = append_error_message($error, strlen($email) > 0 && strlen($email) <= 50 && !filter_var($email, FILTER_VALIDATE_EMAIL), "$email%20no%20es%20un%20email%20válido");
-    $error = append_error_message($error, strlen($_POST["password"]) <= 0, "La%20contraseña%20no%20puede%20ser%20vacía");
-    $error = append_error_message($error, strlen($_POST["password_confirm"]) <=0, "La%20confirmación%20de%20contraseña%20no%20puede%20ser%20vacía");
-    $error = append_error_message($error, $_POST["password"] != $_POST["password_confirm"], "Las%20contraseñas%20no%20coinciden");
-    $error = append_error_message($error, strlen($_POST["password"]) > 0 && !preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/", $_POST["password"]), "La%20contraseña%20debe%20contener%208%20carácteres%20alfanuméricos%20con%20mayúsculas%20y%20minúsculas");
+    $error = append_error_message($error, strlen($name) <= 0, "El nombre no puede ser vacío");
+    $error = append_error_message($error, strlen($name) >= 20, "El nombre no puede tener más de 20 carácteres");
+    $error = append_error_message($error, strlen($surname_1) <= 0, "El apellido 1 no puede ser vacío");
+    $error = append_error_message($error, strlen($surname_1) >= 20, "El Apellido 1 no puede tener más de 20 carácteres");
+    $error = append_error_message($error, strlen($surname_2) <= 0, "El apellido 2 no puede ser vacío");
+    $error = append_error_message($error, strlen($surname_2) >= 20, "El Apellido 2 no puede tener más de 20 carácteres");
+    $error = append_error_message($error, strlen($email) <= 0, "El email no puede ser vacío");
+    $error = append_error_message($error, strlen($email) > 50, "El email  no puede tener más de 50 carácteres");
+    $error = append_error_message($error, strlen($email) > 0 && strlen($email) <= 50 && !filter_var($email, FILTER_VALIDATE_EMAIL), "$email no es un email válido");
+    $error = append_error_message($error, strlen($_POST["password"]) <= 0, "La contraseña no puede ser vacía");
+    $error = append_error_message($error, strlen($_POST["password_confirm"]) <=0, "La confirmación de contraseña no puede ser vacía");
+    $error = append_error_message($error, $_POST["password"] != $_POST["password_confirm"], "Las contraseñas no coinciden");
+    $error = append_error_message($error, strlen($_POST["password"]) > 0 && !preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/", $_POST["password"]), "La contraseña debe contener 8 carácteres alfanuméricos con mayúsculas y minúsculas");
 
     if (strlen($error) > 0){
         header("Location: ../register.php?error=$error");
@@ -54,10 +54,12 @@
         }
         else{
             if($db_errno == 1062){ // 1062 - Error de MySQL cuando hay un dato duplicado en la base de datos
-                header("Location: ../register.php?error=El%20email%20introducido%20está%20en%20uso");
+                $error = urlencode("El email introducido está en uso");
+                header("Location: ../register.php?error=$error");
             }
             else{
-                header("Location: ../register.php?error=Hay%20un%20error%20desconocido%20en%20el%20servidor");
+                $error = urlencode("Hay un error desconocido en el servidor");
+                header("Location: ../register.php?error=$error");
             }
         }
     }
@@ -68,7 +70,7 @@
         }
 
         if($is_not_valid){
-            $error .= $error_msg;
+            $error .= urlencode($error_msg);
         }
 
         return $error;

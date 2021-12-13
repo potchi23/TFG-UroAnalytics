@@ -34,10 +34,13 @@
         header("Location: ../dashboard.php");
     }
     else if(curl_getinfo($ch, CURLINFO_RESPONSE_CODE) == 404){
-        if($is_registered && $accepted)
-            header("Location: ../login.php?error=Email%20o%20password%20incorrectos");
+        if($is_registered && $accepted){
+            $error = urlencode("Email o password incorrectos");
+            header("Location: ../login.php?error=$error");
+        }
         else if (!$is_registered || !$accepted){
-            header("Location: ../login.php?error=El%20usuario%20no%20está%20registrado");
+            $error = urlencode("El usuario no está registrado");
+            header("Location: ../login.php?error=$error");
         }
     }
 ?>
