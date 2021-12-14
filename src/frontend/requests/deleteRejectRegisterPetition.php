@@ -27,7 +27,7 @@
         $headers = 'From: tfg@ucm.es' . "\r\n" .
                    'X-Mailer: PHP/' . phpversion();
 
-        mail($email, $subject, $msg, $headers);
+        //mail($email, $subject, $msg, $headers);
 
         header("Location: ../registerPetitions.php");
     }

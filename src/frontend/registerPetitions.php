@@ -29,29 +29,43 @@
             $response = curl_exec($ch);
             $response_array = json_decode($response)->data;
 
-            foreach($response_array as $petition){
-                
-                echo <<<EOL
-                    <tr id="register_petition_$petition->id">
-                        <td> $petition->id </td>
-                        <td> $petition->name </td>
-                        <td> $petition->surname_1 </td>
-                        <td> $petition->surname_2 </td>
-                        <td> $petition->email </td>
-                        <td>
-                            <form action="requests/patchAcceptRegisterPetition.php" method="POST">
-                                <input type="hidden" id="id" name="id" value="$petition->id"></input>
-                                <input type="submit" value="✔"></input>
-                            </form>
-                            <form action="requests/deleteRejectRegisterPetition.php" method="POST">
-                                <input type="hidden" id="id" name="id" value="$petition->id"></input>
-                                <input type="submit" value="✘"></input>
-                            </form>
-                        </td>
+            if (count($response_array) > 0){
+                echo <<< EOL
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Apellido 1</th>
+                        <th>Apellido 2</th>
+                        <th>Email</th>
+                        <th>Aceptar</th>
                     </tr>
                 EOL;
-            }
+                foreach($response_array as $petition){
 
+                    echo <<<EOL
+                        <tr id="register_petition_$petition->id">
+                            <td> $petition->id </td>
+                            <td> $petition->name </td>
+                            <td> $petition->surname_1 </td>
+                            <td> $petition->surname_2 </td>
+                            <td> $petition->email </td>
+                            <td>
+                                <form action="requests/patchAcceptRegisterPetition.php" method="POST">
+                                    <input type="hidden" id="id" name="id" value="$petition->id"></input>
+                                    <input type="submit" value="✔"></input>
+                                </form>
+                                <form action="requests/deleteRejectRegisterPetition.php" method="POST">
+                                    <input type="hidden" id="id" name="id" value="$petition->id"></input>
+                                    <input type="submit" value="✘"></input>
+                                </form>
+                            </td>
+                        </tr>
+                    EOL;
+                }
+            }
+            else{
+                echo "<h3>No hay solicitudes de registro</h3>";
+            }
             ?>
         </table>
     </body>
