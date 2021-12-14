@@ -11,6 +11,7 @@
     $surname_1 = htmlspecialchars($_POST["surname_1"]);
     $surname_2 = htmlspecialchars($_POST["surname_2"]);
     $email = htmlspecialchars($_POST["email"]);
+    $password = htmlspecialchars($_POST["password"]);
 
     $error = append_error_message($error, strlen($name) <= 0, "El nombre no puede ser vacío");
     $error = append_error_message($error, strlen($name) >= 20, "El nombre no puede tener más de 20 carácteres");
@@ -21,23 +22,28 @@
     $error = append_error_message($error, strlen($email) <= 0, "El email no puede ser vacío");
     $error = append_error_message($error, strlen($email) > 50, "El email  no puede tener más de 50 carácteres");
     $error = append_error_message($error, strlen($email) > 0 && strlen($email) <= 50 && !filter_var($email, FILTER_VALIDATE_EMAIL), "$email no es un email válido");
+    $error = append_error_message($error, strlen($_POST["password"]) <= 0, "La contraseña no puede ser vacía");
+    $error = append_error_message($error, strlen($_POST["password_confirm"]) <=0, "La confirmación de contraseña no puede ser vacía");
+    $error = append_error_message($error, $_POST["password"] != $_POST["password_confirm"], "Las contraseñas no coinciden");
+    $error = append_error_message($error, strlen($_POST["password"]) > 0 && !preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/", $_POST["password"]), "La contraseña debe contener 8 carácteres alfanuméricos con mayúsculas y minúsculas");
  
     if (strlen($error) > 0) {
         header("Location: ../userProfile.php?error=$error");
     }
     else {
-        $post_req = array(
+        $patch_req = array(
             "name" => $name,
             "surname_1" => $surname_1,
             "surname_2" => $surname_2,
-            "email" => $email
+            "email" => $email,
+            "password" => $password
         );
         
         $url = "http://localhost:5000/users/" . $id;
 
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PATCH'); 
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $post_req);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $patch_req);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         
         $response = curl_exec($ch);
@@ -51,7 +57,9 @@
             $user->set_surname_1($surname_1);
             $user->set_surname_2($surname_2);
             $user->set_email($email);
-            header("Location: ../userProfile.php?Usuario%20actualizado");
+
+            $message = urlencode("Usuario actualizado");
+            header("Location: ../userProfile.php?message=$message");
         }
         else {
             echo "Error code: " . curl_getinfo($ch, CURLINFO_RESPONSE_CODE) . "\n";

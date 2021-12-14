@@ -22,7 +22,7 @@
     </head>
     <body>
         <h1>Mis datos de perfil</h1>
-        <form action="requests/postEditUserProfile.php" method="post" target="_self">
+        <form action="requests/patchEditUserProfile.php" method="post" target="_self">
             <label for="name">Nombre:</label>
             <input type="text" id="name" name="name" placeholder="Nombre" value="<?php echo $name?>" disabled><br><br>
 
@@ -36,10 +36,10 @@
             <input type="text" id="email" name="email" placeholder="Email" value="<?php echo $email?>" disabled><br><br>
 
             <label for="password">Contraseña:</label>
-            <input type="password" id="password" name="password" placeholder="Contraseña" value="password" disabled><br><br>
+            <input type="password" id="password" name="password" placeholder="Nueva contraseña" disabled><br><br>
 
             <label for="password_confirm">Confirmar contraseña:</label>
-            <input type="password" id="password_confirm" name="password_confirm" placeholder="Confirmar contraseña" value="password" disabled><br><br>
+            <input type="password" id="password_confirm" name="password_confirm" placeholder="Confirmar contraseña" disabled><br><br>
         
             <input type="submit" value="Guardar cambios" disabled>
         </form>
@@ -52,6 +52,14 @@
         !-->
 
         <?php
+
+            if (isset($_GET["message"])){
+                $message = $_GET["message"];
+                echo "<p>$message</p>";
+            
+                unset($_GET["message"]);
+            }
+
             if (isset($_GET["error"])){
                 $error_array = explode(",", $_GET["error"]);
                 

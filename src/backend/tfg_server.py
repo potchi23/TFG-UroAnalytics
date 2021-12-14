@@ -179,7 +179,7 @@ def register_petitions():
         return response, status
 
 @app.route('/users/<id>', methods=['GET','PATCH','DELETE'])
-def user(id):
+def users(id):
     status = 400
     response = {}
 
@@ -190,16 +190,17 @@ def user(id):
         surname_1 = request.form['surname_1']
         surname_2 = request.form['surname_2']
         email = request.form['email']
+        password = bcrypt.generate_password_hash(request.form['password']).decode('utf-8')
 
         cursor = mydb.cursor()
-        query = f'UPDATE users SET name=\'{name}\', surname_1=\'{surname_1}\', surname_2=\'{surname_2}\', email=\'{email}\' WHERE id={id}'
+        query = f'UPDATE users SET name=\'{name}\', surname_1=\'{surname_1}\', surname_2=\'{surname_2}\', email=\'{email}\', password=\'{password}\' WHERE id={id}'
         print(query, file=sys.stderr)
 
         cursor.execute(query)
         mydb.commit()
         cursor.close()
         
-        response = 'Update User succesfully'
+        response = 'User updated'
         status = 200
 
         return response, status
