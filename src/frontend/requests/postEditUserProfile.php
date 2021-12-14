@@ -12,15 +12,15 @@
     $surname_2 = htmlspecialchars($_POST["surname_2"]);
     $email = htmlspecialchars($_POST["email"]);
 
-    $error = append_error_message($error, strlen($name) <= 0, "El%20nombre%20no%20puede%20ser%20vacío");
-    $error = append_error_message($error, strlen($name) >= 20, "El%20nombre%20no%20puede%20tener%20más%20de%2020%20carácteres");
-    $error = append_error_message($error, strlen($surname_1) <= 0, "El%20apellido%201%20no%20puede%20ser%20vacío");
-    $error = append_error_message($error, strlen($surname_1) >= 20, "El%20Apellido%201%20no%20puede%20tener%20más%20de%2020%20carácteres");
-    $error = append_error_message($error, strlen($surname_2) <= 0, "El%20apellido%202%20no%20puede%20ser%20vacío");
-    $error = append_error_message($error, strlen($surname_2) >= 20, "El%20Apellido%202%20no%20puede%20tener%20más%20de%2020%20carácteres");
-    $error = append_error_message($error, strlen($email) <= 0, "El%20email%20no%20puede%20ser%20vacío");
-    $error = append_error_message($error, strlen($email) > 50, "El%20email%20%20no%20puede%20tener%20más%20de%2050%20carácteres");
-    $error = append_error_message($error, strlen($email) > 0 && strlen($email) <= 50 && !filter_var($email, FILTER_VALIDATE_EMAIL), "$email%20no%20es%20un%20email%20válido");
+    $error = append_error_message($error, strlen($name) <= 0, "El nombre no puede ser vacío");
+    $error = append_error_message($error, strlen($name) >= 20, "El nombre no puede tener más de 20 carácteres");
+    $error = append_error_message($error, strlen($surname_1) <= 0, "El apellido 1 no puede ser vacío");
+    $error = append_error_message($error, strlen($surname_1) >= 20, "El Apellido 1 no puede tener más de 20 carácteres");
+    $error = append_error_message($error, strlen($surname_2) <= 0, "El apellido 2 no puede ser vacío");
+    $error = append_error_message($error, strlen($surname_2) >= 20, "El Apellido 2 no puede tener más de 20 carácteres");
+    $error = append_error_message($error, strlen($email) <= 0, "El email no puede ser vacío");
+    $error = append_error_message($error, strlen($email) > 50, "El email  no puede tener más de 50 carácteres");
+    $error = append_error_message($error, strlen($email) > 0 && strlen($email) <= 50 && !filter_var($email, FILTER_VALIDATE_EMAIL), "$email no es un email válido");
  
     if (strlen($error) > 0) {
         header("Location: ../userProfile.php?error=$error");
@@ -65,7 +65,7 @@
         }
 
         if($is_not_valid){
-            $error .= $error_msg;
+            $error .= urlencode($error_msg);
         }
 
         return $error;

@@ -20,7 +20,7 @@ def login():
         password = request.form['password']
 
         cursor = mydb.cursor()
-        query = f'SELECT name, surname_1, surname_2, email, password, accepted, type FROM users WHERE email=\'{email}\''
+        query = f'SELECT id, name, surname_1, surname_2, email, password, accepted, type FROM users WHERE email=\'{email}\''
         cursor.execute(query)
         user_info = cursor.fetchone()
         
@@ -28,21 +28,22 @@ def login():
             status = 404
             response['is_registered'] = False
         else:
-            if user_info[5] == 1 and bcrypt.check_password_hash(user_info[4], password) == True:
+            if user_info[6] == 1 and bcrypt.check_password_hash(user_info[5], password) == True:
                 status = 200
-                response['name'] = user_info[0]
-                response['surname_1'] = user_info[1]
-                response['surname_2'] = user_info[2]
-                response['email'] = user_info[3]
+                response['id'] = user_info[0]
+                response['name'] = user_info[1]
+                response['surname_1'] = user_info[2]
+                response['surname_2'] = user_info[3]
+                response['email'] = user_info[4]
                 response['is_registered'] = True
-                response['type'] = user_info[6]
+                response['type'] = user_info[7]
                 response['accepted'] = True
             else:
                 status = 404
                 response['is_registered'] = True
                 response['accepted'] = True
 
-                if user_info[5] == 0:
+                if user_info[6] == 0:
                     response['accepted'] = False
         
         return response, status 
@@ -191,7 +192,9 @@ def user(id):
         email = request.form['email']
 
         cursor = mydb.cursor()
-        query = f'UPDATE users set name = {name}, surname_1 = {surname_1}, surname_2 = {surname_2}, email = \'{email}\' WHERE id = {id}'
+        query = f'UPDATE users SET name=\'{name}\', surname_1=\'{surname_1}\', surname_2=\'{surname_2}\', email=\'{email}\' WHERE id={id}'
+        print(query, file=sys.stderr)
+
         cursor.execute(query)
         mydb.commit()
         cursor.close()

@@ -19,6 +19,7 @@
     
     curl_close($ch);
     $response_array = json_decode($response,true);
+    $id = $response_array["id"];
     $name = $response_array["name"];
     $surname_1 = $response_array["surname_1"];
     $surname_2 = $response_array["surname_2"];
@@ -29,7 +30,7 @@
     $is_registered = $response_array["is_registered"];
     
     if(curl_getinfo($ch, CURLINFO_RESPONSE_CODE) == 200) {
-        $_SESSION["user"] = new User($name, $surname_1, $surname_2, $email, $type, $accepted);
+        $_SESSION["user"] = new User($id, $name, $surname_1, $surname_2, $email, $type, $accepted);
 
         header("Location: ../dashboard.php");
     }
