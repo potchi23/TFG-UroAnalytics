@@ -94,7 +94,7 @@ def register_petitions():
         query = 'SELECT id, name, surname_1, surname_2, email FROM users WHERE accepted = 0'
         cursor.execute(query)
 
-        register_requests = {
+        response = {
             'data':[]
         }
 
@@ -107,10 +107,9 @@ def register_petitions():
                 'email':register_request[4]
             }
             
-            register_requests['data'].append(data)
+            response['data'].append(data)
         cursor.close()
 
-        response = Response(str(register_requests))
         status = 200
         
         return response, status
@@ -122,7 +121,7 @@ def register_petitions():
         query = f'SELECT name, email FROM users WHERE id = {user_id}'
         cursor.execute(query)
 
-        user_data = {
+        response = {
             'data':[]
         }
 
@@ -132,7 +131,7 @@ def register_petitions():
                 'email':register_request[1]
             }
             
-            user_data['data'].append(data)
+            response['data'].append(data)
 
         query = f'UPDATE users SET accepted = 1 WHERE id = {user_id}'
         cursor.execute(query)
@@ -140,7 +139,6 @@ def register_petitions():
 
         cursor.close()
 
-        response = Response(str(user_data))
         status = 200
 
         return response, status
@@ -152,7 +150,7 @@ def register_petitions():
         query = f'SELECT name, email FROM users WHERE id = {user_id}'
         cursor.execute(query)
 
-        user_data = {
+        response = {
             'data':[]
         }
 
@@ -162,7 +160,7 @@ def register_petitions():
                 'email':register_request[1]
             }
             
-            user_data['data'].append(data)
+            response['data'].append(data)
 
         query = f'DELETE FROM users WHERE id = {user_id}'
         cursor.execute(query)
@@ -170,7 +168,6 @@ def register_petitions():
 
         cursor.close()
 
-        response = Response(str(user_data))
         status = 200
 
         return response, status

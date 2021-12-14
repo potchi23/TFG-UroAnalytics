@@ -1,3 +1,10 @@
+/*
+    IGNORAD ESTE JAVASCRIPT!!!!!!!!
+
+    Este código ya se utiliza para nada, pero puede 
+    servir de referencia en el futuro.
+*/
+
 function sendEmail(email, message) {
 	Email.send({
 	    Host: "smtp.gmail.com",
