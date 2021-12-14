@@ -177,6 +177,45 @@ def register_petitions():
         print(response, file=sys.stderr)
         return response, status
 
+@app.route('/users/<id>', methods=['GET','PATCH','DELETE'])
+def user(id):
+    status = 400
+    response = {}
+
+    if request.method == 'GET':
+        return 
+    elif request.method == 'PATCH':
+        name = request.form['name']
+        surname_1 = request.form['surname_1']
+        surname_2 = request.form['surname_2']
+        email = request.form['email']
+
+        cursor = mydb.cursor()
+        query = f'UPDATE users set name = {name}, surname_1 = {surname_1}, surname_2 = {surname_2}, email = \'{email}\' WHERE id = {id}'
+        cursor.execute(query)
+        mydb.commit()
+        cursor.close()
+        
+        response = 'Update User succesfully'
+        status = 200
+
+        return response, status
+
+    elif request.method == 'DELETE':
+        # cursor.mydb.cursor()
+        # query = f'DELETE FROM users WHERE id={id}'
+        # cursor.execute(query)
+        # mydb.commit()
+        # cursor.close()
+
+        # response = 'User Deleted Succesfully'
+        # status = 200
+        
+        # return response, status
+        return
+    else:
+        return 'Method not supported', status
+
 class FlaskConfig:
     '''Configuración de Flask'''
     # Activa depurador y recarga automáticamente
