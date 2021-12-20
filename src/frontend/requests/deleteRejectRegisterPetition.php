@@ -1,11 +1,17 @@
 <?php
+    include_once("../models/User.php");
     session_start();
+
+    $user = $_SESSION["user"];
 
     $ch = curl_init();
 
     $delete_req = array(
         "id" => $_POST["id"]
     );
+
+    $token = $user->get_token();
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array("x-access-token: $token"));
 
     curl_setopt($ch, CURLOPT_URL,"http://localhost:5000/register_petitions");
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
