@@ -4,11 +4,41 @@ from mysql import connector
 from mysql.connector import errorcode
 from flask_cors import CORS
 from flask_bcrypt import Bcrypt
+from functools import wraps
+import jwt
+from datetime import datetime, timedelta
 
 app = Flask(__name__)
 
 CORS(app)
 bcrypt = Bcrypt(app)
+
+# decorator for verifying the JWT
+def token_required(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        token = None
+        # jwt is passed in the request header
+        if 'x-access-token' in request.headers:
+            token = request.headers['x-access-token']
+        # return 401 if token is not passed
+        if not token:
+            return {'message' : 'Token is missing'}, 401
+  
+        try:
+            # decoding the payload to fetch the stored details
+            data = jwt.decode(token, app.config['SECRET_KEY'], 'HS256')
+            #current_user = 'hola'
+        except Exception as e:
+            return { 'message' : 'Token is invalid' }, 401
+        # returns the current logged in users contex to the routes
+        return  f(*args, **kwargs)
+  
+    return decorated
+
+@app.route('/', methods=['GET'])
+def check():
+    return {'message':'Server is running'}, 200
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -38,6 +68,8 @@ def login():
                 response['is_registered'] = True
                 response['type'] = user_info[7]
                 response['accepted'] = True
+                response['token'] = jwt.encode({'public_id': response['id'], 'exp' : datetime.utcnow() + timedelta(minutes = 30) }, app.config['SECRET_KEY'], 'HS256')
+
             else:
                 status = 404
                 response['is_registered'] = True
@@ -87,6 +119,7 @@ def register():
         return response, status
 
 @app.route('/register_petitions', methods=['GET','PATCH','DELETE'])
+@token_required
 def register_petitions():
     status = 400
     
@@ -179,6 +212,7 @@ def register_petitions():
         return response, status
 
 @app.route('/users/<id>', methods=['GET','PATCH','DELETE'])
+@token_required
 def users(id):
     status = 400
     response = {}
@@ -194,7 +228,6 @@ def users(id):
 
         cursor = mydb.cursor()
         query = f'UPDATE users SET name=\'{name}\', surname_1=\'{surname_1}\', surname_2=\'{surname_2}\', email=\'{email}\', password=\'{password}\' WHERE id={id}'
-        print(query, file=sys.stderr)
 
         cursor.execute(query)
         mydb.commit()
@@ -227,7 +260,7 @@ class FlaskConfig:
     DEBUG = True
     TEST = True
     # Imprescindible para usar sesiones
-    SECRET_KEY = 'clave secreta que no se si habra que cambiar'
+    SECRET_KEY = 'secret'
     STATIC_FOLDER = 'static'
     TEMPLATES_FOLDER = 'templates'
 

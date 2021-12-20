@@ -41,8 +41,12 @@
         
         $url = "http://localhost:5000/users/" . $id;
 
+        // Enviamos token al servidor
+        $token = $user->get_token();
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array("x-access-token: $token"));
+
         curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PATCH'); 
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PATCH');
         curl_setopt($ch, CURLOPT_POSTFIELDS, $patch_req);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         

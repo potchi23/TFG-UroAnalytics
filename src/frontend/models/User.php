@@ -8,8 +8,9 @@ class User {
     private $email;
     private $type;
     private $accepted;
+    private $token;
 
-    public function __construct($id, $name, $surname_1, $surname_2, $email, $type, $accepted) {
+    public function __construct($id, $name, $surname_1, $surname_2, $email, $type, $accepted, $token) {
         $this->id = $id;
         $this->name = $name;
         $this->surname_1 = $surname_1;
@@ -17,6 +18,7 @@ class User {
         $this->email = $email;
         $this->type = $type;
         $this->accepted = $accepted;
+        $this->token = $token;
     }
 
     public function get_id() {
@@ -69,6 +71,10 @@ class User {
 
     public function is_accepted(){
         return $this->accepted;
+    }
+
+    public function get_token(){
+        return $this->token;
     }
 }
 

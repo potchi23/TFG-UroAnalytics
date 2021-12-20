@@ -24,10 +24,19 @@
         <table id="register_petitions" border="1">
             <?php
             $ch = curl_init();
+
+            // Enviamos token al servidor
+            $token = $user->get_token();
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array("x-access-token: $token"));
+
             curl_setopt($ch, CURLOPT_URL, 'http://localhost:5000/register_petitions');
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             $response = curl_exec($ch);
             $response_array = json_decode($response)->data;
+
+            if(curl_getinfo($ch, CURLINFO_RESPONSE_CODE) != 200) {
+                header("Location: login.php");
+            }
 
             if (count($response_array) > 0){
                 echo <<< EOL

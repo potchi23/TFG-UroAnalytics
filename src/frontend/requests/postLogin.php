@@ -26,11 +26,12 @@
     $email = $response_array["email"];
     $accepted = $response_array["accepted"];
     $type = $response_array["type"];
+    $token = $response_array["token"];
 
     $is_registered = $response_array["is_registered"];
     
     if(curl_getinfo($ch, CURLINFO_RESPONSE_CODE) == 200) {
-        $_SESSION["user"] = new User($id, $name, $surname_1, $surname_2, $email, $type, $accepted);
+        $_SESSION["user"] = new User($id, $name, $surname_1, $surname_2, $email, $type, $accepted, $token);
 
         header("Location: ../dashboard.php");
     }
