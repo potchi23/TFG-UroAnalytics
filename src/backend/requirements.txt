@@ -2,3 +2,4 @@ flask
 mysql-connector-python
 flask-cors
 flask_bcrypt
+jwt
