@@ -42,10 +42,9 @@
         
         $url = "http://localhost:5000/users/" . $id;
 
-        // Enviamos token al servidor
         $token = $user->get_token();
         $http_requests = new HttpRequests();
-        $response = $http_requests->getResponseData("http://localhost:5000/register_petitions", "DELETE", $delete_req, $token);
+        $response = $http_requests->getResponseData("http://localhost:5000/register_petitions", "PATCH", $patch_req, $token);
         
         $data_array = json_decode($response["data"],true);
 
