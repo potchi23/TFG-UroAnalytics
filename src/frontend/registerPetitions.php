@@ -1,8 +1,9 @@
 <?php
     include_once("models/User.php");
+    include_once("requests/HttpRequests.php");
+
     session_start();
-
-
+    
     $user = $_SESSION["user"];
 
     if (!isset($_SESSION["user"]) || !$user->is_admin()){
@@ -23,22 +24,19 @@
 
         <table id="register_petitions" border="1">
             <?php
-            $ch = curl_init();
-
             // Enviamos token al servidor
             $token = $user->get_token();
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array("x-access-token: $token"));
 
-            curl_setopt($ch, CURLOPT_URL, 'http://localhost:5000/register_petitions');
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            $response = curl_exec($ch);
-            $response_array = json_decode($response)->data;
+            $http_requests = new HttpRequests();
+            $response = $http_requests->getResponseData("http://localhost:5000/register_petitions", "GET", "", $token);
+  
+            $data_array = json_decode($response["data"])->data;
 
-            if(curl_getinfo($ch, CURLINFO_RESPONSE_CODE) != 200) {
+            if($response["status"] != 200) {
                 header("Location: login.php");
             }
 
-            if (count($response_array) > 0){
+            if (count($data_array) > 0){
                 echo <<< EOL
                     <tr>
                         <th>ID</th>
@@ -49,7 +47,7 @@
                         <th>Aceptar</th>
                     </tr>
                 EOL;
-                foreach($response_array as $petition){
+                foreach($data_array as $petition){
 
                     echo <<<EOL
                         <tr id="register_petition_$petition->id">

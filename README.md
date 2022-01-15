@@ -32,10 +32,12 @@ Se presupone que todos los requisitos mencionados en [Requisitos](#Requisitos) s
   2. Iniciar una terminal en la carpeta ```TFG/src/backend```
   3. Ejecutar el comando ```pip install -r requirements.txt``` para instalar las dependencias del servidor
   4. Ejecutar el comando ```python tfg_server.py``` en Windows o Mac o ```python3 tfg_server.py``` en Linux
-  5. En el navegador, entrar en ```localhost:5000``` y comprobar que devuelve algo (puede ser una página totalmente en blanco 
-  o un mensaje de error lanzado por el servidor)
+  5. En el navegador, entrar en ```localhost:5000``` y comprobar que devuelve ```{ "message" : "Server is running" }```
   
  ### Preparación del frontend
+
+  *Realizar esto si por algún motivo tenéis el puerto 80 bloqueado o en uso por otro servidor.*
+
   1. Abrir XAMPP
   <br> *Nota: Si ya teneis configurado XAMPP, saltar directamente al [Paso 6](#frontend_init_apache)*
   2. Parar todos los servicios en ejecución

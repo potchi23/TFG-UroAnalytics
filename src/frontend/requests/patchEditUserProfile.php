@@ -1,8 +1,9 @@
 <?php
     include_once("../models/User.php");
+    include_once("HttpRequests.php");
+
     session_start();
 
-    $ch = curl_init();
     $error = "";
 
     $user = $_SESSION["user"];
@@ -12,7 +13,7 @@
     $surname_2 = htmlspecialchars($_POST["surname_2"]);
     $email = htmlspecialchars($_POST["email"]);
     $password = htmlspecialchars($_POST["password"]);
-
+    
     $error = append_error_message($error, strlen($name) <= 0, "El nombre no puede ser vacío");
     $error = append_error_message($error, strlen($name) >= 20, "El nombre no puede tener más de 20 carácteres");
     $error = append_error_message($error, strlen($surname_1) <= 0, "El apellido 1 no puede ser vacío");
@@ -43,20 +44,12 @@
 
         // Enviamos token al servidor
         $token = $user->get_token();
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array("x-access-token: $token"));
-
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PATCH');
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $patch_req);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $http_requests = new HttpRequests();
+        $response = $http_requests->getResponseData("http://localhost:5000/register_petitions", "DELETE", $delete_req, $token);
         
-        $response = curl_exec($ch);
-        
-        curl_close($ch);
+        $data_array = json_decode($response["data"],true);
 
-        $response_array = json_decode($response,true);
-
-        if(curl_getinfo($ch, CURLINFO_RESPONSE_CODE) == 200) {
+        if($response["status"] == 200) {
             $user->set_name($name);
             $user->set_surname_1($surname_1);
             $user->set_surname_2($surname_2);

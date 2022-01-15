@@ -1,29 +1,22 @@
 <?php
     include_once("../models/User.php");
+    include_once("HttpRequests.php");
+
     session_start();
     
     $user = $_SESSION["user"];
-
-    $ch = curl_init();
     
     $patch_req = array(
         "id" => $_POST["id"]
     );
 
     $token = $user->get_token();
-    curl_setopt($ch, CURLOPT_HTTPHEADER, array("x-access-token: $token"));
-
-    curl_setopt($ch, CURLOPT_URL,"http://localhost:5000/register_petitions");
-    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PATCH");
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $patch_req);
-
-    $response = curl_exec($ch);
     
-    curl_close($ch);
+    $http_requests = new HttpRequests();
+    $response = $http_requests->getResponseData("http://localhost:5000/register_petitions", "PATCH", $patch_req, $token);
    
-    if(curl_getinfo($ch, CURLINFO_RESPONSE_CODE) == 200) {
-        $data = json_decode($response)->data[0];
+    if($response["status"] == 200) {
+        $data = json_decode($response["data"])->data[0];
         $email = $data->email;
         $name = $data->name;
 
