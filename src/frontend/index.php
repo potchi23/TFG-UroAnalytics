@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 
 <?php
-    //if(session_status() == PHP_SESSION_NONE){
     include_once("models/User.php");
     session_start();
-    //}
 ?>
 
 <html>

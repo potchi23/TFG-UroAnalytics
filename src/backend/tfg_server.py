@@ -1,7 +1,6 @@
 import sys
-from flask import Flask, request, Response
+from flask import Flask, request
 from mysql import connector
-from mysql.connector import errorcode
 from flask_cors import CORS
 from flask_bcrypt import Bcrypt
 from functools import wraps
@@ -13,26 +12,37 @@ app = Flask(__name__)
 CORS(app)
 bcrypt = Bcrypt(app)
 
-# decorator for verifying the JWT
+# Decorador para verificar el JWT
 def token_required(f):
     @wraps(f)
     def decorated(*args, **kwargs):
         token = None
-        # jwt is passed in the request header
+       
         if 'x-access-token' in request.headers:
             token = request.headers['x-access-token']
-        # return 401 if token is not passed
+
         if not token:
             return { 'message' : 'Token is missing' }, 401
   
         try:
-            # decoding the payload to fetch the stored details
             data = jwt.decode(token, app.config['SECRET_KEY'], 'HS256')
-            current_user = data['public_id']
+            user = { 'public_id' : data['public_id'], 'is_admin' : data['type'] == 'admin' }
+            
         except Exception as e:
             return { 'message' : 'Token is invalid' }, 401
-        # returns the current logged in users contex to the routes
-        return  f(*args, **kwargs)
+
+        return  f(user, *args, **kwargs)
+  
+    return decorated
+
+# Decorador para verificar si el usuario es un admin
+def admin_required(f):
+    @wraps(f)
+    def decorated(user, *args, **kwargs):
+        if not user['is_admin']:
+            return { 'message' : 'Unauthorized' }, 403
+        else:
+            return f(*args, **kwargs)
   
     return decorated
 
@@ -68,7 +78,7 @@ def login():
                 response['is_registered'] = True
                 response['type'] = user_info[7]
                 response['accepted'] = True
-                response['token'] = jwt.encode({'public_id': response['id'], 'exp' : datetime.utcnow() + timedelta(minutes = 30) }, app.config['SECRET_KEY'], 'HS256')
+                response['token'] = jwt.encode({'public_id': response['id'], 'type' : response['type'], 'exp' : datetime.utcnow() + timedelta(minutes = 30) }, app.config['SECRET_KEY'], 'HS256')
 
             else:
                 status = 404
@@ -120,6 +130,7 @@ def register():
 
 @app.route('/register_petitions', methods=['GET','PATCH','DELETE'])
 @token_required
+@admin_required
 def register_petitions():
     status = 400
     
