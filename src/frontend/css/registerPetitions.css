@@ -1,0 +1,23 @@
+.table-container{
+    margin-top: 5rem;
+    width: 90%;
+
+}
+
+.table-container table{
+    border-top:solid;
+    border-width: 2px;
+}
+
+.req-button{
+    margin:3px;
+}
+
+.buttons-row{
+    width:8rem;
+}
+
+.buttons-container{
+    display: flex;
+    justify-content: space-evenly;
+}

@@ -19,56 +19,61 @@
 <html>
     <head>
         <title>Mis datos de perfil</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="css/forms.css"/>
     </head>
     <body>
-        <h1>Mis datos de perfil</h1>
-        <form action="requests/patchEditUserProfile.php" method="post" target="_self">
-            <label for="name">Nombre:</label>
-            <input type="text" id="name" name="name" placeholder="Nombre" value="<?php echo $name?>" disabled><br><br>
+        <div class="form-container">
+            <h1 class="form-title">Mis datos de perfil</h1>
+            <div class="form-content">
+            <form action="requests/patchEditUserProfile.php" method="post" target="_self">
+                <label for="name">Nombre:</label>
+                <input type="text" id="name" name="name" placeholder="Nombre" value="<?php echo $name?>" disabled><br><br>
 
-            <label for="surname_1">Apellido 1:</label>
-            <input type="text" id="surname_1" name="surname_1" placeholder="Apellido 1" value="<?php echo $surname_1?>" disabled><br><br>
+                <label for="surname_1">Apellido 1:</label>
+                <input type="text" id="surname_1" name="surname_1" placeholder="Apellido 1" value="<?php echo $surname_1?>" disabled><br><br>
 
-            <label for="surname_2">Apellido 2:</label>
-            <input type="text" id="surname_2" name="surname_2" placeholder="Apellido 2" value="<?php echo $surname_2?>" disabled><br><br>
+                <label for="surname_2">Apellido 2:</label>
+                <input type="text" id="surname_2" name="surname_2" placeholder="Apellido 2" value="<?php echo $surname_2?>" disabled><br><br>
 
-            <label for="email">Email:</label>
-            <input type="text" id="email" name="email" placeholder="Email" value="<?php echo $email?>" disabled><br><br>
+                <label for="email">Email:</label>
+                <input type="text" id="email" name="email" placeholder="Email" value="<?php echo $email?>" disabled><br><br>
 
-            <label for="password">Contraseña:</label>
-            <input type="password" id="password" name="password" placeholder="Nueva contraseña" disabled><br><br>
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" name="password" placeholder="Nueva contraseña (opcional)" disabled><br><br>
 
-            <label for="password_confirm">Confirmar contraseña:</label>
-            <input type="password" id="password_confirm" name="password_confirm" placeholder="Confirmar contraseña" disabled><br><br>
-        
-            <input type="submit" value="Guardar cambios" disabled>
-        </form>
-            <button onclick="enableEditing()">Editar información</button>
-        <br> 
-        <!--
-        <form action="requests/postDeleteUser.php" method="post" target="_self">
-            <input type="submit" value="Eliminar cuenta">
-        </form>
-        !-->
-
-        <?php
-
-            if (isset($_GET["message"])){
-                $message = $_GET["message"];
-                echo "<p>$message</p>";
+                <label for="password_confirm">Confirmar contraseña:</label>
+                <input type="password" id="password_confirm" name="password_confirm" placeholder="Confirmar contraseña" disabled><br><br>
             
-                unset($_GET["message"]);
-            }
+                <input type="submit" value="Guardar cambios" disabled>
+            </form>
+            <!--
+            <form action="requests/postDeleteUser.php" method="post" target="_self">
+                <input type="submit" value="Eliminar cuenta">
+            </form>
+            !-->
+            </div>
+            <button class="btn btn-primary" onclick="enableEditing()">Editar información</button>
 
-            if (isset($_SESSION["error"]) && count($_SESSION["error"]) > 0){
+            <?php
+
+                if (isset($_GET["message"])){
+                    $message = $_GET["message"];
+                    echo "<p>$message</p>";
                 
-                foreach($_SESSION["error"] as $error){
-                    echo "<p>$error</p>";
+                    unset($_GET["message"]);
                 }
 
-                unset($_SESSION["error"]);
-            }
-        ?>
+                if (isset($_SESSION["error"]) && count($_SESSION["error"]) > 0){
+                    
+                    foreach($_SESSION["error"] as $error){
+                        echo "<p>$error</p>";
+                    }
+
+                    unset($_SESSION["error"]);
+                }
+            ?>
+        </div>
         
         <script>
             function enableEditing(){
