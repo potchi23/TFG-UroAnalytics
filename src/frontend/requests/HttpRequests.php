@@ -23,7 +23,7 @@ class HttpRequests {
 
         curl_close($this->ch);
 
-        $response = array("data" => $data, "status" => $status);
+        $response = array("data" => json_decode($data), "status" => $status);
 
         return $response;
     }

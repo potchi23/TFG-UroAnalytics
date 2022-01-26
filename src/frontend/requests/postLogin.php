@@ -11,18 +11,18 @@
 
     $http_requests = new HttpRequests();
     $response = $http_requests->getResponseData("http://localhost:5000/login", "POST", $post_req);
-    $data_array = json_decode($response["data"], true);
+    $data_array = $response["data"];
 
-    $id = $data_array["id"];
-    $name = $data_array["name"];
-    $surname_1 = $data_array["surname_1"];
-    $surname_2 = $data_array["surname_2"];
-    $email = $data_array["email"];
-    $accepted = $data_array["accepted"];
-    $type = $data_array["type"];
-    $token = $data_array["token"];
+    $id = $data_array->id;
+    $name = $data_array->name;
+    $surname_1 = $data_array->surname_1;
+    $surname_2 = $data_array->surname_2;
+    $email = $data_array->email;
+    $accepted = $data_array->accepted;
+    $type = $data_array->type;
+    $token = $data_array->token;
 
-    $is_registered = $data_array["is_registered"];
+    $is_registered = $data_array->is_registered;
     
     if($response["status"] == 200) {
         $_SESSION["user"] = new User($id, $name, $surname_1, $surname_2, $email, $type, $accepted, $token);

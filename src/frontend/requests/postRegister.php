@@ -40,11 +40,11 @@
 
         $http_requests = new HttpRequests();
         $response = $http_requests->getResponseData("http://localhost:5000/register", "POST", $post_req);
-        $data_array = json_decode($response["data"],true);
+        $data_array = $response["data"];
 
-        $db_errno = $data_array["errno"];
+        $db_errno = $data_array->errno;
 
-        if($response["code"] == 200){
+        if($response["status"] == 200){
             $email = $post_req["email"];
             header("Location: ../pending.php?email=$email");
         }

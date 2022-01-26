@@ -30,7 +30,7 @@
             $http_requests = new HttpRequests();
             $response = $http_requests->getResponseData("http://localhost:5000/register_petitions", "GET", "", $token);
   
-            $data_array = json_decode($response["data"])->data;
+            $data_array = $response["data"]->data;
 
             if($response["status"] != 200) {
                 header("Location: login.php");
