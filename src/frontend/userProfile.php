@@ -60,14 +60,13 @@
                 unset($_GET["message"]);
             }
 
-            if (isset($_GET["error"])){
-                $error_array = explode(",", $_GET["error"]);
+            if (isset($_SESSION["error"]) && count($_SESSION["error"]) > 0){
                 
-                foreach($error_array as $error){
+                foreach($_SESSION["error"] as $error){
                     echo "<p>$error</p>";
                 }
 
-                unset($_GET["error"]);
+                unset($_SESSION["error"]);
             }
         ?>
         
