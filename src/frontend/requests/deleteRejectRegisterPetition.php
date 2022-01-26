@@ -16,7 +16,7 @@
     $response = $http_requests->getResponseData("http://localhost:5000/register_petitions", "DELETE", $delete_req, $token);
    
     if($response["status"] == 200) {
-        $data = $response["data"]->data[0];
+        $data = $response["data"];
         $email = $data->email;
         $name = $data->name;
 

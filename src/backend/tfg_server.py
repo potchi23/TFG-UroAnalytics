@@ -165,18 +165,12 @@ def register_petitions():
 
         query = f'SELECT name, email FROM users WHERE id = {user_id}'
         cursor.execute(query)
+        data = cursor.fetchone()
 
-        response = {
-            'data':[]
-        }
-
-        for register_request in cursor:
-            data = {
-                'name': register_request[0],
-                'email':register_request[1]
-            }
+        response = {}
             
-            response['data'].append(data)
+        response['name'] = data[0]
+        response['email'] = data[1]
 
         query = f'UPDATE users SET accepted = 1 WHERE id = {user_id}'
         cursor.execute(query)
@@ -194,19 +188,13 @@ def register_petitions():
         
         query = f'SELECT name, email FROM users WHERE id = {user_id}'
         cursor.execute(query)
+        data = cursor.fetchone()
 
-        response = {
-            'data':[]
-        }
-
-        for register_request in cursor:
-            data = {
-                'name': register_request[0],
-                'email':register_request[1]
-            }
-            
-            response['data'].append(data)
-
+        response = {}
+        
+        response['name'] = data[0],
+        response['email'] = data[1]
+        
         query = f'DELETE FROM users WHERE id = {user_id}'
         cursor.execute(query)
         mydb.commit()
@@ -223,14 +211,17 @@ def register_petitions():
         return response, status
 
 @app.route('/users/<id>', methods=['GET','PATCH','DELETE'])
-#@token_required
-def users(id):
+@token_required
+def users(current_user, id):
     status = 400
     response = {}
 
     if request.method == 'GET':
         return 
     elif request.method == 'PATCH':
+        if current_user['public_id'] != int(id):
+            return {'message' : 'Forbidden'}, 403
+
         name = request.form['name']
         surname_1 = request.form['surname_1']
         surname_2 = request.form['surname_2']

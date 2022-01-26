@@ -46,7 +46,7 @@
         $http_requests = new HttpRequests();
         $response = $http_requests->getResponseData($url, "PATCH", $patch_req, $token);
         
-        $data_array = $response["data"];
+        $data = $response["data"];
 
         if($response["status"] == 200) {
             $user->set_name($name);

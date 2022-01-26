@@ -40,9 +40,9 @@
 
         $http_requests = new HttpRequests();
         $response = $http_requests->getResponseData("http://localhost:5000/register", "POST", $post_req);
-        $data_array = $response["data"];
+        $data = $response["data"];
 
-        $db_errno = $data_array->errno;
+        $db_errno = $data->errno;
 
         if($response["status"] == 200){
             $email = $post_req["email"];
