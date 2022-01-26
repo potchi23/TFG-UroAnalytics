@@ -223,7 +223,7 @@ def register_petitions():
         return response, status
 
 @app.route('/users/<id>', methods=['GET','PATCH','DELETE'])
-@token_required
+#@token_required
 def users(id):
     status = 400
     response = {}
