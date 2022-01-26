@@ -23,8 +23,6 @@
     $error = append_error_message($error, strlen($email) <= 0, "El email no puede ser vacío");
     $error = append_error_message($error, strlen($email) > 50, "El email  no puede tener más de 50 carácteres");
     $error = append_error_message($error, strlen($email) > 0 && strlen($email) <= 50 && !filter_var($email, FILTER_VALIDATE_EMAIL), "$email no es un email válido");
-    $error = append_error_message($error, strlen($_POST["password"]) <= 0, "La contraseña no puede ser vacía");
-    $error = append_error_message($error, strlen($_POST["password_confirm"]) <=0, "La confirmación de contraseña no puede ser vacía");
     $error = append_error_message($error, $_POST["password"] != $_POST["password_confirm"], "Las contraseñas no coinciden");
     $error = append_error_message($error, strlen($_POST["password"]) > 0 && !preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/", $_POST["password"]), "La contraseña debe contener 8 carácteres alfanuméricos con mayúsculas y minúsculas");
  

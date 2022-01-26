@@ -226,10 +226,14 @@ def users(current_user, id):
         surname_1 = request.form['surname_1']
         surname_2 = request.form['surname_2']
         email = request.form['email']
-        password = bcrypt.generate_password_hash(request.form['password']).decode('utf-8')
 
         cursor = mydb.cursor()
-        query = f'UPDATE users SET name=\'{name}\', surname_1=\'{surname_1}\', surname_2=\'{surname_2}\', email=\'{email}\', password=\'{password}\' WHERE id={id}'
+        
+        if request.form['password'] != '':
+            password = bcrypt.generate_password_hash(request.form['password']).decode('utf-8')
+            query = f'UPDATE users SET name=\'{name}\', surname_1=\'{surname_1}\', surname_2=\'{surname_2}\', email=\'{email}\', password=\'{password}\' WHERE id={id}'
+        else:
+            query = f'UPDATE users SET name=\'{name}\', surname_1=\'{surname_1}\', surname_2=\'{surname_2}\', email=\'{email}\' WHERE id={id}'
 
         cursor.execute(query)
         mydb.commit()
