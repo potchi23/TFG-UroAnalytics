@@ -11,40 +11,51 @@
 <html>
     <head>
         <title>Solicitar registro</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="css/styles.css"/>
     </head>
     <body>
-        <h1>Solicitar registro</h1>
-        <form action="requests/postRegister.php" method="post" target="_self">
-            <label for="name">Nombre:</label>
-            <input type="text" id="name" name="name" placeholder="Nombre"><br><br>
+        <div class="form-container">
 
-            <label for="surname_1">Apellido 1:</label>
-            <input type="text" id="surname_1" name="surname_1" placeholder="Apellido 1"><br><br>
+            <h1 class="form-title">Solicitar registro</h1>
 
-            <label for="surname_2">Apellido 2:</label>
-            <input type="text" id="surname_2" name="surname_2" placeholder="Apellido 2"><br><br>
+            <div class="register-form">        
+                <p for="register">¿Ya tienes cuenta? <a href="login.php">Accede aquí</a></p>
+            </div>
 
-            <label for="email">Email:</label>
-            <input type="text" id="email" name="email" placeholder="Email"><br><br>
+            <div class="form-content">
+                <form action="requests/postRegister.php" method="post" target="_self">
+                    <label for="name">Nombre</label>
+                    <input type="text" id="name" name="name" ><br><br>
 
-            <label for="password">Contraseña:</label>
-            <input type="password" id="password" name="password" placeholder="Contraseña"><br><br>
+                    <label for="surname_1">Apellido 1</label>
+                    <input type="text" id="surname_1" name="surname_1"><br><br>
 
-            <label for="password_confirm">Confirmar contraseña:</label>
-            <input type="password" id="password_confirm" name="password_confirm" placeholder="Confirmar contraseña"><br><br>
+                    <label for="surname_2">Apellido 2</label>
+                    <input type="text" id="surname_2" name="surname_2"><br><br>
 
-            <input type="submit" value="Solicitar registro">
-        </form>
+                    <label for="email">Email</label>
+                    <input type="text" id="email" name="email" ><br><br>
 
-        <?php
-            if (isset($_SESSION["error"]) && count($_SESSION["error"]) > 0){
-                
-                foreach($_SESSION["error"] as $error){
-                    echo "<p>$error</p>";
-                }
+                    <label for="password">Contraseña</label>
+                    <input type="password" id="password" name="password"><br><br>
 
-                unset($_SESSION["error"]);
-            }
-        ?>
+                    <label for="password_confirm">Confirmar contraseña</label>
+                    <input type="password" id="password_confirm" name="password_confirm"><br><br>
+
+                    <input class="btn btn-success" id="submit" type="submit" value="Solicitar registro">
+                </form>
+            </div>
+            <?php
+                    if (isset($_SESSION["error"]) && count($_SESSION["error"]) > 0){
+                        foreach($_SESSION["error"] as $error){
+                            echo "<div style='color:grey;'>$error</div>";
+                        }
+
+                        unset($_SESSION["error"]);
+                    }
+            ?>
+
+        </div>
     </body>
 </html>

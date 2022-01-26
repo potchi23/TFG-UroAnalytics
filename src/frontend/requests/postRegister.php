@@ -1,6 +1,7 @@
 <?php
     include_once("HttpRequests.php");
-
+    session_start();
+    
     $_SESSION["error"] = array();
 
     $name = htmlspecialchars($_POST["name"]);
@@ -24,8 +25,8 @@
     append_error_message($_POST["password"] != $_POST["password_confirm"], "Las contraseñas no coinciden");
     append_error_message(strlen($_POST["password"]) > 0 && !preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/", $_POST["password"]), "La contraseña debe contener 8 carácteres alfanuméricos con mayúsculas y minúsculas");
 
-    if (strlen($error) > 0){
-        header("Location: ../register.php?error=$error");
+    if (count($_SESSION["error"]) > 0){
+        header("Location: ../register.php");
     }
 
     else {

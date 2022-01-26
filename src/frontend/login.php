@@ -10,38 +10,44 @@
 
 <html>
     <head>
-        <title>Bienvenidos a ... </title>
+        <title>Savana Barata - Login </title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="css/styles.css"/>
     </head>
     <body>
+        <div class="form-container">
+            
+            <h1 class="form-title">Acceder a la copia barata de Savana</h1>
 
-        <?php
-            include_once("header/header.php");
-        ?>
-        <h1>Login</h1>
+            <div class="form-content">
 
-        <form action="requests/postLogin.php" method="post" target="_self">
-            <label for="email">Email:</label>
-            <input type="text" id="email" name="email" placeholder="Email"><br><br>
-            <label for="password">Contraseña:</label>
-            <input type="password" id="password" name="password" placeholder="Contraseña"><br><br>
-            <input type="submit" value="Login">
-        </form>
+                <form action="requests/postLogin.php" method="post" target="_self">
+                    
+                    <label for="email">Email</label>
+                    <input type="text" id="email" name="email"><br><br>
 
-        <form action="register.php">
-            <label for="register">¿No estas registrado?</label>
-            <input type="submit" value="Registro" id="register" name="register">
-        </form>
+                    <label for="email">Contraseña</label>
+                    <input type="password" id="password" name="password"><br><br>
 
-        <?php
-            if (isset($_GET["error"])){
-                $error_array = explode(",", $_GET["error"]);
-                
-                foreach($error_array as $error){
-                    echo "<p>$error</p>";
+                    <input class="btn btn-success" id="submit"type="submit" value="Login">
+                </form>
+            </div>
+
+            <?php
+                if (isset($_GET["error"])){
+                    $error_array = explode(",", $_GET["error"]);
+                    
+                    foreach($error_array as $error){
+                        echo "<p class='alert alert-danger'>$error</p>";
+                    }
+
+                    unset($_GET["error"]);
                 }
+            ?>
 
-                unset($_GET["error"]);
-            }
-        ?>
+            <div class="register-form">        
+                <p for="register">¿No estás registrado? <a href="register.php">Solicita un registro</a></p>
+            </div>
+        </div>
     </body>
 </html>
