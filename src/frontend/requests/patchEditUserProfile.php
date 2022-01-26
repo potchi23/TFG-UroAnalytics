@@ -44,7 +44,7 @@
 
         $token = $user->get_token();
         $http_requests = new HttpRequests();
-        $response = $http_requests->getResponseData($url, "PATCH", $patch_req, $token);
+        $response = $http_requests->getResponse($url, "PATCH", $patch_req, $token);
         
         $data = $response["data"];
 

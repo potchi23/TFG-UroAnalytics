@@ -28,7 +28,7 @@
             $token = $user->get_token();
 
             $http_requests = new HttpRequests();
-            $response = $http_requests->getResponseData("http://localhost:5000/register_petitions", "GET", "", $token);
+            $response = $http_requests->getResponse("http://localhost:5000/register_petitions", "GET", "", $token);
   
             $data_array = $response["data"]->data;
 

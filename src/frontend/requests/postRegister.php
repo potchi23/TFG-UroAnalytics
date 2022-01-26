@@ -39,7 +39,7 @@
         );
 
         $http_requests = new HttpRequests();
-        $response = $http_requests->getResponseData("http://localhost:5000/register", "POST", $post_req);
+        $response = $http_requests->getResponse("http://localhost:5000/register", "POST", $post_req);
         $data = $response["data"];
 
         $db_errno = $data->errno;

@@ -8,7 +8,7 @@ class HttpRequests {
         $this->ch = curl_init();
     }
 
-    function getResponseData($endpoint, $method, $body, $token = null){
+    function getResponse($endpoint, $method, $body, $token = null){
         if($token != null){
             curl_setopt($this->ch, CURLOPT_HTTPHEADER, array("x-access-token: $token"));
         }

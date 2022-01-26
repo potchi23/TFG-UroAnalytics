@@ -13,7 +13,7 @@
     $token = $user->get_token();
 
     $http_requests = new HttpRequests();
-    $response = $http_requests->getResponseData("http://localhost:5000/register_petitions", "DELETE", $delete_req, $token);
+    $response = $http_requests->getResponse("http://localhost:5000/register_petitions", "DELETE", $delete_req, $token);
    
     if($response["status"] == 200) {
         $data = $response["data"];
