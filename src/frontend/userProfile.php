@@ -59,17 +59,18 @@
 
                 if (isset($_GET["message"])){
                     $message = $_GET["message"];
-                    echo "<p>$message</p>";
+                    echo "<p></p><p class='alert alert-success'>$message</p>";
                 
                     unset($_GET["message"]);
                 }
 
                 if (isset($_SESSION["error"]) && count($_SESSION["error"]) > 0){
-                    
+                    echo"<p/>";
+                    echo"<p class='alert alert-danger'>";
                     foreach($_SESSION["error"] as $error){
-                        echo "<p>$error</p>";
+                        echo "$error</br></br>";
                     }
-
+                    echo"</p>";
                     unset($_SESSION["error"]);
                 }
             ?>
