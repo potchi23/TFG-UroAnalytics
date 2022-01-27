@@ -28,7 +28,8 @@
 
         //mail($email, $subject, $msg, $headers);
 
-        header("Location: ../registerPetitions.php");
+        $page = $_GET["page"];
+        header("Location: ../registerPetitions.php?page=$page");
     }
     else{
         echo "<h1>Hubo un error</h1>";

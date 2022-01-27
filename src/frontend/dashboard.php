@@ -21,7 +21,7 @@
 
         <h2>Hola, <?php echo $user->get_full_name();?></h2>
         <h3>Tipo usuario: <?php echo $user->get_type()?></h3>
-        <a href="registerPetitions.php">Peticiones de registro</a>
+        <a href="registerPetitions.php?page=1">Peticiones de registro</a>
         <a href="userProfile.php">Ver mi perfil</a>
         <a href="logout.php">Logout</a>
 

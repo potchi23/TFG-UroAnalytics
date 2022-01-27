@@ -27,8 +27,9 @@
                    'X-Mailer: PHP/' . phpversion();
 
         //mail($email, $subject, $msg, $headers);
-
-        header("Location: ../registerPetitions.php");
+ 
+        $page = $_GET["numElems"] == 1 ? $_GET["page"] - 1 : $_GET["page"];
+        header("Location: ../registerPetitions.php?page=$page");
     }
     else{
         echo "<h1>Hubo un error</h1>";

@@ -48,10 +48,12 @@
             </div>
             <?php
                     if (isset($_SESSION["error"]) && count($_SESSION["error"]) > 0){
+                        echo "<div class='alert alert-danger'>";
                         foreach($_SESSION["error"] as $error){
-                            echo "<div style='color:grey;'>$error</div>";
+                            echo "<div>$error</div>";
                         }
-
+                        echo "</div>";
+                        
                         unset($_SESSION["error"]);
                     }
             ?>

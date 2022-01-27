@@ -133,10 +133,13 @@ def register():
 @admin_required
 def register_petitions():
     status = 400
-    
+
     if request.method == 'GET':
+        offset = request.form['offset']
+        num_elems = request.form['num_elems']
+
         cursor = mydb.cursor()
-        query = 'SELECT id, name, surname_1, surname_2, email FROM users WHERE accepted = 0'
+        query = f'SELECT id, name, surname_1, surname_2, email FROM users WHERE accepted = 0 LIMIT {offset}, {num_elems}'
         cursor.execute(query)
 
         response = {

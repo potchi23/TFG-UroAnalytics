@@ -4,6 +4,12 @@
 
 }
 
+.table-title{
+    font-weight: lighter;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
 .table-container table{
     border-top:solid;
     border-width: 2px;
@@ -20,4 +26,9 @@
 .buttons-container{
     display: flex;
     justify-content: space-evenly;
+}
+
+.page-buttons{
+    display: flex;
+    justify-content: space-between;
 }
