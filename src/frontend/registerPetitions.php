@@ -10,7 +10,7 @@
 
     $_SESSION["page"] = isset($_GET["page"]) ? $_GET["page"] : 1;
     
-    if($_SESSION["page"] == 0){
+    if($_SESSION["page"] <= 0){
         $_SESSION["page"] = 1;
     }
 
