@@ -36,7 +36,7 @@
             <h1 class="table-title">Solicitudes de registro</h1>
 
             <div class="table-responsive table-content">
-                <table class="table table-striped table-hover" id="register_petitions" border="1">
+                <table class="table table-striped table-bordered table-hover">
                     <?php
                     // Enviamos token al servidor
                     $token = $user->get_token();
@@ -54,12 +54,16 @@
                     $data_array = $response["data"]->data;
 
                     if($response["status"] != 200) {
-                        header("Location: login.php");
+                        if($response["status"] == 401){
+                            unset($_SESSION["user"]);
+                            $message = urlencode("La sesión ha caducado");
+                            header("Location: ../login.php?message=$message");
+                        }
                     }
 
                     if (count($data_array) > 0){
                         echo <<< EOL
-                            <tr class="table-active">
+                            <tr class="thead-dark">
                                 <th>ID</th>
                                 <th>Nombre</th>
                                 <th>Apellido 1</th>
@@ -85,13 +89,13 @@
                                             <div class="req-btn">
                                                 <form action="requests/patchAcceptRegisterPetition.php?page=$page&numElems=$numElems" method="POST">
                                                     <input type="hidden" id="id" name="id" value="$petition->id"></input>
-                                                    <input class="btn btn-success" type="submit" value="✔"></input>
+                                                    <input class="btn btn-outline-success" type="submit" value="✔"></input>
                                                 </form>
                                             </div>
                                             <div class="req-btn">
                                                 <form action="requests/deleteRejectRegisterPetition.php?page=$page&numElems=$numElems" method="POST">
                                                     <input type="hidden" id="id" name="id" value="$petition->id"></input>
-                                                    <input class="btn btn-danger" type="submit" value="✘"></input>
+                                                    <input class="btn btn-outline-danger" type="submit" value="✘"></input>
                                                 </form>
                                             </div>
                                         </div>

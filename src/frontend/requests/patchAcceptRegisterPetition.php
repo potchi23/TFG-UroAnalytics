@@ -32,6 +32,10 @@
         header("Location: ../registerPetitions.php?page=$page");
     }
     else{
-        echo "<h1>Hubo un error</h1>";
+        if($response["status"] == 401){
+            unset($_SESSION["user"]);
+            $message = urlencode("La sesión ha caducado");
+            header("Location: ../login.php?message=$message");
+        }
     }
 ?>

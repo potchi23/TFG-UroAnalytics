@@ -56,8 +56,11 @@
             header("Location: ../userProfile.php?message=$message");
         }
         else {
-            echo "Error code: " . $response["status"] . "\n";
-            echo $url;
+            if($response["status"] == 401){
+                unset($_SESSION["user"]);
+                $message = urlencode("La sesión ha caducado");
+                header("Location: ../login.php?message=$message");
+            }
         }
     }
 

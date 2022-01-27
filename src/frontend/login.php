@@ -43,6 +43,16 @@
 
                     unset($_GET["error"]);
                 }
+
+                if (isset($_GET["message"])){
+                    $message_array = explode(",", $_GET["message"]);
+                    
+                    foreach($message_array as $message){
+                        echo "<p class='alert alert-info'>$message</p>";
+                    }
+
+                    unset($_GET["message"]);
+                }
             ?>
 
             <div class="register-form">        

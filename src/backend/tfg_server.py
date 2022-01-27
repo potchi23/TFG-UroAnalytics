@@ -78,7 +78,7 @@ def login():
                 response['is_registered'] = True
                 response['type'] = user_info[7]
                 response['accepted'] = True
-                response['token'] = jwt.encode({'public_id': response['id'], 'type' : response['type'], 'exp' : datetime.utcnow() + timedelta(minutes = 30) }, app.config['SECRET_KEY'], 'HS256')
+                response['token'] = jwt.encode({'public_id': response['id'], 'type' : response['type'], 'exp' : datetime.utcnow() + timedelta(minutes = 60) }, app.config['SECRET_KEY'], 'HS256')
 
             else:
                 status = 404
