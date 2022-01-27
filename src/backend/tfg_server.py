@@ -143,6 +143,7 @@ def register_petitions():
         cursor.execute(query)
 
         response = {
+            'num_entries':0,
             'data':[]
         }
 
@@ -154,8 +155,12 @@ def register_petitions():
                 'surname_2':register_request[3],
                 'email':register_request[4]
             }
-            
             response['data'].append(data)
+        
+        query = f'SELECT COUNT(id) FROM users WHERE accepted = 0'
+        cursor.execute(query)
+        response['num_entries'] = cursor.fetchone()
+
         cursor.close()
 
         status = 200

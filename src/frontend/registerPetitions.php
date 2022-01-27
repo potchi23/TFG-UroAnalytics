@@ -27,6 +27,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="css/forms.css"/>
         <link rel="stylesheet" href="css/registerPetitions.css"/>
+        <meta charset="utf-8">
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://smtpjs.com/v3/smtp.js"></script>
@@ -120,7 +121,8 @@
                         echo "</div>";
                         
                         echo "<div>";
-                        if (count($data_array) >= $NUM_ELEMENTS_BY_PAGE){
+
+                        if ($get_req["offset"] + $NUM_ELEMENTS_BY_PAGE < $response["data"]->num_entries[0]){
                             $next_page = $_SESSION["page"] + 1;    
                             echo "<a class='btn btn-primary next' href='registerPetitions.php?page=$next_page'>></a>"; 
                         }
