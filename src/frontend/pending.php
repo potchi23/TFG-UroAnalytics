@@ -16,15 +16,17 @@
         <meta charset="utf-8">
     </head>
     <body>
-        <div class="form-container">
-            <h1 class="form-title">Registro solicitado</h1>
-            <div class="form-content">
-                <?php
-                    $email = $_GET["email"];
-                    echo "<p>Un administrador se pondrá en contacto contigo a través de tu correo <b>$email</b> para confirmar la solicitud</p>"
-                ?>
+        <div class="container">
+            <div class="form-container">
+                <h1 class="form-title">Registro solicitado</h1>
+                <div class="form-content">
+                    <?php
+                        $email = $_GET["email"];
+                        echo "<p>Un administrador se pondrá en contacto contigo a través de tu correo <b>$email</b> para confirmar la solicitud</p>"
+                    ?>
+                </div>
+                <p for="register">¿Ya han aceptado tu solicitud? <a href="login.php">Accede aquí</a></p>
             </div>
-            <p for="register">¿Ya han aceptado tu solicitud? <a href="login.php">Accede aquí</a></p>
         </div>
     </body>
 </html>
