@@ -33,101 +33,114 @@
         <script src="https://smtpjs.com/v3/smtp.js"></script>
     </head>
     <body>
-        <div class="table-container">
-            <h1 class="table-title">Solicitudes de registro</h1>
+        <?php include_once("header/navbar.php");?>
 
-            <div class="table-responsive table-content">
-                <table class="table table-striped table-bordered table-hover">
-                    <?php
-                    // Enviamos token al servidor
-                    $token = $user->get_token();
+        <div class="container">
+            <div class="table-container">
 
-                    $page = $_SESSION["page"];
-                    
-                    $get_req = array(
-                        "offset" => ($page - 1) * $NUM_ELEMENTS_BY_PAGE,
-                        "num_elems" => $NUM_ELEMENTS_BY_PAGE
-                    );
+                <div class="table-responsive table-content">
+                    <h1 class="table-title">Solicitudes de registro</h1>
+
+                    <table class="table table-striped table-bordered table-hover">
+                        <?php
+                        // Enviamos token al servidor
+                        $token = $user->get_token();
+
+                        $page = $_SESSION["page"];
+                        
+                        $get_req = array(
+                            "offset" => ($page - 1) * $NUM_ELEMENTS_BY_PAGE,
+                            "num_elems" => $NUM_ELEMENTS_BY_PAGE
+                        );
+                
+                        $http_requests = new HttpRequests();
+                        $response = $http_requests->getResponse("http://localhost:5000/register_petitions", "GET", $get_req, $token);
             
-                    $http_requests = new HttpRequests();
-                    $response = $http_requests->getResponse("http://localhost:5000/register_petitions", "GET", $get_req, $token);
-        
-                    $data_array = $response["data"]->data;
+                        $data_array = $response["data"]->data;
 
-                    if($response["status"] != 200) {
-                        if($response["status"] == 401){
-                            unset($_SESSION["user"]);
-                            $message = urlencode("La sesión ha caducado");
-                            header("Location: ../login.php?message=$message");
+                        if($response["status"] != 200) {
+                            if($response["status"] == 401){
+                                unset($_SESSION["user"]);
+                                $message = urlencode("La sesión ha caducado");
+                                header("Location: ../login.php?message=$message");
+                            }
                         }
-                    }
 
-                    if (count($data_array) > 0){
-                        echo <<< EOL
-                            <tr class="thead-dark">
-                                <th>ID</th>
-                                <th>Nombre</th>
-                                <th>Apellido 1</th>
-                                <th>Apellido 2</th>
-                                <th>Email</th>
-                                <th>Aceptar</th>
-                            </tr>
-                        EOL;
-
-                        $numElems = count($data_array);
-
-                        foreach($data_array as $petition){
-
-                            echo <<<EOL
-                                <tr id="register_petition_$petition->id">
-                                    <td> $petition->id </td>
-                                    <td> $petition->name </td>
-                                    <td> $petition->surname_1 </td>
-                                    <td> $petition->surname_2 </td>
-                                    <td> $petition->email </td>
-                                    <td class="buttons-row">
-                                        <div class="buttons-container">
-                                            <div class="req-btn">
-                                                <form action="requests/patchAcceptRegisterPetition.php?page=$page&numElems=$numElems" method="POST">
-                                                    <input type="hidden" id="id" name="id" value="$petition->id"></input>
-                                                    <input class="btn btn-outline-success" type="submit" value="✔"></input>
-                                                </form>
-                                            </div>
-                                            <div class="req-btn">
-                                                <form action="requests/deleteRejectRegisterPetition.php?page=$page&numElems=$numElems" method="POST">
-                                                    <input type="hidden" id="id" name="id" value="$petition->id"></input>
-                                                    <input class="btn btn-outline-danger" type="submit" value="✘"></input>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </td>
+                        if (count($data_array) > 0){
+                            echo <<< EOL
+                                <tr class="thead-dark">
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>Apellido 1</th>
+                                    <th>Apellido 2</th>
+                                    <th>Email</th>
+                                    <th>Aceptar</th>
                                 </tr>
                             EOL;
-                        }
-                    }
-                    else{
-                        echo "<h3>No hay más solicitudes de registro</h3>";
-                    }
-                    ?>
-                </table>
-                
-                <div class="page-buttons">
-                    <?php
-                        echo "<div>";
-                        if($_SESSION["page"] != 1){
-                            $prev_page = $_SESSION["page"] - 1;    
-                            echo "<a class='btn btn-primary previous' href='registerPetitions.php?page=$prev_page'><</a>";      
-                        }
-                        echo "</div>";
-                        
-                        echo "<div>";
 
-                        if ($get_req["offset"] + $NUM_ELEMENTS_BY_PAGE < $response["data"]->num_entries[0]){
-                            $next_page = $_SESSION["page"] + 1;    
-                            echo "<a class='btn btn-primary next' href='registerPetitions.php?page=$next_page'>></a>"; 
+                            $numElems = count($data_array);
+
+                            foreach($data_array as $petition){
+                                echo <<<EOL
+                                    <tr id="register_petition_$petition->id">
+                                        <td> $petition->id </td>
+                                        <td> $petition->name </td>
+                                        <td> $petition->surname_1 </td>
+                                        <td> $petition->surname_2 </td>
+                                        <td> $petition->email </td>
+                                        <td class="buttons-row">
+                                            <div class="buttons-container">
+                                                <div class="req-btn">
+                                                    <form action="requests/patchAcceptRegisterPetition.php?page=$page&numElems=$numElems" method="POST">
+                                                        <input type="hidden" id="id" name="id" value="$petition->id"></input>
+                                                        <input class="btn btn-outline-success" type="submit" value="✔"></input>
+                                                    </form>
+                                                </div>
+                                                <div class="req-btn">
+                                                    <form action="requests/deleteRejectRegisterPetition.php?page=$page&numElems=$numElems" method="POST">
+                                                        <input type="hidden" id="id" name="id" value="$petition->id"></input>
+                                                        <input class="btn btn-outline-danger" type="submit" value="✘"></input>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                EOL;
+                            }
+
+                            $empty_rows = $NUM_ELEMENTS_BY_PAGE - $numElems;
+                            for ($i = 0; $i < $empty_rows; $i++){
+                                echo "<tr>";
+                                for ($j = 0; $j < 6; $j++){
+                                    echo "<td><div style='margin-bottom:2.38rem;'></div></td>";
+                                }
+                                echo "</tr>";
+                            }
                         }
-                        echo "</div>";
-                    ?>
+                        else{
+                            echo "<h3>No hay más solicitudes de registro</h3>";
+                        }
+                        ?>
+                    </table>
+                    
+                    <div class="page-buttons">
+                        <?php
+                            echo "<div>";
+                            if($_SESSION["page"] != 1 && count($data_array) > 0){
+                                $prev_page = $_SESSION["page"] - 1;    
+                                echo "<a class='btn btn-primary previous' href='registerPetitions.php?page=$prev_page'><</a>";      
+                            }
+                            echo "</div>";
+                            
+                            echo "<div>";
+
+                            if ($get_req["offset"] + $NUM_ELEMENTS_BY_PAGE < $response["data"]->num_entries[0] && count($data_array) > 0){
+                                $next_page = $_SESSION["page"] + 1;    
+                                echo "<a class='btn btn-primary next' href='registerPetitions.php?page=$next_page'>></a>"; 
+                            }
+                            echo "</div>";
+                        ?>
+                    </div>
                 </div>
             </div>
         </div>
