@@ -117,27 +117,37 @@
                             }
                         }
                         else{
-                            echo "<h3>No hay más solicitudes de registro</h3>";
+                            echo "<h3>No hay solicitudes de registro</h3>";
                         }
                         ?>
                     </table>
                     
                     <div class="page-buttons">
                         <?php
+                        if(count($data_array) > 0){
                             echo "<div>";
                             if($_SESSION["page"] != 1 && count($data_array) > 0){
                                 $prev_page = $_SESSION["page"] - 1;    
                                 echo "<a class='btn btn-primary previous' href='registerPetitions.php?page=$prev_page'><</a>";      
                             }
+                            else{
+                                echo "<div style='background-color:white; border-color:white;'class='btn btn-primary previous'><</div>";      
+                            }
                             echo "</div>";
                             
-                            echo "<div>";
+                            $numPages = ceil($response["data"]->num_entries[0]/$NUM_ELEMENTS_BY_PAGE);
+                            echo "<div style='background-color:white; border-color:white' class='btn btn-warning'>$page/$numPages</div>";
 
+                            echo "<div>";
                             if ($get_req["offset"] + $NUM_ELEMENTS_BY_PAGE < $response["data"]->num_entries[0] && count($data_array) > 0){
                                 $next_page = $_SESSION["page"] + 1;    
                                 echo "<a class='btn btn-primary next' href='registerPetitions.php?page=$next_page'>></a>"; 
                             }
+                            else{
+                                echo "<div style='background-color:white; border-color:white;'class='btn btn-primary previous'>></div>";      
+                            }
                             echo "</div>";
+                        }
                         ?>
                     </div>
                 </div>

@@ -68,12 +68,11 @@
                     }
 
                     if (isset($_SESSION["error"]) && count($_SESSION["error"]) > 0){
-                        echo"<p/>";
-                        echo"<p class='alert alert-danger'>";
+                        echo"</p><div class='alert alert-danger'>";
                         foreach($_SESSION["error"] as $error){
-                            echo "$error</br></br>";
+                            echo "<div>$error</div>";
                         }
-                        echo"</p>";
+                        echo"</div>";
                         unset($_SESSION["error"]);
                     }
                 ?>

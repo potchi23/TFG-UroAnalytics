@@ -19,7 +19,6 @@
     </head>
     <body>        
         <?php include_once("header/navbar.php");?>
-
         <div>
             <h2>Hola, <?php echo $user->get_full_name();?></h2>
             <h3>Tipo usuario: <?php echo $user->get_type()?></h3>
