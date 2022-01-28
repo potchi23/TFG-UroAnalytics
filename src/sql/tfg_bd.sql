@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 17, 2021 at 02:31 PM
+-- Generation Time: Jan 28, 2022 at 08:55 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.0.13
 
@@ -74,19 +74,29 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `surname_1`, `surname_2`, `email`, `password`, `type`, `accepted`) VALUES
-(9, 'Pepe', 'Manolito', 'Pepito', 'pepe@ucm.es', '$2y$10$LzKnjC44vrYBkn0H7gQ4Auh', 'user', 0),
+(9, 'Pepe', 'Manolito', 'Pepito', 'pepe@ucm.es', '$2y$10$LzKnjC44vrYBkn0H7gQ4Auh', 'user', 1),
 (10, 'Richard', 'Correa', 'Mercado', 'admin@admin.es', '$2y$10$.VNItdxIcM32r.pnGBuYy.p', 'user', 0),
-(19, 'Test2', 'Test', 'Valido', 'test@valido.com', '$2y$10$wBpiPcQm5GGR5Ua4wcFEyeyVxNaz5.rxiokYTdWxTo4gjqe3q/I1W', 'user', 0),
 (21, 'Richard Junior', 'Correa', 'Mercado', 'richardcorrea306@gmail.com', '$2y$10$YdL4P7d9lNfzzgdY.xFdRuTXwRujGzWqEm4NrqIQbSUD4CCahENLu', 'user', 0),
-(25, 'Richard Junior d', 'Correa', 'Mercado', 'rirea2306@gmail.com', '$2y$10$PQ.nUBVdwJtRHxvJRb2BruT8Yu00b7qMsZ1WXneNSlLmUBH0dnkke', 'user', 0),
-(27, 'Richard Junior d', 'Correa', 'Mercado', 'richardca2306@gmail.com', '$2y$10$9pXPTGtykPA..BPgORWj4uhlgqkI6pQA7FgQfIDxRxzEtxBvyyOie', 'user', 0),
-(45, 'Richard', 'Test', 'werwer', 'ricrea2306@gmail.com', '$2y$10$eCqdPw7X9xFpLL8aNTqUO.B5yVMWQQnsJg5oqmn7vrrDYxfmIP5cO', 'user', 0),
-(47, 'Richard', 'Test', 'Test', 'richardcorrea2306@gmail.com', '$2y$10$TrIKileYQgwiTUBwU0YQf..5D2aYIeXFfm7qUCIeSv8SqjGybpPb.', 'user', 0),
-(68, 'Richard', 'Test', '', 'richard@gmail.com', '$2y$10$HNxIxvTcmBe/H4ZRkpMJMeTg0Bk2pwQUrjOm5TyN7v5yJtcQuKhU6', 'user', 1),
 (69, 'Richard', 'Test', 'werwerw', 'richardcorrea2306@yahoo.com', '$2y$10$qdwFfpCE1SxLZGzh9GazoOJwyvwaMbouXSDUUmkn.GOmlWzhUV1Em', 'user', 0),
-(73, 'Richard', 'Test', '', 'richa@gmail.com', '$2y$10$qjYcrY7ve.2rOFz22d3UoO7PAdcFbZX5bieNSHRgdpMKjsu2aT0ve', 'user', 0),
-(74, 'Pedro', 'Pedro', 'Pedro', 'pedro@ucm.es', '$2b$12$.9Woy37gzrBkG/CCTE/erekEZ1VS177TDI.tyMdh9fEQn4dJbESx2', 'admin', 1),
-(78, 'User', 'No Admin', 'admin', 'user@ucm.es', '$2b$12$X6Z0KKFDnqsRAYLPdkzJvOxrF0fsu635LBUMol.l/DFOGWtesqNjO', 'user', 0);
+(74, 'Pedro', 'Pedro', 'Pedro', 'pedro@ucm.es', '$2b$12$sGzLdDmlOD8Cso0ywpcVIO.kbQDPtwYIwm5YxwJcD3dPqVITMihi6', 'admin', 1),
+(78, 'User', 'No Admin', 'Usuario', 'user@ucm.es', '$2b$12$u.WkBMVeW6PArHAuZlrXMO1HzA/3Ix7t/iQkvVpcq3ZaX4jgoM09S', 'user', 0),
+(80, 'test', 'test', 'test', 'test@test.es', '$2b$12$PuwM7.ZO/zV3w7lLY0D9Z.vrcmhytaHW2zBaU0MK02F4e7ddLlGO2', 'admin', 0),
+(84, 'popo', 'popo', 'popo', 'popo@popo.es', '$2b$12$Y5z.sWLYUHUKPl/5xQsOreh3kQ2TZ/pP8oisp6WEilDLEBbwl.E8K', 'user', 0),
+(86, 'Richard', 'Correa', 'Mercado', 'richard@correa.es', '$2b$12$rWeWvdsnUNs16PmZog816uc4GUstlEvXwx2Vrc.oabj60JgLGYO9q', 'user', 0),
+(87, 'Prueba', 'Prueba', 'Prueba', 'prueba@prueba.es', '$2b$12$qUhARH/DhNW0xjKEdVpYYOtvDxvdYIG8HXY3TQealJ5LTtR5UcKKO', 'user', 0),
+(89, 'marcos', 'marcos', 'marcos', 'marcos@marcos.es', '$2b$12$.Aoqh2u3MI1rnLndZGY7OOPJV24tsEi.vrvpa3msuhF/q1GnbawJm', 'user', 1),
+(90, 'fdsfsdf', 'dfsdfsd', 'sdfsdf', 'dfds@fdfeee.es', '$2b$12$YbkxEcH1d/cvMvs2bXM/8OJDVBBavBNo4/DhqookYuECrCteD6X8G', 'user', 1),
+(92, 'sdfsdfds', 'dsfsdfsdf', 'dsfsdfsdf', 'fsdfsdfsdf@fsdf.com', '$2b$12$9UycJm/ZJ4Y9Qs8QNw8gv.Yk.fC4126fkmqux3LTiQqXZTi03lIpS', 'user', 1),
+(93, 'pepe', 'pepe', 'pepe', 'pepe@pepe.es', '$2b$12$M3jXqkmvxqNQXdwpE.dhcOxkQ9FhBOXNHumT5zuY56ekaZ0lLvCVq', 'user', 1),
+(94, 'pepepe', 'pepepep', 'gdgdfgfdg', 'richardcorrea2306@gmail.com', '$2b$12$019D4PEgaYu/0I5oj6CcBO/i8/w9bDLn18.SqXabYkY4ScJ7u4j2S', 'user', 0),
+(95, 'fsdfsd', 'sdfsdf', 'sdfsdf', 'erwrwer@sdf.es', '$2b$12$8VrxuqS.9910xn1MzJSU1.1HL3VZrmyDTa01hzLx.Do.4Uu/ifxaC', 'user', 0),
+(96, 'dfsfsd', 'sdfsdf', 'sdfsdfsdf', 'richardcorrea2306@gmail.co', '$2b$12$kErLjcwr6XzI/vRzDy2X6eiHTF761.7vf3a126AOq9uY01kaxl.am', 'user', 0),
+(97, 'werwerw', 'erwerwer', 'werwer', 'richarrea2306@gmail.com', '$2b$12$gj7yjMDS.MiT8YErO3TSXOBocH83iiFPqFt8RXQqEgJMubQSsofye', 'user', 0),
+(98, 'wrwer', 'werwe', 'werwer', 'richardcorrea2306+hola@gmail.com', '$2b$12$t0rGF/fG4SdDo1dynvNOP.pMujp71ebz816jfssb1saPNYVvL1kri', 'user', 0),
+(99, 'werwerw', 'werwerewwer', 'werwerwerwerwer', 'lala@lala.com', '$2b$12$9pLMmnNH1r09QgZ5qa0iMety1hEySxmyrvbB.k7cpg75uRPBhE2Xe', 'user', 0),
+(100, 'werwerwe', 'fhsjkfh', 'kjhrw', 'teew@ff.co', '$2b$12$57qfRW/YrHXbcgJV2SZjJ.F0f5PG6PWT4YZidyLakS4tu8d7JO1Du', 'user', 0),
+(101, 'qweqwe', 'qwewqewq', 'qweqwewqe', 'ppoporwer@ede.cl', '$2b$12$jg7n7GJ8PigdtbG/WEGDXu9wnGJdQ2vWUtzzeRGFMMaz9kl2SGM6S', 'user', 0),
+(102, 'ertert', 'ertert', 'ertr', 'richardcorrea@gmail.com', '$2b$12$3hwukZya0s5cjkgI6Y/voOeDPd91CYOOapNL1HtF8dlQAZVnufY.m', 'user', 1);
 
 --
 -- Indexes for dumped tables
@@ -121,7 +131,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
 
 --
 -- Constraints for dumped tables

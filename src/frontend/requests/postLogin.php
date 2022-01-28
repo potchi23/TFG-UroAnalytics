@@ -1,6 +1,7 @@
 <?php
     include_once("../models/User.php");
     include_once("HttpRequests.php");
+    require_once("../config/config.php");
 
     session_start();
 
@@ -10,7 +11,7 @@
     );
 
     $http_requests = new HttpRequests();
-    $response = $http_requests->getResponse("http://localhost:5000/login", "POST", $post_req);
+    $response = $http_requests->getResponse("http://$BASE_URL:5000/login", "POST", $post_req);
     $data = $response["data"];
 
     $id = $data->id;
@@ -21,7 +22,6 @@
     $accepted = $data->accepted;
     $type = $data->type;
     $token = $data->token;
-
     $is_registered = $data->is_registered;
     
     if($response["status"] == 200) {

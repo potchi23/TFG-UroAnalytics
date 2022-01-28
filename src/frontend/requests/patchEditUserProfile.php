@@ -1,6 +1,7 @@
 <?php
     include_once("../models/User.php");
     include_once("HttpRequests.php");
+    require_once("../config/config.php");
 
     session_start();
 
@@ -37,12 +38,9 @@
             "email" => $email,
             "password" => $password
         );
-        
-        $url = "http://localhost:5000/users/" . $id;
 
-        $token = $user->get_token();
         $http_requests = new HttpRequests();
-        $response = $http_requests->getResponse($url, "PATCH", $patch_req, $token);
+        $response = $http_requests->getResponse("http://$BASE_URL:5000/users/$id", "PATCH", $patch_req, $user->get_token());
         
         $data = $response["data"];
 

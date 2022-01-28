@@ -1,7 +1,8 @@
 <?php
     include_once("models/User.php");
     include_once("requests/HttpRequests.php");
-
+    require_once("config/config.php");
+    
     session_start();
 
     $NUM_ELEMENTS_BY_PAGE = 5;
@@ -43,9 +44,6 @@
 
                     <table class="table table-striped table-bordered table-hover">
                         <?php
-                        // Enviamos token al servidor
-                        $token = $user->get_token();
-
                         $page = $_SESSION["page"];
                         
                         $get_req = array(
@@ -54,7 +52,7 @@
                         );
                 
                         $http_requests = new HttpRequests();
-                        $response = $http_requests->getResponse("http://localhost:5000/register_petitions", "GET", $get_req, $token);
+                        $response = $http_requests->getResponse("http://$BASE_URL:5000/register_petitions", "GET", $get_req, $user->get_token());
             
                         $data_array = $response["data"]->data;
 
@@ -109,9 +107,10 @@
                             }
 
                             $empty_rows = $NUM_ELEMENTS_BY_PAGE - $numElems;
+                            
                             for ($i = 0; $i < $empty_rows; $i++){
                                 echo "<tr>";
-                                for ($j = 0; $j < 6; $j++){
+                                for ($j = 0; $j < count((array)$data_array[0]) + 1; $j++){
                                     echo "<td><div style='margin-bottom:2.38rem;'></div></td>";
                                 }
                                 echo "</tr>";

@@ -1,5 +1,7 @@
 <?php
     include_once("HttpRequests.php");
+    require_once("../config/config.php");
+
     session_start();
     
     $_SESSION["error"] = array();
@@ -40,7 +42,7 @@
         );
 
         $http_requests = new HttpRequests();
-        $response = $http_requests->getResponse("http://localhost:5000/register", "POST", $post_req);
+        $response = $http_requests->getResponse("http://$BASE_URL:5000/register", "POST", $post_req);
         $data = $response["data"];
 
         $db_errno = $data->errno;
