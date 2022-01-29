@@ -40,7 +40,7 @@
         );
 
         $http_requests = new HttpRequests();
-        $response = $http_requests->getResponse("http://$BASE_URL:5000/users/$id", "PATCH", $patch_req, $user->get_token());
+        $response = $http_requests->getResponse("$BASE_URL/users/$id", "PATCH", $patch_req, $user->get_token());
 
         if($response["status"] == 200) {
             $user->set_name($name);

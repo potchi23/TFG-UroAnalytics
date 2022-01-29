@@ -12,7 +12,7 @@
     );
 
     $http_requests = new HttpRequests();
-    $response = $http_requests->getResponse("http://$BASE_URL:5000/register_petitions", "DELETE", $delete_req, $user->get_token());
+    $response = $http_requests->getResponse("$BASE_URL/register_petitions", "DELETE", $delete_req, $user->get_token());
    
     if($response["status"] == 200) {
         $data = $response["data"];

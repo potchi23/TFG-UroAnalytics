@@ -1,3 +1,4 @@
+import os
 import sys
 from flask import Flask, request
 from mysql import connector
@@ -12,6 +13,13 @@ app = Flask(__name__)
 CORS(app)
 bcrypt = Bcrypt(app)
 
+mydb = connector.connect(
+    host='localhost',
+    user='root',
+    password='',
+    database='tfg_bd'
+)
+
 # Decorador para verificar el JWT
 def token_required(f):
     @wraps(f)
@@ -25,7 +33,7 @@ def token_required(f):
             return { 'message' : 'Token is missing' }, 401
   
         try:
-            data = jwt.decode(token, app.config['SECRET_KEY'], 'HS256')
+            data = jwt.decode(token, str(app.config['SECRET_KEY']), 'HS256')
             user = { 'public_id' : data['public_id'], 'is_admin' : data['type'] == 'admin' }
             
         except Exception as e:
@@ -78,7 +86,7 @@ def login():
                 response['is_registered'] = True
                 response['type'] = user_info[7]
                 response['accepted'] = True
-                response['token'] = jwt.encode({'public_id': response['id'], 'type' : response['type'], 'exp' : datetime.utcnow() + timedelta(minutes = 60) }, app.config['SECRET_KEY'], 'HS256')
+                response['token'] = jwt.encode({'public_id': response['id'], 'type' : response['type'], 'exp' : datetime.utcnow() + timedelta(minutes = 60) }, str(app.config['SECRET_KEY']), 'HS256')
 
             else:
                 status = 404
@@ -274,19 +282,11 @@ class FlaskConfig:
     DEBUG = True
     TEST = True
     # Imprescindible para usar sesiones
-    SECRET_KEY = 'secret'
+    SECRET_KEY = os.getenv('SECRET_KEY', 'secret')
     STATIC_FOLDER = 'static'
     TEMPLATES_FOLDER = 'templates'
 
 
 if __name__ == '__main__':
     app.config.from_object(FlaskConfig())
-
-    mydb = connector.connect(
-        host='localhost',
-        user='root',
-        password='',
-        database='tfg_bd'
-    )
-
     app.run()

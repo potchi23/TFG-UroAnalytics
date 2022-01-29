@@ -1,3 +1,3 @@
 <?php
-    $BASE_URL = "localhost";
+    $BASE_URL = "http://localhost:5000";
 ?>

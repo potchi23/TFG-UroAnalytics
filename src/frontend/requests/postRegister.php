@@ -42,7 +42,7 @@
         );
 
         $http_requests = new HttpRequests();
-        $response = $http_requests->getResponse("http://$BASE_URL:5000/register", "POST", $post_req);
+        $response = $http_requests->getResponse("$BASE_URL/register", "POST", $post_req);
         $data = $response["data"];
 
         $db_errno = $data->errno;

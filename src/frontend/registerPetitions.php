@@ -52,7 +52,7 @@
                         );
                 
                         $http_requests = new HttpRequests();
-                        $response = $http_requests->getResponse("http://$BASE_URL:5000/register_petitions", "GET", $get_req, $user->get_token());
+                        $response = $http_requests->getResponse("$BASE_URL/register_petitions", "GET", $get_req, $user->get_token());
             
                         $data_array = $response["data"]->data;
 
