@@ -12,12 +12,13 @@
     <head>
         <title>Savana Barata - Login </title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link rel="stylesheet" href="css/forms.css"/>
+        <link rel="stylesheet" href="css/forms.css" styles="width=18.9px; height=61.7px;"/>
         <meta charset="utf-8">
     </head>
     <body>
         <div class="container">
             <div class="form-container">
+                <img class="logo" src="img/logo.png" alt="logo"/>
                 <h1 class="form-title">Acceder a la copia barata de Savana</h1>
 
                 <div class="form-content">
