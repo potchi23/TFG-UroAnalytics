@@ -22,7 +22,11 @@
         <div>
             <h2>Hola, <?php echo $user->get_full_name();?></h2>
             <h3>Tipo usuario: <?php echo $user->get_type()?></h3>
-            <a href="registerPetitions.php?page=1">Peticiones de registro</a>
+            <?php
+                if ($user->get_type() == 'admin') {
+                    echo "<a href='registerPetitions.php?page=1'>Peticiones de registro</a>";
+                }
+            ?>
             <a href="userProfile.php">Ver mi perfil</a>
 
             <p>Falta meter más cosas y barra lateral izquierdo</p>
