@@ -73,10 +73,11 @@ def login():
         user_info = cursor.fetchone()
         
         if not user_info:
-            status = 404
+            status = 401
             response['is_registered'] = False
+            response['accepted'] = False
         else:
-            if user_info[6] == 1 and bcrypt.check_password_hash(user_info[5], password) == True:
+            if user_info[6] == 1 and bcrypt.check_password_hash(user_info[5], password):
                 status = 200
                 response['id'] = user_info[0]
                 response['name'] = user_info[1]
@@ -89,7 +90,7 @@ def login():
                 response['token'] = jwt.encode({'public_id': response['id'], 'type' : response['type'], 'exp' : datetime.utcnow() + timedelta(minutes = 60) }, str(app.config['SECRET_KEY']), 'HS256')
 
             else:
-                status = 404
+                status = 401
                 response['is_registered'] = True
                 response['accepted'] = True
 
