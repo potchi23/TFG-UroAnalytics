@@ -18,7 +18,7 @@
     <body>
         <div class="container">
             <div class="form-container">
-                <img class="logo" src="img/logo.png" alt="logo"/>
+                <img class="logo" src="img/logo.png" alt="logo" draggable="false"/>
                 <h1 class="form-title">Acceder a la copia barata de Savana</h1>
 
                 <div class="form-content">
