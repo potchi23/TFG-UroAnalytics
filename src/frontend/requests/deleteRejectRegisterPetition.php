@@ -41,7 +41,7 @@
         
         $mail->send();
 
-        $page = $_GET["page"];
+        $page = $_GET["numElems"] == 1 ? $_GET["page"] - 1 : $_GET["page"];
         header("Location: ../registerPetitions.php?page=$page");
     }
     else{
