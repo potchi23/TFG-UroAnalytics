@@ -23,16 +23,16 @@
         $name = $data->name;
 
         $mail = new PHPMailer();
-        $mail->isSMTP();                        // Set mailer to use SMTP
-        $mail->Host       = "smtp.gmail.com;";    // Specify main SMTP server
-        $mail->SMTPAuth   = true;               // Enable SMTP authentication
-        $mail->Username   = $EMAIL_USER;     // SMTP username
-        $mail->Password   = $EMAIL_PASSWORD;         // SMTP password
-        $mail->SMTPSecure = "tls";              // Enable TLS encryption, "ssl" also accepted
-        $mail->Port       = 587;                // TCP port to connect to
+        $mail->isSMTP();                        
+        $mail->Host       = "smtp.gmail.com;";   
+        $mail->SMTPAuth   = true;               
+        $mail->Username   = $EMAIL_USER;     
+        $mail->Password   = $EMAIL_PASSWORD;         
+        $mail->SMTPSecure = "tls";              
+        $mail->Port       = 587;                
         
-        $mail->setFrom($EMAIL_USER, "Administrador");           // Set sender of the mail
-        $mail->addAddress($email);           // Add a recipient
+        $mail->setFrom($EMAIL_USER, "Administrador");           
+        $mail->addAddress($email);           
 
         $mail->isHTML(true);                                  
         $mail->Subject = "SOLICITUD DE REGISTRO RECHAZADA";
