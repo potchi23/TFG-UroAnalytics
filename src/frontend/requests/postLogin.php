@@ -33,12 +33,17 @@
     else if($response["status"] == 401){
         
         if($is_registered && $accepted){
-            $error = urlencode("Contraseña incorrecta");
-            header("Location: ../login.php?error=$error");
+            $_SESSION["error"] = "Contraseña incorrecta";
         }
         else{
-            $error = urlencode("El usuario no está registrado");
-            header("Location: ../login.php?error=$error");
+            $_SESSION["error"] = "El usuario no está registrado";
         }
+
+        header("Location: ../login.php");
+    }
+    else{
+        $_SESSION["error"] ="Hay un error desconocido en el servidor. Póngase en contacto con el administrador.";
+        
+        header("Location: ../login.php");
     }
 ?>

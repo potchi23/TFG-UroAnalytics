@@ -60,11 +60,11 @@
 
                 <?php
 
-                    if (isset($_GET["message"])){
-                        $message = $_GET["message"];
+                    if (isset($_SESSION["message"])){
+                        $message = $_SESSION["message"];
                         echo "<p></p><p class='alert alert-success'>$message</p>";
                     
-                        unset($_GET["message"]);
+                        unset($_SESSION["message"]);
                     }
 
                     if (isset($_SESSION["error"]) && count($_SESSION["error"]) > 0){

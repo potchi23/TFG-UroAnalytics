@@ -15,6 +15,7 @@
     $response = $http_requests->getResponse("$BASE_URL/register_petitions", "PATCH", $patch_req, $user->get_token());
    
     if($response["status"] == 200) {
+
         $data = $response["data"];
         $email = $data->email;
         $name = $data->name;
@@ -33,8 +34,8 @@
     else{
         if($response["status"] == 401){
             unset($_SESSION["user"]);
-            $message = urlencode("La sesión ha caducado");
-            header("Location: ../login.php?message=$message");
+            $_SESSION["message"] = "La sesión ha caducado";
+            header("Location: ../login.php");
         }
     }
 ?>

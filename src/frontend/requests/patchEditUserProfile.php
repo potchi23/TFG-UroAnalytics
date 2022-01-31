@@ -48,14 +48,14 @@
             $user->set_surname_2($surname_2);
             $user->set_email($email);
 
-            $message = urlencode("Usuario actualizado");
-            header("Location: ../userProfile.php?message=$message");
+            $_SESSION["message"] = "Usuario actualizado";
+            header("Location: ../userProfile.php");
         }
         else {
             if($response["status"] == 401){
                 unset($_SESSION["user"]);
-                $message = urlencode("La sesión ha caducado");
-                header("Location: ../login.php?message=$message");
+                $_SESSION["message"] = "La sesión ha caducado";
+                header("Location: ../login.php");
             }
         }
     }

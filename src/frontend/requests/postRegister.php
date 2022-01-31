@@ -48,18 +48,20 @@
         $db_errno = $data->errno;
 
         if($response["status"] == 200){
-            $email = $post_req["email"];
-            header("Location: ../pending.php?email=$email");
+            $_SESSION["email"] = $post_req["email"];
+            header("Location: ../pending.php");
         }
         else{
+            $_SESSION["error"] = array();
+
             if($db_errno == 1062){ // 1062 - Error de MySQL cuando hay un dato duplicado en la base de datos
-                $error = urlencode("El email introducido está en uso");
-                header("Location: ../register.php?error=$error");
+                array_push($_SESSION["error"], "El email introducido está en uso");
             }
             else{
-                $error = urlencode("Hay un error desconocido en el servidor");
-                header("Location: ../register.php?error=$error");
+                array_push($_SESSION["error"], "Hay un error desconocido en el servidor. Póngase en contacto con el administrador.");
             }
+
+            header("Location: ../register.php");
         }
     }
 

@@ -36,24 +36,24 @@
                 </div>
 
                 <?php
-                    if (isset($_GET["error"])){
-                        $error_array = explode(",", $_GET["error"]);
-                        
-                        foreach($error_array as $error){
-                            echo "<p class='alert alert-danger'>$error</p>";
-                        }
-
-                        unset($_GET["error"]);
+                    if (isset($_SESSION["error"])){
+                        $error = $_SESSION["error"];
+                        echo <<<EOL
+                            <div class='alert alert-danger'>
+                                <div>$error</div>
+                            </div>
+                        EOL;
+                        unset($_SESSION["error"]);
                     }
 
-                    if (isset($_GET["message"])){
-                        $message_array = explode(",", $_GET["message"]);
-                        
-                        foreach($message_array as $message){
-                            echo "<p class='alert alert-info'>$message</p>";
-                        }
-
-                        unset($_GET["message"]);
+                    if (isset($_SESSION["message"])){
+                        $message = $_SESSION["message"];
+                        echo <<<EOL
+                            <div class='alert alert-danger'>
+                                <div>$message</div>
+                            </div>
+                        EOL;
+                        unset($_SESSION["message"]);
                     }
                 ?>
 
