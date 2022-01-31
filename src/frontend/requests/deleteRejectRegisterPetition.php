@@ -20,7 +20,7 @@
     if($response["status"] == 200) {
         $data = $response["data"];
         $email = $data->email;
-        $name = $data->name;
+        $name = $data->name[0];
 
         $mail = new PHPMailer();
         $mail->isSMTP();                        

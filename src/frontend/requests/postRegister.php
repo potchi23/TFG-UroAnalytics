@@ -49,6 +49,7 @@
 
         if($response["status"] == 200){
             $_SESSION["email"] = $post_req["email"];
+            unset($_SESSION["error"]);
             header("Location: ../pending.php");
         }
         else{
