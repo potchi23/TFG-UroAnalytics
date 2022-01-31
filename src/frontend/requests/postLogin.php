@@ -11,7 +11,7 @@
     );
 
     $http_requests = new HttpRequests();
-    $response = $http_requests->getResponse("$BASE_URL/login", "POST", $post_req);
+    $response = $http_requests->getResponse("$BACKEND_URL/login", "POST", $post_req);
     
     $data = $response["data"];
 
