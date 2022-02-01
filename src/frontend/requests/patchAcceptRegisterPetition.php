@@ -34,7 +34,7 @@
         $mail->Port       = 587;                
         
         $mail->setFrom($EMAIL_USER, "Administrador");           
-        $mail->addAddress("richardcorrea2306@gmail.com");           
+        $mail->addAddress($email);           
 
         $mail->isHTML(true);                                  
         $mail->Subject = "SOLICITUD DE REGISTRO ACEPTADA";
