@@ -49,7 +49,7 @@
                     if (isset($_SESSION["message"])){
                         $message = $_SESSION["message"];
                         echo <<<EOL
-                            <div class='alert alert-danger'>
+                            <div class='alert alert-info'>
                                 <div>$message</div>
                             </div>
                         EOL;
