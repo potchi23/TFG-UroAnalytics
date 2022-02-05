@@ -262,17 +262,28 @@ def users(current_user, id):
         return response, status
 
     elif request.method == 'DELETE':
-        # cursor.mydb.cursor()
-        # query = f'DELETE FROM users WHERE id={id}'
-        # cursor.execute(query)
-        # mydb.commit()
-        # cursor.close()
-
-        # response = 'User Deleted Succesfully'
-        # status = 200
+        if current_user['public_id'] != int(id):
+            return {'message' : 'Forbidden'}, 403
         
-        # return response, status
-        return
+        cursor = mydb.cursor()
+        
+        query = f'SELECT name, email FROM users WHERE id = {id}'
+        cursor.execute(query)
+        data = cursor.fetchone()
+        
+        response['name'] = data[0],
+        response['email'] = data[1]
+
+        query = f'DELETE FROM users WHERE id={id}'
+
+        cursor.execute(query)
+        mydb.commit()
+        cursor.close()
+
+        status = 200
+        
+        return response, status
+
     else:
         return 'Method not supported', status
 

@@ -50,11 +50,10 @@
                 
                     <input type="submit" value="Guardar cambios" disabled>
                 </form>
-                <!--
                 <form action="requests/postDeleteUser.php" method="post" target="_self">
                     <input type="submit" value="Eliminar cuenta">
                 </form>
-                !-->
+                
                 </div>
                 <button class="btn btn-primary" onclick="enableEditing()">Editar información</button>
 
@@ -82,7 +81,7 @@
             function enableEditing(){
                 let input = document.getElementsByTagName('input');
 
-                for (i = 0; i < input.length; i++){
+                for (i = 0; i < input.length - 1; i++) {
                     input[i].disabled = !input[i].disabled;
                 }
             }
