@@ -30,6 +30,8 @@
                 }
             ?>
             <a href="userProfile.php">Ver mi perfil</a>
+            <a href="EditarPaciente.php">Editar paciente</a>
+            <a href="RegistrarPaciente.php">Añadir paciente</a>
 
             <p>Falta meter más cosas y barra lateral izquierdo</p>
             
