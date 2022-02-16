@@ -12,7 +12,8 @@ La sidebar, en este caso la de las consultas (Si quereis realizar la sidebar de 
       <?php include_once("querys/sidebarQuery.php")?>
   </div>
   
- El contenedor, donde pondremos el contenido de la vista:
+ El contenedor, donde pondremos el contenido de la vista (El cual es el único en el que debería cambiar su contenido en las vistas):
+ 
  <div class="content-container">   //Esta seria la clase contenedora donde cambiamos las css por ahora en sidebar.css
     <div class="container-fluid">  //Clase contenedora de bootstrap
         <!-- Main component for a primary marketing message or call to action -->
@@ -22,3 +23,12 @@ La sidebar, en este caso la de las consultas (Si quereis realizar la sidebar de 
         </div>
     </div>
 </div>  
+
+El footer:
+
+  <footer class="bg-light text-center text-lg-start">
+      <?php include_once("common/footer.php") ?>
+  </footer>
+  
+  
+ IMPORTANTE: si queremos incluir una carpeta que está en otra rama del directorio, por ejemplo, si estoy editanto algun php dentro de la carpeta querys, se debe hacer el include_once() con un "../" al principio del path
