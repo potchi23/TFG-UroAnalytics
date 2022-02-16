@@ -1,0 +1,24 @@
+DIFERENTES CLASES PARA EL CONTENIDO DEL PROYECTO
+
+Para poner el header simplemente ponemos:
+
+  <div class="header">
+      <?php include_once("common/header.php");?>
+  </div>
+
+La sidebar, en este caso la de las consultas (Si quereis realizar la sidebar de otra vista seguid el esquema de la mía cambiando los campos):
+
+  <div class="sidebar-container">
+      <?php include_once("querys/sidebarQuery.php")?>
+  </div>
+  
+ El contenedor, donde pondremos el contenido de la vista:
+ <div class="content-container">   //Esta seria la clase contenedora donde cambiamos las css por ahora en sidebar.css
+    <div class="container-fluid">  //Clase contenedora de bootstrap
+        <!-- Main component for a primary marketing message or call to action -->
+        <div class="jumbotron">  //Jumbotron sirve para hacer recuadros dentro del contenedor. Cada etiqueta dentro de esta clase suele heredar diferentes caracteristicas
+            //aqui pondriamos las diferentes etiquetas como h1, h2, p... Para poder escribir
+            <hr class="my-4">   //IMPORTANTE para poner separadores en forma de lineas, como en querySociodemographic.php dentro de la carpeta querys, poner
+        </div>
+    </div>
+</div>  
