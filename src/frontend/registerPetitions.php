@@ -34,7 +34,7 @@
         <script src="https://smtpjs.com/v3/smtp.js"></script>
     </head>
     <body>
-        <?php include_once("header/navbar.php");?>
+        <?php include_once("common/header.php");?>
 
         <div class="container">
             <div class="table-container">

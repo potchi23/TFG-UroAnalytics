@@ -13,7 +13,7 @@
     $surname_1 = $user->get_surname_1();
     $surname_2 = $user->get_surname_2();
     $email = $user->get_email();
-    $telefono = $usaer->get_telefono();
+    $telefono = $user->get_telefono();
     $patologia = $user->get_patologia();
     //meter los campos que sean
 ?>
@@ -27,7 +27,7 @@
         <meta charset="utf-8">
     </head>
     <body>
-        <?php include_once("header/navbar.php");?>
+        <?php include_once("common/header.php");?>
         <div class="container">
             <div class="form-container">
                 <h1 class="form-title">Editar paciente</h1>

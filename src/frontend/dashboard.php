@@ -20,7 +20,7 @@
         <meta charset="utf-8">
     </head>
     <body>        
-        <?php include_once("header/navbar.php");?>
+        <?php include_once("common/header.php");?>
         <div class="dashboard">
             <h2>Hola, <?php echo $user->get_full_name();?></h2>
             <h3>Tipo usuario: <?php echo $user->get_type()?></h3>

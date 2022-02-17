@@ -24,7 +24,7 @@
         <meta charset="utf-8">
     </head>
     <body>
-        <?php include_once("header/navbar.php");?>
+        <?php include_once("common/header.php");?>
         <div class="container">
             <div class="form-container">
                 <h1 class="form-title">Mis datos de perfil</h1>
