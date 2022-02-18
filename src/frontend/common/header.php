@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="css/header.css"/>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -20,10 +21,35 @@
       <li class="nav-item">
         <a class="nav-link" href="#"><img src="/img/icono_persona.png" height="30%" width="15%"></span></a>
       </li>
-      
     </ul>
-    <form class="form-inline my-2 my-lg-0">   
-      <a class="btn btn-danger my-2 my-sm-0" href=../logout.php>Logout</a>
-    </form>
+
+  <div class="dropdown">
+    <button onclick="dropdown()" class="dropbtn">
+      <img class="icon-account" src="/img/icon-my-account.svg" alt="icon-my-account"/>
+    </button>
+    <div id="myDropdown" class="dropdown-content">
+      <a href="../userProfile.php">Ver mi perfil</a>
+      <a href="../logout.php">Cerrar sesion</a>
+    </div>
+  </div>
+
+  <script language="javaScript"> 
+    function dropdown() {
+      document.getElementById("myDropdown").classList.toggle("show");
+    }
+
+    window.onclick = function(event) {
+      if (!event.target.matches('.icon-account')) {
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+          }
+        }
+      }
+    }
+  </script>
   </div>
 </nav>
