@@ -1,0 +1,26 @@
+label {
+    display: block;
+    text-align: left;
+    font-weight: bold;
+    padding-bottom:1px;
+    margin-bottom: 3px;
+}
+
+input {
+    border-color: #1d1c1c;
+    border-style: solid;
+    border-radius: 5px;
+    border-width: 1px;
+    padding:5px;
+
+    height: 30px;
+    width: 50%;
+}
+
+button {
+    margin: 0px 0px 15px 0px;
+}
+
+.alert-message {
+    width: 40%;
+}
