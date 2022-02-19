@@ -59,7 +59,7 @@
                             <div>
                                 <form action="./submit_csv.php" method="post" enctype="multipart/form-data">
                                     <input type="file" id="prediction-import" name="prediction-import">
-                                    <button class="btn btn-primary"type="submit">Importar desde CSV</label>
+                                    <button class="btn btn-primary"type="submit">Importar desde CSV</button>
                                 </form>
                             </div>
                         </div>
