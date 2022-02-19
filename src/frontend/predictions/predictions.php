@@ -17,11 +17,7 @@
         
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="../css/predictions.css">
-
-        <meta http-equiv="Expires" content="0">
-        <meta http-equiv="Last-Modified" content="0">
-        <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
-        <meta http-equiv="Pragma" content="no-cache">
+        <link rel="stylesheet" href="../css/header.css">
 
         <meta charset="utf-8">
 
@@ -50,8 +46,8 @@
                 <div class="container-fluid">
                     <!-- Main component for a primary marketing message or call to action -->
                     <div class="jumbotron">
-                        <h1 class="display-4" style="font-weight:600;">Realizar una predicción</h1>
-                        <hr class="my-4">
+                        <h1 class="display-8" style="font-weight:600;">Realizar una predicción</h1>
+                        <hr class="my-8">
 
                         <div class="prediction-header">
                             <h2> Datos del paciente</h2><br>
@@ -95,7 +91,7 @@
                             <input type="text" id="prediciton-precision" name="prediciton-precision" disabled>
                             <div class="input-group-append">
                                 <span class="input-group-text">%</span>
-                                <button class="btn btn-danger btn-sm" type="button">Predecir</button>
+                                <button class="btn btn-danger btn-sm" type="button" style="z-index:0;">Predecir</button>
                             </div>
                         </div>
 
