@@ -1,0 +1,41 @@
+.precision{
+    margin-top: 3rem;
+}
+
+.result{
+    margin-top: 1rem;
+}
+
+.precision label, .result label {
+    margin-top: 2px;
+    margin-right: 5px;
+}
+
+.result input{
+    background-color: white;
+    border-style: solid;
+    border-width: 1px;
+    border-color: lightgrey;
+    border-radius: 4px;
+    width: 9.7rem;
+    padding-left: 6px;
+}
+
+.precision input {
+    background-color: white;
+    border-style: solid;
+    border-width: 1px;
+    border-color: lightgrey;
+    border-radius: 4px;
+    width: 3.5rem;
+    padding-left: 6px;
+}
+
+.input-group-append{
+    height: 2rem;
+    width: 2rem;
+}
+
+.input-group-append{
+    background-color: wheat;
+}

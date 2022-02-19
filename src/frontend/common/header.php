@@ -10,7 +10,7 @@
         <a class="nav-link" href="../dashboard.php">Consultas <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Predicciones</a>
+        <a class="nav-link" href="../predictions/predictions.php">Predicciones</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Pacientes</a>
