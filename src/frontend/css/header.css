@@ -1,15 +1,14 @@
-.dropbtn {
+.icon-account {
     background-color: #007BFF;
     color: white;
-    padding: 15px 15px;
-    font-size: 16px;
+    padding: 10px 10px;
     border: none;
     cursor: pointer;
     margin: auto;
 }
 
-.dropbtn:hover, .dropbtn:focus {
-    background-color: #ffffff3f;
+.icon-account:hover, .icon-account:focus {
+    background-color: #00a2ff;
 }
 
 .dropdown {

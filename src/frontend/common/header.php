@@ -23,15 +23,15 @@
       </li>
     </ul>
 
-  <div class="dropdown">
-    <button onclick="dropdown()" class="dropbtn">
-      <img class="icon-account" src="/img/icon-my-account.svg" alt="icon-my-account"/>
-    </button>
-    <div id="myDropdown" class="dropdown-content">
-      <a href="../userProfile.php">Ver mi perfil</a>
-      <a href="../logout.php">Cerrar sesion</a>
-    </div>
-  </div>
+    <ul class="nav navbar-nav navbar-right">      
+      <div class="dropdown">
+        <img title="Mi cuenta" class="icon-account" onclick="dropdown()" src="/img/icon-my-account.svg" alt="icon-account"/>
+        <div id="myDropdown" class="dropdown-content">
+          <a href="../userProfile.php">Ver mi perfil</a>
+          <a href="../logout.php">Cerrar sesion</a>
+        </div>
+      </div>
+  </ul>
 
   <script language="javaScript"> 
     function dropdown() {
