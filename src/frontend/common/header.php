@@ -13,7 +13,7 @@
         <a class="nav-link" href="../predictions/predictions.php">Predicciones</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Pacientes</a>
+        <a class="nav-link" href="../patients/patientsIndex.php">Pacientes</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Datos</a>
