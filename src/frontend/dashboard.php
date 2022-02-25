@@ -20,9 +20,11 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
         <meta charset="utf-8">
     </head>
-    <body>        
-        <?php include_once("common/header.php");?>
-        <div class="dashboard">
+    <body>
+        <div class="header fixed-top">
+            <?php include_once("common/header.php");?>
+        </div>
+        <div class="dashboard">            
             <h2>Hola, <?php echo $user->get_full_name();?></h2>
             <h3>Tipo usuario: <?php echo $user->get_type()?></h3>
             <?php
@@ -30,7 +32,6 @@
                     echo "<a href='registerPetitions.php?page=1'>Peticiones de registro</a>";
                 }
             ?>
-            <a href="userProfile.php">Ver mi perfil</a>
             <a href="EditarPaciente.php">Editar paciente</a>
             <a href="RegistrarPaciente.php">Añadir paciente</a>
 
@@ -42,6 +43,10 @@
                 </div>
             </div>
         </div>
+
+        <footer class="bg-light text-center text-lg-start">
+            <?php include_once("common/footer.php")?>
+        </footer> 
     </body>
     
     <script src="js/barGraphExample.js"></script>

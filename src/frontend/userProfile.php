@@ -25,7 +25,7 @@
             <meta charset="utf-8">
         </head>
         <body>
-            <div class="header">
+            <div class="header fixed-top">
                 <?php include_once("common/header.php");?>
             </div>
             
@@ -52,7 +52,7 @@
                             }
                         ?> 
     
-                        <h1 class="display-8" style="font-weight:600;">Mis datos de perfil</h1>
+                        <h1 class="display-8" style="font-weight:600;margin-top:25px;">Mis datos de perfil</h1>
                         <hr class="my-8">
     
                         <button class="btn btn-primary" onclick="enableEditing()">Editar información</button><br>

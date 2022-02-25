@@ -13,7 +13,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Realizar consulta</title>
+        <title>Realizar predicción</title>
         
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="../css/predictions.css">
@@ -36,30 +36,40 @@
             }
         </script>
     </head>
-        <body>  
-            <div class="header">
-                <?php include_once("../common/header.php"); ?>
-            </div>
+        <body>
+            <div class="header fixed-top">
+                <?php include_once("../common/header.php");?>
+            </div>    
             
             <div class="content-container">
                 <div class="container-fluid">
                     <!-- Main component for a primary marketing message or call to action -->
                     <div class="jumbotron">
-                        <h1 class="display-8" style="font-weight:600;">Realizar una predicción</h1>
+                        <?php
+                            if (isset($_SESSION["error"]) && count($_SESSION["error"]) > 0){
+                                echo"</p><div class='alert-message' style='width: 30%;'><div class='alert alert-danger'>";
+                                foreach($_SESSION["error"] as $error){
+                                    echo "<div>$error</div>";
+                                }
+                                echo"</div></div>";
+                                unset($_SESSION["error"]);
+                            }
+                        ?> 
+                        <h1 class="display-8" style="font-weight:600;margin-top:25px;">Realizar una predicción</h1>
                         <hr class="my-8">
 
                         <div class="prediction-header">
                             <h2> Datos del paciente</h2><br>
-                         
+                        
                             <div>
                                 <form action="./submit_csv.php" method="post" enctype="multipart/form-data">
                                     <input type="file" id="prediction-import" name="prediction-import">
-                                    <button class="btn btn-primary"type="submit">Importar desde CSV</button>
+                                    <button class="btn btn-primary ml-4" type="submit">Importar desde CSV</button>
                                 </form>
                             </div>
                         </div>
 
-                        <br>
+                        <br><br>
                         <div class="d-flex justify-content-between input-group prediction-data">
                         
                         <?php
@@ -79,7 +89,7 @@
                         <button type="button" class="btn btn-primary btn-lg" name="alg">Regresión Logística</button>
                         <button type="button" class="btn btn-primary btn-lg" name="alg">k-NN</button>
                         <button type="button" class="btn btn-primary btn-lg" name="alg">Árboles Aleatorios</button>
-                        <button type="button" class="btn btn-primary btn-lg" style="background-color: #004370;" onclick="unselectButton2()">Quitar selección</button>
+                        <button type="button" class="btn btn-primary btn-lg ml-2" style="background-color: #004370;" onclick="unselectButton2()">Quitar selección</button>
                         
                         <div class="input-group precision">
                             
@@ -87,18 +97,19 @@
                                 Precisión: 
                             </label>
 
-                            <input type="text" id="prediciton-precision" name="prediciton-precision" disabled>
-                            <div class="input-group-append">
-                                <span class="input-group-text">%</span>
-                                <button class="btn btn-danger btn-sm" type="button" style="z-index:0;">Predecir</button>
+                            <input type="text" id="prediciton-precision" name="prediciton-precision" value="0.0" disabled>
+                            <div class="input-group-preppend">
+                                <span class="input-group-text" style="border-color: black;">%</span>
                             </div>
+                            <button class="btn btn-danger btn-sm ml-2" type="button" style="z-index:0;">Predecir</button>
+
                         </div>
 
                         <div class="input-group result">
                             <label for="prediction-result">
                                 Resultado: 
                             </label>
-                            <input type="text" id="prediciton-result" name="prediciton-result" value="tienes sida" disabled>
+                            <input type="text" id="prediciton-result" name="prediciton-result" value="Prediccion" disabled>
                         </div>
                     </div>
                 </div>

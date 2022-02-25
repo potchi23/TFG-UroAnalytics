@@ -1,16 +1,19 @@
 <?php
+
     session_start();
+
+    $_SESSION["error"] = array();
 
     $target_dir = "tmp/";
     $target_file = $target_dir . basename($_FILES["prediction-import"]["name"]);
     $fileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
     if($fileType != "csv") {
-        echo "Solo se permiten ficheros CSV.";
+        array_push($_SESSION["error"], "Solo se permiten ficheros CSV");
     } 
 
     else if ($_FILES["prediction-import"]["size"] > 2000) {
-        echo "El fichero es muy grande.";
+        array_push($_SESSION["error"], "El fichero es muy grande");
     }
     
     else{
@@ -34,7 +37,11 @@
             header("Location: predictions.php");
         } 
         else {
-            echo "Sorry, there was an error uploading your file.";
+            array_push($_SESSION["error"], "Sorry, there was an error uploading your file");
         }
+    }
+
+    if (count($_SESSION["error"]) > 0) {
+        header("Location: predictions.php");
     }
 ?>
