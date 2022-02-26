@@ -7,6 +7,7 @@
         header("Location: ../login.php");
     }
     define('import-form', TRUE);
+    define('get-scores', TRUE);
     $user = $_SESSION["user"];
 ?>
 
@@ -18,6 +19,8 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="../css/predictions.css">
         <link rel="stylesheet" href="../css/header.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="getScores.js"></script>
         <meta charset="utf-8">
 
         <script language="javaScript">
@@ -61,11 +64,25 @@
                         <div class="prediction-header">
                             <h2> Datos del paciente</h2><br>
                         
-                            <div>
-                                <form action="./submit_csv.php" method="post" enctype="multipart/form-data">
-                                    <input type="file" id="prediction-import" name="prediction-import">
-                                    <button class="btn btn-primary ml-4" type="submit">Importar desde CSV</button>
+                            <div class="import-form">
+                                <form action="submit_csv.php" method="post" enctype="multipart/form-data">
+                                    <label for="prediction-import" class="btn btn-info">
+                                        Importar desde CSV
+                                    </label>
+                                    <input id="prediction-import" type="file"/> 
+                                    <input id="" type="submit"/> 
+
                                 </form>
+                            </div>
+
+                            <div class="training-form">
+                                <form action="../requests/getTraining.php" method="get">
+                                    <label for="training-button" class="btn btn-danger">
+                                        Entrenar [PRUEBA!!!]
+                                    </label>
+                                    <input id="training-button" type="submit"/> 
+                                </form>
+                                <p>Ver logs en la consola de Flask</p>
                             </div>
                         </div>
 
@@ -86,23 +103,27 @@
                         <hr class="my-4">
                         <h2> Algoritmo a utilizar </h2>
                         <br>
-                        <button type="button" class="btn btn-primary btn-lg" name="alg">Regresión Logística</button>
-                        <button type="button" class="btn btn-primary btn-lg" name="alg">k-NN</button>
-                        <button type="button" class="btn btn-primary btn-lg" name="alg">Árboles Aleatorios</button>
-                        <button type="button" class="btn btn-primary btn-lg ml-2" style="background-color: #004370;" onclick="unselectButton2()">Quitar selección</button>
-                        
-                        <div class="input-group precision">
-                            
-                            <label for="prediction-precision">
-                                Precisión: 
-                            </label>
 
-                            <input type="text" id="prediciton-precision" name="prediciton-precision" value="0.0" disabled>
+                        <label for="algorithms">Algoritmo seleccionado:</label>
+                        <select name="algorithms" id="algorithms">
+                            <option value="default">Seleccione algoritmo...</option>
+                            <option value="rfc">Árboles Aleatorios</option>
+                            <option value="lrc">Regresión Logística</option>
+                            <option value="knn">k-NN</option>
+                        </select>
+                        
+                        <div class="input-group accuracy">
+                            
+                            <label for="prediction-accuracy">
+                                Accuracy: 
+                            </label>
+                            
+                            <input type="text" id="prediciton-accuracy" name="prediciton-accuracy" value="0.0" disabled>
                             <div class="input-group-preppend">
                                 <span class="input-group-text" style="border-color: black;">%</span>
                             </div>
-                            <button class="btn btn-danger btn-sm ml-2" type="button" style="z-index:0;">Predecir</button>
 
+                            <button class="btn btn-danger btn-sm ml-2" type="button" style="z-index:0;">Predecir</button>
                         </div>
 
                         <div class="input-group result">

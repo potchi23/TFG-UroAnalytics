@@ -1,6 +1,6 @@
 
 
-.precision{
+.accuracy{
     margin-top: 3rem;
 }
 
@@ -8,7 +8,7 @@
     margin-top: 1rem;
 }
 
-.precision label, .result label {
+.accuracy label, .result label {
     margin-top: 2px;
     margin-right: 5px;
 }
@@ -23,13 +23,13 @@
     padding-left: 6px;
 }
 
-.precision input {
+.accuracy input {
     background-color: white;
     border-style: solid;
     border-width: 1px;
     border-color: lightgrey;
     border-radius: 4px;
-    width: 3.5rem;
+    width: 3rem;
     padding-left: 6px;
 }
 
@@ -40,4 +40,8 @@
 
 .input-group-append{
     background-color: wheat;
+}
+
+.import-form input[type="file"], .training-form [type="submit"]{
+    display:none;
 }

@@ -3,3 +3,5 @@ mysql-connector-python
 flask-cors
 flask_bcrypt
 pyjwt
+pandas
+scikit-learn

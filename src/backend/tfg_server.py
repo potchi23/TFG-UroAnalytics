@@ -1,17 +1,23 @@
 import os
 import sys
-from flask import Flask, request
+from flask import Flask, request, session
 from mysql import connector
 from flask_cors import CORS
 from flask_bcrypt import Bcrypt
 from functools import wraps
 import jwt
 from datetime import datetime, timedelta
+from flask_session import Session
+import predictions
 
 app = Flask(__name__)
-
 CORS(app)
 bcrypt = Bcrypt(app)
+
+pipe_rfc = ''
+pipe_lrc = ''
+pipe_knn = ''
+scores = {}
 
 mydb = connector.connect(
     host='localhost',
@@ -287,6 +293,30 @@ def users(current_user, id):
     else:
         return 'Method not supported', status
 
+@app.route('/training', methods=['GET'])
+@token_required
+def train(current_user):
+    response = {}
+    status = 404
+
+    if request.method == 'GET':
+        pipe_rfc, pipe_lrc, pipe_knn, scores = predictions.trainModels()
+
+        response = scores
+        status = 200
+        return response, status
+
+@app.route('/training/scores', methods=['POST'])
+def getScores():
+    response = {}
+    status = 404
+
+    if request.method == 'POST':
+        print(session.get('scores', 'not set'))
+    
+        status = 200
+        return response, status
+
 class FlaskConfig:
     '''Configuración de Flask'''
     # Activa depurador y recarga automáticamente
@@ -302,3 +332,4 @@ class FlaskConfig:
 if __name__ == '__main__':
     app.config.from_object(FlaskConfig())
     app.run()
+
