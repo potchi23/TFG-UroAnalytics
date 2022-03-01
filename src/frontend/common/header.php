@@ -23,8 +23,9 @@
     </ul>
 
     <ul class="nav navbar-nav navbar-right">      
-      <div class="dropdown">
-        <img title="Mi cuenta" class="icon-account" onclick="dropdown()" src="/img/icon-my-account.svg" alt="icon-account"/>
+      <div class="dropdown" >
+        <i class="icon-account fa-solid fa-user-doctor fa-2x" onclick="dropdown()"></i>
+        
         <div id="myDropdown" class="dropdown-content">
           <a href="../userProfile.php">Ver mi perfil</a>
           <a href="../logout.php">Cerrar sesion</a>
@@ -34,14 +35,15 @@
 
   <script language="javaScript"> 
     function dropdown() {
-      document.getElementById("myDropdown").classList.toggle("show");
+      const dropdown = document.getElementById('myDropdown');
+      dropdown.classList.toggle('show');
     }
 
     window.onclick = function(event) {
       if (!event.target.matches('.icon-account')) {
-        var dropdowns = document.getElementsByClassName("dropdown-content");
-        var i;
-        for (i = 0; i < dropdowns.length; i++) {
+        var dropdowns = document.getElementsByClassName('dropdown-content');
+
+        for (var i = 0; i < dropdowns.length; i++) {
           var openDropdown = dropdowns[i];
           if (openDropdown.classList.contains('show')) {
             openDropdown.classList.remove('show');
