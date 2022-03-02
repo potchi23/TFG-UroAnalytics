@@ -67,12 +67,8 @@
                         
                             <div class="import-form">
                                 <form action="submit_csv.php" method="post" enctype="multipart/form-data">
-                                    <label for="prediction-import" class="btn btn-info">
-                                        Importar desde CSV
-                                    </label>
-                                    <input id="prediction-import" type="file"/> 
-                                    <input id="" type="submit"/> 
-
+                                    <input type="file" id="prediction-import" name="prediction-import">
+                                    <button class="btn btn-primary ml-4" type="submit">Importar desde CSV</button>
                                 </form>
                             </div>
 
@@ -115,17 +111,48 @@
                         
                         <div class="input-group accuracy">
                             
-                            <label for="prediction-accuracy">
-                                Accuracy: 
-                            </label>
-                            
-                            <input type="text" id="prediciton-accuracy" name="prediciton-accuracy" value="0.0" disabled>
-                            <div class="input-group-preppend">
-                                <span class="input-group-text" style="border-color: black;">%</span>
+                            <div class="prediction-accuracy">
+                                <label for="prediction-accuracy">
+                                    Accuracy: 
+                                </label>
+                                <input type="text" id="prediciton-accuracy" name="prediciton-accuracy" value="0.0" disabled>
                             </div>
 
-                            <button class="btn btn-danger btn-sm ml-2" type="button" style="z-index:0;">Predecir</button>
+                            <div class="prediction-recall">
+                                <label for="prediction-recall-1" style="margin-right:1.7rem;">
+                                    Recall Si (CASOS): 
+                                </label>
+                                <input type="text" id="prediciton-recall-1" name="prediciton-recall-1" value="0.0" disabled>
+
+                                <label for="prediciton-recall-2" style="margin-right:1.7rem;">
+                                    Recall No (CONTROLES): 
+                                </label>
+                                <input type="text" id="prediciton-recall-2" name="prediciton-recall-2" value="0.0" disabled>
+
+                                <label for="prediciton-recall-3" style="margin-right:1.7rem;">
+                                    Recall Persitencia PSA: 
+                                </label>
+                                <input type="text" id="prediciton-recall-3" name="prediciton-recall-3" value="0.0" disabled>
+                            </div>
+
+                            <div class="prediction-precision">
+                                <label for="prediction-precision-1">
+                                    Precision Si (CASOS): 
+                                </label>
+                                <input type="text" id="prediciton-precision-1" name="prediciton-precision-1" value="0.0" disabled>
+                                
+                                <label for="prediciton-precision-2">
+                                    Precision No (CONTROLES): 
+                                </label>
+                                <input type="text" id="prediciton-precision-2" name="prediciton-precision-2" value="0.0" disabled>
+                                
+                                <label for="prediciton-precision-3">
+                                    Precision Persitencia PSA: 
+                                </label>
+                                <input type="text" id="prediciton-precision-3" name="prediciton-precision-3" value="0.0" disabled>
+                            </div>
                         </div>
+                        <button class="btn btn-danger btn-sm ml-2" type="button" style="z-index:0;">Predecir</button>
 
                         <div class="input-group result">
                             <label for="prediction-result">

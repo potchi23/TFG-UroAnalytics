@@ -1,7 +1,9 @@
 
 
 .accuracy{
-    margin-top: 3rem;
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
 }
 
 .result{
@@ -29,7 +31,7 @@
     border-width: 1px;
     border-color: lightgrey;
     border-radius: 4px;
-    width: 3rem;
+    width: 5rem;
     padding-left: 6px;
 }
 
@@ -42,6 +44,6 @@
     background-color: wheat;
 }
 
-.import-form input[type="file"], .training-form [type="submit"]{
+.training-form [type="submit"]{
     display:none;
 }

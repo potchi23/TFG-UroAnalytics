@@ -1,5 +1,4 @@
 <?php
-
     session_start();
 
     $_SESSION["error"] = array();
@@ -10,7 +9,7 @@
 
     if($fileType != "csv") {
         array_push($_SESSION["error"], "Solo se permiten ficheros CSV");
-    } 
+    }
 
     else if ($_FILES["prediction-import"]["size"] > 2000) {
         array_push($_SESSION["error"], "El fichero es muy grande");

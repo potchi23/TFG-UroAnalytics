@@ -54,16 +54,11 @@ def randomForestTraining(X_train, X_test, y_train, y_test):
     pipe_rfc.fit(X_train, y_train)
     score = pipe_rfc.score(X_test, y_test)
 
-    """
-    score = {
-        'accuracy' : accuracy_score(y_test, y_pred),
-        'precision': precision_score(y_test, y_pred),
-        'recall': recall_score(y_test, y_pred),
-        'f1': f1_score(y_test, y_pred)
-    }
-    """
+    y_predict = pipe_rfc.predict(X_test)
+    recall = recall_score(y_test, y_predict, average=None)
+    precision = precision_score(y_test, y_predict, average=None)
 
-    return pipe_rfc, score
+    return pipe_rfc, score, recall, precision
 
 def logisticRegresionTraining(X_train, X_test, y_train, y_test):
     pipe_lrc = Pipeline([
@@ -73,15 +68,12 @@ def logisticRegresionTraining(X_train, X_test, y_train, y_test):
                     ])
     pipe_lrc.fit(X_train, y_train)
     score = pipe_lrc.score(X_test, y_test)
+    
+    y_predict = pipe_lrc.predict(X_test)
+    recall = recall_score(y_test, y_predict, average=None)
+    precision = precision_score(y_test, y_predict, average=None)
 
-    """    score = {
-            'accuracy' : accuracy_score(y_test, y_pred),
-            'precision': precision_score(y_test, y_pred),
-            'recall': recall_score(y_test, y_pred),
-            'f1': f1_score(y_test, y_pred)
-        }
-    """
-    return pipe_lrc, score
+    return pipe_lrc, score, recall, precision
     
 def knnTraining(X_train, X_test, y_train, y_test):
     pipe_knn = Pipeline([
@@ -92,15 +84,13 @@ def knnTraining(X_train, X_test, y_train, y_test):
     pipe_knn.fit(X_train, y_train)
     score = pipe_knn.score(X_test, y_test)
 
-    """score = {
-        'accuracy' : accuracy_score(y_test, y_pred),
-        'precision': precision_score(y_test, y_pred),
-        'recall': recall_score(y_test, y_pred),
-        'f1': f1_score(y_test, y_pred)
-    }
-    """
-    return pipe_knn, score
+    y_predict = pipe_knn.predict(X_test)
+    recall = recall_score(y_test, y_predict, average=None)
+    precision = precision_score(y_test, y_predict, average=None)
 
+    return pipe_knn, score, recall, precision
+
+# Punto de entrada
 def trainModels():
     print('Starting training...')
 
@@ -115,14 +105,26 @@ def trainModels():
     X = df.drop('RBQ', axis=1)
     X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=0.7)
 
-    pipe_rfc, score_rfc = randomForestTraining(X_train, X_test, y_train, y_test)
-    pipe_lrc, score_lrc = logisticRegresionTraining(X_train, X_test, y_train, y_test)
-    pipe_knn, score_knn = knnTraining(X_train, X_test, y_train, y_test)
+    pipe_rfc, accuracy_rfc, recall_rfc, precision_rfc = randomForestTraining(X_train, X_test, y_train, y_test)
+    pipe_lrc, accuracy_lrc, recall_lrc, precision_lrc = logisticRegresionTraining(X_train, X_test, y_train, y_test)
+    pipe_knn, accuracy_knn, recall_knn, precision_knn = knnTraining(X_train, X_test, y_train, y_test)
     
     scores = {
-        'rfc' : score_rfc,
-        'lrc' : score_lrc,
-        'knn' : score_knn,
+        'rfc' : {
+            'accuracy':accuracy_rfc,
+            'recall':list(recall_rfc),
+            'precision':list(precision_rfc)
+        },
+        'lrc' : {
+            'accuracy':accuracy_lrc,
+            'recall':list(recall_lrc),
+            'precision':list(precision_lrc)
+        },
+        'knn' : {
+            'accuracy':accuracy_knn,
+            'recall':list(recall_knn),
+            'precision':list(precision_knn)
+        }
     }
 
     return pipe_rfc, pipe_lrc, pipe_knn, scores
