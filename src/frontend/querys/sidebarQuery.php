@@ -1,57 +1,62 @@
   <div class="sidebar-logo">
-    FILTROS
+    CONSULTAS
   </div>
   <ul class="sidebar-navigation">
-    <li class="header">Tipos</li>
+    <li class="header-sidebar">Índice</li>
     <li>
-      <a href="../querys/querySociodemographic.php">
-        <i class="fa fa-home" aria-hidden="true"></i> Sociodemográfico
+      <a href="#indexQuery">
+        <i aria-hidden="true"></i> Inicio Consulta
+      </a>
+    </li>
+    <li>
+      <a href="#queryCIR">
+        <i aria-hidden="true"></i> Filiación
+      </a>
+    </li>
+    <li>
+      <a href="#querySociodemographic">
+        <i aria-hidden="true"></i> Sociodemográfico
+      </a>
+    </li>
+    <li>
+      <a href="#queryClinic">
+        <i aria-hidden="true"></i> Clínico-Patológicos
+      </a>
+    </li>
+    <li>
+      <a href="#queryBiopsy">
+        <i aria-hidden="true"></i> Biopsias Prostáticas
+      </a>
+    </li>
+    <li>
+      <a href="#queryProstate">
+        <i aria-hidden="true"></i> Tras Prostatectomía
+      </a>
+    </li>
+    <li>
+      <a href="#queryEvolve">
+        <i aria-hidden="true"></i> Evolutivos
+      </a>
+    </li>
+    <li>
+      <a href="#queryMarkers">
+        <i aria-hidden="true"></i> Marcadores
+      </a>
+    </li>
+    <li class="header-sidebar">Opciones</li>
+    <li>
+      <a href="#">
+        <i aria-hidden="true"></i> Realizar consulta
+      </a>
+    </li>
+    <li>
+      <a href="../queryIndex.php">
+        <i aria-hidden="true"></i> Reiniciar filtros
       </a>
     </li>
     <li>
       <a href="#">
-        <i class="fa fa-tachometer" aria-hidden="true"></i> Antecedentes
-      </a>
-    </li>
-    <li>
-      <a href="#">
-        <i class="fa fa-tachometer" aria-hidden="true"></i> Clínico-Patológicos
-      </a>
-    </li>
-    <li>
-      <a href="#">
-        <i class="fa fa-tachometer" aria-hidden="true"></i> Biopsias Prostáticas
-      </a>
-    </li>
-    <li>
-      <a href="#">
-        <i class="fa fa-tachometer" aria-hidden="true"></i> Tras Prostatectomía
-      </a>
-    </li>
-    <li>
-      <a href="#">
-        <i class="fa fa-tachometer" aria-hidden="true"></i> Evolutivos
-      </a>
-    </li>
-    <li>
-      <a href="#">
-        <i class="fa fa-tachometer" aria-hidden="true"></i> Marcadores
-      </a>
-    </li>
-    <li class="header">Ajustes</li>
-    <li>
-      <a href="#">
-        <i class="fa fa-users" aria-hidden="true"></i> Realizar consulta
-      </a>
-    </li>
-    <li>
-      <a href="#">
-        <i class="fa fa-cog" aria-hidden="true"></i> Reiniciar filtros
-      </a>
-    </li>
-    <li>
-      <a href="#">
-        <i class="fa fa-info-circle" aria-hidden="true"></i> Exportar consulta
+        <i aria-hidden="true"></i> Exportar consulta
       </a>
     </li>
   </ul>

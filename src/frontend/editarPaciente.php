@@ -22,12 +22,15 @@
 <html>
     <head>
         <title>Editar paciente</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="css/forms.css"/>
-        <meta charset="utf-8">
+        <?php include_once("common/includes.php");?>
     </head>
     <body>
-        <?php include_once("common/header.php");?>
+        <div class="header">
+            <div class="fixed-top">
+                <?php include_once("common/header.php");?>
+            </div>
+        </div>   
         <div class="container">
             <div class="form-container">
                 <h1 class="form-title">Editar paciente</h1>

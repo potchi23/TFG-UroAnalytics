@@ -8,31 +8,72 @@
 <html>
     <head>
         <title>Realizar consulta</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link rel="stylesheet" href="css/sidebar.css">
-        <link rel="stylesheet" href="css/header.css"/>
+
+        <?php include_once("common/includes.php");?>
+        
+        <script language="javaScript">          
+            function toggleCB(op) { 
+                op.disabled = !op.disabled;
+            }
+        </script>
+
         <meta charset="utf-8">
     </head>
     <body>  
                 <div class="header">
-                    <?php include_once("common/header.php");?>
-                </div>
-                <div class="sidebar-container">
+                    <div class="fixed-top">
+                        <?php include_once("common/header.php");?>
+                    </div>
+                </div>    
+                <div class="sidebar-container" id="list-example">
                     <?php include_once("querys/sidebarQuery.php")?>
                 </div>
-                <div class="content-container">
+                <div class="content-container" data-bs-spy="scroll" data-bs-target="#list-example" data-bs-offset="0" class="scrollspy-example" tabindex="0">
                     <div class="container-fluid">
                         <!-- Main component for a primary marketing message or call to action -->
-                        <div class="jumbotron">
-                            <h1>Realizador de consultas</h1>
-                            <p>Para realizar una consulta debe rellenar los filtros deseados de la barra lateral izquierda.</p>
-                            <p>A continuación deberá presionar el botón de realizar consulta.</p>
-                            <p>
-                                <a class="btn btn-lg btn-primary" href="../../components/#navbar" role="button">View navbar docs &raquo;</a>
-                            </p>
+                        <div class="jumbotron" id="indexQuery">
+                            <h1 style="font-weight: 600">Realizador de consultas</h1>
+                            <hr class="my-4">
+                            <h5>Para realizar una consulta debe rellenar los filtros deseados de la barra lateral izquierda.</h5>
+                            <h5>A continuación deberá presionar el botón de realizar consulta.</h5>
                         </div>
+                        
+                        <div id="queryCIR">
+                            <?php include_once("querys/queryCIR.php")?>
+                        </div>
+
+                        <div id="querySociodemographic">
+                            <?php include_once("querys/querySociodemographic.php")?>
+                        </div>
+                        <!--
+                        <div id="queryBackground">
+                            <?php include_once("querys/queryBackground.php")?>
+                        </div>
+                        -->
+                        <div id="queryClinic">
+                            <?php include_once("querys/queryClinic.php")?>
+                        </div>
+
+                        <div id="queryBiopsy">
+                            <?php include_once("querys/queryBiopsy.php")?>
+                        </div>
+
+                        <div id="queryProstate">
+                            <?php include_once("querys/queryProstate.php")?>
+                        </div>
+
+                        <div id="queryEvolve">
+                            <?php include_once("querys/queryEvolve.php")?>
+                        </div>
+
+                        <div id="queryMarkers">
+                            <?php include_once("querys/queryMarkers.php")?>
+                        </div>
+
                     </div>
-                </div>  
+                </div>
+
+               
                 <footer class="bg-light text-center text-lg-start">
                     <?php include_once("common/footer.php")?>
                 </footer>  
