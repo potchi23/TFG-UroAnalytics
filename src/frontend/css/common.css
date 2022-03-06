@@ -1,0 +1,4 @@
+.custom-select .option:checked {
+    margin: 40px;
+    background-color: #007BFF;
+}
