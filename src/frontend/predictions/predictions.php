@@ -41,8 +41,10 @@
         </script>
     </head>
         <body>
-            <div class="header fixed-top">
-                <?php include_once("../common/header.php");?>
+            <div class="header">
+                <div class="fixed-top">
+                    <?php include_once("../common/header.php");?>
+                </div>
             </div>    
             
             <div class="content-container">
@@ -59,7 +61,7 @@
                                 unset($_SESSION["error"]);
                             }
                         ?> 
-                        <h1 class="display-8" style="font-weight:600;margin-top:25px;">Realizar una predicción</h1>
+                        <h1 class="display-8" style="font-weight:600;">Realizar una predicción</h1>
                         <hr class="my-8">
 
                         <div class="prediction-header">
