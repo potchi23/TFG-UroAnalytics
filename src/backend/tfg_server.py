@@ -8,7 +8,9 @@ from functools import wraps
 import jwt
 from datetime import datetime, timedelta
 from flask_session import Session
+from sqlalchemy import create_engine
 import predictions
+import pandas as pd
 
 app = Flask(__name__)
 CORS(app)
@@ -316,6 +318,46 @@ def getScores():
     
         status = 200
         return response, status
+
+@app.route('/importdb', methods=['POST', 'GET'])
+def importdb():
+    status = 400
+    response = {}
+
+    if request.method == 'POST':
+        filename = request.form['filename']
+        filepath = "../frontend/requests/tmp_uploads/" + filename
+        #leer archivo
+        df = pd.read_excel(filepath, header=1)
+        #eliminar archivo del frontend
+        os.remove(filepath)
+
+        #limpiar datos
+        df = clearDFdata(df)
+
+        #pasar a csv para aumentar rapidez de procesamiento
+        #df.to_csv("uploads/" + filename.split('.')[0] + '.csv', index=False, header=False)
+        engine = create_engine('mysql://root:@localhost/tfg_bd', echo = False)
+        df.to_sql(name='patients', con=engine, if_exists='append', index=False)
+
+    return response
+
+def clearDFdata(df):
+    #cogemos los datos ya existentes para evitar duplicados
+    cursor = mydb.cursor()
+    
+    query = f'SELECT * FROM patients'
+    cursor.execute(query)
+
+    #dataframe de la tabla que está en phpmyadmin
+    df_db = pd.DataFrame(cursor.fetchall())
+    df_db.columns = [i[0] for i in cursor.description]
+
+    cursor.close()
+
+    df = pd.concat([df, df_db]).drop_duplicates(keep=False)
+    
+    return df
 
 class FlaskConfig:
     '''Configuración de Flask'''

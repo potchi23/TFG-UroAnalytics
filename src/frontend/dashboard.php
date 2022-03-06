@@ -23,22 +23,24 @@
                 <?php include_once("common/header.php");?>
             </div>
         </div>   
-        <div class="dashboard">            
-            <h2>Hola, <?php echo $user->get_full_name();?></h2>
-            <h3>Tipo usuario: <?php echo $user->get_type()?></h3>
-            <?php
-                if ($user->get_type() == 'admin') {
-                    echo "<a href='registerPetitions.php?page=1'>Peticiones de registro</a>";
-                }
-            ?>
-            <a href="EditarPaciente.php">Editar paciente</a>
-            <a href="RegistrarPaciente.php">Añadir paciente</a>
 
-            <p>Falta meter más cosas y barra lateral izquierdo</p>
-            
-            <div class="graphics">
-                <div class="chart-container">
-                    <canvas id="bar-chart" width="50" height="30"></canvas>
+        <div class="content-container">
+            <div class="content-fluid">
+                <div class="jumbotron">
+                    <h2>Hola, <?php echo $user->get_full_name();?></h2>
+                    <h3>Tipo usuario: <?php echo $user->get_type()?></h3>
+                    <?php
+                        if ($user->get_type() == 'admin') {
+                            echo "<a href='registerPetitions.php?page=1'>Peticiones de registro</a>";
+                        }
+                    ?>
+                    <p>Falta meter más cosas y barra lateral izquierdo</p>
+                    
+                    <div class="graphics">
+                        <div class="chart-container">
+                            <canvas id="bar-chart" width="50" height="30"></canvas>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
