@@ -15,7 +15,7 @@
         <a class="nav-link" href="../patients/patientsIndex.php">Pacientes</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Datos</a>
+        <a class="nav-link" href="../data/dataIndex.php">Datos</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#"><img src="/img/icono_persona.png" height="30%" width="15%"></span></a>
