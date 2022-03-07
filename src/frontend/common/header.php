@@ -17,6 +17,13 @@
       <li class="nav-item">
         <a class="nav-link" href="../data/dataIndex.php">Datos</a>
       </li>
+      <?php
+          $user = $_SESSION["user"];
+          
+          if ($user->get_type() == 'admin') {
+            echo "<li class='nav-item'><a class='nav-link' href='../registerPetitions.php?page=1'>Peticiones de registro</a></li>";
+          }
+      ?> 
     </ul>
 
     <ul class="nav navbar-nav navbar-right">      
