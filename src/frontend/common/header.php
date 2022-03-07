@@ -17,9 +17,6 @@
       <li class="nav-item">
         <a class="nav-link" href="../data/dataIndex.php">Datos</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#"><img src="/img/icono_persona.png" height="30%" width="15%"></span></a>
-      </li>
     </ul>
 
     <ul class="nav navbar-nav navbar-right">      
