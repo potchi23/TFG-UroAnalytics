@@ -27,7 +27,11 @@
         <title>Solicitudes de registro</title>
         <link rel="stylesheet" href="css/forms.css"/>
         <link rel="stylesheet" href="css/registerPetitions.css"/>
-        <?php include_once("common/includes.php");?>
+        <!-- <?php include_once("common/includes.php");?> -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="css/formUserProfile.css"/>
+        <link rel="stylesheet" href="css/header.css"/>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://smtpjs.com/v3/smtp.js"></script>
@@ -39,7 +43,136 @@
             </div>
         </div>   
 
-        <div class="container">
+        <div class="content-container">
+            <div class="container-fluid">
+                <div class="jumbotron">
+                    <h1 style="font-weight:600;">Solicitudes de registro</h1>
+                    <hr class="my-8">
+
+                    <?php
+                        $page = $_SESSION["page"];
+                        
+                        $get_req = array(
+                            "offset" => ($page - 1) * $NUM_ELEMENTS_BY_PAGE,
+                            "num_elems" => $NUM_ELEMENTS_BY_PAGE
+                        );
+                
+                        $http_requests = new HttpRequests();
+                        $response = $http_requests->getResponse("$BACKEND_URL/register_petitions", "GET", $get_req, $user->get_token());
+            
+                        $data_array = $response["data"]->data;
+                        $num_petitions = $response["data"]->num_entries[0];
+
+                        if($response["status"] != 200) {
+                            if($response["status"] == 401){
+                                unset($_SESSION["user"]);
+                                $_SESSION["message"] = "La sesión ha caducado";
+                                header("Location: ../login.php");
+                            }
+                        }
+
+                        if($num_petitions > 0) 
+                            echo "<h5>Número de solicitudes: " . $num_petitions . "</h5><br>";
+                        else
+                            echo "<h5>No hay solicitudes de registro</h5><br>";                                        
+                    ?>
+
+                    <div class="table-container m-auto">
+                        <div class="table-responsive table-content">
+                            <table class="table table-striped table-bordered table-hover table-light">
+                                <?php                                    
+                                    if (count($data_array) > 0) {
+                                        echo <<< EOL
+                                            <tr class="thead-dark">
+                                                <th>ID</th>
+                                                <th>Nombre</th>
+                                                <th>Apellido 1</th>
+                                                <th>Apellido 2</th>
+                                                <th>Email</th>
+                                                <th>Aceptar</th>
+                                            </tr>
+                                        EOL;
+
+                                        $numElems = count($data_array);
+
+                                        foreach($data_array as $petition){
+                                            echo <<<EOL
+                                                <tr id="register_petition_$petition->id">
+                                                    <td> $petition->id </td>
+                                                    <td> $petition->name </td>
+                                                    <td> $petition->surname_1 </td>
+                                                    <td> $petition->surname_2 </td>
+                                                    <td> $petition->email </td>
+                                                    <td class="buttons-row">
+                                                        <div class="buttons-container">
+                                                            <div class="req-btn p-6">
+                                                                <form action="requests/patchAcceptRegisterPetition.php?page=$page&numElems=$numElems" method="POST">
+                                                                    <input type="hidden" id="id" name="id" value="$petition->id"></input>
+                                                                    <input class="btn btn-outline-success" type="submit" value="✔" style="margin:auto;padding:10px 30px 28px 10px;"></input>
+                                                                </form>
+                                                            </div>
+                                                            <div class="req-btn p-6">
+                                                                <form action="requests/deleteRejectRegisterPetition.php?page=$page&numElems=$numElems" method="POST">
+                                                                    <input type="hidden" id="id" name="id" value="$petition->id"></input>
+                                                                    <input class="btn btn-outline-danger" type="submit" value="✘" style="margin:auto;padding:10px 28px 28px 10px;"></input>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            EOL;
+                                        }
+
+                                        $empty_rows = $NUM_ELEMENTS_BY_PAGE - $numElems;
+                                        
+                                        for ($i = 0; $i < $empty_rows; $i++){
+                                            echo "<tr>";
+                                            for ($j = 0; $j < count((array)$data_array[0]) + 1; $j++){
+                                                echo "<td><div style='margin-bottom:2.38rem;'></div></td>";
+                                            }
+                                            echo "</tr>";
+                                        }
+                                    }
+                                    else{
+                                        echo "<h3>No hay solicitudes de registro</h3>";
+                                    }
+                                ?>
+                            </table>
+                            
+                            <div class="page-buttons">
+                                <?php
+                                if(count($data_array) > 0){
+                                    echo "<div>";
+                                    if($_SESSION["page"] != 1 && count($data_array) > 0){
+                                        $prev_page = $_SESSION["page"] - 1;    
+                                        echo "<a class='btn btn-primary previous' href='registerPetitions.php?page=$prev_page'><</a>";      
+                                    }                                    
+                                    echo "</div>";
+                                    
+                                    $numPages = ceil($response["data"]->num_entries[0]/$NUM_ELEMENTS_BY_PAGE);
+                                    echo "<div style='background-color:#e9ecef; border-color:#e9ecef' class='btn btn-warning'>$page/$numPages</div>";
+
+                                    echo "<div>";
+                                    if ($get_req["offset"] + $NUM_ELEMENTS_BY_PAGE < $response["data"]->num_entries[0] && count($data_array) > 0){
+                                        $next_page = $_SESSION["page"] + 1;    
+                                        echo "<a class='btn btn-primary next' href='registerPetitions.php?page=$next_page'>></a>"; 
+                                    }
+                                    else{
+                                        echo "<div style='background-color:#e9ecef; border-color:#e9ecef;'class='btn btn-primary previous'>></div>";      
+                                    }
+                                    echo "</div>";
+                                }
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="container">
             <div class="table-container">
 
                 <div class="table-responsive table-content">
@@ -58,6 +191,7 @@
                         $response = $http_requests->getResponse("$BACKEND_URL/register_petitions", "GET", $get_req, $user->get_token());
             
                         $data_array = $response["data"]->data;
+                        $num_petitions = $response["data"]->num_entries[0];
 
                         if($response["status"] != 200) {
                             if($response["status"] == 401){
@@ -134,7 +268,7 @@
                                 echo "<a class='btn btn-primary previous' href='registerPetitions.php?page=$prev_page'><</a>";      
                             }
                             else{
-                                echo "<div style='background-color:white; border-color:white;'class='btn btn-primary previous'><</div>";      
+                                echo "<div style='background-color:white; border-color:grey;'class='btn btn-primary previous'><</div>";      
                             }
                             echo "</div>";
                             
@@ -155,6 +289,6 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
     </body>
 </html>
