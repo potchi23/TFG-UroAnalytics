@@ -21,7 +21,7 @@
         <link rel="stylesheet" href="../css/predictions.css">
         <link rel="stylesheet" href="../css/header.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="getScores.js"></script>
+        <script src="predictions.js"></script>
         <meta charset="utf-8">
 
         <script language="javaScript">
@@ -154,7 +154,7 @@
                                 <input type="text" id="prediciton-precision-3" name="prediciton-precision-3" value="0.0" disabled>
                             </div>
                         </div>
-                        <button class="btn btn-danger btn-sm ml-2" type="button" style="z-index:0;">Predecir</button>
+                        <button class="btn btn-danger btn-sm ml-2" id="prediction-button" type="button" style="z-index:0;">Predecir</button>
 
                         <div class="input-group result">
                             <label for="prediction-result">

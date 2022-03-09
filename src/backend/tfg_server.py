@@ -1,3 +1,5 @@
+from calendar import c
+from itertools import count
 import os
 import sys
 from flask import Flask, request, session
@@ -11,15 +13,12 @@ from flask_session import Session
 from sqlalchemy import create_engine
 import predictions
 import pandas as pd
+import json
+import numpy as np
 
 app = Flask(__name__)
 CORS(app)
 bcrypt = Bcrypt(app)
-
-pipe_rfc = ''
-pipe_lrc = ''
-pipe_knn = ''
-scores = {}
 
 mydb = connector.connect(
     host='localhost',
@@ -27,6 +26,11 @@ mydb = connector.connect(
     password='',
     database='tfg_bd'
 )
+
+pipe_rfc = ''
+pipe_lrc = ''
+pipe_knn = ''
+scores = {}
 
 # Decorador para verificar el JWT
 def token_required(f):
@@ -299,7 +303,10 @@ def users(current_user, id):
 @token_required
 def train(current_user):
     response = {}
-    status = 404
+
+    global pipe_rfc
+    global pipe_lrc
+    global pipe_knn
 
     if request.method == 'GET':
         pipe_rfc, pipe_lrc, pipe_knn, scores = predictions.trainModels()
@@ -316,6 +323,24 @@ def getScores():
     if request.method == 'POST':
         print(session.get('scores', 'not set'))
     
+        status = 200
+        return response, status
+
+@app.route('/predict', methods=['POST'])
+#@token_required
+def predict(current_user=''):
+    status = 404
+    if request.method == 'POST':
+        features = request.form['features'].split(',')
+
+        prediction = pipe_rfc.predict(np.array(features).reshape(1, -1))
+
+        print(prediction[0])
+        if prediction[0]:
+            response = 'RECIVIVA'
+        else:
+            response = 'NO RECIVIVA'
+  
         status = 200
         return response, status
 
