@@ -332,10 +332,16 @@ def predict(current_user=''):
     status = 404
     if request.method == 'POST':
         features = request.form['features'].split(',')
+        algorithm = request.form['algorithm']
 
-        prediction = pipe_rfc.predict(np.array(features).reshape(1, -1))
+        print(algorithm)
+        if(algorithm == 'rfc'):
+            prediction = pipe_rfc.predict(np.array(features).reshape(1, -1))
+        elif (algorithm == 'lrc'):
+            prediction = pipe_lrc.predict(np.array(features).reshape(1, -1))
+        else:
+            prediction = pipe_knn.predict(np.array(features).reshape(1, -1))
 
-        print(prediction[0])
         if prediction[0]:
             response = 'RECIVIVA'
         else:

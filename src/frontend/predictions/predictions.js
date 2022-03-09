@@ -51,7 +51,8 @@ $(document).ready(() => {
         });
         
         let data = {
-            'features': features.toString()
+            'features': features.toString(),
+            'algorithm' : $('#algorithms').val()
         }
         $.ajax({
             type: 'POST',
