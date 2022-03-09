@@ -334,7 +334,6 @@ def predict(current_user=''):
         features = request.form['features'].split(',')
         algorithm = request.form['algorithm']
 
-        print(algorithm)
         if(algorithm == 'rfc'):
             prediction = pipe_rfc.predict(np.array(features).reshape(1, -1))
         elif (algorithm == 'lrc'):
@@ -342,11 +341,16 @@ def predict(current_user=''):
         else:
             prediction = pipe_knn.predict(np.array(features).reshape(1, -1))
 
-        if prediction[0]:
-            response = 'RECIVIVA'
+        if prediction[0] == 1:
+            response = 'Si (CASOS)'
+        elif prediction[0] == 2:
+            response = 'NO (CONTROLES)'
+        elif prediction[0] == 3: 
+            response = 'PERSISTENCIA PSA'
         else:
-            response = 'NO RECIVIVA'
-  
+            response = 'error'
+
+        print('[LOG] Result RBQ:', prediction[0])
         status = 200
         return response, status
 
