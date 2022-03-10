@@ -31,6 +31,7 @@ pipe_rfc = ''
 pipe_lrc = ''
 pipe_knn = ''
 scores = {}
+last_train = 'never'
 
 # Decorador para verificar el JWT
 def token_required(f):
@@ -299,6 +300,17 @@ def users(current_user, id):
     else:
         return 'Method not supported', status
 
+@app.before_first_request
+def trainOnStartup():
+    global pipe_rfc
+    global pipe_lrc
+    global pipe_knn
+    global scores
+    global last_train
+
+    last_train = datetime.utcnow()
+    pipe_rfc, pipe_lrc, pipe_knn, scores = predictions.trainModels()
+
 @app.route('/training', methods=['GET'])
 @token_required
 def train(current_user):
@@ -307,22 +319,28 @@ def train(current_user):
     global pipe_rfc
     global pipe_lrc
     global pipe_knn
+    global scores
+    global last_train
 
     if request.method == 'GET':
         pipe_rfc, pipe_lrc, pipe_knn, scores = predictions.trainModels()
-
-        response = scores
+    
+        last_train =  str(datetime.utcnow()).split('.')[0]
+        response = { 'last_train' : last_train }
         status = 200
+
         return response, status
 
-@app.route('/training/scores', methods=['POST'])
+@app.route('/training/scores', methods=['GET'])
 def getScores():
     response = {}
     status = 404
 
-    if request.method == 'POST':
-        print(session.get('scores', 'not set'))
-    
+    if request.method == 'GET':
+        #print(session.get('scores', 'not set'))
+        global scores
+        response = scores
+
         status = 200
         return response, status
 
@@ -342,7 +360,7 @@ def predict(current_user=''):
             prediction = pipe_knn.predict(np.array(features).reshape(1, -1))
 
         if prediction[0] == 1:
-            response = 'Si (CASOS)'
+            response = 'SI (CASOS)'
         elif prediction[0] == 2:
             response = 'NO (CONTROLES)'
         elif prediction[0] == 3: 

@@ -7,7 +7,6 @@
         header("Location: ../login.php");
     }
     define('import-form', TRUE);
-    define('get-scores', TRUE);
     $user = $_SESSION["user"];
 ?>
 
@@ -51,17 +50,18 @@
                 <div class="container-fluid">
                     <!-- Main component for a primary marketing message or call to action -->
                     <div class="jumbotron">
-                        <?php
-                            if (isset($_SESSION["error"]) && count($_SESSION["error"]) > 0){
-                                echo"</p><div class='alert-message' style='width: 30%;'><div class='alert alert-danger'>";
-                                foreach($_SESSION["error"] as $error){
-                                    echo "<div>$error</div>";
-                                }
-                                echo"</div></div>";
-                                unset($_SESSION["error"]);
-                            }
-                        ?> 
+                        
                         <h1 class="display-8" style="font-weight:600;">Realizar una predicción</h1>
+
+                        <?php
+                            if(!isset($_SESSION["last_train"])){
+                                echo "<p>Último entrenamiento: Nunca</p>";
+                            }
+                            else{
+                                $last_train= $_SESSION['last_train'];
+                                echo "<p>Último entrenamiento: $last_train</p>";
+                            }
+                        ?>
                         <hr class="my-8">
 
                         <div class="prediction-header">
@@ -73,6 +73,17 @@
                                     <button class="btn btn-primary ml-4" type="submit">Importar desde CSV</button>
                                 </form>
                             </div>
+
+                            <?php
+                                if (isset($_SESSION["error"]) && count($_SESSION["error"]) > 0){
+                                    echo"</p><div class='alert-message' style='width: fit-content; margin-left: 1.5rem;'><div class='alert alert-danger'>";
+                                    foreach($_SESSION["error"] as $error){
+                                        echo "<div>$error</div>";
+                                    }
+                                    echo"</div></div>";
+                                    unset($_SESSION["error"]);
+                                }
+                            ?> 
 
                             <div class="training-form">
                                 <form action="../requests/getTraining.php" method="get">
@@ -105,11 +116,12 @@
 
                         <label for="algorithms">Algoritmo seleccionado:</label>
                         <select name="algorithms" id="algorithms">
-                            <option value="default">Seleccione algoritmo...</option>
+                            <option value="none">Seleccione algoritmo...</option>
                             <option value="rfc">Árboles Aleatorios</option>
                             <option value="lrc">Regresión Logística</option>
                             <option value="knn">k-NN</option>
                         </select>
+                        <button class="btn btn-danger btn-sm ml-2" id="prediction-button" type="button" style="z-index:0;">Predecir</button>
                         
                         <div class="input-group accuracy">
                             
@@ -117,50 +129,49 @@
                                 <label for="prediction-accuracy">
                                     Accuracy: 
                                 </label>
-                                <input type="text" id="prediciton-accuracy" name="prediciton-accuracy" value="0.0" disabled>
+                                <input type="text" id="prediction-accuracy" name="prediction-accuracy" value="0.0" disabled>
                             </div>
 
                             <div class="prediction-recall">
                                 <label for="prediction-recall-1" style="margin-right:1.7rem;">
                                     Recall Si (CASOS): 
                                 </label>
-                                <input type="text" id="prediciton-recall-1" name="prediciton-recall-1" value="0.0" disabled>
+                                <input type="text" id="prediction-recall-1" name="prediction-recall-1" value="0.0" disabled>
 
-                                <label for="prediciton-recall-2" style="margin-right:1.7rem;">
+                                <label for="prediction-recall-2" style="margin-right:1.7rem;">
                                     Recall No (CONTROLES): 
                                 </label>
-                                <input type="text" id="prediciton-recall-2" name="prediciton-recall-2" value="0.0" disabled>
+                                <input type="text" id="prediction-recall-2" name="prediction-recall-2" value="0.0" disabled>
 
-                                <label for="prediciton-recall-3" style="margin-right:1.7rem;">
+                                <label for="prediction-recall-3" style="margin-right:1.7rem;">
                                     Recall Persitencia PSA: 
                                 </label>
-                                <input type="text" id="prediciton-recall-3" name="prediciton-recall-3" value="0.0" disabled>
+                                <input type="text" id="prediction-recall-3" name="prediction-recall-3" value="0.0" disabled>
                             </div>
 
                             <div class="prediction-precision">
                                 <label for="prediction-precision-1">
                                     Precision Si (CASOS): 
                                 </label>
-                                <input type="text" id="prediciton-precision-1" name="prediciton-precision-1" value="0.0" disabled>
+                                <input type="text" id="prediction-precision-1" name="prediction-precision-1" value="0.0" disabled>
                                 
-                                <label for="prediciton-precision-2">
+                                <label for="prediction-precision-2">
                                     Precision No (CONTROLES): 
                                 </label>
-                                <input type="text" id="prediciton-precision-2" name="prediciton-precision-2" value="0.0" disabled>
+                                <input type="text" id="prediction-precision-2" name="prediction-precision-2" value="0.0" disabled>
                                 
-                                <label for="prediciton-precision-3">
+                                <label for="prediction-precision-3">
                                     Precision Persitencia PSA: 
                                 </label>
-                                <input type="text" id="prediciton-precision-3" name="prediciton-precision-3" value="0.0" disabled>
+                                <input type="text" id="prediction-precision-3" name="prediction-precision-3" value="0.0" disabled>
                             </div>
                         </div>
-                        <button class="btn btn-danger btn-sm ml-2" id="prediction-button" type="button" style="z-index:0;">Predecir</button>
 
                         <div class="input-group result">
                             <label for="prediction-result">
                                 Resultado: 
                             </label>
-                            <input type="text" id="prediciton-result" name="prediciton-result" value="Prediccion" disabled>
+                            <input type="text" id="prediction-result" name="prediction-result" value="" disabled>
                         </div>
                     </div>
                 </div>
