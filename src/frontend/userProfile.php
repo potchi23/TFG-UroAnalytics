@@ -26,9 +26,7 @@
         </head>
         <body>
             <div class="header">
-                <div class="fixed-top">
-                    <?php include_once("common/header.php");?>
-                </div>
+                <?php include_once("common/header.php");?>
             </div>   
             
             <div class="content-container">
