@@ -210,14 +210,7 @@ echo<<<EOHTML
     <span class="input-group-text">NOTAS</span>
     <input class="prediction-form-input" type="text" id="NOTAS" name="NOTAS" placeholder="NOTAS" value="{$_SESSION["dataInputs"]['NOTAS']}">
 </div>
-<div class="input-group-prepend">
-    <span class="input-group-text">Unnamed: 51</span>
-    <input class="prediction-form-input" type="text" id="Unnamed: 51" name="Unnamed: 51" placeholder="Unnamed: 51" value="{$_SESSION["dataInputs"]['Unnamed: 51']}">
-</div>
-<div class="input-group-prepend">
-    <span class="input-group-text">Unnamed: 52</span>
-    <input class="prediction-form-input" type="text" id="Unnamed: 52" name="Unnamed: 52" placeholder="Unnamed: 52" value="{$_SESSION["dataInputs"]['Unnamed: 52']}">
-</div>
+
 <div class="input-group-prepend">
     <span class="input-group-text">CAPRA-S</span>
     <input class="prediction-form-input" type="text" id="CAPRA-S" name="CAPRA-S" placeholder="CAPRA-S" value="{$_SESSION["dataInputs"]['CAPRA-S']}">
@@ -245,13 +238,5 @@ echo<<<EOHTML
 <div class="input-group-prepend">
     <span class="input-group-text">C-MYC</span>
     <input class="prediction-form-input" type="text" id="C-MYC" name="C-MYC" placeholder="C-MYC" value="{$_SESSION["dataInputs"]['C-MYC']}">
-</div>
-<div class="input-group-prepend">
-    <span class="input-group-text">Unnamed: 60</span>
-    <input class="prediction-form-input" type="text" id="Unnamed: 60" name="Unnamed: 60" placeholder="Unnamed: 60" value="{$_SESSION["dataInputs"]['Unnamed: 60']}">
-</div>
-<div class="input-group-prepend">
-    <span class="input-group-text">Unnamed: 61</span>
-    <input class="prediction-form-input" type="text" id="Unnamed: 61" name="Unnamed: 61" placeholder="Unnamed: 61" value="{$_SESSION["dataInputs"]['Unnamed: 61']}">
 </div>
 EOHTML;

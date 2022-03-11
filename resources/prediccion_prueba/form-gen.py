@@ -8,7 +8,7 @@ for col in csv.columns:
     html = """
     <div class="input-group-prepend">
         <span class="input-group-text">{variable}</span>
-        <input class="prediction-form-input" type="text" id="{variable}" name="{variable}" placeholder="{variable}" value="{{$_SESSION["dataInputs"]['{variable}']}}">
+        <input class="prediction-form-input" type="text" id="{variable}" name="{variable}" placeholder="{variable}" value="">
     </div>""".format(variable = col)
 
 
