@@ -27,18 +27,20 @@
               echo "<li class='nav-item'><a class='nav-link' href='../registerPetitions.php?page=1'>Peticiones de registro</a></li>";
             }
         ?> 
-      </ul>      
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <div class="dropdown">
+          <i class="icon-account fa-solid fa-user-doctor fa-2x" onclick="dropdown()"></i>          
+          <div id="myDropdown" class="dropdown-content">
+            <a href="../userProfile.php">Ver mi perfil</a>
+            <a href="../logout.php">Cerrar sesion</a>
+          </div>
+        </div>  
+      </ul>
+    </div>      
     </div>
   
-    <div class="dropdown">
-      <i class="icon-account fa-solid fa-user-doctor fa-2x" onclick="dropdown()"></i>
-      
-      <div id="myDropdown" class="dropdown-content">
-        <a href="../userProfile.php">Ver mi perfil</a>
-        <a href="../logout.php">Cerrar sesion</a>
-      </div>
-    </div>  
-  </div>
+
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>         
   <script language="javaScript"> 
