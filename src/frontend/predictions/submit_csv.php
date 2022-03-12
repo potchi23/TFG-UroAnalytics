@@ -40,14 +40,13 @@
 
             fclose($file);
             unlink($target_file);
-            header("Location: predictions.php");
+            $_SESSION["message"] = "Fichero csv importado con éxito";
+            header("Location: predictions.php#dataPatients");
         }        
     }
 
     if (count($_SESSION["error"]) > 0) {
-        header("Location: predictions.php");
+        header("Location: predictions.php#dataPatients");
     }
-    else {
-        $_SESSION["message"] = "Fichero csv importado con éxito";
-    }
+
 ?>

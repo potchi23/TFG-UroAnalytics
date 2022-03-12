@@ -15,7 +15,6 @@
         <title>Dashboard</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link rel="stylesheet" href="css/formUserProfile.css"/>
         <link rel="stylesheet" href="css/header.css"/>
         <link rel="stylesheet" href="css/dashboard.css"/>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
@@ -29,12 +28,7 @@
             <div class="container-fluid">
                 <div class="jumbotron">
                     <h2>Hola, <?php echo $user->get_full_name();?></h2>
-                    <!-- <h4>Tipo usuario: <?php echo $user->get_type()?></h4> -->
-                    <?php
-                        if ($user->get_type() == 'admin') {
-                            echo "<a href='registerPetitions.php?page=1'>Peticiones de registro</a>";
-                        }
-                    ?> 
+                    <!-- <h4>Tipo usuario: <?php echo $user->get_type()?></h4> -->                   
                     
                     <div class="graphics">
                         <div class="chart-container">
