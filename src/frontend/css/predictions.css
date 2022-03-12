@@ -65,3 +65,7 @@
 .import-form input{
     margin-left: 1.5rem;
 }
+
+.alert-message {
+    width: fit-content;
+}

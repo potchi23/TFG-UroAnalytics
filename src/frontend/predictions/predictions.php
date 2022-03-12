@@ -49,6 +49,24 @@
                     <!-- Main component for a primary marketing message or call to action -->
                     <div class="jumbotron">
                         
+                        <?php
+                            if (isset($_SESSION["message"])){
+                                $message = $_SESSION["message"];
+                                echo "<div class='alert-message'><p></p><p class='alert alert-success'>$message</p></div>";
+    
+                                unset($_SESSION["message"]);
+                            }
+
+                            if (isset($_SESSION["error"]) && count($_SESSION["error"]) > 0){
+                                echo"</p><div class='alert-message' style='width: fit-content; margin-left: 1.5rem;'><div class='alert alert-danger'>";
+                                foreach($_SESSION["error"] as $error){
+                                    echo "<div>$error</div>";
+                                }
+                                echo"</div></div>";
+                                unset($_SESSION["error"]);
+                            }
+                        ?> 
+
                         <h1 class="display-8" style="font-weight:600;">Realizar una predicción</h1>
 
                         <?php
@@ -63,26 +81,15 @@
                         <hr class="my-8">
 
                         <div class="prediction-header">
-                            <h2> Datos del paciente</h2><br>
-                        
+                            <h2> Datos del paciente</h2>
+                                                                        
                             <div class="import-form">
                                 <form action="submit_csv.php" method="post" enctype="multipart/form-data">
                                     <input type="file" id="prediction-import" name="prediction-import">
                                     <button class="btn btn-primary ml-4" type="submit">Importar desde CSV</button>
                                 </form>
                             </div>
-
-                            <?php
-                                if (isset($_SESSION["error"]) && count($_SESSION["error"]) > 0){
-                                    echo"</p><div class='alert-message' style='width: fit-content; margin-left: 1.5rem;'><div class='alert alert-danger'>";
-                                    foreach($_SESSION["error"] as $error){
-                                        echo "<div>$error</div>";
-                                    }
-                                    echo"</div></div>";
-                                    unset($_SESSION["error"]);
-                                }
-                            ?> 
-
+                        
                             <div class="training-form">
                                 <form action="../requests/getTraining.php" method="get">
                                     <label for="training-button" class="btn btn-danger">
@@ -97,15 +104,15 @@
                         <br><br>
                         <div class="d-flex justify-content-between input-group prediction-data">
                         
-                        <?php
-                            if(!isset($_SESSION["dataInputs"])){
-                                include_once("empty-form.php");
-                            }
-                            else{
-                                include_once("filled-form.php");
-                                unset($_SESSION["dataInputs"]);
-                            }
-                        ?>
+                            <?php
+                                if(!isset($_SESSION["dataInputs"])){
+                                    include_once("empty-form.php");
+                                }
+                                else{
+                                    include_once("filled-form.php");
+                                    unset($_SESSION["dataInputs"]);
+                                }
+                            ?>
                         </div>
                         <br>
                         <hr class="my-4">
