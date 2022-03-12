@@ -104,16 +104,54 @@
                                                     <td class="buttons-row">
                                                         <div class="buttons-container">
                                                             <div class="req-btn p-6">
-                                                                <form action="requests/patchAcceptRegisterPetition.php?page=$page&numElems=$numElems" method="POST">
-                                                                    <input type="hidden" id="id" name="id" value="$petition->id"></input>
-                                                                    <input class="btn btn-outline-success" type="submit" value="✔" style="margin:auto;padding:10px 30px 28px 10px;"></input>
-                                                                </form>
+                                                                <button type="button" class="btn btn-green" data-bs-toggle="modal" data-bs-target="#modal01-$petition->id">
+                                                                    <input class="btn btn-outline-success" type="submit" value="✔" style="padding:10px 30px 28px 10px;"></input>
+                                                                </button>
+                                        
+                                                                <div class="modal fade" id="modal01-$petition->id" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel01" aria-hidden="true">
+                                                                    <div class="modal-dialog">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h5 class="modal-title" id="staticBackdropLabel01">Aceptar solicitud</h5>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <p>¿Aceptar solicitud de $petition->name $petition->surname_1 $petition->surname_2 ($petition->email)?</p>
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                                                <form action="requests/patchAcceptRegisterPetition.php?page=$page&numElems=$numElems" method="POST">
+                                                                                    <input type="hidden" id="id" name="id" value="$petition->id"></input>
+                                                                                    <button type="submit" class="btn btn-danger">Aceptar</button>
+                                                                                </form>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                             <div class="req-btn p-6">
-                                                                <form action="requests/deleteRejectRegisterPetition.php?page=$page&numElems=$numElems" method="POST">
-                                                                    <input type="hidden" id="id" name="id" value="$petition->id"></input>
-                                                                    <input class="btn btn-outline-danger" type="submit" value="✘" style="margin:auto;padding:10px 28px 28px 10px;"></input>
-                                                                </form>
+                                                                <button type="button" class="btn btn-red" data-bs-toggle="modal" data-bs-target="#modal02-$petition->id">
+                                                                    <input class="btn btn-outline-danger" type="submit" value="✘" style="padding:10px 28px 28px 10px;"></input>
+                                                                </button>
+                                    
+                                                                <div class="modal fade" id="modal02-$petition->id" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel02" aria-hidden="true">
+                                                                    <div class="modal-dialog">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h5 class="modal-title" id="staticBackdropLabel02">Denegar solicitud</h5>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <p>¿Denegar solicitud de $petition->name $petition->surname_1 $petition->surname_2 ($petition->email)?</p>
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                                                <form action="requests/deleteRejectRegisterPetition.php?page=$page&numElems=$numElems" method="POST">
+                                                                                    <input type="hidden" id="id" name="id" value="$petition->id"></input>
+                                                                                    <button type="submit" class="btn btn-danger">Denegar</button>
+                                                                                </form>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </td>
