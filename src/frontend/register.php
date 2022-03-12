@@ -11,14 +11,14 @@
 <html>
     <head>
         <title>Solicitar registro</title>
-        <link rel="stylesheet" href="css/forms.css"/>
+        <link rel="stylesheet" href="css/form.css"/>
         <?php include_once("common/includes.php");?>
     </head>
     <body>
         <div class="container">
             <div class="form-container">
 
-                <h1 class="form-title">Solicitar registro</h1>
+                <h1 class="form-title font-weight-bold">Solicitar registro</h1>
 
                 <div class="register-form">        
                     <p for="register">¿Ya tienes cuenta? <a href="login.php">Accede aquí</a></p>
@@ -47,6 +47,7 @@
                         <input class="submit btn btn-success" type="submit" value="Solicitar registro">
                     </form>
                 </div>
+                <br><br>
                 <?php
                         if (isset($_SESSION["error"]) && count($_SESSION["error"]) > 0){
                             echo "<div class='alert alert-danger'>";
