@@ -40,7 +40,7 @@
 
             fclose($file);
             unlink($target_file);
-            $_SESSION["message"] = "Fichero csv importado con éxito";
+            $_SESSION["message"] = "Fichero CSV importado con éxito";
             header("Location: predictions.php#dataPatients");
         }        
     }

@@ -1,6 +1,16 @@
 <div class="jumbotron">
     <div class="prediction-header">
 
+        <h1 style="font-weight:600;">Datos del paciente</h1>
+        <hr class="my-4">
+                            
+        <div class="import-form">
+            <form action="submit_csv.php" method="post" enctype="multipart/form-data">
+                <input type="file" id="prediction-import" name="prediction-import">
+                <button class="btn btn-primary ml-4" type="submit">Importar desde CSV</button>
+            </form>
+        </div>
+
         <?php
             if (isset($_SESSION["message"])){
                 $message = $_SESSION["message"];
@@ -17,17 +27,7 @@
                 echo"</div></div>";
                 unset($_SESSION["error"]);
             }
-         ?> 
-
-        <h1 style="font-weight:600;">Datos del paciente</h1>
-        <hr class="my-4">
-                            
-        <div class="import-form">
-            <form action="submit_csv.php" method="post" enctype="multipart/form-data">
-                <input type="file" id="prediction-import" name="prediction-import">
-                <button class="btn btn-primary ml-4" type="submit">Importar desde CSV</button>
-            </form>
-        </div>
+        ?> 
 
         <div class="training-form">
             <form action="../requests/getTraining.php" method="get">
