@@ -1,10 +1,11 @@
+<script src="predictions.js"></script>
 <div class="jumbotron">
     <h1 style="font-weight:600;">Algoritmo a utilizar</h1>
     <hr class="my-4">
 
     <label for="algorithms">Algoritmo seleccionado: </label>
     <select name="algorithms" id="algorithms">
-        <option value="default">Seleccione algoritmo...</option>
+        <option value="none">Seleccione algoritmo...</option>
         <option value="rfc">Árboles Aleatorios</option>
         <option value="lrc">Regresión Logística</option>
         <option value="knn">k-NN</option>
