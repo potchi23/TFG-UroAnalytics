@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jan 28, 2022 at 08:55 AM
--- Server version: 10.4.22-MariaDB
--- PHP Version: 8.0.13
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 14-03-2022 a las 21:16:14
+-- Versión del servidor: 10.4.6-MariaDB
+-- Versión de PHP: 7.3.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -18,94 +19,97 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `tfg_bd`
+-- Base de datos: `tfg_bd`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pacientes`
+-- Estructura de tabla para la tabla `patients`
 --
 
-CREATE TABLE `pacientes` (
-  `id_paciente` int(10) UNSIGNED NOT NULL,
-  `nhis` int(10) UNSIGNED NOT NULL,
-  `fechacir` date(10) NOT NULL,
-  `edad` int(10) NOT NULL,
-  `etnia` int(10) NOT NULL,
-  `obeso` int(10) NOT NULL,
-  `hta` int(10) NOT NULL,
-  `dm` int(10) NOT NULL,
-  `tabaco` int(10) NOT NULL,
-  `hereda` int(10) NOT NULL,
-  `tactor` int(10) NOT NULL,
-  `psapre` float UNSIGNED,
-  `psalt` float UNSIGNED,
-  `tduppre` float UNSIGNED,
-  `ecotr` int(10) NOT NULL,
-  `nbiopsia` int(10) NOT NULL,
-  `histo` int(10) NOT NULL,
-  `gleason1` int(10) NOT NULL,
-  `ncilpos` int(10) NOT NULL,
-  `bilat` int(10) NOT NULL,
-  `porcent` int(10),
-  `iperin` int(10) NOT NULL,
-  `ilinf` int(10) NOT NULL,
-  `ivascu` int(10) NOT NULL,
-  `tnm1` int(10) NOT NULL,
-  `histo2` int(10) NOT NULL,
-  `gleason2` int(10) NOT NULL,
-  `bilat2` int(10) NOT NULL,
-  `localiz` int(10) NOT NULL,
-  `multifoc` int(10) NOT NULL,
-  `volumen` int(10) NOT NULL,
-  `extracap` int(10) NOT NULL,
-  `vvss` int(10) NOT NULL,
-  `iperin2` int(10) NOT NULL,
-  `ilinf2` int(10) NOT NULL,
-  `ivascu2` int(10) NOT NULL,
-  `pinag` int(10) NOT NULL,
-  `margen` int(10) NOT NULL,
-  `tnm2` int(10) NOT NULL,
-  `psapos` float UNSIGNED,
-  `rtpadyu` int(10) NOT NULL,
-  `rtpmes` int(10),
-  `rbq` int(10) NOT NULL,
-  `trbg` int(10) NOT NULL,
-  `tdupli` float UNSIGNED,
--- tdupli.r1 no está en el .doc del doctor pero si en el excel
-  `t1mtx` int(10) NOT NULL,
-  `fechafin` date(10) NOT NULL,
-  `t.seg` float UNSIGNED,
-  `fallec` int(10) NOT NULL,
-  `tsuperv` int(10),
-  `tsegui` int(10) NOT NULL,
-  `psafin` float UNSIGNED,
-  `capra-s` int(10) NOT NULL,
-  `ranuclear` int(10) NOT NULL,
-  `raestrom` int(10) NOT NULL,
-  `pten` int(10) NOT NULL,
-  `erg` int(10) NOT NULL,
-  `ki-67` int(10) NOT NULL,
-  `spink1` int(10) NOT NULL,
-  `c-myc` int(10) NOT NULL,
-  `notas` varchar(500),
- -- `patologia` varchar(100) NOT NULL,
-  `id_doctor` int(10) UNSIGNED NOT NULL,
- -- `indices` varchar(500) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `patients` (
+  `N` int(10) UNSIGNED NOT NULL,
+  `FECHACIR` datetime DEFAULT NULL,
+  `EDAD` bigint(20) DEFAULT NULL,
+  `ETNIA` bigint(20) DEFAULT NULL,
+  `OBESO` bigint(20) DEFAULT NULL,
+  `HTA` bigint(20) DEFAULT NULL,
+  `DM` bigint(20) DEFAULT NULL,
+  `TABACO` bigint(20) DEFAULT NULL,
+  `HEREDA` bigint(20) DEFAULT NULL,
+  `TACTOR` bigint(20) DEFAULT NULL,
+  `PSAPRE` double DEFAULT NULL,
+  `PSALT` double DEFAULT NULL,
+  `TDUPPRE` double DEFAULT NULL,
+  `ECOTR` bigint(20) DEFAULT NULL,
+  `NBIOPSIA` bigint(20) DEFAULT NULL,
+  `HISTO` bigint(20) DEFAULT NULL,
+  `GLEASON1` bigint(20) DEFAULT NULL,
+  `NCILPOS` bigint(20) DEFAULT NULL,
+  `BILAT` double DEFAULT NULL,
+  `PORCENT` double DEFAULT NULL,
+  `IPERIN` bigint(20) DEFAULT NULL,
+  `ILINF` bigint(20) DEFAULT NULL,
+  `IVASCU` bigint(20) DEFAULT NULL,
+  `TNM1` bigint(20) DEFAULT NULL,
+  `HISTO2` bigint(20) DEFAULT NULL,
+  `GLEASON2` bigint(20) DEFAULT NULL,
+  `BILAT2` bigint(20) DEFAULT NULL,
+  `LOCALIZ` bigint(20) DEFAULT NULL,
+  `MULTIFOC` bigint(20) DEFAULT NULL,
+  `VOLUMEN` double DEFAULT NULL,
+  `EXTRACAP` bigint(20) DEFAULT NULL,
+  `VVSS` bigint(20) DEFAULT NULL,
+  `IPERIN2` bigint(20) DEFAULT NULL,
+  `ILINF2` bigint(20) DEFAULT NULL,
+  `IVASCU2` bigint(20) DEFAULT NULL,
+  `PINAG` bigint(20) DEFAULT NULL,
+  `MARGEN` bigint(20) DEFAULT NULL,
+  `TNM2` bigint(20) DEFAULT NULL,
+  `PSAPOS` double DEFAULT NULL,
+  `RTPADYU` bigint(20) DEFAULT NULL,
+  `RTPMES` double DEFAULT NULL,
+  `RBQ` bigint(20) DEFAULT NULL,
+  `TRBQ` double DEFAULT NULL,
+  `TDUPLI` double DEFAULT NULL,
+  `TDUPLI.r1` text COLLATE utf8_spanish_ci DEFAULT NULL,
+  `T1MTX` double DEFAULT NULL,
+  `FECHAFIN` datetime DEFAULT NULL,
+  `t.seg` double DEFAULT NULL,
+  `FALLEC` double DEFAULT NULL,
+  `TSUPERV` double DEFAULT NULL,
+  `TSEGUI` double DEFAULT NULL,
+  `PSAFIN` double DEFAULT NULL,
+  `CAPRA-S` bigint(20) DEFAULT NULL,
+  `RA nuclear` double DEFAULT NULL,
+  `RA estroma` double DEFAULT NULL,
+  `PTEN` double DEFAULT NULL,
+  `ERG` double DEFAULT NULL,
+  `KI-67` double DEFAULT NULL,
+  `SPINK1` double DEFAULT NULL,
+  `C-MYC` double DEFAULT NULL,
+  `NOTAS` text COLLATE utf8_spanish_ci DEFAULT NULL,
+  `IMC` double DEFAULT NULL,
+  `ASA` double DEFAULT NULL,
+  `GR` double DEFAULT NULL,
+  `PNV` double DEFAULT NULL,
+  `TQ` double DEFAULT NULL,
+  `TH` double DEFAULT NULL,
+  `NGG` double DEFAULT NULL,
+  `PGG` double DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `prediciones`
+-- Estructura de tabla para la tabla `prediciones`
 --
 
 CREATE TABLE `prediciones` (
   `id_predic` int(10) UNSIGNED NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `id_paciente` int(10) UNSIGNED NOT NULL,
---  `indices` varchar(500) NOT NULL,
   `fecha` date NOT NULL,
   `informe` varchar(10000) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -113,7 +117,7 @@ CREATE TABLE `prediciones` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Estructura de tabla para la tabla `users`
 --
 
 CREATE TABLE `users` (
@@ -128,7 +132,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `users`
+-- Volcado de datos para la tabla `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `surname_1`, `surname_2`, `email`, `password`, `type`, `accepted`) VALUES
@@ -157,55 +161,48 @@ INSERT INTO `users` (`id`, `name`, `surname_1`, `surname_2`, `email`, `password`
 (102, 'ertert', 'ertert', 'ertr', 'richardcorrea@gmail.com', '$2b$12$3hwukZya0s5cjkgI6Y/voOeDPd91CYOOapNL1HtF8dlQAZVnufY.m', 'user', 1);
 
 --
--- Indexes for dumped tables
+-- Índices para tablas volcadas
 --
 
 --
--- Indexes for table `pacientes`
+-- Indices de la tabla `patients`
 --
-ALTER TABLE `pacientes`
-  ADD PRIMARY KEY (`id_paciente`),
-  ADD KEY `id_doctor` (`id_doctor`);
+ALTER TABLE `patients`
+  ADD PRIMARY KEY (`N`);
 
 --
--- Indexes for table `prediciones`
+-- Indices de la tabla `prediciones`
 --
 ALTER TABLE `prediciones`
   ADD PRIMARY KEY (`id_predic`),
   ADD KEY `id_paciente` (`id_paciente`);
 
 --
--- Indexes for table `users`
+-- Indices de la tabla `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
 
 --
--- Constraints for dumped tables
+-- Restricciones para tablas volcadas
 --
 
 --
--- Constraints for table `pacientes`
---
-ALTER TABLE `pacientes`
-  ADD CONSTRAINT `fk_pacientes` FOREIGN KEY (`id_doctor`) REFERENCES `users` (`id`);
-
---
--- Constraints for table `prediciones`
+-- Filtros para la tabla `prediciones`
 --
 ALTER TABLE `prediciones`
-  ADD CONSTRAINT `fk_predicciones` FOREIGN KEY (`id_paciente`) REFERENCES `pacientes` (`id_paciente`);
+  ADD CONSTRAINT `prediciones_ibfk_1` FOREIGN KEY (`id_paciente`) REFERENCES `patients` (`N`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
