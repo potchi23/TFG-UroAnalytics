@@ -15,8 +15,17 @@
         array_push($_SESSION["error"], "El fichero es muy grande");
     }
     
-    else{
-        if (move_uploaded_file($_FILES["prediction-import"]["tmp_name"], $target_file)) {
+    else {
+        if(!file_exists($target_dir)) {
+            if(!mkdir($target_dir, 0777, true)) {
+                array_push($_SESSION["error"], "Sorry, cannot create the " . $target_dir . "directory");
+            }            
+        }
+                
+        if(!copy($_FILES["prediction-import"]["tmp_name"], $target_file)) {
+            array_push($_SESSION["error"], "Sorry, there was an error uploading your file");
+        }
+        else {
             $file = fopen($target_file,"r");
             $header = fgetcsv($file, 0, ";");
             $data = fgetcsv($file, 0, ";");
@@ -29,18 +38,15 @@
                 $i++;
             }
 
-            echo $_SESSION["dataInputs"]["EDAD"];
             fclose($file);
             unlink($target_file);
-
-            header("Location: predictions.php");
-        } 
-        else {
-            array_push($_SESSION["error"], "Sorry, there was an error uploading your file");
-        }
+            $_SESSION["message"] = "Fichero CSV importado con éxito";
+            header("Location: predictions.php#dataPatients");
+        }        
     }
 
     if (count($_SESSION["error"]) > 0) {
-        header("Location: predictions.php");
+        header("Location: predictions.php#dataPatients");
     }
+
 ?>

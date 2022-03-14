@@ -1,3 +1,5 @@
+from calendar import c
+from itertools import count
 import os
 import sys
 from flask import Flask, request, session
@@ -11,15 +13,12 @@ from flask_session import Session
 from sqlalchemy import create_engine
 import predictions
 import pandas as pd
+import json
+import numpy as np
 
 app = Flask(__name__)
 CORS(app)
 bcrypt = Bcrypt(app)
-
-pipe_rfc = ''
-pipe_lrc = ''
-pipe_knn = ''
-scores = {}
 
 mydb = connector.connect(
     host='localhost',
@@ -27,6 +26,12 @@ mydb = connector.connect(
     password='',
     database='tfg_bd'
 )
+
+pipe_rfc = ''
+pipe_lrc = ''
+pipe_knn = ''
+scores = {}
+last_train = 'never'
 
 # Decorador para verificar el JWT
 def token_required(f):
@@ -295,27 +300,75 @@ def users(current_user, id):
     else:
         return 'Method not supported', status
 
+@app.before_first_request
+def trainOnStartup():
+    global pipe_rfc
+    global pipe_lrc
+    global pipe_knn
+    global scores
+    global last_train
+
+    last_train = datetime.utcnow()
+    pipe_rfc, pipe_lrc, pipe_knn, scores = predictions.trainModels()
+
 @app.route('/training', methods=['GET'])
 @token_required
 def train(current_user):
     response = {}
-    status = 404
+
+    global pipe_rfc
+    global pipe_lrc
+    global pipe_knn
+    global scores
+    global last_train
 
     if request.method == 'GET':
         pipe_rfc, pipe_lrc, pipe_knn, scores = predictions.trainModels()
-
-        response = scores
+    
+        last_train =  str(datetime.utcnow()).split('.')[0]
+        response = { 'last_train' : last_train }
         status = 200
+
         return response, status
 
-@app.route('/training/scores', methods=['POST'])
+@app.route('/training/scores', methods=['GET'])
 def getScores():
     response = {}
     status = 404
 
+    if request.method == 'GET':
+        #print(session.get('scores', 'not set'))
+        global scores
+        response = scores
+
+        status = 200
+        return response, status
+
+@app.route('/predict', methods=['POST'])
+#@token_required
+def predict(current_user=''):
+    status = 404
     if request.method == 'POST':
-        print(session.get('scores', 'not set'))
-    
+        features = request.form['features'].split(',')
+        algorithm = request.form['algorithm']
+
+        if(algorithm == 'rfc'):
+            prediction = pipe_rfc.predict(np.array(features).reshape(1, -1))
+        elif (algorithm == 'lrc'):
+            prediction = pipe_lrc.predict(np.array(features).reshape(1, -1))
+        else:
+            prediction = pipe_knn.predict(np.array(features).reshape(1, -1))
+
+        if prediction[0] == 1:
+            response = 'SI (CASOS)'
+        elif prediction[0] == 2:
+            response = 'NO (CONTROLES)'
+        elif prediction[0] == 3: 
+            response = 'PERSISTENCIA PSA'
+        else:
+            response = 'error'
+
+        print('[LOG] Result RBQ:', prediction[0])
         status = 200
         return response, status
 

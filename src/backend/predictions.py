@@ -12,8 +12,6 @@ from sklearn.metrics import precision_score
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import f1_score
 
-
-
 def drop_columns(df):
     df = df.drop('FECHACIR', axis=1)
     df = df.drop('FECHAFIN', axis=1)

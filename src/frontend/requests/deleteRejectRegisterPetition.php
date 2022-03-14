@@ -23,6 +23,7 @@
         $name = $data->name[0];
 
         $mail = new PHPMailer();
+        $mail->CharSet = 'UTF-8';
         $mail->isSMTP();                        
         $mail->Host       = "smtp.gmail.com";   
         $mail->SMTPAuth   = true;               

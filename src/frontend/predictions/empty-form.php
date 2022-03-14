@@ -5,529 +5,238 @@ if(!defined('import-form')) {
 }
 
 echo <<<EOHTML
-        
-    <div class="row">
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">NHIS</span>
-                    <input type="text" size="12" id="NHIS" name="NHIS" placeholder="NHIS">
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">FECHACIR</span>
-                    <input type="text" size="12" id="FECHACIR" name="FECHACIR" placeholder="FECHACIR">
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">EDAD</span>
-                    <input type="text" size="12" id="EDAD" name="EDAD" placeholder="EDAD">
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">ETNIA</span>
-                    <input type="text" size="12" id="ETNIA" name="ETNIA" placeholder="ETNIA">
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">OBESO</span>
-                    <input type="text" size="12" id="OBESO" name="OBESO" placeholder="OBESO">
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">HTA</span>
-                    <input type="text" size="12" id="HTA" name="HTA" placeholder="HTA">
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">DM</span>
-                    <input type="text" size="12" id="DM" name="DM" placeholder="DM">
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">TABACO</span>
-                    <input type="text" size="12" id="TABACO" name="TABACO" placeholder="TABACO">
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">HEREDA</span>
-                    <input type="text" size="12" id="HEREDA" name="HEREDA" placeholder="HEREDA">
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">TACTOR</span>
-                    <input type="text" size="12" id="TACTOR" name="TACTOR" placeholder="TACTOR">
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">PSAPRE</span>
-                    <input type="text" size="12" id="PSAPRE" name="PSAPRE" placeholder="PSAPRE">
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">PSALT</span>
-                    <input type="text" size="12" id="TABACO" name="PSALT" placeholder="PSALT">
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">TDUPPRE</span>
-                    <input type="text" size="12" id="TDUPPRE" name="TDUPPRE" placeholder="TDUPPRE">
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">ECOTR</span>
-                    <input type="text" size="12" id="ECOTR" name="ECOTR" placeholder="ECOTR">
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">NBIOPSIA</span>
-                    <input type="text" size="12" id="NBIOPSIA" name="NBIOPSIA" placeholder="NBIOPSIA">
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">HISTO</span>
-                    <input type="text" size="12" id="HISTO" name="HISTO" placeholder="HISTO">
-                </div>
-            </div>
-        </div>
-    </div>
     
-    <div class="row">
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">GLEASON1</span>
-                    <input type="text" size="12" id="GLEASON1" name="GLEASON1" placeholder="GLEASON1">
-                </div>
-            </div>
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">NHIS</span>
+        <input class="prediction-form-input" type="text" id="NHIS" name="NHIS" placeholder="NHIS" value="">
         </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">NCILPOS</span>
-                    <input type="text" size="12" id="NCILPOS" name="NCILPOS" placeholder="NCILPOS">
-                </div>
-            </div>
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">FECHACIR</span>
+        <input class="prediction-form-input" type="text" id="FECHACIR" name="FECHACIR" placeholder="FECHACIR" value="">
         </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">BILAT</span>
-                    <input type="text" size="12" id="BILAT" name="BILAT" placeholder="BILAT">
-                </div>
-            </div>
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">EDAD</span>
+        <input class="prediction-form-input" type="text" id="EDAD" name="EDAD" placeholder="EDAD" value="">
         </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">PORCENT</span>
-                    <input type="text" size="12" id="PORCENT" name="PORCENT" placeholder="PORCENT">
-                </div>
-            </div>
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">ETNIA</span>
+        <input class="prediction-form-input" type="text" id="ETNIA" name="ETNIA" placeholder="ETNIA" value="">
         </div>
-    </div>
- 
-    <div class="row">
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">IPERIN</span>
-                    <input type="text" size="12" id="IPERIN" name="IPERIN" placeholder="IPERIN">
-                </div>
-            </div>
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">OBESO</span>
+        <input class="prediction-form-input" type="text" id="OBESO" name="OBESO" placeholder="OBESO" value="">
         </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">ILINF</span>
-                    <input type="text" size="12" id="ILINF" name="ILINF" placeholder="ILINF">
-                </div>
-            </div>
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">HTA</span>
+        <input class="prediction-form-input" type="text" id="HTA" name="HTA" placeholder="HTA" value="">
         </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">IVASCU</span>
-                    <input type="text" size="12" id="IVASCU" name="IVASCU" placeholder="IVASCU">
-                </div>
-            </div>
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">DM</span>
+        <input class="prediction-form-input" type="text" id="DM" name="DM" placeholder="DM" value="">
         </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">TNM1</span>
-                    <input type="text" size="12" id="TNM1" name="TNM1" placeholder="TNM1">
-                </div>
-            </div>
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">TABACO</span>
+        <input class="prediction-form-input" type="text" id="TABACO" name="TABACO" placeholder="TABACO" value="">
         </div>
-    </div>    
-
-    <div class="row">
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">HISTO2</span>
-                    <input type="text" size="12" id="HISTO2" name="HISTO2" placeholder="HISTO2">
-                </div>
-            </div>
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">HEREDA</span>
+        <input class="prediction-form-input" type="text" id="HEREDA" name="HEREDA" placeholder="HEREDA" value="">
         </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">GLEASON2</span>
-                    <input type="text" size="12" id="GLEASON2" name="GLEASON2" placeholder="GLEASON2">
-                </div>
-            </div>
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">TACTOR</span>
+        <input class="prediction-form-input" type="text" id="TACTOR" name="TACTOR" placeholder="TACTOR" value="">
         </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">BILAT2</span>
-                    <input type="text" size="12" id="BILAT2" name="BILAT2" placeholder="BILAT2">
-                </div>
-            </div>
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">PSAPRE</span>
+        <input class="prediction-form-input" type="text" id="PSAPRE" name="PSAPRE" placeholder="PSAPRE" value="">
         </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">LOCALIZ</span>
-                    <input type="text" size="12" id="LOCALIZ" name="LOCALIZ" placeholder="LOCALIZ">
-                </div>
-            </div>
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">PSALT</span>
+        <input class="prediction-form-input" type="text" id="PSALT" name="PSALT" placeholder="PSALT" value="">
         </div>
-    </div>
-
-    <div class="row">
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">MULTIFOC</span>
-                    <input type="text" size="12" id="MULTIFOC" name="MULTIFOC" placeholder="MULTIFOC">
-                </div>
-            </div>
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">TDUPPRE</span>
+        <input class="prediction-form-input" type="text" id="TDUPPRE" name="TDUPPRE" placeholder="TDUPPRE" value="">
         </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">VOLUMEN</span>
-                    <input type="text" size="12" id="VOLUMEN" name="VOLUMEN" placeholder="VOLUMEN">
-                </div>
-            </div>
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">ECOTR</span>
+        <input class="prediction-form-input" type="text" id="ECOTR" name="ECOTR" placeholder="ECOTR" value="">
         </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">EXTRACAP</span>
-                    <input type="text" size="12" id="EXTRACAP" name="EXTRACAP" placeholder="EXTRACAP">
-                </div>
-            </div>
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">NBIOPSIA</span>
+        <input class="prediction-form-input" type="text" id="NBIOPSIA" name="NBIOPSIA" placeholder="NBIOPSIA" value="">
         </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">VVSS</span>
-                    <input type="text" size="12" id="VVSS" name="VVSS" placeholder="VVSS">
-                </div>
-            </div>
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">HISTO</span>
+        <input class="prediction-form-input" type="text" id="HISTO" name="HISTO" placeholder="HISTO" value="">
         </div>
-    </div>   
-
-    <div class="row">
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">IPERIN2</span>
-                    <input type="text" size="12" id="IPERIN2" name="IPERIN2" placeholder="IPERIN2">
-                </div>
-            </div>
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">GLEASON1</span>
+        <input class="prediction-form-input" type="text" id="GLEASON1" name="GLEASON1" placeholder="GLEASON1" value="">
         </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">ILINF2</span>
-                    <input type="text" size="12" id="ILINF2" name="ILINF2" placeholder="ILINF2">
-                </div>
-            </div>
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">NCILPOS</span>
+        <input class="prediction-form-input" type="text" id="NCILPOS" name="NCILPOS" placeholder="NCILPOS" value="">
         </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">IVASCU2</span>
-                    <input type="text" size="12" id="IVASCU2" name="IVASCU2" placeholder="IVASCU2">
-                </div>
-            </div>
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">BILAT</span>
+        <input class="prediction-form-input" type="text" id="BILAT" name="BILAT" placeholder="BILAT" value="">
         </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">PINAG</span>
-                    <input type="text" size="12" id="PINAG" name="PINAG" placeholder="PINAG">
-                </div>
-            </div>
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">PORCENT</span>
+        <input class="prediction-form-input" type="text" id="PORCENT" name="PORCENT" placeholder="PORCENT" value="">
         </div>
-    </div>
-
-    <div class="row">
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">MARGEN</span>
-                    <input type="text" size="12" id="MARGEN" name="MARGEN" placeholder="MARGEN">
-                </div>
-            </div>
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">IPERIN</span>
+        <input class="prediction-form-input" type="text" id="IPERIN" name="IPERIN" placeholder="IPERIN" value="">
         </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">TNM2</span>
-                    <input type="text" size="12" id="TNM2" name="TNM2" placeholder="TNM2">
-                </div>
-            </div>
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">ILINF</span>
+        <input class="prediction-form-input" type="text" id="ILINF" name="ILINF" placeholder="ILINF" value="">
         </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">PSAPOS</span>
-                    <input type="text" size="12" id="PSAPOS" name="PSAPOS" placeholder="PSAPOS">
-                </div>
-            </div>
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">IVASCU</span>
+        <input class="prediction-form-input" type="text" id="IVASCU" name="IVASCU" placeholder="IVASCU" value="">
         </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">RTPADYU</span>
-                    <input type="text" size="12" id="RTPADYU" name="RTPADYU" placeholder="RTPADYU">
-                </div>
-            </div>
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">TNM1</span>
+        <input class="prediction-form-input" type="text" id="TNM1" name="TNM1" placeholder="TNM1" value="">
         </div>
-    </div>
-
-    <div class="row">
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">RBQ</span>
-                    <input type="text" size="12" id="RBQ" name="RBQ" placeholder="RBQ">
-                </div>
-            </div>
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">HISTO2</span>
+        <input class="prediction-form-input" type="text" id="HISTO2" name="HISTO2" placeholder="HISTO2" value="">
         </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">FALLEC</span>
-                    <input type="text" size="12" id="FALLEC" name="FALLEC" placeholder="FALLEC">
-                </div>
-            </div>
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">GLEASON2</span>
+        <input class="prediction-form-input" type="text" id="GLEASON2" name="GLEASON2" placeholder="GLEASON2" value="">
         </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">CAPRA-S</span>
-                    <input type="text" size="12" id="CAPRA-S" name="CAPRA-S" placeholder="CAPRA-S">
-                </div>
-            </div>
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">BILAT2</span>
+        <input class="prediction-form-input" type="text" id="BILAT2" name="BILAT2" placeholder="BILAT2" value="">
         </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">RTPMES</span>
-                    <input type="text" size="12" id="RTPMES" name="RTPMES" placeholder="RTPMES">
-                </div>
-            </div>
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">LOCALIZ</span>
+        <input class="prediction-form-input" type="text" id="LOCALIZ" name="LOCALIZ" placeholder="LOCALIZ" value="">
         </div>
-    </div>
-
-    <div class="row">
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">TRBQ</span>
-                    <input type="text" size="12" id="TRBQ" name="TRBQ" placeholder="TRBQ">
-                </div>
-            </div>
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">MULTIFOC</span>
+        <input class="prediction-form-input" type="text" id="MULTIFOC" name="MULTIFOC" placeholder="MULTIFOC" value="">
         </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">TDUPLI</span>
-                    <input type="text" size="12" id="TDUPLI" name="TDUPLI" placeholder="TDUPLI">
-                </div>
-            </div>
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">VOLUMEN</span>
+        <input class="prediction-form-input" type="text" id="VOLUMEN" name="VOLUMEN" placeholder="VOLUMEN" value="">
         </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">T1MTX</span>
-                    <input type="text" size="12" id="T1MTX" name="T1MTX" placeholder="T1MTX">
-                </div>
-            </div>
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">EXTRACAP</span>
+        <input class="prediction-form-input" type="text" id="EXTRACAP" name="EXTRACAP" placeholder="EXTRACAP" value="">
         </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">FECHAFIN</span>
-                    <input type="text" size="12" id="FECHAFIN" name="FECHAFIN" placeholder="FECHAFIN">
-                </div>
-            </div>
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">VVSS</span>
+        <input class="prediction-form-input" type="text" id="VVSS" name="VVSS" placeholder="VVSS" value="">
         </div>
-    </div>
-
-    <div class="row">
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">TSUPERV</span>
-                    <input type="text" size="12" id="TSUPERV" name="TSUPERV" placeholder="TSUPERV">
-                </div>
-            </div>
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">IPERIN2</span>
+        <input class="prediction-form-input" type="text" id="IPERIN2" name="IPERIN2" placeholder="IPERIN2" value="">
         </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">PSAFIN</span>
-                    <input type="text" size="12" id="PSAFIN" name="PSAFIN" placeholder="PSAFIN">
-                </div>
-            </div>
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">ILINF2</span>
+        <input class="prediction-form-input" type="text" id="ILINF2" name="ILINF2" placeholder="ILINF2" value="">
         </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">TSEGUI</span>
-                    <input type="text" size="12" id="TSEGUI" name="TSEGUI" placeholder="TSEGUI">
-                </div>
-            </div>
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">IVASCU2</span>
+        <input class="prediction-form-input" type="text" id="IVASCU2" name="IVASCU2" placeholder="IVASCU2" value="">
         </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">Unnamed: 52</span>
-                    <input type="text" size="12" id="Unnamed: 52" name="Unnamed: 52" placeholder="Unnamed: 52">
-                </div>
-            </div>
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">PINAG</span>
+        <input class="prediction-form-input" type="text" id="PINAG" name="PINAG" placeholder="PINAG" value="">
         </div>
-    </div> 
-    
-    <div class="row">
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">Unnamed: 53</span>
-                    <input type="text" size="12" id="Unnamed: 53" name="Unnamed: 53" placeholder="Unnamed: 53">
-                </div>
-            </div>
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">MARGEN</span>
+        <input class="prediction-form-input" type="text" id="MARGEN" name="MARGEN" placeholder="MARGEN" value="">
         </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">RA</span>
-                    <input type="text" size="12" id="RA" name="RA" placeholder="RA">
-                </div>
-            </div>
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">TNM2</span>
+        <input class="prediction-form-input" type="text" id="TNM2" name="TNM2" placeholder="TNM2" value="">
         </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">PTEN</span>
-                    <input type="text" size="12" id="PTEN" name="PTEN" placeholder="PTEN">
-                </div>
-            </div>
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">PSAPOS</span>
+        <input class="prediction-form-input" type="text" id="PSAPOS" name="PSAPOS" placeholder="PSAPOS" value="">
         </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">ERG</span>
-                    <input type="text" size="12" id="ERG" name="ERG" placeholder="ERG">
-                </div>
-            </div>
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">RTPADYU</span>
+        <input class="prediction-form-input" type="text" id="RTPADYU" name="RTPADYU" placeholder="RTPADYU" value="">
         </div>
-    </div>    
-
-    <div class="row">
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">KI-67</span>
-                    <input type="text" size="12" id="KI-67" name="KI-67" placeholder="KI-67">
-                </div>
-            </div>
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">RTPMES</span>
+        <input class="prediction-form-input" type="text" id="RTPMES" name="RTPMES" placeholder="RTPMES" value="">
         </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">SPINK1</span>
-                    <input type="text" size="12" id="SPINK1" name="SPINK1" placeholder="SPINK1">
-                </div>
-            </div>
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">RBQ</span>
+        <input class="prediction-form-input" type="text" id="RBQ" name="RBQ" placeholder="RBQ" value="">
         </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-color: black;">C-MYC</span>
-                    <input type="text" size="12" id="C-MYC" name="C-MYC" placeholder="C-MYC">
-                </div>
-            </div>
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">TRBQ</span>
+        <input class="prediction-form-input" type="text" id="TRBQ" name="TRBQ" placeholder="TRBQ" value="">
         </div>
-    </div>
-    
-    <div class="input-group mt-4">
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">TDUPLI</span>
+        <input class="prediction-form-input" type="text" id="TDUPLI" name="TDUPLI" placeholder="TDUPLI" value="">
+        </div>
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">T1MTX</span>
+        <input class="prediction-form-input" type="text" id="T1MTX" name="T1MTX" placeholder="T1MTX" value="">
+        </div>
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">FECHAFIN</span>
+        <input class="prediction-form-input" type="text" id="FECHAFIN" name="FECHAFIN" placeholder="FECHAFIN" value="">
+        </div>
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">FALLEC</span>
+        <input class="prediction-form-input" type="text" id="FALLEC" name="FALLEC" placeholder="FALLEC" value="">
+        </div>
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">TSUPERV</span>
+        <input class="prediction-form-input" type="text" id="TSUPERV" name="TSUPERV" placeholder="TSUPERV" value="">
+        </div>
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">PSAFIN</span>
+        <input class="prediction-form-input" type="text" id="PSAFIN" name="PSAFIN" placeholder="PSAFIN" value="">
+        </div>
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">TSEGUI</span>
+        <input class="prediction-form-input" type="text" id="TSEGUI" name="TSEGUI" placeholder="TSEGUI" value="">
+        </div>
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">C-MYC</span>
+        <input class="prediction-form-input" type="text" id="C-MYC" name="C-MYC" placeholder="C-MYC" value="">
+        </div>    
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">CAPRA-S</span>
+        <input class="prediction-form-input" type="text" id="CAPRA-S" name="CAPRA-S" placeholder="CAPRA-S" value="">
+        </div>
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">RA</span>
+        <input class="prediction-form-input" type="text" id="RA" name="RA" placeholder="RA" value="">
+        </div>
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">PTEN</span>
+        <input class="prediction-form-input" type="text" id="PTEN" name="PTEN" placeholder="PTEN" value="">
+        </div>
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">ERG</span>
+        <input class="prediction-form-input" type="text" id="ERG" name="ERG" placeholder="ERG" value="">
+        </div>
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">KI-67</span>
+        <input class="prediction-form-input" type="text" id="KI-67" name="KI-67" placeholder="KI-67" value="">
+        </div>
+        <div class="input-group-prepend mb-2">
+        <span class="input-group-text">SPINK1</span>
+        <input class="prediction-form-input" type="text" id="SPINK1" name="SPINK1" placeholder="SPINK1" value="">
+        </div>        
         <div class="input-group-prepend">
-            <span class="input-group-text" style="border-color: black;">NOTAS</span>
-            <input type="text" size="50" id="NOTAS" name="NOTAS" placeholder="NOTAS">
+        <span class="input-group-text">NOTAS</span>
+        <input class="prediction-form-input" type="text" id="NOTAS" name="NOTAS" size="50" placeholder="NOTAS" value="">
         </div>
-    </div>
-    
+
     EOHTML;

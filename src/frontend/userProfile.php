@@ -19,13 +19,14 @@
     <html>
         <head>
             <title>Mis datos de perfil</title>
-            <?php include_once("common/includes.php");?>
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <link rel="stylesheet" href="css/formUserProfile.css"/>
+            <link rel="stylesheet" href="css/header.css"/>
         </head>
         <body>
             <div class="header">
-                <div class="fixed-top">
-                    <?php include_once("common/header.php");?>
-                </div>
+                <?php include_once("common/header.php");?>
             </div>   
             
             <div class="content-container">
@@ -75,13 +76,51 @@
                             <label for="password_confirm">Confirmar contraseña</label>
                             <input type="password" id="password_confirm" name="password_confirm" placeholder="Confirmar contraseña" disabled><br><br>
                         
-                            <button type="submit" id="btn-submit" class="btn btn-primary" disabled>Guardar cambios</button>
+                            <button type="button" id="btn-submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop01" disabled>
+                                Guardar cambios
+                            </button>
+
+                            <div class="modal fade" id="staticBackdrop01" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel01" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="staticBackdropLabel01">Guardar cambios</h5>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>¿Está seguro/a de que quiere guardar los cambios realizados?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                            <button type="submit" class="btn btn-primary">Guardar</button>                          
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </form>
+                        
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop02">
+                            Eliminar cuenta
+                        </button>
 
-                        <form action="requests/postDeleteUser.php" method="post" target="_self">
-                            <button type="submit" class="btn btn-danger">Eliminar cuenta</button>
-                        </form>   
-
+                        <div class="modal fade" id="staticBackdrop02" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel02" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="staticBackdropLabel02">Eliminar cuenta</h5>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>¿Está seguro/a de que quiere eliminar su cuenta?</p>
+                                        <p>Una vez eliminada su cuenta, tendrá que registrarse de nuevo.</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                        <form action="requests/postDeleteUser.php" method="post" target="_self">
+                                            <button type="submit" class="btn btn-danger">Eliminar cuenta</button>                          
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                    
                     </div>
                 </div>
             </div>
@@ -89,7 +128,8 @@
             <footer class="bg-light text-center text-lg-start">
                 <?php include_once("common/footer.php")?>
             </footer> 
-            
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
             <script>
                 function enableEditing(){
                     let input = document.getElementsByTagName('input');

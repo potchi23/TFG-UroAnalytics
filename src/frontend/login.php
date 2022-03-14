@@ -11,14 +11,14 @@
 <html>
     <head>
         <title>Savana Barata - Login </title>
-        <link rel="stylesheet" href="css/formLogin.css" styles="width=18.9px; height=61.7px;"/>
+        <link rel="stylesheet" href="css/form.css" styles="width=18.9px; height=61.7px;"/>
         <?php include_once("common/includes.php");?>
     </head>
     <body>
         <div class="container">
             <div class="form-container">
                 <img class="logo" src="img/logo.png" alt="logo" draggable="false"/>
-                <h1 class="form-title">Acceder a la copia barata de Savana</h1>
+                <h1 class="form-title font-weight-bold">Acceder a la copia barata de Savana</h1>
 
                 <div class="form-content">
 
@@ -59,6 +59,7 @@
                 <div class="register-form">        
                     <p for="register">¿No estás registrado? <a href="register.php">Solicita un registro</a></p>
                 </div>
+                <br>
             </div>
         </div>
     </body>

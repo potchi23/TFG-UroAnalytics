@@ -16,7 +16,7 @@
 }
 
 .dropdown {
-    position: relative;
+    position:static;
     display: inline-block;
 }
 
@@ -28,7 +28,7 @@
     overflow: auto;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
-    right: 0;
+    right: 0;    
 }
 
 .dropdown-content a {

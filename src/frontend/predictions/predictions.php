@@ -7,7 +7,6 @@
         header("Location: ../login.php");
     }
     define('import-form', TRUE);
-    define('get-scores', TRUE);
     $user = $_SESSION["user"];
 ?>
 
@@ -16,15 +15,11 @@
     <head>
         <title>Realizar predicción</title>
         
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <?php include_once("../common/includes.php");?>
         <link rel="stylesheet" href="../css/predictions.css">
-        <link rel="stylesheet" href="../css/header.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="getScores.js"></script>
-        <meta charset="utf-8">
 
-        <script language="javaScript">
+        <!-- <script language="javaScript">
             function unselectButtons() {
                 b1 = document.getElementById("op1");
                 b2 = document.getElementById("op2");
@@ -38,131 +33,46 @@
             function disableButton3() {
                 document.getElementById("op3").disabled = true; 
             }
-        </script>
+        </script> -->
     </head>
         <body>
             <div class="header">
-                <div class="fixed-top">
-                    <?php include_once("../common/header.php");?>
-                </div>
-            </div>    
+                <?php include_once("../common/header.php");?>
+            </div>
             
-            <div class="content-container">
+            <div class="sidebar-container" id="list-example">
+                <?php include_once("sidebarPredictions.php")?>
+            </div>
+            
+            <div class="content-container" data-bs-spy="scroll" data-bs-target="#list-example" data-bs-offset="0" class="scrollspy-example" tabindex="0">
                 <div class="container-fluid">
-                    <!-- Main component for a primary marketing message or call to action -->
-                    <div class="jumbotron">
+                    <div class="jumbotron" id="indexPrediction">                        
+                        <h1 class="display-8" style="font-weight:600;">Realizar una predicción</h1><br>                        
+                        <hr class="my-1"><br>
+                        <h5>Para realizar una predicción debe importar un archivo CSV y después pulsar el botón "Importar desde CSV"
+                            o puede rellenar manualmente las siguientes variables.</h5>
+                        <h5>Y a continuación debe elegir el algoritmo de predicción que desee emplear.</h5><br>
+
                         <?php
-                            if (isset($_SESSION["error"]) && count($_SESSION["error"]) > 0){
-                                echo"</p><div class='alert-message' style='width: 30%;'><div class='alert alert-danger'>";
-                                foreach($_SESSION["error"] as $error){
-                                    echo "<div>$error</div>";
-                                }
-                                echo"</div></div>";
-                                unset($_SESSION["error"]);
-                            }
-                        ?> 
-                        <h1 class="display-8" style="font-weight:600;">Realizar una predicción</h1>
-                        <hr class="my-8">
-
-                        <div class="prediction-header">
-                            <h2> Datos del paciente</h2><br>
-                        
-                            <div class="import-form">
-                                <form action="submit_csv.php" method="post" enctype="multipart/form-data">
-                                    <input type="file" id="prediction-import" name="prediction-import">
-                                    <button class="btn btn-primary ml-4" type="submit">Importar desde CSV</button>
-                                </form>
-                            </div>
-
-                            <div class="training-form">
-                                <form action="../requests/getTraining.php" method="get">
-                                    <label for="training-button" class="btn btn-danger">
-                                        Entrenar [PRUEBA!!!]
-                                    </label>
-                                    <input id="training-button" type="submit"/> 
-                                </form>
-                                <p>Ver logs en la consola de Flask</p>
-                            </div>
-                        </div>
-
-                        <br><br>
-                        <div class="d-flex justify-content-between input-group prediction-data">
-                        
-                        <?php
-                            if(!isset($_SESSION["dataInputs"])){
-                                include_once("empty-form.php");
+                            if(!isset($_SESSION["last_train"])){
+                                echo "<p>Último entrenamiento: Nunca</p>";
                             }
                             else{
-                                include_once("filled-form.php");
-                                unset($_SESSION["dataInputs"]);
+                                $last_train= $_SESSION['last_train'];
+                                echo "<p>Último entrenamiento: $last_train</p>";
                             }
                         ?>
-                        </div>
-                        <br>
                         <hr class="my-4">
-                        <h2> Algoritmo a utilizar </h2>
-                        <br>
-
-                        <label for="algorithms">Algoritmo seleccionado:</label>
-                        <select name="algorithms" id="algorithms">
-                            <option value="default">Seleccione algoritmo...</option>
-                            <option value="rfc">Árboles Aleatorios</option>
-                            <option value="lrc">Regresión Logística</option>
-                            <option value="knn">k-NN</option>
-                        </select>
+                    </div> 
                         
-                        <div class="input-group accuracy">
-                            
-                            <div class="prediction-accuracy">
-                                <label for="prediction-accuracy">
-                                    Accuracy: 
-                                </label>
-                                <input type="text" id="prediciton-accuracy" name="prediciton-accuracy" value="0.0" disabled>
-                            </div>
+                    <div id="dataPatients">
+                        <?php include_once("dataPatients.php")?>
+                    </div>            
 
-                            <div class="prediction-recall">
-                                <label for="prediction-recall-1" style="margin-right:1.7rem;">
-                                    Recall Si (CASOS): 
-                                </label>
-                                <input type="text" id="prediciton-recall-1" name="prediciton-recall-1" value="0.0" disabled>
-
-                                <label for="prediciton-recall-2" style="margin-right:1.7rem;">
-                                    Recall No (CONTROLES): 
-                                </label>
-                                <input type="text" id="prediciton-recall-2" name="prediciton-recall-2" value="0.0" disabled>
-
-                                <label for="prediciton-recall-3" style="margin-right:1.7rem;">
-                                    Recall Persitencia PSA: 
-                                </label>
-                                <input type="text" id="prediciton-recall-3" name="prediciton-recall-3" value="0.0" disabled>
-                            </div>
-
-                            <div class="prediction-precision">
-                                <label for="prediction-precision-1">
-                                    Precision Si (CASOS): 
-                                </label>
-                                <input type="text" id="prediciton-precision-1" name="prediciton-precision-1" value="0.0" disabled>
-                                
-                                <label for="prediciton-precision-2">
-                                    Precision No (CONTROLES): 
-                                </label>
-                                <input type="text" id="prediciton-precision-2" name="prediciton-precision-2" value="0.0" disabled>
-                                
-                                <label for="prediciton-precision-3">
-                                    Precision Persitencia PSA: 
-                                </label>
-                                <input type="text" id="prediciton-precision-3" name="prediciton-precision-3" value="0.0" disabled>
-                            </div>
-                        </div>
-                        <button class="btn btn-danger btn-sm ml-2" type="button" style="z-index:0;">Predecir</button>
-
-                        <div class="input-group result">
-                            <label for="prediction-result">
-                                Resultado: 
-                            </label>
-                            <input type="text" id="prediciton-result" name="prediciton-result" value="Prediccion" disabled>
-                        </div>
+                    <div id="predictionAlgorithm">
+                        <?php include_once("predictionAlgorithm.php")?>
                     </div>
+
                 </div>
             </div>    
             <footer class="bg-light text-center text-lg-start">

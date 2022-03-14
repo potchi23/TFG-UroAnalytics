@@ -47,3 +47,25 @@
 .training-form [type="submit"]{
     display:none;
 }
+
+.import-form{
+    margin: 0px;
+}
+.import-form form{
+    display: flex;
+    flex-direction: column;
+}
+
+.import-form button{
+    width: fit-content;
+    margin-top: 0.8rem;
+    margin-bottom: 1rem;
+}
+
+.import-form input{
+    margin-left: 1.5rem;
+}
+
+.alert-message {
+    width:fit-content;
+}
