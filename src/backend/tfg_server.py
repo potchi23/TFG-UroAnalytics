@@ -420,7 +420,8 @@ def doQuery():
 
         cursor = mydb.cursor()
 
-        query = f'SELECT * FROM patients WHERE GLEASON1 = {biopsy["biopsy1"]} AND NCILPOS = {biopsy["biopsy2"]} AND PORCENT = {biopsy["biopsy3"]} AND TNM1 = {biopsy["biopsy4"]}' 
+        query = f'SELECT * FROM patients WHERE GLEASON1 = {biopsy["biopsy1"]} AND NCILPOS = {biopsy["biopsy2"]} AND PORCENT {biopsy["biopsy3op"]} {biopsy["biopsy3"]} AND TNM1 = {biopsy["biopsy4"]}' 
+        print(query)
         cursor.execute(query)
 
         df_db = pd.DataFrame(cursor.fetchall())

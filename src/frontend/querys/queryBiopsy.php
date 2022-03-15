@@ -43,15 +43,15 @@
         </div>
         <div class="col my-auto">
             <div class="custom-control custom-switch">
-                <input type="checkbox" class="custom-control-input" id="portcilop1" name="biopsy3<" onclick="toggleCB(document.getElementById('portcilop3'))">
+                <input type="checkbox" class="custom-control-input" id="portcilop1" name="biopsy3op"  value='<' onclick="toggleCB(document.getElementById('portcilop3'))">
                 <label class="custom-control-label" for="portcilop1">Menor que</label>
             </div>
             <div class="custom-control custom-switch">
-                <input type="checkbox" class="custom-control-input"  id="portcilop2" name="biopsy3=">
+                <input type="checkbox" class="custom-control-input"  id="portcilop2" name="biopsy3=" value='='>
                 <label class="custom-control-label" for="portcilop2">Igual</label>
             </div>
             <div class="custom-control custom-switch">
-                <input type="checkbox" class="custom-control-input" id="portcilop3" name="biopsy3>" onclick="toggleCB(document.getElementById('portcilop1'))">
+                <input type="checkbox" class="custom-control-input" id="portcilop3" name="biopsy3op" value='>' onclick="toggleCB(document.getElementById('portcilop1'))">
                 <label class="custom-control-label" for="portcilop3">Mayor que</label>
             </div>
         </div>
