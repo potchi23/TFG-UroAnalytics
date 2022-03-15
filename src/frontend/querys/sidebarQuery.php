@@ -2,7 +2,7 @@
   CONSULTAS
 </div>
 
-<li class="header-sidebar">Índice</li>
+<li class="header-sidebar">Índice de filtros</li>
   
 <ul class="sidebar-navigation">
   <li>

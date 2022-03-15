@@ -6,7 +6,7 @@
             <h3> Fecha PRL </h3>
         </div>
             <div class="col-">
-                    <input type="text" class="form-control" placeholder="Fecha" style="width:10em;">
+                    <input type="text" class="form-control" placeholder="Fecha" name="cir1" style="width:10em;">
             </div>
     </div>
 </div>

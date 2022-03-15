@@ -8,7 +8,7 @@
             <h3> Gleason pieza PRL </h3>
         </div>
         <div class="col my-auto">
-            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" style="width:10em">
+            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="prostate1" style="width:10em">
                 <option selected>Choose...</option>
                 <option value="1">6</option>
                 <option value="2">7 (3+4)</option>
@@ -26,7 +26,7 @@
             <h3> Bilateralidad </h3>
         </div>
         <div class="col my-auto">
-            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" style="width:10em">
+            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="prostate2" style="width:10em">
                 <option selected>Choose...</option>
                 <option value="1">Si</option>
                 <option value="2">No</option>
@@ -41,20 +41,20 @@
             <h3> Volumen tumoral </h3>
         </div>
         <div class="col my-auto">
-            <input type="range" value="50" min="0" style="width:80%; margin-left:10px" max="100" step="1" oninput="this.nextElementSibling.value = this.value">
+            <input type="range" value="50" min="0" style="width:80%; margin-left:10px" name="prostate3" max="100" step="1" oninput="this.nextElementSibling.value = this.value">
         <output style="margin-left:10px">50</output>%                    
         </div>
         <div class="col my-auto">
             <div class="custom-control custom-switch">
-                <input type="checkbox" class="custom-control-input" id="volop1" onclick="toggleCB(document.getElementById('volop3'))">
+                <input type="checkbox" class="custom-control-input" id="volop1" name="prostate3<" onclick="toggleCB(document.getElementById('volop3'))">
                 <label class="custom-control-label" for="volop1">Menor que</label>
             </div>
             <div class="custom-control custom-switch">
-                <input type="checkbox" class="custom-control-input" id="volop2">
+                <input type="checkbox" class="custom-control-input"  id="volop2" name="prostate3=">
                 <label class="custom-control-label" for="volop2">Igual</label>
             </div>
             <div class="custom-control custom-switch">
-                <input type="checkbox" class="custom-control-input" id="volop3" onclick="toggleCB(document.getElementById('volop1'))">
+                <input type="checkbox" class="custom-control-input" id="volop3" name="prostate3>" onclick="toggleCB(document.getElementById('volop1'))">
                 <label class="custom-control-label" for="volop3">Mayor que</label>
             </div>
         </div>
@@ -67,7 +67,7 @@
             <h3> Extensión extracapsular </h3>
         </div>
         <div class="col my-auto">
-            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" style="width:10em">
+            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="prostate4" style="width:10em">
                 <option selected>Choose...</option>
                 <option value="1">Si</option>
                 <option value="2">No</option>
@@ -82,7 +82,7 @@
             <h3> Invasión Vesículas Seminales </h3>
         </div>
         <div class="col my-auto">
-            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" style="width:10em">
+            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="prostate5" style="width:10em">
                 <option selected value="0">NC</option>
                 <option value="1">Si</option>
                 <option value="2">No</option>
@@ -97,7 +97,7 @@
             <h3> PIN alto grado pieza </h3>
         </div>
         <div class="col my-auto">
-            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" style="width:10em">
+            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="prostate6" style="width:10em">
                 <option selected value="0">NC</option>
                 <option value="1">Si</option>
                 <option value="2">No</option>
@@ -112,7 +112,7 @@
             <h3> Márgenes quirúrgicos positivos </h3>
         </div>
         <div class="col my-auto">
-            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" style="width:10em">
+            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="prostate7" style="width:10em">
                 <option selected value="0">NC</option>
                 <option value="1">Si</option>
                 <option value="2">No</option>
@@ -127,7 +127,7 @@
             <h3> TNM pieza </h3>
         </div>
         <div class="col my-auto">
-            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" style="width:10em">
+            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="prostate8" style="width:10em">
                 <option selected>Choose...</option>
                 <option value="1">pT2ab</option>
                 <option value="2">pT2c</option>

@@ -388,8 +388,6 @@ def importdb():
         #limpiar datos
         df = clearDFdata(df)
 
-        #pasar a csv para aumentar rapidez de procesamiento
-        #df.to_csv("uploads/" + filename.split('.')[0] + '.csv', index=False, header=False)
         engine = create_engine('mysql://root:@localhost/tfg_bd', echo = False)
         df.to_sql(name='patients', con=engine, if_exists='append', index=False)
 
@@ -411,6 +409,29 @@ def clearDFdata(df):
     df = pd.concat([df, df_db]).drop_duplicates(keep=False)
     
     return df
+
+@app.route('/query', methods=['GET'])
+def doQuery():
+    status = 400
+    response = {}
+
+    if request.method == 'GET':
+        biopsy = request.form['biopsy']
+
+        cursor = mydb.cursor()
+
+        query = f'SELECT * FROM patients WHERE GLEASON1 = {biopsy["biopsy1"]} AND NCILPOS = {biopsy["biopsy2"]} AND PORCENT = {biopsy["biopsy3"]} AND TNM1 = {biopsy["biopsy4"]}' 
+        cursor.execute(query)
+
+        df_db = pd.DataFrame(cursor.fetchall())
+        df_db.columns = [i[0] for i in cursor.description]
+
+        cursor.close()
+        df = pd.concat([df, df_db]).drop_duplicates(keep=False)
+
+        print(df)
+
+    return response
 
 class FlaskConfig:
     '''Configuración de Flask'''

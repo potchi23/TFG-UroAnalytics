@@ -7,7 +7,7 @@
             <h3> PSA preoperatorio </h3>
         </div>
         <div class="col my-auto">
-            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" style="width:10em; ">
+            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="clinic1" style="width:10em; ">
                 <option selected value="0">N/A</option>
                 <option value="1">0-6 ng/ml</option>
                 <option value="2">6,01-10 ng/ml</option>
