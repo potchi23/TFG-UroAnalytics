@@ -2,7 +2,7 @@
     session_start();
     
     if (isset($_SESSION["user"])){
-        header("Location: /dashboard.php");
+        header("Location: /homePage.php");
     }
 
     if(!isset($_SESSION["email"])){
@@ -19,13 +19,13 @@
 <html>
     <head>
         <title>Registro solicitado</title>
-        <link rel="stylesheet" href="css/forms.css"/>
+        <link rel="stylesheet" href="css/form.css"/>
         <?php include_once("common/includes.php");?>
     </head>
     <body>
         <div class="container">
             <div class="form-container">
-                <h1 class="form-title">Registro solicitado</h1>
+                <h1 class="form-title font-weight-bold">Registro solicitado</h1>
                 <div class="form-content">
                     <?php
                         $email = $_SESSION["email"];

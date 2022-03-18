@@ -20,6 +20,7 @@ label{
 }
 
 .form-container{
+    position: absolute;
     text-align: center;
 
     width: 25rem;
@@ -64,6 +65,12 @@ label{
 
     height: 30px;
     width: 80%;
+}
+
+.form-content textarea {
+    height: 100px;
+    width: 80%;
+    margin-left: 40px;
 }
 
 .form-content .submit{

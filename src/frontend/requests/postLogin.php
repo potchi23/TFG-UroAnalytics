@@ -28,7 +28,7 @@
         $token = $data->token;
         $_SESSION["user"] = new User($id, $name, $surname_1, $surname_2, $email, $type, $accepted, $token);
 
-        header("Location: ../dashboard.php");
+        header("Location: ../homePage.php");
     }
     else if($response["status"] == 401){
         

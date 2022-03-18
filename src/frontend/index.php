@@ -14,7 +14,7 @@
     <body>
         <?php
             if (isset($_SESSION["user"])){
-                header("Location: dashboard.php");
+                header("Location: homePage.php");
             }
             else{
                 header("Location: login.php");
