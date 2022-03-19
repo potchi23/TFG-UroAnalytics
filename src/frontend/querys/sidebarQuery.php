@@ -8,37 +8,37 @@
         <i aria-hidden="true"></i> Inicio Consulta
       </a>
     </li>
-    <li>
+    <li id="queryCIRSidebar" style="display: none;">
       <a href="#queryCIR">
         <i aria-hidden="true"></i> Filiación
       </a>
     </li>
-    <li>
+    <li id="querySociodemographicSidebar" style="display: none;">
       <a href="#querySociodemographic">
         <i aria-hidden="true"></i> Sociodemográfico
       </a>
     </li>
-    <li>
+    <li  id="queryClinicSidebar" style="display: none;">
       <a href="#queryClinic">
         <i aria-hidden="true"></i> Clínico-Patológicos
       </a>
     </li>
-    <li>
+    <li id="queryBiopsySidebar" style="display: none;">
       <a href="#queryBiopsy">
         <i aria-hidden="true"></i> Biopsias Prostáticas
       </a>
     </li>
-    <li>
+    <li id="queryProstateSidebar" style="display: none;">
       <a href="#queryProstate">
         <i aria-hidden="true"></i> Tras Prostatectomía
       </a>
     </li>
-    <li>
+    <li id="queryEvolveSidebar" style="display: none;">
       <a href="#queryEvolve">
         <i aria-hidden="true"></i> Evolutivos
       </a>
     </li>
-    <li>
+    <li id="queryMarkersSidebar" style="display: none;">
       <a href="#queryMarkers">
         <i aria-hidden="true"></i> Marcadores
       </a>
