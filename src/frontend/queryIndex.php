@@ -15,6 +15,17 @@
             function toggleCB(op) { 
                 op.disabled = !op.disabled;
             }
+
+            function toggleField(idfield, idCB){
+                field = document.getElementById(idfield);
+                cb = document.getElementById(idCB).checked;
+
+                if(cb){
+                    field.style.display = "block"
+                }else{
+                    field.style.display = "none"
+                }
+            }
         </script>
 
         <meta charset="utf-8">
@@ -37,36 +48,63 @@
                             <h5>Para realizar una consulta debe rellenar los filtros deseados de la barra lateral izquierda.</h5>
                             <h5>A continuación deberá presionar el botón de realizar consulta.</h5>
                         </div>
+
+                        <div class="jumbotron">
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" checked="false" class="custom-control-input" id="boolCIR" onclick="toggleField('queryCIR', 'boolCIR'); toggleField('queryCIRSidebar', 'boolCIR')">
+                                <label class="custom-control-label" for="boolCIR">Filiación</label>
+                            </div>
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="boolSociodemographic" onclick="toggleField('querySociodemographic', 'boolSociodemographic'); toggleField('querySociodemographicSidebar', 'boolSociodemographic')">
+                                <label class="custom-control-label" for="boolSociodemographic">Sociodemográfico</label>
+                            </div>
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="boolClinic" onclick="toggleField('queryClinic', 'boolClinic'); toggleField('queryClinicSidebar', 'boolClinic')">
+                                <label class="custom-control-label" for="boolClinic">Clínico patoloógico</label>
+                            </div>
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="boolBiopsy" onclick="toggleField('queryBiopsy', 'boolBiopsy'); toggleField('queryBiopsySidebar', 'boolBiopsy')">
+                                <label class="custom-control-label" for="boolBiopsy">Biopsias prostáticas</label>
+                            </div>
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="boolProstate" onclick="toggleField('queryProstate', 'boolProstate'); toggleField('queryProstateSidebar', 'boolProstate')">
+                                <label class="custom-control-label" for="boolProstate">Tras prostatectomía</label>
+                            </div>
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="boolEvolve" onclick="toggleField('queryEvolve', 'boolEvolve'); toggleField('queryEvolveSidebar', 'boolEvolve')">
+                                <label class="custom-control-label" for="boolEvolve">Evolutivos</label>
+                            </div>
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="boolMarkers" onclick="toggleField('queryMarkers', 'boolMarkers'); toggleField('queryMarkersSidebar', 'boolMarkers')">
+                                <label class="custom-control-label" for="boolMarkers">Marcadores</label>
+                            </div>
+                        </div>
                         
-                        <div id="queryCIR">
+                        <div id="queryCIR" style="display:none;">
                             <?php include_once("querys/queryCIR.php")?>
                         </div>
 
-                        <div id="querySociodemographic">
+                        <div id="querySociodemographic" style="display:none;">
                             <?php include_once("querys/querySociodemographic.php")?>
                         </div>
-                        <!--
-                        <div id="queryBackground">
-                            <?php include_once("querys/queryBackground.php")?>
-                        </div>
-                        -->
-                        <div id="queryClinic">
+
+                        <div id="queryClinic" style="display:none;">
                             <?php include_once("querys/queryClinic.php")?>
                         </div>
 
-                        <div id="queryBiopsy">
+                        <div id="queryBiopsy" style="display:none;">
                             <?php include_once("querys/queryBiopsy.php")?>
                         </div>
 
-                        <div id="queryProstate">
+                        <div id="queryProstate" style="display:none;">
                             <?php include_once("querys/queryProstate.php")?>
                         </div>
 
-                        <div id="queryEvolve">
+                        <div id="queryEvolve" style="display:none;">
                             <?php include_once("querys/queryEvolve.php")?>
                         </div>
 
-                        <div id="queryMarkers">
+                        <div id="queryMarkers" style="display:none;">
                             <?php include_once("querys/queryMarkers.php")?>
                         </div>
 
@@ -77,6 +115,16 @@
                 <footer class="bg-light text-center text-lg-start">
                     <?php include_once("common/footer.php")?>
                 </footer>  
+        <script>
+            let switches = ["boolCIR", "boolSociodemographic", "boolClinic", "boolBiopsy", "boolProstate", "boolEvolve", "boolMarkers"];
+            let fields = ["queryCIR", "querySociodemographic", "queryClinic", "queryBiopsy", "queryProstate", "queryEvolve", "queryMarkers"];
+            let fieldsSidebar = ["queryCIRSidebar", "querySociodemographicSidebar", "queryClinicSidebar", "queryBiopsySidebar", "queryProstateSidebar", "queryEvolveSidebar", "queryMarkersSidebar"];
+
+            for(var i=0; i < switches.length; i++){
+                toggleField(fields[i], switches[i]);
+                toggleField(fieldsSidebar[i], switches[i]);
+            }
+        </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     </body>
 </html>

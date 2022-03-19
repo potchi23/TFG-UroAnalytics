@@ -36,7 +36,7 @@
     $clinic = array(
         "clinic1" => $_POST['clinic1']
     );
-
+    
     $evolve1op = minormayor("evolve1")
     $evolve3op = minormayor("evolve3")
     $evolve7op = minormayor("evolve7")
