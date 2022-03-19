@@ -16,6 +16,8 @@ import pandas as pd
 import json
 import numpy as np
 
+HERE = os.path.dirname(os.path.abspath(__file__))
+
 app = Flask(__name__)
 CORS(app)
 bcrypt = Bcrypt(app)
@@ -388,37 +390,35 @@ def importdb():
 
     if request.method == 'POST':
         filename = request.form['filename']
-        filepath = "../frontend/requests/tmp_uploads/" + filename
+        filepath = HERE + "/tmp_uploads/" + filename
         #leer archivo
         df = pd.read_excel(filepath, header=1)
         #eliminar archivo del frontend
         os.remove(filepath)
 
-        #limpiar datos
-        df = clearDFdata(df)
+        cursor = mydb.cursor()
+        query = f'SELECT * FROM patients'
+        cursor.execute(query)
 
-        #pasar a csv para aumentar rapidez de procesamiento
-        #df.to_csv("uploads/" + filename.split('.')[0] + '.csv', index=False, header=False)
+        df = clearDFdata(df, cursor)
+        
+        cursor.close()
         engine = create_engine('mysql://root:@localhost/tfg_bd', echo = False)
         df.to_sql(name='patients', con=engine, if_exists='append', index=False)
 
     return response
 
-def clearDFdata(df):
-    #cogemos los datos ya existentes para evitar duplicados
-    cursor = mydb.cursor()
-    
-    query = f'SELECT * FROM patients'
-    cursor.execute(query)
+def clearDFdata(df, cursor):
 
-    #dataframe de la tabla que está en phpmyadmin
-    df_db = pd.DataFrame(cursor.fetchall())
-    df_db.columns = [i[0] for i in cursor.description]
+    row = cursor.fetchone()
+    columns = [i[0] for i in cursor.description]
+    df_db = pd.DataFrame(columns=columns)
+    print(df_db)
 
-    cursor.close()
+    if row != None:
+        df_db = pd.DataFrame(cursor.fetchall())
+        df = pd.concat([df_db, df]).drop_duplicates(keep=False)
 
-    df = pd.concat([df, df_db]).drop_duplicates(keep=False)
-    
     return df
 
 class FlaskConfig:
