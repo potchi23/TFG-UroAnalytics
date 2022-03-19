@@ -100,6 +100,6 @@
     );
 
     $http_requests = new HttpRequests();
-    $response = $http_requests->getResponse("$BACKEND_URL/query", "GET", "", $post_req);
+    $response = $http_requests->getResponse("$BACKEND_URL/getQuery", "GET", "", $post_req);
 
 ?>

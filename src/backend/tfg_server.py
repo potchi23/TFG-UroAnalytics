@@ -421,6 +421,30 @@ def clearDFdata(df, cursor):
 
     return df
 
+@app.route('/getQuery', methods=['GET'])
+def doQuery():
+    status = 400
+    response = {}
+
+    if request.method == 'GET':
+        biopsy = request.form['biopsy']
+
+        cursor = mydb.cursor()
+
+        query = f'SELECT * FROM patients WHERE GLEASON1 = {biopsy["biopsy1"]} AND NCILPOS = {biopsy["biopsy2"]} AND PORCENT {biopsy["biopsy3op"]} {biopsy["biopsy3"]} AND TNM1 = {biopsy["biopsy4"]}' 
+        print(query)
+        cursor.execute(query)
+
+        df_db = pd.DataFrame(cursor.fetchall())
+        df_db.columns = [i[0] for i in cursor.description]
+
+        cursor.close()
+        df = pd.concat([df, df_db]).drop_duplicates(keep=False)
+
+        print(df)
+
+    return response
+
 class FlaskConfig:
     '''Configuración de Flask'''
     # Activa depurador y recarga automáticamente
