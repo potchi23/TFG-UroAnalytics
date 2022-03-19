@@ -1,6 +1,6 @@
 import pandas as pd
 from sklearn.preprocessing import LabelEncoder
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import RandomForestClassifier, VotingClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.preprocessing import MinMaxScaler
@@ -62,7 +62,7 @@ def logisticRegresionTraining(X_train, X_test, y_train, y_test):
     pipe_lrc = Pipeline([
                     ('scl', StandardScaler()),
                     ('norm', MinMaxScaler()),
-                    ('lrc', LogisticRegression(C=1.0, penalty='l2', random_state=1))    
+                    ('lrc', LogisticRegression(C=1.0, penalty='l2'))    
                     ])
     pipe_lrc.fit(X_train, y_train)
     score = pipe_lrc.score(X_test, y_test)
@@ -88,6 +88,21 @@ def knnTraining(X_train, X_test, y_train, y_test):
 
     return pipe_knn, score, recall, precision
 
+def bestTraining(X_train, X_test, y_train, y_test, estimators):
+    #[('prfc', pipe_rfc),('pknn', pipe_knn), ('pclr', pipe_clr)]
+    pipe_best = VotingClassifier(
+                    estimators=estimators,
+                    voting='soft'
+                )
+    pipe_best.fit(X_train, y_train)
+    score = pipe_best.score(X_test, y_test)
+
+    y_predict = pipe_best.predict(X_test)
+    recall = recall_score(y_test, y_predict, average=None)
+    precision = precision_score(y_test, y_predict, average=None)
+
+    return pipe_best, score, recall, precision
+
 # Punto de entrada
 def trainModels():
     print('Starting training...')
@@ -106,7 +121,8 @@ def trainModels():
     pipe_rfc, accuracy_rfc, recall_rfc, precision_rfc = randomForestTraining(X_train, X_test, y_train, y_test)
     pipe_lrc, accuracy_lrc, recall_lrc, precision_lrc = logisticRegresionTraining(X_train, X_test, y_train, y_test)
     pipe_knn, accuracy_knn, recall_knn, precision_knn = knnTraining(X_train, X_test, y_train, y_test)
-    
+    pipe_best, accuracy_best, recall_best, precision_best = bestTraining(X_train, X_test, y_train, y_test, [('prfc', pipe_rfc),('pknn', pipe_knn), ('pclr', pipe_lrc)])
+
     scores = {
         'rfc' : {
             'accuracy':accuracy_rfc,
@@ -122,10 +138,15 @@ def trainModels():
             'accuracy':accuracy_knn,
             'recall':list(recall_knn),
             'precision':list(precision_knn)
+        },
+        'best' : {
+            'accuracy':accuracy_best,
+            'recall':list(recall_best),
+            'precision':list(precision_best)
         }
     }
 
-    return pipe_rfc, pipe_lrc, pipe_knn, scores
+    return pipe_rfc, pipe_lrc, pipe_knn, pipe_best, scores
 
 
     

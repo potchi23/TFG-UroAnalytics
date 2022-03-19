@@ -6,3 +6,4 @@ pyjwt
 pandas
 scikit-learn
 sqlalchemy
+openpyxl

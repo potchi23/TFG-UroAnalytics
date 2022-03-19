@@ -1,6 +1,5 @@
 const BACKEND_URL = 'http://localhost:5000';
 
-
 $(document).ready(() => {
     if($('#algorithms').val() != 'none'){
         $('#prediction-button').show();
@@ -13,7 +12,9 @@ $(document).ready(() => {
         $.ajax({
             type: 'GET',
             url: BACKEND_URL + '/training/scores',
-    
+            beforeSend: (request) => {
+                request.setRequestHeader("x-access-token", $('#token').val());
+            },
             success : result => {
                 let scores = result;
 
@@ -71,6 +72,9 @@ $(document).ready(() => {
             type: 'POST',
             url: BACKEND_URL + '/predict',
             data : data,
+            beforeSend: (request) => {
+                request.setRequestHeader("x-access-token", $('#token').val());
+            },
 
             success : result => {
                 $('#prediction-result').val(result);

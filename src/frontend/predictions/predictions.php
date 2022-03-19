@@ -18,7 +18,6 @@
         <?php include_once("../common/includes.php");?>
         <link rel="stylesheet" href="../css/predictions.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
         <!-- <script language="javaScript">
             function unselectButtons() {
                 b1 = document.getElementById("op1");
@@ -49,6 +48,7 @@
                     <div class="jumbotron" id="indexPrediction">                        
                         <h1 class="display-8" style="font-weight:600;">Realizar una predicción</h1><br>                        
                         <hr class="my-1"><br>
+
                         <h5>Para realizar una predicción debe importar un archivo CSV y después pulsar el botón "Importar desde CSV"
                             o puede rellenar manualmente las siguientes variables.</h5>
                         <h5>Y a continuación debe elegir el algoritmo de predicción que desee emplear.</h5><br>
@@ -78,6 +78,7 @@
             <footer class="bg-light text-center text-lg-start">
                 <?php include_once("../common/footer.php") ?>
             </footer> 
+        <input id='token' type="hidden" value=<?php echo $user->get_token()?>>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     </body>
 </html>

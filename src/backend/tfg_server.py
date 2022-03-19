@@ -30,6 +30,7 @@ mydb = connector.connect(
 pipe_rfc = ''
 pipe_lrc = ''
 pipe_knn = ''
+pipe_best = ''
 scores = {}
 last_train = 'never'
 
@@ -43,6 +44,7 @@ def token_required(f):
             token = request.headers['x-access-token']
 
         if not token:
+            print('Token is missing')
             return { 'message' : 'Token is missing' }, 401
   
         try:
@@ -50,6 +52,7 @@ def token_required(f):
             user = { 'public_id' : data['public_id'], 'is_admin' : data['type'] == 'admin' }
             
         except Exception as e:
+            print('Token is invalid')
             return { 'message' : 'Token is invalid' }, 401
 
         return  f(user, *args, **kwargs)
@@ -305,11 +308,13 @@ def trainOnStartup():
     global pipe_rfc
     global pipe_lrc
     global pipe_knn
+    global pipe_best
+
     global scores
     global last_train
 
     last_train = datetime.utcnow()
-    pipe_rfc, pipe_lrc, pipe_knn, scores = predictions.trainModels()
+    pipe_rfc, pipe_lrc, pipe_knn, pipe_best, scores = predictions.trainModels()
 
 @app.route('/training', methods=['GET'])
 @token_required
@@ -319,11 +324,13 @@ def train(current_user):
     global pipe_rfc
     global pipe_lrc
     global pipe_knn
+    global pipe_best
+
     global scores
     global last_train
 
     if request.method == 'GET':
-        pipe_rfc, pipe_lrc, pipe_knn, scores = predictions.trainModels()
+        pipe_rfc, pipe_lrc, pipe_knn, pipe_best, scores = predictions.trainModels()
     
         last_train =  str(datetime.utcnow()).split('.')[0]
         response = { 'last_train' : last_train }
@@ -332,12 +339,12 @@ def train(current_user):
         return response, status
 
 @app.route('/training/scores', methods=['GET'])
-def getScores():
+@token_required
+def getScores(current_user=''):
     response = {}
     status = 404
 
     if request.method == 'GET':
-        #print(session.get('scores', 'not set'))
         global scores
         response = scores
 
@@ -345,7 +352,7 @@ def getScores():
         return response, status
 
 @app.route('/predict', methods=['POST'])
-#@token_required
+@token_required
 def predict(current_user=''):
     status = 404
     if request.method == 'POST':
@@ -356,8 +363,10 @@ def predict(current_user=''):
             prediction = pipe_rfc.predict(np.array(features).reshape(1, -1))
         elif (algorithm == 'lrc'):
             prediction = pipe_lrc.predict(np.array(features).reshape(1, -1))
-        else:
+        elif (algorithm == 'knn'):
             prediction = pipe_knn.predict(np.array(features).reshape(1, -1))
+        else:
+            prediction = pipe_best.predict(np.array(features).reshape(1, -1))
 
         if prediction[0] == 1:
             response = 'SI (CASOS)'
