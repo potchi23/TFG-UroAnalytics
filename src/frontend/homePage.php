@@ -49,7 +49,7 @@
                     <h1>¿Qué puedes hacer en Savana Barata?</h1>
                     <hr>
                     <div class="container mt-4 mb-4">
-                        <div class="text-center d-flex justify-content-center">                        
+                        <div class="d-flex justify-content-center">
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="services">
@@ -79,8 +79,8 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>                        
-                        </div>
+                            </div>  
+                        </div>                      
                     </div>
                 </div>
 
