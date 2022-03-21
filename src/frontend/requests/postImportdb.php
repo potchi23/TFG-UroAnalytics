@@ -6,7 +6,7 @@
     session_start();
   
     move_uploaded_file($_FILES['file']['tmp_name'], dirname(dirname(__DIR__)).'/backend/tmp_uploads/'.$_FILES['file']['name']);
- 
+    
     $post_req = array(
         "filename" => $_FILES['file']['name']
     );

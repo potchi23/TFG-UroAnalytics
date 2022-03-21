@@ -17,11 +17,6 @@ def drop_columns(df):
     df = df.drop('FECHAFIN', axis=1)
     df = df.drop('ETNIA', axis=1)
     df = df.drop('HISTO2', axis=1)
-    df = df.drop('Unnamed: 51', axis=1)
-    df = df.drop('Unnamed: 52', axis=1)
-    df = df.drop('Unnamed: 60', axis=1)
-    df = df.drop('Unnamed: 61', axis=1)
-    df = df.drop('NHIS', axis=1)
     df = df.drop('NOTAS', axis=1)
 
     return df
@@ -128,10 +123,10 @@ def bestTraining(X_train, X_test, y_train, y_test, estimators):
     return pipe_best, scores
 
 # Punto de entrada
-def trainModels():
+def trainModels(df):
     print('Starting training...')
 
-    df = pd.read_csv('data.csv', sep=';', encoding='cp1252',decimal=",")
+    #df = pd.read_csv('data.csv', sep=';', encoding='cp1252',decimal=",")
     df = drop_columns(df)
     df = df_categorical_to_encoded(df)
     df = na_to_median(df)

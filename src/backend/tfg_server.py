@@ -316,7 +316,9 @@ def trainOnStartup():
     global last_train
 
     last_train = datetime.utcnow()
-    pipe_rfc, pipe_lrc, pipe_knn, pipe_best, scores = predictions.trainModels()
+    engine = create_engine('mysql://root:@localhost/tfg_bd', echo = False)
+    df = pd.read_sql('SELECT * FROM patients', engine)
+    pipe_rfc, pipe_lrc, pipe_knn, pipe_best, scores = predictions.trainModels(df)
 
 @app.route('/training', methods=['GET'])
 @token_required
@@ -332,7 +334,10 @@ def train(current_user):
     global last_train
 
     if request.method == 'GET':
-        pipe_rfc, pipe_lrc, pipe_knn, pipe_best, scores = predictions.trainModels()
+        engine = create_engine('mysql://root:@localhost/tfg_bd', echo = False)
+        df = pd.read_sql('SELECT * FROM patients', engine)
+
+        pipe_rfc, pipe_lrc, pipe_knn, pipe_best, scores = predictions.trainModels(df)
     
         last_train =  str(datetime.utcnow()).split('.')[0]
         response = { 'last_train' : last_train }
