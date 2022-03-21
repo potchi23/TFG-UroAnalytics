@@ -57,7 +57,7 @@ $(document).ready(() => {
     $('#prediction-button').click(() => {
         let features = [];
         $('.prediction-form-input').each((index, value) => {
-            if($(value).attr('id') != 'FECHACIR' && $(value).attr('id') != 'FECHAFIN' && $(value).attr('id') != 'ETNIA' && $(value).attr('id') != 'HISTO2' && $(value).attr('id') != 'Unnamed: 51' && $(value).attr('id') != 'Unnamed: 52' && $(value).attr('id') != 'NHIS' && $(value).attr('id') != 'NOTAS' && $(value).attr('id') != 'Unnamed: 60' && $(value).attr('id') != 'Unnamed: 61' && $(value).attr('id') != 'RBQ'){
+            if($(value).attr('id') != 'FECHACIR' && $(value).attr('id') != 'FECHAFIN' && $(value).attr('id') != 'ETNIA' && $(value).attr('id') != 'HISTO2' && $(value).attr('id') != 'NOTAS' && $(value).attr('id') != 'RBQ'){
                 features.push($(value).attr('value') == '' ? 0 : $(value).attr('value')*1);
             }
              console.log(features);

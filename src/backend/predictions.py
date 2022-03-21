@@ -19,6 +19,19 @@ def drop_columns(df):
     df = df.drop('HISTO2', axis=1)
     df = df.drop('NOTAS', axis=1)
 
+    df = df.drop('IMC', axis=1)
+    df = df.drop('ASA', axis=1)
+    df = df.drop('GR', axis=1)
+    df = df.drop('PNV', axis=1)
+    df = df.drop('TQ', axis=1)
+    df = df.drop('TH', axis=1)
+    df = df.drop('NGG', axis=1)
+    df = df.drop('PGG', axis=1)
+
+    df = df.drop('TDUPLI.r1', axis=1)
+    df = df.drop('t.seg', axis=1)
+    df = df.drop('RA estroma', axis=1)
+
     return df
 
 def df_categorical_to_encoded(df):
