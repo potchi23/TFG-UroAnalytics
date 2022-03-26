@@ -1,5 +1,7 @@
 <?php
     include_once("models/User.php");
+    include_once("requests/HttpRequests.php");
+    require_once("config/config.php");
     session_start();
     if (!isset($_SESSION["user"])){
         header("Location: /login.php");
@@ -18,7 +20,6 @@
         <link rel="stylesheet" href="css/header.css"/>
         <link rel="stylesheet" href="css/homePage.css"/>
         <link rel="stylesheet" href="css/form.css"/>
-        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script> -->
     </head>
     <body>
         <div class="header">
@@ -31,7 +32,7 @@
                 <div class="jumbotron">                
                     <div id="banner" class="carousel slide">
                         <div class="carousel-inner">
-                            <img src="img/banner.jpg" class="d-block w-100" style="border-radius:20px;" alt="banner">
+                            <img src="img/banner.jpg" class="d-block w-100" style="border-radius:20px; height: 450px;" alt="banner">
                             <div class="centered-left">                
                                 <h4>Hola, <?php echo $user->get_full_name();?></h4><br>
                                 <h1 class="display-8" style="font-weight:700;">Bienvenido a Savana Barata</h1>
@@ -39,7 +40,6 @@
                                 <h2>Servicio de consultas y predicciones <br>
                                 sobre pacientes</h2>
                                 <br>                            
-                                <p>(Imagen de prueba, añadir otra mejor)</p>
                             </div>
                         </div>
                     </div>
@@ -48,7 +48,7 @@
                 <div class="jumbotron">
                     <h1>¿Qué puedes hacer en Savana Barata?</h1>
                     <hr>
-                    <div class="container mt-4 mb-4">
+                    <div class="container mt-4 mb-5">
                         <div class="d-flex justify-content-center">
                             <div class="row">
                                 <div class="col-md-4">
@@ -82,19 +82,40 @@
                             </div>  
                         </div>                      
                     </div>
-                </div>
+                    <div class="text-center">
+                        <?php
 
+                            $http_requests = new HttpRequests();
+                            $response = $http_requests->getResponse("$BACKEND_URL/numPatients", "GET", "", $user->get_token());
+                                                    
+                            if($response["status"] == 200) {                          
+                                $numPatients = $response["data"]->num_patients;                        
+                                echo "<h5 style='font-weight: bold;'>Actualmente la base de datos cuenta con " . $numPatients . " pacientes sobre los que se puede realizar consultas y predicciones.</h5>";
+                            }
+                            else {
+                                if($response["status"] == 400) {
+                                    unset($_SESSION["user"]);
+                                    $_SESSION["message"] = "La sesión ha caducado";
+                                    header("Location: ../login.php");
+                                }
+                            }                        
+                        ?>
+                    </div> 
+                </div>   
+                </div>
                 <div class="jumbotron">
-                    <p>Añadir información sobre la BBDD (número de pacientes que hay, qué 
-	                    datos se tiene de cada uno de ellos, etc)</p>
-                </div>                    
+                    <blockquote class="blockquote text-center bg-light py-3 px-0" style="border-radius:20px;">
+                        <div class="h5 mb-1 font-weight-bold font-italic">
+                            "El buen médico trata la enfermedad; el gran médico trata al paciente que tiene la enfermedad."
+                        </div>
+                        <footer class="blockquote-footer"><cite title="source">William Osler</cite></footer>
+                    </blockquote>             
+                </div>
             </div>
         </div>
 
         <footer class="bg-light text-center text-lg-start">
             <?php include_once("common/footer.php")?>
         </footer> 
-    </body>
-    
-    <!-- <script src="js/barGraphExample.js"></script> -->
+    </body>    
 </html>
