@@ -6,7 +6,7 @@
     session_start();
 
     function minormayor($arg){
-        $aux = "";
+        $aux = NULL;
 
         if(isset($_POST[$arg."op"])){
             $aux .= $_POST[$arg."op"];
@@ -20,86 +20,160 @@
         return $aux;
     }
 
-    $biopsy3op = minormayor("biopsy3")
-    $biopsy = array(
-        "biopsy1" => $_POST['biopsy1'], 
-        "biopsy2" => $_POST['biopsy2'], 
-        "biopsy3" => $_POST['biopsy3'], 
-        "biopsy3op" => $biopsy3op, 
-        "biopsy4" => $_POST['biopsy4']
-    );
+    //BIOPSY------------------------
+    $GLEASON1 = NULL;
+    $NCILPOS = NULL;
+    $PORCENT = NULL;
+    $TNM1 = NULL;
 
-    $cir = array(
-        "cir1" => $_POST['cir1']
-    );
+    if(isset($_POST["boolBiopsy"])){
+        if($_POST['biopsy1'] != ''){
+            $GLEASON1 = $_POST['biopsy1'];
+        }
+        $NCILPOS = $_POST['biopsy2'];
+        $PORCENTOP = minormayor("biopsy3");
+        $PORCENT = $PORCENTOP." ".$_POST['biopsy3'];
+        if($_POST['biopsy4'] != ''){
+            $TNM1 = $_POST['biopsy4'];
+        }
+    }
 
-    $clinic = array(
-        "clinic1" => $_POST['clinic1']
-    );
+    //CIR----------------------------
+    $FECHACIR = NULL;
+
+    if(isset($_POST["boolCIR"])){
+        $FECHACIR = $_POST["cir1"];
+    }
+
+    //CLINIC-------------------------
+    $PSAPRE = NULL;
+
+    if(isset($_POST["boolClinic"])){
+        $PSAPRE = $_POST['clinic1'];
+    }
+
+    //EVOLVE-------------------------
+    $PSAPOS = NULL;
+    $RTPADYU = NULL;
+    $RTPMES = NULL;
+    $RBQ = NULL;
+    $TRBQ = NULL;
+    $TDUPLI = NULL;
+    $T1MTX = NULL;
+    $TSEGUI = NULL;
+    $PSAFIN = NULL;
+    $CAPRA_S = NULL;
+
+    if(isset($_POST["boolEvolve"])){
+        $PSAPOSOP = minormayor("evolve1");
+        $PSAPOS = $PSAPOSOP." ".$_POST["evolve1"];
+        $RTPADYU = $_POST["evolve2"];
+        $RTPMESOP = minormayor("evolve3");
+        $RTPMES = $RTPMESOP." ".$_POST["evolve3"];
+        $RBQ = $_POST["evolve4"];
+        $TRBQ = $_POST["evolve5"];
+        $TDUPLI = $_POST["evolve6"];        
+        $T1MTXOP = minormayor("evolve7");
+        $T1MTX = $T1MTXOP." ".$_POST["evolve7"];
+        $TSEGUIOP = minormayor("evolve8");
+        $TSEGUI = $TSEGUIOP." ".$_POST['evolve8'];
+        $PSAFINOP = minormayor("evolve9");
+        $PSAFIN = $PSAFINOP." ".$_POST['evolve9'];
+        $CAPRA_S = $_POST['evolve10'];
+    }
+    //MARKERS-------------------------
+    $RA1 = NULL;
+    $RA2 = NULL;
+    $PTEN = NULL;
+    $ERG = NULL;
+    $KI_67 = NULL;
+    $SPINK1 = NULL;
+    $C_MYC = NULL;
+
+    if(isset($_POST["boolMarkers"])){
+        $RA1 = $_POST['markers1'];
+        $RA2 = $_POST['markers2'];
+        $PTEN = $_POST['markers3'];
+        $ERG = $_POST['markers4'];
+        $KI_67 = $_POST['markers5'];
+        $SPINK1 = $_POST['markers6'];
+        $C_MYC = $_POST['markers7'];
+    }
+
+    //PROSTATE-------------------------    
+    $GLEASON2 = NULL;
+    $BILAT2 = NULL;
+    $VOLUMEN = NULL;
+    $EXTRACAP = NULL;
+    $VVSS = NULL;
+    $PINAG = NULL;
+    $MARGEN = NULL;
+    $TNM2 = NULL;
+
+    if(isset($_POST["boolProstate"])){
+        $GLEASON2 = $_POST['prostate1'];
+        $BILAT2 = $_POST['prostate2'];
+        $VOLUMENOP = minormayor("prostate3");
+        $VOLUMEN = $VOLUMENOP." ".$_POST['prostate3'];
+        $EXTRACAP = $_POST['prostate4'];
+        $VVSS = $_POST['prostate5'];
+        $PINAG = $_POST['prostate6'];
+        $MARGEN = $_POST['prostate7'];
+        $TNM2 = $_POST['prostate8'];
+    }
     
-    $evolve1op = minormayor("evolve1")
-    $evolve3op = minormayor("evolve3")
-    $evolve7op = minormayor("evolve7")
-    $evolve8op = minormayor("evolve8")
-    $evolve9op = minormayor("evolve9")
-    $evolve = array(
-        "evolve1" => $_POST['evolve1'],
-        "evolve1op" => $evolve1op,
-        "evolve2" => $_POST['evolve2'],
-        "evolve3" => $_POST['evolve3'],
-        "evolve3op" => $evolve3op,
-        "evolve4" => $_POST['evolve4'],
-        "evolve5" => $_POST['evolve5'],
-        "evolve6" => $_POST['evolve6'],
-        "evolve7" => $_POST['evolve7'],
-        "evolve7op" => $evolve7op,
-        "evolve8" => $_POST['evolve8'],
-        "evolve8op" => $evolve8op,
-        "evolve9" => $_POST['evolve9'],
-        "evolve9op" => $evolve9op,
-        "evolve10" => $_POST['evolve10']
-    );
-
-    $markers = array(
-        "markers1" => $_POST['markers1'],
-        "markers2" => $_POST['markers2'],
-        "markers3" => $_POST['markers3'],
-        "markers4" => $_POST['markers4'],
-        "markers5" => $_POST['markers5'],
-        "markers6" => $_POST['markers6'],
-        "markers7" => $_POST['markers7']
-    );
-
-    $prostate3op = minormayor("prostate3")
-    $prostate = array(
-        "prostate1" => $_POST['prostate1'],
-        "prostate2" => $_POST['prostate2'],
-        "prostate3" => $_POST['prostate3'],
-        "prostate3op" => $prostate3op,
-        "prostate4" => $_POST['prostate4'],
-        "prostate5" => $_POST['prostate5'],
-        "prostate6" => $_POST['prostate6'],
-        "prostate7" => $_POST['prostate7'],
-        "prostate8" => $_POST['prostate8']
-    );
-
-    $sociodemographic1op = minormayor("sociodemographic1")
-    $sociodemographic = array(
-        "sociodemographic1" => $_POST['sociodemographic1'],
-        "sociodemographic1op" => $sociodemographic1op
-    );
-
+    //SOCIODEMOGRAPHIC--------------------
+    $EDAD = NULL;
+    
+    if(isset($_POST["boolSociodemographic"])){
+        $EDADOP = minormayor("sociodemographic1");
+        $EDAD = $EDADOP." ".$_POST['sociodemographic1'];
+    }
+        
     $post_req = array(
-        "biopsy" => $biopsy
-         "cir" => $cir,
-         "clinic" => $clinic,
-         "evolve" => $evolve,
-         "markers" => $markers,
-         "prostate" => $prostate,
-         "sociodemographic" => $sociodemographic
+        //biopsy-------------
+        "GLEASON1" => $GLEASON1,
+        "NCILPOS" => $NCILPOS,
+        "PORCENT" => $PORCENT,
+        "TNM1" => $TNM1,
+        //cir------------------
+        "FECHACIR" => $FECHACIR,
+        //clinic---------------
+        "PSAPRE" => $PSAPRE,
+        //evolve---------------
+        "PSAPOS" => $PSAPOS,
+        "RTPADYU" => $RTPADYU,
+        "RTPMES" => $RTPMES,
+        "RBQ" => $RBQ,
+        "TRBQ" => $TRBQ,
+        "TDUPLI" => $TDUPLI,
+        "T1MTX" => $T1MTX,
+        "TSEGUI" => $TSEGUI,
+        "PSAFIN" => $PSAFIN,
+        "CAPRA-S" => $CAPRA_S,
+        //markers--------------
+        "RA-nuclear" => $RA1,
+        "RA2-estrom" => $RA2,
+        "PTEN" => $PTEN,
+        "ERG" => $ERG,
+        "KI-67" => $KI_67,
+        "SPINK1" => $SPINK1,
+        "C-MYC" => $C_MYC,
+        //prostate-------------
+        "GLEASON2" => $GLEASON2,
+        "VOLUMEN" => $VOLUMEN,
+        "EXTRACAP" => $EXTRACAP,
+        "VVSS" => $VVSS,
+        "PINAG" => $PINAG,
+        "MARGEN" => $MARGEN,
+        "TNM2" => $TNM2,
+        //sociodemographic-----
+        "EDAD" => $EDAD
     );
+
+    print_r($post_req);
 
     $http_requests = new HttpRequests();
-    $response = $http_requests->getResponse("$BACKEND_URL/getQuery", "GET", "", $post_req);
+    $response = $http_requests->getResponse("$BACKEND_URL/getQuery", "GET", http_build_query($post_req));
 
 ?>

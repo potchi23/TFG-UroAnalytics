@@ -423,7 +423,6 @@ def clearDFdata(df, query):
     
     if not df_db.empty:
         df = pd.concat([df_db, df]).drop_duplicates(keep=False)
-        print(df)
 
     return df
 
@@ -433,23 +432,28 @@ def doQuery():
     response = {}
 
     if request.method == 'GET':
-        biopsy = request.form['biopsy']
 
-        cursor = mydb.cursor()
-
-        query = f'SELECT * FROM patients WHERE GLEASON1 = {biopsy["biopsy1"]} AND NCILPOS = {biopsy["biopsy2"]} AND PORCENT {biopsy["biopsy3op"]} {biopsy["biopsy3"]} AND TNM1 = {biopsy["biopsy4"]}' 
+        query = buildQuery(request.form); 
         print(query)
-        cursor.execute(query)
-
-        df_db = pd.DataFrame(cursor.fetchall())
-        df_db.columns = [i[0] for i in cursor.description]
-
-        cursor.close()
-        df = pd.concat([df, df_db]).drop_duplicates(keep=False)
-
-        print(df)
+        df_db = pd.read_sql(query, engine)
+        print(df_db)
 
     return response
+
+def buildQuery(req):
+    query = "SELECT * FROM patients WHERE "
+    operators = "=<>"
+    keys = list(req.keys())
+    for i in req:
+        if req[i][0] in operators:
+            query = query + i + " " + req[i]
+        else:
+            query = query + i + " = " + req[i]
+        if i != keys[-1]:
+            query = query + " AND "
+
+    return query
+
 
 @app.route('/numPatients', methods=['GET'])
 @token_required

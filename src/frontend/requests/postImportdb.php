@@ -13,7 +13,7 @@
 
     $http_requests = new HttpRequests();
     $response = $http_requests->getResponse("$BACKEND_URL/importdb", "POST", $post_req);
-    print_r($response);
+
     if($response["status"] == 200){
         $num_entries = $response["data"]->num_entries;
         echo "se han introducido $num_entries pacientes.";
