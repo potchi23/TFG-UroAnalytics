@@ -451,6 +451,26 @@ def doQuery():
 
     return response
 
+@app.route('/numPatients', methods=['GET'])
+@token_required
+def numPatients(current_user):
+    status = 400
+    response = {}
+
+    if request.method == 'GET':
+        
+        cursor = mydb.cursor()
+        query = f'SELECT COUNT(*) FROM patients'
+        cursor.execute(query)
+
+        num_patients = cursor.fetchone()
+        response['num_patients'] = num_patients[0]
+        cursor.close()
+
+        status = 200
+        
+        return response, status 
+
 class FlaskConfig:
     '''Configuración de Flask'''
     # Activa depurador y recarga automáticamente
