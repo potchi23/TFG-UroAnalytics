@@ -29,6 +29,8 @@ mydb = connector.connect(
     database='tfg_bd'
 )
 
+engine = create_engine('mysql://root:@localhost/tfg_bd', echo = False)
+
 pipe_rfc = ''
 pipe_lrc = ''
 pipe_knn = ''
@@ -318,7 +320,8 @@ def trainOnStartup():
     last_train = datetime.utcnow()
     engine = create_engine('mysql://root:@localhost/tfg_bd', echo = False)
     df = pd.read_sql('SELECT * FROM patients', engine)
-    pipe_rfc, pipe_lrc, pipe_knn, pipe_best, scores = predictions.trainModels(df)
+    if not df.empty:
+        pipe_rfc, pipe_lrc, pipe_knn, pipe_best, scores = predictions.trainModels(df)
 
 @app.route('/training', methods=['GET'])
 @token_required
@@ -391,7 +394,9 @@ def predict(current_user=''):
 @app.route('/importdb', methods=['POST', 'GET'])
 def importdb():
     status = 400
-    response = {}
+    response = {
+        'num_entries':0,
+    }
 
     if request.method == 'POST':
         filename = request.form['filename']
@@ -401,28 +406,24 @@ def importdb():
         #eliminar archivo del frontend
         os.remove(filepath)
 
-        cursor = mydb.cursor()
         query = f'SELECT * FROM patients'
-        cursor.execute(query)
 
-        df = clearDFdata(df, cursor)
+        df = clearDFdata(df, query)
         
-        cursor.close()
-        engine = create_engine('mysql://root:@localhost/tfg_bd', echo = False)
         df.to_sql(name='patients', con=engine, if_exists='append', index=False)
+        
+        response['num_entries'] = len(df.index)
 
-    return response
+        status = 200
+        return response, status
 
-def clearDFdata(df, cursor):
+def clearDFdata(df, query):
 
-    row = cursor.fetchone()
-    columns = [i[0] for i in cursor.description]
-    df_db = pd.DataFrame(columns=columns)
-    print(df_db)
-
-    if row != None:
-        df_db = pd.DataFrame(cursor.fetchall())
+    df_db = pd.read_sql(query, engine)
+    
+    if not df_db.empty:
         df = pd.concat([df_db, df]).drop_duplicates(keep=False)
+        print(df)
 
     return df
 
