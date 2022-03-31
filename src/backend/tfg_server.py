@@ -9,7 +9,6 @@ from flask_bcrypt import Bcrypt
 from functools import wraps
 import jwt
 from datetime import datetime, timedelta
-from flask_session import Session
 from sqlalchemy import create_engine
 import predictions
 import pandas as pd
@@ -342,8 +341,8 @@ def train(current_user):
 
         pipe_rfc, pipe_lrc, pipe_knn, pipe_best, scores = predictions.trainModels(df)
     
-        last_train =  str(datetime.utcnow()).split('.')[0]
-        response = { 'last_train' : last_train }
+        last_train =  datetime.utcnow()
+        response = {}
         status = 200
 
         return response, status
@@ -360,6 +359,14 @@ def getScores(current_user=''):
 
         status = 200
         return response, status
+
+@app.route('/training/lastTraining', methods=['GET'])
+@token_required
+def getLastTraining(current_user=''):
+    if request.method == 'GET':
+        global last_train
+
+        return last_train.strftime("%d/%m/%Y %H:%M:%S"), 200
 
 @app.route('/predict', methods=['POST'])
 @token_required

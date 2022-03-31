@@ -10,7 +10,6 @@
     $response = $http_requests->getResponse("$BACKEND_URL/training", "GET", "", $user->get_token());
 
     if ($response["status"] == 200){
-        $_SESSION["last_train"] = $response["data"]->last_train;
         header("Location: ../predictions/predictions.php");
     }
     else{

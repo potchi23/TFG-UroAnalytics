@@ -8,6 +8,23 @@ $(document).ready(() => {
         $('#prediction-button').hide();
     }
 
+    $('#last-train').ready(() => {
+        $.ajax({
+            type: 'GET',
+            url: BACKEND_URL + '/training/lastTraining',
+            beforeSend: (request) => {
+                request.setRequestHeader("x-access-token", $('#token').val());
+            },
+            success : result => {
+                console.log('test');
+                $('#last-train-date').text(result);
+            },
+            error : e => {
+                console.log('Request failed: ' +  e);
+            }   
+        });        
+    });
+
     $('#algorithms').change(() => {
         $.ajax({
             type: 'GET',

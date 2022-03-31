@@ -1,5 +1,7 @@
 <?php
     include_once("../models/User.php");
+    include_once("../requests/HttpRequests.php");
+    require_once("../config/config.php");
 
     session_start();
 
@@ -53,15 +55,10 @@
                             o puede rellenar manualmente las siguientes variables.</h5>
                         <h5>Y a continuación debe elegir el algoritmo de predicción que desee emplear.</h5><br>
 
-                        <?php
-                            if(!isset($_SESSION["last_train"])){
-                                echo "<p>Último entrenamiento: Nunca</p>";
-                            }
-                            else{
-                                $last_train= $_SESSION['last_train'];
-                                echo "<p>Último entrenamiento: $last_train</p>";
-                            }
-                        ?>
+                        <div id="last-train">
+                            <span>Último entrenamiento: </span>
+                            <span id="last-train-date">Nunca</span>
+                        </div>
                         <hr class="my-4">
                     </div> 
                         
