@@ -2,7 +2,9 @@
     include_once("models/User.php");
     include_once("requests/HttpRequests.php");
     require_once("config/config.php");
+
     session_start();
+    
     if (!isset($_SESSION["user"])){
         header("Location: /login.php");
     }
@@ -93,12 +95,13 @@
                                 echo "<h5 style='font-weight: bold;'>Actualmente la base de datos cuenta con " . $numPatients . " pacientes sobre los que se puede realizar consultas y predicciones.</h5>";
                             }
                             else {
-                                if($response["status"] == 400) {
+                                if($response["status"] == 401) {
                                     unset($_SESSION["user"]);
                                     $_SESSION["message"] = "La sesión ha caducado";
                                     header("Location: ../login.php");
                                 }
-                            }                        
+                            }          
+
                         ?>
                     </div> 
                 </div>   

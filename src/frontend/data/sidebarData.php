@@ -12,19 +12,4 @@
         <i aria-hidden="true"></i> Exportar datos
       </a>
     </li>
-    <li>
-      <a href="#">
-        <i aria-hidden="true"></i> +++
-      </a>
-    </li>
-    <li>
-      <a href="#">
-        <i aria-hidden="true"></i> +++
-      </a>
-    </li>
-    <li>
-      <a href="#">
-        <i aria-hidden="true"></i> +++
-      </a>
-    </li>
   </ul>

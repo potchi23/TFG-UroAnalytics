@@ -9,7 +9,8 @@ from flask_bcrypt import Bcrypt
 from functools import wraps
 import jwt
 from datetime import datetime, timedelta
-from sqlalchemy import create_engine
+# from sqlalchemy import create_engine
+import sqlalchemy as sqla 
 import predictions
 import pandas as pd
 import json
@@ -28,7 +29,7 @@ mydb = connector.connect(
     database='tfg_bd'
 )
 
-engine = create_engine('mysql://root:@localhost/tfg_bd', echo = False)
+engine = sqla.create_engine('mysql://root:@localhost/tfg_bd', echo = False)
 
 pipe_rfc = ''
 pipe_lrc = ''
@@ -135,21 +136,17 @@ def register():
         email = request.form['email']
         password = bcrypt.generate_password_hash(request.form['password']).decode('utf-8')
 
-        cursor = mydb.cursor()
-        query = 'INSERT INTO users(name, surname_1, surname_2, email, password) VALUES (%s,%s,%s,%s,%s)'
-        values = (name, surname_1, surname_2, email, password)
-        
         try:
-            cursor.execute(query, values)
-            mydb.commit()
-            status = 200
-        except connector.Error as e:
-            print(e, file=sys.stderr)
-            response['errno'] = e.errno
-        finally:
-            cursor.close()
+            query = "INSERT INTO users(name, surname_1, surname_2, email, password) VALUES (%s,%s,%s,%s,%s)"
+            values = (name, surname_1, surname_2, email, password)
+            id = engine.execute(query, values)    
+            # print("Rowns added: ", id.rowcount)
+            status = 200        
+        except:
+            response['errno'] = "Error al registrarse"
+            print("Database error")
 
-            return response, status
+        return response, status
 
     else:
         response = 'Method not supported'
@@ -317,7 +314,7 @@ def trainOnStartup():
     global last_train
 
     last_train = datetime.utcnow()
-    engine = create_engine('mysql://root:@localhost/tfg_bd', echo = False)
+    # engine = create_engine('mysql://root:@localhost/tfg_bd', echo = False)
     df = pd.read_sql('SELECT * FROM patients', engine)
     if not df.empty:
         pipe_rfc, pipe_lrc, pipe_knn, pipe_best, scores = predictions.trainModels(df)
@@ -336,7 +333,7 @@ def train(current_user):
     global last_train
 
     if request.method == 'GET':
-        engine = create_engine('mysql://root:@localhost/tfg_bd', echo = False)
+        # engine = create_engine('mysql://root:@localhost/tfg_bd', echo = False)
         df = pd.read_sql('SELECT * FROM patients', engine)
 
         pipe_rfc, pipe_lrc, pipe_knn, pipe_best, scores = predictions.trainModels(df)
@@ -399,7 +396,8 @@ def predict(current_user=''):
         return response, status
 
 @app.route('/importdb', methods=['POST', 'GET'])
-def importdb():
+@token_required
+def importdb(current_user):
     status = 400
     response = {
         'num_entries':0,
@@ -465,21 +463,21 @@ def buildQuery(req):
 @app.route('/numPatients', methods=['GET'])
 @token_required
 def numPatients(current_user):
-    status = 400
+    status = 401
     response = {}
 
-    if request.method == 'GET':
+    if request.method == 'GET':        
+
+        meta_data = sqla.MetaData(bind=engine)
+        sqla.MetaData.reflect(meta_data)
         
-        cursor = mydb.cursor()
-        query = f'SELECT COUNT(*) FROM patients'
-        cursor.execute(query)
-
-        num_patients = cursor.fetchone()
-        response['num_patients'] = num_patients[0]
-        cursor.close()
-
+        patients_table = meta_data.tables['patients']
+        
+        result = sqla.select([sqla.func.count()]).select_from(patients_table).scalar()
+        
+        response['num_patients'] = result
         status = 200
-        
+
         return response, status 
 
 class FlaskConfig:

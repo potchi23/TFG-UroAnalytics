@@ -1,8 +1,10 @@
 <?php
     include_once("../models/User.php");
+
     session_start();
+
     if (!isset($_SESSION["user"])){
-        header("Location: /login.php");
+        header("Location: ../login.php");
     }
 
     $user = $_SESSION["user"];
@@ -25,26 +27,39 @@
         </div>  
         <div class="content-container">
             <div class="container-fluid">
-                <h3>Importar archivo</h3>
-                <hr>
-                <div class="row">
-                    <div class="col-12 col-md-12"> 
-                    <!-- Contenido -->
-                    <p> aquí poner algo </p>
-                    <div class="outer-container">
-                        <form action="../requests/postImportdb.php" method="POST"
-                            name="frmExcelImport" id="frmExcelImport" enctype="multipart/form-data">
-                            <div>
-                                <label>Elija Archivo Excel</label> <input type="file" name="file"
-                                    id="file" accept=".xls,.xlsx">
-                                <button type="submit" id="submit" name="import"
-                                    class="btn-submit">Importar</button>
-                        
-                            </div>  
-                        </form>
-                    </div>
-                </div>  
-            </div>      
+                <div class="jumbotron">
+                    <?php 
+                        if (isset($_SESSION["message"])){
+                            $message = $_SESSION["message"];
+                            echo "<div class='alert-message'><p></p><p class='alert alert-success'>$message</p></div>";
+                            unset($_SESSION["message"]);
+                        }
+
+                        if (isset($_SESSION["error"])) {
+                            $error = $_SESSION["error"];
+                            echo"<div class='alert-message'><div class='alert alert-danger'>$error</div></div>";
+                            unset($_SESSION["error"]);
+                        }
+                    ?>
+
+                    <h1 class="display-8" style="font-weight:600;">Importar datos</h1>
+                    <hr class="my-1"><br>
+                    
+                    <h5>Para importar los datos de los pacientes, asegúrese de que 
+                        el archivo tenga alguno de los siguientes formatos: .xls,.xlsx</h5><br>
+                    
+                    <div class="row">
+                        <div class="col-12 col-md-12">                         
+                            <div class="outer-container bg-light">
+                                <form action="../requests/postImportdb.php" method="POST" name="frmExcelImport" id="frmExcelImport" enctype="multipart/form-data">
+                                    <input type="file" id="import-data" name="import-data">
+                                    <button type="submit" id="submit" class="btn btn-primary ml-4">Importar</button>
+                                </form>
+                            </div>
+                        </div>  
+                    </div>  
+                </div>      
+            </div>
         </div>
         <footer class="bg-light text-center text-lg-start">
             <?php include_once("../common/footer.php")?>
