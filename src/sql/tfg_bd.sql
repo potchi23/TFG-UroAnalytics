@@ -73,17 +73,17 @@ CREATE TABLE `patients` (
   `RBQ` bigint(20) DEFAULT NULL,
   `TRBQ` double DEFAULT NULL,
   `TDUPLI` double DEFAULT NULL,
-  `TDUPLI.r1` text COLLATE utf8_spanish_ci DEFAULT NULL,
+  `TDUPLI.R1` text COLLATE utf8_spanish_ci DEFAULT NULL,
   `T1MTX` double DEFAULT NULL,
   `FECHAFIN` datetime DEFAULT NULL,
-  `t.seg` double DEFAULT NULL,
+  `T.SEG` double DEFAULT NULL,
   `FALLEC` double DEFAULT NULL,
   `TSUPERV` double DEFAULT NULL,
   `TSEGUI` double DEFAULT NULL,
   `PSAFIN` double DEFAULT NULL,
   `CAPRA-S` bigint(20) DEFAULT NULL,
-  `RA-nuclear` double DEFAULT NULL,
-  `RA-estroma` double DEFAULT NULL,
+  `RA-NUCLEAR` double DEFAULT NULL,
+  `RA-ESTROMA` double DEFAULT NULL,
   `PTEN` double DEFAULT NULL,
   `ERG` double DEFAULT NULL,
   `KI-67` double DEFAULT NULL,
@@ -158,7 +158,8 @@ INSERT INTO `users` (`id`, `name`, `surname_1`, `surname_2`, `email`, `password`
 (99, 'werwerw', 'werwerewwer', 'werwerwerwerwer', 'lala@lala.com', '$2b$12$9pLMmnNH1r09QgZ5qa0iMety1hEySxmyrvbB.k7cpg75uRPBhE2Xe', 'user', 0),
 (100, 'werwerwe', 'fhsjkfh', 'kjhrw', 'teew@ff.co', '$2b$12$57qfRW/YrHXbcgJV2SZjJ.F0f5PG6PWT4YZidyLakS4tu8d7JO1Du', 'user', 0),
 (101, 'qweqwe', 'qwewqewq', 'qweqwewqe', 'ppoporwer@ede.cl', '$2b$12$jg7n7GJ8PigdtbG/WEGDXu9wnGJdQ2vWUtzzeRGFMMaz9kl2SGM6S', 'user', 0),
-(102, 'ertert', 'ertert', 'ertr', 'richardcorrea@gmail.com', '$2b$12$3hwukZya0s5cjkgI6Y/voOeDPd91CYOOapNL1HtF8dlQAZVnufY.m', 'user', 1);
+(102, 'ertert', 'ertert', 'ertr', 'richardcorrea@gmail.com', '$2b$12$3hwukZya0s5cjkgI6Y/voOeDPd91CYOOapNL1HtF8dlQAZVnufY.m', 'user', 1),
+(103, 'Mateo', 'Glez', 'demi', 'matgon02@ucm.es', '$2b$12$0OL/6tg1eHxSFQEw3fy1.uq5OyjoljdA33MIM6BRljiL0MTl2nSVa', 'admin', 1);
 
 --
 -- Índices para tablas volcadas
