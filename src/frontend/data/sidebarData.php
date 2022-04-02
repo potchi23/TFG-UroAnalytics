@@ -8,7 +8,7 @@
       </a>
     </li>
     <li>
-      <a href="#">
+      <a href="exportdb.php">
         <i aria-hidden="true"></i> Exportar datos
       </a>
     </li>

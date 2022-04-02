@@ -140,12 +140,10 @@ def register():
             query = "INSERT INTO users(name, surname_1, surname_2, email, password) VALUES (%s,%s,%s,%s,%s)"
             values = (name, surname_1, surname_2, email, password)
             id = engine.execute(query, values)    
-            # print("Rowns added: ", id.rowcount)
             status = 200        
         except:
             response['errno'] = "Error al registrarse"
-            print("Database error")
-
+            
         return response, status
 
     else:
@@ -395,7 +393,7 @@ def predict(current_user=''):
         status = 200
         return response, status
 
-@app.route('/importdb', methods=['POST', 'GET'])
+@app.route('/importdb', methods=['POST'])
 @token_required
 def importdb(current_user):
     status = 400
@@ -430,6 +428,31 @@ def clearDFdata(df, query):
         df = pd.concat([df_db, df]).drop_duplicates(keep=False)
 
     return df
+
+
+@app.route('/exportdb', methods=['POST'])
+@token_required
+def exportdb(current_user):
+    status = 400
+    response = {}
+
+    if request.method == 'POST':
+        query = "SELECT * FROM patients"
+        df_db = pd.read_sql(query, engine)
+        df_db.set_index("N", inplace = True)
+
+        if os.path.isdir("../frontend/data/tmp/") == False:
+            os.mkdir("../frontend/data/tmp/", 0o777)
+
+        df_db.to_excel("../frontend/data/tmp/datos_pacientes.xlsx", sheet_name="pacientes")
+        status = 200
+        
+        return response, status
+        
+    else:
+        response = 'Method not supported'
+        return response, status
+
 
 @app.route('/getQuery', methods=['GET'])
 def doQuery():

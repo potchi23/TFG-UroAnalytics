@@ -15,7 +15,6 @@
 <html>
     <head>
         <title>Importar datos</title>
-        <link rel="stylesheet" href="../css/importdb.css"/>
         <?php include_once("../common/includes.php");?>
     </head>
     <body>
@@ -46,11 +45,11 @@
                     <hr class="my-1"><br>
                     
                     <h5>Para importar los datos de los pacientes, asegúrese de que 
-                        el archivo tenga alguno de los siguientes formatos: .xls,.xlsx</h5><br>
+                        el archivo tenga alguno de los siguientes formatos: .xls, .xlsx</h5><br>
                     
                     <div class="row">
                         <div class="col-12 col-md-12">                         
-                            <div class="outer-container bg-light">
+                            <div class="bg-light py-5 px-4 border rounded">
                                 <form action="../requests/postImportdb.php" method="POST" name="frmExcelImport" id="frmExcelImport" enctype="multipart/form-data">
                                     <input type="file" id="import-data" name="import-data">
                                     <button type="submit" id="submit" class="btn btn-primary ml-4">Importar</button>
