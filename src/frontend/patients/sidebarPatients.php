@@ -14,12 +14,12 @@
         </a>
     </li>
     <li>
-        <a href="#">
+        <a href="#addPatient">
             <i class="fa fa-tachometer" aria-hidden="true"></i> Añadir paciente
         </a>
     </li>
     <li>
-        <a href="#graphicIndex">
+        <a href="#">
             <i class="fa fa-tachometer" aria-hidden="true"></i> Importar datos
         </a>
     </li>
