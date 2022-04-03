@@ -30,6 +30,9 @@
                                 <a class="btn btn-lg btn-primary" href="../../components/#navbar" role="button">View navbar docs &raquo;</a>
                             </p> -->
                         </div>
+                        <div id="viewPatient">
+                            <?php include_once("viewPatient.php")?>
+                        </div>
                     </div>
                 </div>  
                 <footer class="bg-light text-center text-lg-start">

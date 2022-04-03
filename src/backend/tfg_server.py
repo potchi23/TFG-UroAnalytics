@@ -503,6 +503,193 @@ def numPatients(current_user):
 
         return response, status 
 
+@app.route('/patients', methods=['POST', 'GET'])
+@token_required
+def viewPatients():
+    status = 400
+    response = {}
+    if request.method == 'GET':
+        offset = request.form['offset']
+        num_elems = request.form['num_elems']
+
+        cursor = mydb.cursor()
+        query = f'SELECT * FROM patients LIMIT {offset}, {num_elems}'
+        cursor.execute(query)
+
+        response = {
+            'num_entries':0,
+            'data':[]
+        }
+
+        for request_p in cursor:
+            data = {
+                'N': request_p[0],
+                'FECHACIR':request_p[1],
+                'EDAD':request_p[2],
+                'ETNIA':request_p[3],
+                'OBESO':request_p[4],
+                'HTA':request_p[5],
+                'DM':request_p[6],
+                'TABACO':request_p[7],
+                'HEREDA':request_p[8],
+                'TACTOR':request_p[9],
+                'PSAPRE':request_p[10],
+                'PSALT':request_p[11],
+                'TDUPPRE':request_p[12],
+                'ECOTR':request_p[13],
+                'NBIOPSIA':request_p[14],
+                'HISTO':request_p[15],
+                'GLEASON1':request_p[16],
+                'NCILPOS':request_p[17],
+                'BILAT':request_p[18],
+                'PORCENT':request_p[19],
+                'IPERIN':request_p[20],
+                'ILINF':request_p[21],
+                'IVASCU':request_p[22],
+                'TNM1':request_p[23],
+                'HISTO2':request_p[24],
+                'GLEASON2':request_p[25],
+                'BILAT2':request_p[26],
+                'LOCALIZ':request_p[27],
+                'MULTIFOC':request_p[28],
+                'VOLUMEN':request_p[29],
+                'EXTRACAP':request_p[30],
+                'VVSS':request_p[31],
+                'IPERIN2':request_p[32],
+                'ILINF2':request_p[33],
+                'IVASCU2':request_p[34],
+                'PINAG':request_p[35],
+                'MARGEN':request_p[36],
+                'TNM2':request_p[37],
+                'PSAPOS':request_p[38],
+                'RTPADYU':request_p[39],
+                'RTPMES':request_p[40],
+                'RBQ':request_p[41],
+                'TRBQ':request_p[42],
+                'TDUPLI':request_p[43],
+                'TDUPLI.r1':request_p[44],
+                'T1MTX':request_p[45],
+                'FECHAFIN':request_p[46],
+                't.seg':request_p[47],
+                'FALLEC':request_p[48],
+                'TSUPERV':request_p[49],
+                'TSEGUI':request_p[50],
+                'PSAFIN':request_p[51],
+                'CAPRA-S':request_p[52],
+                'RA-NUCLEAR':request_p[53],
+                'RA-ESTROMA':request_p[54],
+                'PTEN':request_p[55],
+                'ERG':request_p[56],
+                'KI-67':request_p[57],
+                'SPINK1':request_p[58],
+                'C-MYC':request_p[59],
+                'NOTAS':request_p[60],
+                'IMC':request_p[61],
+                'ASA':request_p[62],
+                'GR':request_p[63],
+                'PNV':request_p[64],
+                'TQ':request_p[65],
+                'TH':request_p[66],
+                'NGG':request_p[67],
+                'PGG':request_p[68]
+            }
+            response['data'].append(data)
+        
+        query = f'SELECT COUNT(N) FROM patients'
+        cursor.execute(query)
+        response['num_entries'] = cursor.fetchone()
+
+        cursor.close()
+
+        status = 200
+        
+        return response, status
+    elif  request.method == 'POST':
+        FECHACIR = request.form['FECHACIR']
+        EDAD = request.form['EDAD']
+        ETNIA = request.form['ETNIA']
+        HTA = request.form['HTA']
+        DM = request.form['DM']
+        TABACO = request.form['TABACO']
+        HEREDA = request.form['HEREDA']
+        TACTOR = request.form['TACTOR']
+        PSAPRE = request.form['PSAPRE']
+        PSALT = request.form['PSALT']
+        TDUPPRE = request.form['TDUPPRE']
+        ECOTR = request.form['ECOTR']
+        NBIOPSIA = request.form['NBIOPSIA']
+        HISTO = request.form['HISTO']
+        GLEASON1 = request.form['GLEASON1']
+        NCILPOS = request.form['NCILPOS']
+        BILAT = request.form['BILAT']
+        PORCENT = request.form['PORCENT']
+        IPERIN = request.form['IPERIN']
+        ILINF = request.form['ILINF']
+        IVASCU = request.form['IVASCU']
+        TNM1 = request.form['TNM1']
+        HISTO2 = request.form['HISTO2']
+        GLEASON2 = request.form['GLEASON2']
+        BILAT2 = request.form['BILAT2']
+        LOCALIZ = request.form['LOCALIZ']
+        MULTIFOC = request.form['MULTIFOC']
+        VOLUMEN = request.form['VOLUMEN']
+        EXTRACAP = request.form['EXTRACAP']
+        VVSS = request.form['VVSS']
+        IPERIN2 = request.form['IPERIN2']
+        ILINF2 = request.form['ILINF2']
+        IVASCU2 = request.form['IVASCU2']
+        PINAG = request.form['PINAG']
+        MARGEN = request.form['MARGEN']
+        TNM2 = request.form['TNM2']
+        PSAPOS = request.form['PSAPOS']
+        RTPADYU = request.form['RTPADYU']
+        RTPMES = request.form['RTPMES']
+        RBQ = request.form['RBQ']
+        TRBQ = request.form['TRBQ']
+        TDUPLI = request.form['TDUPLI']
+        TDUPLI_r1 = request.form['TDUPLI.r1']
+        T1MTX = request.form['T1MTX']
+        FECHAFIN = request.form['FECHAFIN']
+        t_seg = request.form['t.seg']
+        FALLEC = request.form['FALLEC']
+        TSUPERV = request.form['TSUPERV']
+        TSEGUI = request.form['TSEGUI']
+        PSAFIN = request.form['PSAFIN']
+        CAPRA_S = request.form['CAPRA-S']
+        RA_nuclear = request.form['RA-NUCLEAR']
+        RA_estroma = request.form['RA-ESTROMA']
+        PTEN = request.form['PTEN']
+        ERG = request.form['ERG']
+        KI_67 = request.form['KI-67']
+        SPINK1 = request.form['SPINK1']
+        C_MYC = request.form['C-MYC']
+        NOTAS = request.form['NOTAS']
+        IMC = request.form['IMC']
+        ASA = request.form['ASA']
+        GR = request.form['GR']
+        PNV = request.form['PNV']
+        TQ = request.form['TQ']
+        TH = request.form['TH']
+        NGG = request.form['NGG']
+        PGG = request.form['PGG']
+        
+
+        cursor = mydb.cursor()
+        query = 'INSERT INTO patients(FECHACIR, EDAD, ETNIA, HTA, DM, TABACO, HEREDA, TACTOR, PSAPRE, PSALT, TDUPPRE, ECOTR, NBIOPSIA, HISTO, GLEASON1, NCILPOS, BILAT, PORCENT, IPERIN, ILINF,IVASCU, TNM1, HISTO2, GLEASON2, BILAT2, LOCALIZ, MULTIFOC, VOLUMEN, EXTRACAP, VVSS, IPERIN2, ILINF2, IVASCU2, PINAG, MARGEN, TNM2, PSAPOS, RTPADYU, RTPMES, RBQ, TRBQ, TDUPLI, TDUPLI.r1, T1MTX, FECHAFIN, t.seg, FALLEC, TSUPERV, TSEGUI, PSAFIN, CAPRA S, RA-NUCLEAR, RA-ESTROMA, PTEN, ERG, KI-67, SPINK1, C-MYC, NOTAS, IMC, ASA, GR, PNV, TQ, TH, NGG, PGG) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
+        values = (FECHACIR, EDAD, ETNIA, HTA, DM, TABACO, HEREDA, TACTOR, PSAPRE, PSALT, TDUPPRE, ECOTR, NBIOPSIA, HISTO, GLEASON1, NCILPOS, BILAT, PORCENT, IPERIN, ILINF,IVASCU, TNM1, HISTO2, GLEASON2, BILAT2, LOCALIZ, MULTIFOC, VOLUMEN, EXTRACAP, VVSS, IPERIN2, ILINF2, IVASCU2, PINAG, MARGEN, TNM2, PSAPOS, RTPADYU, RTPMES, RBQ, TRBQ, TDUPLI, TDUPLI_r1, T1MTX, FECHAFIN, t_seg, FALLEC, TSUPERV, TSEGUI, PSAFIN, CAPRA_S, RA_nuclear, RA_estroma, PTEN, ERG, KI_67, SPINK1, C_MYC, NOTAS, IMC, ASA, GR, PNV, TQ, TH, NGG, PGG)
+        
+        try:
+            cursor.execute(query, values)
+            mydb.commit()
+            status = 200
+        except connector.Error as e:
+            print(e, file=sys.stderr)
+            response['errno'] = e.errno
+        finally:
+            cursor.close()
+
+            return response, status
+            
 class FlaskConfig:
     '''Configuración de Flask'''
     # Activa depurador y recarga automáticamente

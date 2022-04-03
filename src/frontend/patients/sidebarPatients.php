@@ -2,10 +2,15 @@
     OPCIONES
 </div>
 <ul class="sidebar-navigation">
-    <li class="header">Opciones</li>
+
     <li>
         <a href="#">
-            <i class="fa fa-home" aria-hidden="true"></i> Visualizar paciente
+            <i class="fa fa-home" aria-hidden="true"></i> Inicio
+        </a>
+    </li>
+    <li>
+        <a href="#viewPatient">
+            <i aria-hidden="true"></i> Visualizar pacientes
         </a>
     </li>
     <li>
@@ -14,13 +19,13 @@
         </a>
     </li>
     <li>
-        <a href="#">
-            <i class="fa fa-tachometer" aria-hidden="true"></i> Eliminar paciente
+        <a href="#graphicIndex">
+            <i class="fa fa-tachometer" aria-hidden="true"></i> Importar datos
         </a>
     </li>
     <li>
         <a href="#">
-            <i class="fa fa-tachometer" aria-hidden="true"></i> Editar paciente
+            <i class="fa fa-tachometer" aria-hidden="true"></i> Exportar datos
         </a>
     </li>
 </ul>
