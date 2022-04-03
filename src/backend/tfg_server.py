@@ -430,25 +430,25 @@ def clearDFdata(df, query):
     return df
 
 
-@app.route('/exportdb', methods=['POST'])
+@app.route('/exportdb', methods=['GET'])
 @token_required
 def exportdb(current_user):
     status = 400
     response = {}
 
-    if request.method == 'POST':
+    if request.method == 'GET':
         query = "SELECT * FROM patients"
-        df_db = pd.read_sql(query, engine)
-        df_db.set_index("N", inplace = True)
+        df_db = pd.read_sql(query, engine)        
 
-        if os.path.isdir("../frontend/data/tmp/") == False:
-            os.mkdir("../frontend/data/tmp/", 0o777)
+        df_db["FECHACIR"] = pd.to_datetime(df_db["FECHACIR"]).dt.strftime('%d-%m-%Y')
+        df_db["FECHAFIN"] = pd.to_datetime(df_db["FECHAFIN"]).dt.strftime('%d-%m-%Y')
 
-        df_db.to_excel("../frontend/data/tmp/datos_pacientes.xlsx", sheet_name="pacientes")
+        json = df_db.to_json(orient = 'columns', date_format='iso')
+
+        response['json'] = json        
         status = 200
-        
         return response, status
-        
+
     else:
         response = 'Method not supported'
         return response, status

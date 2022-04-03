@@ -40,7 +40,7 @@
                     
                     <h5>Los datos se exportarán en formato .xlsx</h5><br>
                                         
-                    <form action="../requests/postExportdb.php" method="post" name="exportdb" id="exportdb" enctype="multipart/form-data">
+                    <form action="../requests/getExportdb.php" method="get" name="exportdb" id="exportdb" enctype="multipart/form-data">
                         <button type="submit" id="submit" class="btn btn-primary ml-2">Exportar datos</button>
                     </form>       
                 </div>      
