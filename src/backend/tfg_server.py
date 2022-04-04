@@ -505,7 +505,7 @@ def numPatients(current_user):
 
 @app.route('/patients', methods=['POST', 'GET'])
 @token_required
-def viewPatients():
+def viewPatients(current_user):
     status = 400
     response = {}
     if request.method == 'GET':
