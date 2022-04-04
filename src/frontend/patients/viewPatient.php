@@ -3,7 +3,7 @@
     require_once("../config/config.php");
     include_once("../models/User.php");
     
-   //session_start();
+    //session_start();
 
     $NUM_ELEMENTS_BY_PAGE = 5;
 

@@ -310,7 +310,6 @@ def trainOnStartup():
 
     global scores
     global last_train
-
     last_train = datetime.utcnow()
     # engine = create_engine('mysql://root:@localhost/tfg_bd', echo = False)
     df = pd.read_sql('SELECT * FROM patients', engine)
