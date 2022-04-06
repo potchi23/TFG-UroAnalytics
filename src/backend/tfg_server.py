@@ -404,13 +404,11 @@ def importdb(current_user):
         filename = request.form['filename']
         filepath = HERE + "/tmp_uploads/" + filename
         #leer archivo
-        df = pd.read_excel(filepath, header=1)
+        df = pd.read_excel(filepath, header=0)
         #eliminar archivo del frontend
         os.remove(filepath)
 
-        query = f'SELECT * FROM patients'
-
-        df = clearDFdata(df, query)
+        df = newPatientsDF(df)
         
         df.to_sql(name='patients', con=engine, if_exists='append', index=False)
         
@@ -419,15 +417,39 @@ def importdb(current_user):
         status = 200
         return response, status
 
-def clearDFdata(df, query):
+def newPatientsDF(df):
+    '''
+    Devuelve los pacientes que no están incluidos en la base de datos.
+    Parámetros:
+        df: dataFrame del excel
+    '''
+    query = f'SELECT * FROM patients'
 
-    df_db = pd.read_sql(query, engine)
+    df = df.reset_index(drop=True)
+    df_db = pd.read_sql(query, engine).reset_index(drop=True)
+
+    #columnas del excel en mayusculas y cambios de espacios por guiones
+    df.columns = df.columns.map(str)
+    df.columns = df.columns.map(str.upper)
+    df.columns = df.columns.str.replace(' ', '-')
+
+    #drop de las columnas no incluidas en la base de datos
+    columns_to_include = df.columns.intersection(df_db.columns)
+
+    if "N" in columns_to_include:
+        columns_to_include = columns_to_include.drop("N")
     
+    df = df[columns_to_include]
+
+    ##CONTROLAR MINIMO DE COLUMNAS
+
     if not df_db.empty:
-        df = pd.concat([df_db, df]).drop_duplicates(keep=False)
+        df["N"] = range(df_db["N"].iloc[-1] + 1, df_db["N"].iloc[-1] + len(df) + 1)
+        print(df["N"])
+        df.set_index("N", inplace=True)
+        df = pd.concat([df_db.drop(columns="N"), df]).drop_duplicates(keep=False)
 
     return df
-
 
 @app.route('/exportdb', methods=['GET'])
 @token_required

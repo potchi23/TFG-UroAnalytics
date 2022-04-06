@@ -20,7 +20,12 @@
             header("Location: ../data/importdb.php");
         }
         else {
-            move_uploaded_file($_FILES['import-data']['tmp_name'], dirname(dirname(__DIR__)).'/backend/tmp_uploads/'.$_FILES['import-data']['name']);        
+            $file_path = dirname(dirname(__DIR__)).'/backend/tmp_uploads/';
+
+            if(!file_exists($file_path)){
+                mkdir($file_path);
+            }
+            move_uploaded_file($_FILES['import-data']['tmp_name'], $file_path.$_FILES['import-data']['name']);        
             
             $post_req = array(
                 "filename" => $_FILES['import-data']['name']
