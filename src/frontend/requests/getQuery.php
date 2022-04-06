@@ -40,9 +40,11 @@
 
     //CIR----------------------------
     $FECHACIR = NULL;
-
     if(isset($_POST["boolCIR"])){
-        $FECHACIR = $_POST["cir1"];
+        $DIACIR = $_POST["cir1"];
+        $MESCIR = $_POST["cir2"];
+        $ANYOCIR = $_POST["cir3"];
+        $FECHACIR = "'".$ANYOCIR."-".$MESCIR."-".$DIACIR."'";
     }
 
     //CLINIC-------------------------
