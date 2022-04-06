@@ -38,7 +38,7 @@
             <?php include_once("../common/header.php");?>
         </div>   
 
-        <div class="content-container">
+        <div class="content-container" style="padding:0px;">
             <div class="container-fluid">
                 <div class="jumbotron">
                     <h1 style="font-weight:600;">Pacientes</h1>
@@ -116,6 +116,7 @@
                             </table>                    
                         </div>
                     </div>
+                    
                     <div class="page-buttons">
                         <?php
                         if(count($data_array) > 0){
