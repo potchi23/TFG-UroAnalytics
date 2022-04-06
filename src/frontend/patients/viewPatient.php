@@ -70,7 +70,7 @@
                         $num_patients = $response["data"]->num_entries[0];
 
                         if($num_patients > 0) 
-                            echo "<h5>Número de pacientes: " . $num_patients . "</h5><br>";
+                            echo "<h5>Número de pacientes: $num_patients</h5><br>";
                         else
                             echo "<h5>No hay pacientes en la base de datos</h5><br>";                                        
                     ?>

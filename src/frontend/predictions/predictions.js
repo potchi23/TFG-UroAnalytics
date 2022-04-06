@@ -37,15 +37,15 @@ $(document).ready(() => {
 
                 if($('#algorithms').val() != 'none'){
                     $('#prediction-button').show();
-                    $('#prediction-accuracy').val(parseFloat(scores[$('#algorithms').val()]['accuracy']).toFixed(4) + '%');
+                    $('#prediction-accuracy').val((parseFloat(scores[$('#algorithms').val()]['accuracy'])*100).toFixed(2) + '%');
 
-                    $('#prediction-recall-1').val(parseFloat(scores[$('#algorithms').val()]['recall'][0]).toFixed(4) + '%');
-                    $('#prediction-recall-2').val(parseFloat(scores[$('#algorithms').val()]['recall'][1]).toFixed(4) + '%');
-                    $('#prediction-recall-3').val(parseFloat(scores[$('#algorithms').val()]['recall'][2]).toFixed(4) + '%');
+                    $('#prediction-recall-1').val((parseFloat(scores[$('#algorithms').val()]['recall'][0])*100).toFixed(2) + '%');
+                    $('#prediction-recall-2').val((parseFloat(scores[$('#algorithms').val()]['recall'][1])*100).toFixed(2) + '%');
+                    $('#prediction-recall-3').val((parseFloat(scores[$('#algorithms').val()]['recall'][2])*100).toFixed(2) + '%');
 
-                    $('#prediction-precision-1').val(parseFloat(scores[$('#algorithms').val()]['precision'][0]).toFixed(4) + '%');
-                    $('#prediction-precision-2').val(parseFloat(scores[$('#algorithms').val()]['precision'][1]).toFixed(4) + '%');
-                    $('#prediction-precision-3').val(parseFloat(scores[$('#algorithms').val()]['precision'][2]).toFixed(4) + '%');
+                    $('#prediction-precision-1').val((parseFloat(scores[$('#algorithms').val()]['precision'][0])*100).toFixed(2) + '%');
+                    $('#prediction-precision-2').val((parseFloat(scores[$('#algorithms').val()]['precision'][1])*100).toFixed(2) + '%');
+                    $('#prediction-precision-3').val((parseFloat(scores[$('#algorithms').val()]['precision'][2])*100).toFixed(2) + '%');
 
                 }
                 else{

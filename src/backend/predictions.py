@@ -27,10 +27,9 @@ def drop_columns(df):
     df = df.drop('TH', axis=1)
     df = df.drop('NGG', axis=1)
     df = df.drop('PGG', axis=1)
-
-    #df = df.drop('TDUPLI.r1', axis=1)
-    #df = df.drop('t.seg', axis=1)
-    #df = df.drop('RA-estroma', axis=1)
+    df = df.drop('TDUPLI_R1', axis=1)
+    df = df.drop('T.SEG', axis=1)
+    df = df.drop('RA-ESTROMA', axis=1)
 
     return df
 
