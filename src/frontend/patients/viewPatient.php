@@ -82,6 +82,7 @@
                                     if (count($data_array) > 0) {
 
                                         echo '<tr class="thead-dark">';
+                                        echo "<th>#</th>";
                                         foreach($data_array[0] as $key=>$value){
                                             echo "<th>$key</th>";
                                         }
@@ -91,6 +92,7 @@
 
                                         foreach($data_array as $petition){
                                             echo "<tr id='patients_$petition->N'>";
+                                            echo "<td>$petition->N</td>";
                                             foreach($petition as $key=>$value){
                                                 echo "<td>$value</td>";
                                             }
