@@ -425,8 +425,7 @@ def newPatientsDF(df):
     '''
     query = f'SELECT * FROM patients'
 
-    df = df.reset_index(drop=True)
-    df_db = pd.read_sql(query, engine).reset_index(drop=True)
+    df_db = pd.read_sql(query, engine)
 
     #columnas del excel en mayusculas y cambios de espacios por guiones
     df.columns = df.columns.map(str)
@@ -441,13 +440,10 @@ def newPatientsDF(df):
     
     df = df[columns_to_include]
 
-    ##CONTROLAR MINIMO DE COLUMNAS
-
     if not df_db.empty:
-        df["N"] = range(df_db["N"].iloc[-1] + 1, df_db["N"].iloc[-1] + len(df) + 1)
-        print(df["N"])
-        df.set_index("N", inplace=True)
-        df = pd.concat([df_db.drop(columns="N"), df]).drop_duplicates(keep=False)
+        df = pd.concat([df_db.drop(columns="N"), df]).drop_duplicates(keep=False, ignore_index=True)
+    else:
+        df = df.drop_duplicates(ignore_index=True)
 
     return df
 
