@@ -502,12 +502,9 @@ def viewPatients(current_user):
         entry = {}
         for request_p in cursor:
             for i in range(0, len(request_p)):
-                value = request_p[i]
-                if value is not None:
-                    entry[cursor.description[i][0]] = request_p[i]
-                else:
-                    entry[cursor.description[i][0]] = 'Sin datos'
-                           
+                
+                entry[cursor.description[i][0]] = request_p[i]
+                                    
             response['data'].append(dict(entry))
     
         query = f'SELECT COUNT(N) FROM patients'
