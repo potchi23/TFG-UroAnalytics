@@ -30,9 +30,13 @@
         if($_POST['biopsy1'] != ''){
             $GLEASON1 = $_POST['biopsy1'];
         }
-        $NCILPOS = $_POST['biopsy2'];
-        $PORCENTOP = minormayor("biopsy3");
-        $PORCENT = $PORCENTOP." ".$_POST['biopsy3'];
+        if($_POST['biopsy2'] != ''){
+            $NCILPOS = $_POST['biopsy2'];
+        }
+        if($_POST['biopsy3'] != ''){
+            $PORCENTOP = minormayor("biopsy3");
+            $PORCENT = $PORCENTOP." ".$_POST['biopsy3'];
+        }
         if($_POST['biopsy4'] != ''){
             $TNM1 = $_POST['biopsy4'];
         }
@@ -49,7 +53,6 @@
 
     //CLINIC-------------------------
     $PSAPRE = NULL;
-
     if(isset($_POST["boolClinic"])){
         $PSAPRE = $_POST['clinic1'];
     }
@@ -113,23 +116,41 @@
     $TNM2 = NULL;
 
     if(isset($_POST["boolProstate"])){
-        $GLEASON2 = $_POST['prostate1'];
-        $BILAT2 = $_POST['prostate2'];
-        $VOLUMENOP = minormayor("prostate3");
-        $VOLUMEN = $VOLUMENOP." ".$_POST['prostate3'];
-        $EXTRACAP = $_POST['prostate4'];
-        $VVSS = $_POST['prostate5'];
-        $PINAG = $_POST['prostate6'];
-        $MARGEN = $_POST['prostate7'];
-        $TNM2 = $_POST['prostate8'];
+        if(isset($_POST["prostate1"])){
+            $GLEASON2 = $_POST['prostate1'];
+        }
+        if(isset($_POST["prostate2"])){
+            $BILAT2 = $_POST['prostate2'];
+        }
+        if(isset($_POST["prostate3"])){
+            $VOLUMENOP = minormayor("prostate3");
+            $VOLUMEN = $VOLUMENOP." ".$_POST['prostate3'];
+        }
+        if(isset($_POST["prostate4"])){
+            $EXTRACAP = $_POST['prostate4'];
+        }
+        if(isset($_POST["prostate5"])){
+            $VVSS = $_POST['prostate5'];
+        }
+        if(isset($_POST["prostate6"])){
+            $PINAG = $_POST['prostate6'];
+        }
+        if(isset($_POST["prostate7"])){
+            $MARGEN = $_POST['prostate7'];
+        }
+        if(isset($_POST["prostate8"])){
+            $TNM2 = $_POST['prostate8'];
+        }
     }
     
     //SOCIODEMOGRAPHIC--------------------
     $EDAD = NULL;
     
     if(isset($_POST["boolSociodemographic"])){
-        $EDADOP = minormayor("sociodemographic1");
-        $EDAD = $EDADOP." ".$_POST['sociodemographic1'];
+        if(isset($_POST["sociodemographic1"])){
+            $EDADOP = minormayor("sociodemographic1");
+            $EDAD = $EDADOP." ".$_POST['sociodemographic1'];
+        }
     }
         
     $post_req = array(

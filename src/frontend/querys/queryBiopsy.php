@@ -27,8 +27,12 @@
                     <h3> Número de cilindros positivos </h3>
                 </div>
                 <div class="col my-auto">
-                <input type="range" value="50" name="biopsy2" min="0" max="100" oninput="this.nextElementSibling.value = this.value">
-                <output style="margin-left:10px">50</output>%
+                    <select class="custom-select mr-sm-2" id="inlineFormCustomSelect"  name="biopsy2" style="width:10em">
+                        <option selected value="">Choose...</option>
+                        <option value="1">Menor de 25%</option>
+                        <option value="2">De 25% a 50%</option>
+                        <option value="3">Mayor o igual a 50%</option>
+                    </select>
                 </div>
             </div>
 
@@ -66,7 +70,7 @@
                 </div>
                 <div class="col my-auto">
                     <select class="custom-select mr-sm-2" name="biopsy4" id="inlineFormCustomSelect" style="width:10em">
-                        <option selected>Choose...</option>
+                        <option selected value="">Choose...</option>
                         <option value="1">cT2ab</option>
                         <option value="2">cT2c</option>
                         <option value="3">cT3</option>
