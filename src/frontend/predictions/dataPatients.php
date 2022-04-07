@@ -45,10 +45,10 @@
 
         <?php
             if(!isset($_SESSION["dataInputs"])) {
-                include_once("empty-form.php");
+                include("empty-form.php");
             }
             else {
-                include_once("filled-form.php");
+                include("filled-form.php");
                 unset($_SESSION["dataInputs"]);
             }
         ?>

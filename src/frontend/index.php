@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 
 <?php
-    include_once("models/User.php");
+    require_once("models/User.php");
     session_start();
 ?>
 
 <html>
     <head>
-        <?php include_once("common/includes.php");?>
+        <?php require_once("common/includes.php");?>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="predictions/predictions.js"></script>
     </head>

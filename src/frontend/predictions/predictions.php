@@ -1,6 +1,6 @@
 <?php
-    include_once("../models/User.php");
-    include_once("../requests/HttpRequests.php");
+    require_once("../models/User.php");
+    require_once("../requests/HttpRequests.php");
     require_once("../config/config.php");
 
     session_start();
@@ -17,7 +17,7 @@
     <head>
         <title>Realizar predicción</title>
         
-        <?php include_once("../common/includes.php");?>
+        <?php require_once("../common/includes.php");?>
         <link rel="stylesheet" href="../css/predictions.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <!-- <script language="javaScript">
@@ -38,11 +38,11 @@
     </head>
         <body>
             <div class="header">
-                <?php include_once("../common/header.php");?>
+                <?php require("../common/header.php");?>
             </div>
             
             <div class="sidebar-container" id="list-example">
-                <?php include_once("sidebarPredictions.php")?>
+                <?php require("sidebarPredictions.php")?>
             </div>
             
             <div class="content-container" data-bs-spy="scroll" data-bs-target="#list-example" data-bs-offset="0" class="scrollspy-example" tabindex="0">
@@ -63,17 +63,17 @@
                     </div> 
                         
                     <div id="dataPatients">
-                        <?php include_once("dataPatients.php")?>
+                        <?php require("dataPatients.php")?>
                     </div>            
 
                     <div id="predictionAlgorithm">
-                        <?php include_once("predictionAlgorithm.php")?>
+                        <?php require("predictionAlgorithm.php")?>
                     </div>
 
                 </div>
             </div>    
             <footer class="bg-light text-center text-lg-start">
-                <?php include_once("../common/footer.php") ?>
+                <?php require("../common/footer.php") ?>
             </footer> 
         <input id='token' type="hidden" value=<?php echo $user->get_token()?>>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>

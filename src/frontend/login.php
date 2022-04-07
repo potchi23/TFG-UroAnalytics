@@ -12,7 +12,7 @@
     <head>
         <title>Savana Barata - Login </title>
         <link rel="stylesheet" href="css/form.css" styles="width=18.9px; height=61.7px;"/>
-        <?php include_once("common/includes.php");?>
+        <?php require_once("common/includes.php");?>
     </head>
     <body>
         <div class="container">

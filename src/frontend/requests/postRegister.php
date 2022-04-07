@@ -1,5 +1,5 @@
 <?php
-    include_once("HttpRequests.php");
+    require_once("HttpRequests.php");
     require_once("../config/config.php");
 
     session_start();
