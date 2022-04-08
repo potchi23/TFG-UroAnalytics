@@ -86,16 +86,12 @@
                     </div>
                     <div class="text-center">
                         <?php
-
+                        
                             $http_requests = new HttpRequests();
-                            $get_req = array(
-                                "offset" => 0, 
-                                "num_elems" => 1
-                            );
-                            $response = $http_requests->getResponse("$BACKEND_URL/patients", "GET", $get_req, $user->get_token());
+                            $response = $http_requests->getResponse("$BACKEND_URL/numPatients", "GET", "", $user->get_token());
                                                     
                             if($response["status"] == 200) {                          
-                                $numPatients = $response["data"]->num_entries[0];                        
+                                $numPatients = $response["data"]->num_patients;                        
                                 echo "<h5 style='font-weight: bold;'>Actualmente la base de datos cuenta con " . $numPatients . " pacientes sobre los que se puede realizar consultas y predicciones.</h5>";
                             }
                             else {
@@ -104,8 +100,7 @@
                                     $_SESSION["message"] = "La sesión ha caducado";
                                     header("Location: ./login.php");
                                 }
-                            }          
-
+                            } 
                         ?>
                     </div> 
                 </div>   

@@ -499,6 +499,27 @@ def buildQuery(req):
 
     return query
 
+@app.route('/numPatients', methods=['GET'])
+@token_required
+def numPatients(current_user):
+    status = 401
+    response = {}
+
+    if request.method == 'GET':        
+
+        meta_data = sqla.MetaData(bind=engine)
+        sqla.MetaData.reflect(meta_data)
+        
+        patients_table = meta_data.tables['patients']
+        
+        result = sqla.select([sqla.func.count()]).select_from(patients_table).scalar()
+        
+        response['num_patients'] = result
+        status = 200
+
+        return response, status
+
+
 @app.route('/patients', methods=['POST', 'GET'])
 @token_required
 def viewPatients(current_user):
@@ -618,7 +639,7 @@ def viewPatients(current_user):
             cursor.close()
 
             return response, status
-            
+
 class FlaskConfig:
     '''Configuración de Flask'''
     # Activa depurador y recarga automáticamente
