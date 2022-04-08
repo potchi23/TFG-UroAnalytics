@@ -2,12 +2,6 @@
     OPCIONES
 </div>
 <ul class="sidebar-navigation">
-
-    <li>
-        <a href="#">
-            <i class="fa fa-home" aria-hidden="true"></i> Inicio
-        </a>
-    </li>
     <li>
         <a href="#viewPatient">
             <i aria-hidden="true"></i> Visualizar pacientes
@@ -15,17 +9,17 @@
     </li>
     <li>
         <a href="#addPatient">
-            <i class="fa fa-tachometer" aria-hidden="true"></i> Añadir paciente
+            <i aria-hidden="true"></i> Añadir paciente
         </a>
     </li>
     <li>
-        <a href="#">
-            <i class="fa fa-tachometer" aria-hidden="true"></i> Importar datos
+        <a href="importdb.php">
+            <i aria-hidden="true"></i> Importar pacientes
         </a>
     </li>
     <li>
-        <a href="#">
-            <i class="fa fa-tachometer" aria-hidden="true"></i> Exportar datos
+        <a href="exportdb.php">
+            <i aria-hidden="true"></i> Exportar pacientes
         </a>
     </li>
 </ul>

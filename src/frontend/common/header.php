@@ -17,9 +17,6 @@
         <li class="nav-item">
           <a class="nav-link" href="../patients/patientsIndex.php?page=1">Pacientes</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="../data/dataIndex.php">Datos</a>
-        </li>
         <?php
             $user = $_SESSION["user"];
             

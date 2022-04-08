@@ -55,7 +55,7 @@
         }
         else {
             $_SESSION["error"] = "Error al exportar los datos de los pacientes";
-            header("Location: ../data/exportdb.php");
+            header("Location: ../patients/exportdb.php");
         }
     }
 ?>
