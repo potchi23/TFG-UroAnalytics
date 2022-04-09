@@ -528,29 +528,21 @@ def viewPatients(current_user):
     if request.method == 'GET':
         offset = request.form['offset']
         num_elems = request.form['num_elems']
-
-        cursor = mydb.cursor()
-        query = f'SELECT * FROM patients LIMIT {offset}, {num_elems}'
-        cursor.execute(query)
-
         response = {
-            'num_entries':0,
+            'num_entries':engine.execute('SELECT COUNT(N) FROM patients').scalar(),
             'data':[]
         }
 
-        entry = {}
-        for request_p in cursor:
-            for i in range(0, len(request_p)):
-                
-                entry[cursor.description[i][0]] = request_p[i]
-                                    
-            response['data'].append(dict(entry))
-    
-        query = f'SELECT COUNT(N) FROM patients'
-        cursor.execute(query)
-        response['num_entries'] = cursor.fetchone()
+        query = 'SELECT * FROM patients LIMIT %s, %s' % (offset, num_elems)
+        columns = tuple(engine.execute(query).keys())
+        result = engine.execute(query)
 
-        cursor.close()
+        entry = {}
+        for row in result:
+            for i in range(0, len(row)):
+                entry[columns[i]] = row[i]
+            response['data'].append(dict(entry))
+        
         status = 200
         
         return response, status

@@ -3,7 +3,7 @@
 </div>
 <ul class="sidebar-navigation">
     <li>
-        <a href="#viewPatient">
+        <a href="patientsIndex.php?page=1">
             <i aria-hidden="true"></i> Visualizar pacientes
         </a>
     </li>

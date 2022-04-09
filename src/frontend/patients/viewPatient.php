@@ -67,7 +67,7 @@
                             }
                         }
                         
-                        $num_patients = $response["data"]->num_entries[0];
+                        $num_patients = $response["data"]->num_entries;
 
                         if($num_patients > 0) 
                             echo "<h5>Número de pacientes: $num_patients</h5><br>";
@@ -127,11 +127,11 @@
                             }                                    
                             echo "</div>";
                             
-                            $numPages = ceil($response["data"]->num_entries[0]/$NUM_ELEMENTS_BY_PAGE);
+                            $numPages = ceil($response["data"]->num_entries/$NUM_ELEMENTS_BY_PAGE);
                             echo "<div style='background-color:#e9ecef; border-color:#e9ecef' class='btn btn-warning'>$page/$numPages</div>";
 
                             echo "<div>";
-                            if ($get_req["offset"] + $NUM_ELEMENTS_BY_PAGE < $response["data"]->num_entries[0] && count($data_array) > 0){
+                            if ($get_req["offset"] + $NUM_ELEMENTS_BY_PAGE < $response["data"]->num_entries && count($data_array) > 0){
                                 $next_page = $_SESSION["page"] + 1;    
                                 echo "<a class='btn btn-primary next' href='patientsIndex.php?page=$next_page'>></a>"; 
                             }
