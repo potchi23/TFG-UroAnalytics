@@ -1,5 +1,5 @@
 <?php
-    include_once("models/User.php");
+    require_once("models/User.php");
     session_start();
 
     $user = $_SESSION["user"];
@@ -26,7 +26,7 @@
         </head>
         <body>
             <div class="header">
-                <?php include_once("common/header.php");?>
+                <?php require("common/header.php");?>
             </div>   
             
             <div class="content-container">
@@ -126,7 +126,7 @@
             </div>
     
             <footer class="bg-light text-center text-lg-start">
-                <?php include_once("common/footer.php")?>
+                <?php require("common/footer.php")?>
             </footer> 
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 

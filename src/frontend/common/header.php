@@ -15,10 +15,7 @@
           <a class="nav-link" href="../predictions/predictions.php">Predicciones</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../patients/patientsIndex.php">Pacientes</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="../data/dataIndex.php">Datos</a>
+          <a class="nav-link" href="../patients/patientsIndex.php?page=1">Pacientes</a>
         </li>
         <?php
             $user = $_SESSION["user"];

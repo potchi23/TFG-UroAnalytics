@@ -1,7 +1,7 @@
 <?php
 
-    include_once("../models/User.php");
-    include_once("HttpRequests.php");
+    require_once("../models/User.php");
+    require_once("HttpRequests.php");
     require_once("../config/config.php");
 
     session_start();
@@ -10,14 +10,14 @@
 
     if($_FILES['import-data']['size'] == 0) {
         $_SESSION["error"] = "No se ha seleccionado ningun un fichero";
-        header("Location: ../data/importdb.php");
+        header("Location: ../patients/importdb.php");
     }
     else {
         $fileType = strtolower(pathinfo($_FILES['import-data']['name'], PATHINFO_EXTENSION));
         
         if($fileType != "xls" && $fileType != "xlsx") {
             $_SESSION["error"] = "Solo se permiten ficheros con formato .xls y .xlsx";
-            header("Location: ../data/importdb.php");
+            header("Location: ../patients/importdb.php");
         }
         else {
             $file_path = dirname(dirname(__DIR__)).'/backend/tmp_uploads/';
@@ -37,7 +37,7 @@
             if($response["status"] == 200) {
                 $num_entries = $response["data"]->num_entries;
                 $_SESSION["message"] = "Se han introducido $num_entries pacientes";
-                header("Location: ../data/importdb.php");
+                header("Location: ../patients/importdb.php");
             }
             else {
                 if($response["status"] == 401) {

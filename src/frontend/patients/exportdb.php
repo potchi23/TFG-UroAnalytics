@@ -22,7 +22,7 @@
             <?php include_once("../common/header.php");?>
         </div> 
         <div class="sidebar-container">
-            <?php include_once("sidebarData.php")?>
+            <?php include_once("sidebarPatients.php")?>
         </div>  
         <div class="content-container">
             <div class="container-fluid">

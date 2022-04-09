@@ -1,6 +1,6 @@
 <?php
-    include_once("models/User.php");
-    include_once("requests/HttpRequests.php");
+    require_once("models/User.php");
+    require_once("requests/HttpRequests.php");
     require_once("config/config.php");
     
     session_start();
@@ -37,7 +37,7 @@
     </head>
     <body>
         <div class="header">
-            <?php include_once("common/header.php");?>
+            <?php require("common/header.php");?>
         </div>   
 
         <div class="content-container">

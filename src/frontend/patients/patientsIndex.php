@@ -1,40 +1,37 @@
 <!DOCTYPE html>
 
 <?php
-    include_once("../models/User.php");
+    require_once("../models/User.php");
     session_start();
 ?>
 
 <html>
     <head>
         <title>Entorno pacientes</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link rel="stylesheet" href="../css/sidebar.css">
-        <link rel="stylesheet" href="../css/header.css"/>
-        <meta charset="utf-8">
+        <?php include_once("../common/includes.php");?>
     </head>
     <body>  
-                <div class="header">
-                    <?php include_once("../common/header.php");?>
+        <div class="header">
+            <?php require("../common/header.php");?>
+        </div>
+        <div class="sidebar-container">
+            <?php require("../patients/sidebarPatients.php")?>
+        </div>
+        <div class="content-container">
+            <div class="container-fluid">
+    
+                <div class="jumbotron">
+                    <h1>Entorno de pacientes</h1>
+                    <p>Seleccione en las opciones de su derecha la acción que desea realizar.</p>
                 </div>
-                <div class="sidebar-container">
-                    <?php include_once("../patients/sidebarPatients.php")?>
+                <div id="viewPatient">
+                    <?php require("viewPatient.php")?>
                 </div>
-                <div class="content-container">
-                    <div class="container-fluid">
-         
-                        <div class="jumbotron">
-                            <h1>Entorno de pacientes</h1>
-                            <p>Seleccione en las opciones de su derecha la acción que desea realizar.</p>
-                        </div>
-                        <div id="viewPatient">
-                            <?php include_once("viewPatient.php")?>
-                        </div>
-                    </div>
-                </div>  
-                <footer class="bg-light text-center text-lg-start">
-                    <?php include_once("../common/footer.php")?>
-                </footer>  
+            </div>
+        </div>  
+        <footer class="bg-light text-center text-lg-start">
+            <?php require("../common/footer.php")?>
+        </footer>  
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     </body>
 </html>

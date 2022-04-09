@@ -4,8 +4,8 @@
     use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
     use PhpOffice\PhpSpreadsheet\IOFactory;
 
-    include_once("../models/User.php");
-    include_once("HttpRequests.php");
+    require_once("../models/User.php");
+    require_once("HttpRequests.php");
     require_once("../config/config.php");
 
     session_start();
@@ -55,7 +55,7 @@
         }
         else {
             $_SESSION["error"] = "Error al exportar los datos de los pacientes";
-            header("Location: ../data/exportdb.php");
+            header("Location: ../patients/exportdb.php");
         }
     }
 ?>

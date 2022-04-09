@@ -20,7 +20,7 @@
     <head>
         <title>Registro solicitado</title>
         <link rel="stylesheet" href="css/form.css"/>
-        <?php include_once("common/includes.php");?>
+        <?php require("common/includes.php");?>
     </head>
     <body>
         <div class="container">

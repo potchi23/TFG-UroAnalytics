@@ -12,7 +12,7 @@
     <head>
         <title>Solicitar registro</title>
         <link rel="stylesheet" href="css/form.css"/>
-        <?php include_once("common/includes.php");?>
+        <?php require_once("common/includes.php");?>
     </head>
     <body>
         <div class="container">
