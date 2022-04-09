@@ -533,7 +533,13 @@ def viewPatients(current_user):
             'data':[]
         }
 
-        query = 'SELECT * FROM patients LIMIT %s, %s' % (offset, num_elems)
+        query = 'SELECT * FROM patients '
+
+        if('rbq_null' in request.form and request.form['rbq_null'] == 'true'):
+            query += 'WHERE RBQ IS NULL '
+
+        query += 'LIMIT %s, %s' % (offset, num_elems)
+
         columns = tuple(engine.execute(query).keys())
         result = engine.execute(query)
 
@@ -543,6 +549,9 @@ def viewPatients(current_user):
                 entry[columns[i]] = row[i]
             response['data'].append(dict(entry))
         
+        if('rbq_null' in request.form and request.form['rbq_null'] == 'true'):
+            response['num_entries'] = len(response['data'])
+
         status = 200
         
         return response, status
@@ -647,4 +656,3 @@ class FlaskConfig:
 if __name__ == '__main__':
     app.config.from_object(FlaskConfig())
     app.run()
-
