@@ -46,7 +46,9 @@
                     header("Location: ../login.php");
                 }
                 else {
-                    $_SESSION["error"] = "No se ha podido importar los datos";
+                    $_SESSION["error"] = "Error. El excel importado no cumple con los requisitos. ".$response["data"]->errorMSG;
+                
+                    header("Location: ../patients/importdb.php");
                 }
             }
         }

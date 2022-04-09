@@ -57,7 +57,17 @@
                             </div>
                         </div>  
                     </div>  
-                </div>      
+                </div> 
+                
+                <div class="jumbotron">
+                    <h1>Requisitos para importar un Excel</h1>
+                    <hr>
+                    <div class="justify-content-center">
+                        <p>La información dentro del Excel debe empezar en la primera fila que serán las columnas.</p>
+                        <p>Cualquier campo de un paciente que no esté incluido en la Base de Datos será descartado.</p>
+                        
+                    </div>  
+                </div> 
             </div>
         </div>
         <footer class="bg-light text-center text-lg-start">

@@ -398,6 +398,7 @@ def importdb(current_user):
     status = 400
     response = {
         'num_entries':0,
+        'errorMSG':"",
     }
 
     if request.method == 'POST':
@@ -405,17 +406,20 @@ def importdb(current_user):
         filepath = HERE + "/tmp_uploads/" + filename
         #leer archivo
         df = pd.read_excel(filepath, header=0)
+        print(df.columns)
         #eliminar archivo del frontend
         os.remove(filepath)
 
-        df = newPatientsDF(df)
-        
-        df.to_sql(name='patients', con=engine, if_exists='append', index=False)
-        
-        response['num_entries'] = len(df.index)
+        df, errorMSG = newPatientsDF(df)
+        if errorMSG == None:
+            df.to_sql(name='patients', con=engine, if_exists='append', index=False)
+            response['num_entries'] = len(df.index)
+            status = 200
+        else:
+            response['errorMSG'] = errorMSG
 
-        status = 200
-        return response, status
+    return response, status
+    
 
 def newPatientsDF(df):
     '''
@@ -423,6 +427,7 @@ def newPatientsDF(df):
     Parámetros:
         df: dataFrame del excel
     '''
+    errorMSG = None
     query = f'SELECT * FROM patients'
 
     df_db = pd.read_sql(query, engine)
@@ -432,20 +437,58 @@ def newPatientsDF(df):
     df.columns = df.columns.map(str.upper)
     df.columns = df.columns.str.replace(' ', '-')
 
-    #drop de las columnas no incluidas en la base de datos
+    #columnas incluidas en el excel y la base de datos
     columns_to_include = df.columns.intersection(df_db.columns)
 
-    if "N" in columns_to_include:
-        columns_to_include = columns_to_include.drop("N")
-    
-    df = df[columns_to_include]
+    if len(columns_to_include) > 0:
+        if "N" in columns_to_include:
+            columns_to_include = columns_to_include.drop("N")
+        
+        df = df[columns_to_include]
 
-    if not df_db.empty:
-        df = pd.concat([df_db.drop(columns="N"), df]).drop_duplicates(keep=False, ignore_index=True)
+        df, invalidColumns = clearPatientsDF(df)
+        print("----------------------------")
+        print(len(df.index))
+        
+        if len(invalidColumns) == 0:
+            if not df_db.empty:
+                df = pd.concat([df_db.drop(columns="N"), df]).drop_duplicates(keep=False, ignore_index=True)
+            else:
+                df = df.drop_duplicates(ignore_index=True)
+        else:
+            errorMSG = f"Hay columnas con tipos invalidos: {', '.join(invalidColumns)}."
     else:
-        df = df.drop_duplicates(ignore_index=True)
+        errorMSG = "No hay columnas coincidentes con la base de datos."
 
-    return df
+    return df, errorMSG
+
+def clearPatientsDF(df):
+    variablesJson = open('jsons/variables.json', 'r')
+    dataJson = json.load(variablesJson)
+    
+    invalidColumns = list()
+    
+    #Ver si las claves del Json estan en las columnas del DF a guardar
+    for key in dataJson:
+        if key not in df.columns:
+            dataJson.pop(key)
+        
+    #Por cada columna del DF, comprobar el tipo de la columna y que los datos esten comprendidos entre los rangos permitidos
+    for column in df.columns:
+        if str(df[column].dtype) in dataJson[column]["tipo"]:
+            rango = dataJson[column]["rango"]
+            if len(rango) > 0:
+                rangoInf = rango[0]
+                rangoSup= rango[1]
+                #Drop de las filas en las cuales no haya datos validos
+                df = df[((df[column] >= rangoInf) & (df[column] <= rangoSup)) | (df[column].isnull())]
+        else:
+            invalidColumns.append(column)
+
+    df.to_excel("cacadeculo.xlsx")
+    df.reset_index(drop=True, inplace=True)    
+
+    return df, invalidColumns
 
 @app.route('/exportdb', methods=['GET'])
 @token_required
@@ -464,11 +507,9 @@ def exportdb(current_user):
 
         response['json'] = json        
         status = 200
-        return response, status
-
     else:
         response = 'Method not supported'
-        return response, status
+    return response, status
 
 
 @app.route('/getQuery', methods=['GET'])
