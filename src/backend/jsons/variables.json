@@ -23,42 +23,42 @@
     "OBESO": {
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [0, 3],
-        "reemplazar":{},
+        "reemplazar":{"0": "NC", "1": "IMC < 25", "2": "IMC 25-30", "3": "IMC > 30"},
         "descripcion": "Obesidad."
     },
 
     "HTA": {
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 2],
-        "reemplazar":{},
+        "reemplazar":{"1": "Si", "2": "No", "3": "NC"},
         "descripcion": ""
     },
 
     "DM": {
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 2],
-        "reemplazar":{},
+        "reemplazar":{"1": "Si", "2": "No", "3": "NC"},
         "descripcion": "Diabetes Mellitus."
     },
 
     "TABACO": {
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [0, 5],
-        "reemplazar":{},
+        "reemplazar":{"0": "NC", "1": "No", "2": "Exfumador", "3": "< 10 cigarrillos/día", "4": "10-20 cigarrillos/día", "5": "> 20 cigarrillos/día"},
         "descripcion": ""
     },
 
     "HEREDA": {
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 3],
-        "reemplazar":{},
+        "reemplazar":{"1": "Si", "2": "No"},
         "descripcion": "Familiar 1º grado con CaP."
     },
 
     "TACTOR": {
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 3],
-        "reemplazar":{},
+        "reemplazar":{"1": "Negativo", "2": "Sospechoso", "3": "Positivo"},
         "descripcion": "Tacto rectal preoperatorio."
     },
 
@@ -86,7 +86,7 @@
     "ECOTR": {
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 2],
-        "reemplazar":{},
+        "reemplazar":{"1": "Normal", "2": "Sospechosa (nódulo)"},
         "descripcion": ""
     },
 
@@ -99,29 +99,29 @@
 
     "HISTO": {
         "tipo": ["float64", "float", "int64", "int"],
-        "rango": [0, 3],
-        "reemplazar":{},
+        "rango": [1, 2],
+        "reemplazar":{"1": "Adenocarcinoma","2": "Otro"},
         "descripcion": "Tipo histologico."
     },
 
     "GLEASON1": {
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 5],
-        "reemplazar":{},
+        "reemplazar":{"1": "6", "2": "7 (3+4)", "3": "7 (4+3)", "4": "8-10", "5": "Inclasificable"},
         "descripcion": "Gleason en biopsia."
     },
 
     "NCILPOS": {
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 3],
-        "reemplazar":{},
+        "reemplazar":{"1": "< 25%", "2": "25-50%", "3": ">= 50%"},
         "descripcion": "Nº cilindros positivos (en cualquier lado)."
     },
 
     "BILAT": {
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 2],
-        "reemplazar":{},
+        "reemplazar":{"1": "Si","2": "No"},
         "descripcion": "Bilateralidad."
     },
 
@@ -135,63 +135,63 @@
     "IPERIN": {
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 3],
-        "reemplazar":{},
+        "reemplazar":{"1": "Si", "2": "No", "3": "NC"},
         "descripcion": "Infiltracion perineural."
     },
 
     "ILINF": {
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 3],
-        "reemplazar":{},
+        "reemplazar":{"1": "Si", "2": "No", "3": "NC"},
         "descripcion": "Infiltracion linfatica."
     },
 
     "IVASCU": {
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 3],
-        "reemplazar":{},
+        "reemplazar":{"1": "Si", "2": "No", "3": "NC"},
         "descripcion": "Infiltracion vascular."
     },
 
     "TNM1": {
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 3],
-        "reemplazar":{},
+        "reemplazar":{"1": "cT2ab (unilateral)", "2": "cT2c", "3": "cT3"},
         "descripcion": "cTNM biopsia."
     },
 
     "HISTO2": {
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 2],
-        "reemplazar":{},
+        "reemplazar":{"1": "Adenocarcinoma", "2": "Otro"},
         "descripcion": ""
     },
 
     "GLEASON2": {
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 5],
-        "reemplazar":{},
+        "reemplazar":{"1": "6", "2": "7 (3+4)", "3": "7 (4+3)", "4": "8-10", "5": "< 6"},
         "descripcion": "Gleason pieza PRL."
     },
 
     "BILAT2": {
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 2],
-        "reemplazar":{},
+        "reemplazar":{"1": "Si", "2": "No"},
         "descripcion": "Bilateralidad."
     },
 
     "LOCALIZ": {
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 4],
-        "reemplazar":{},
+        "reemplazar":{"1": "ZP", "2": "ZT", "3": "ZFMA", "4": "Múltiple"},
         "descripcion": ""
     },
 
     "MULTIFOC":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 2],
-        "reemplazar":{},
+        "reemplazar":{"1": "Si", "2": "No"},
         "descripcion": ""
     },
 
@@ -205,56 +205,56 @@
     "EXTRACAP":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 2],
-        "reemplazar":{},
+        "reemplazar":{"1": "Si", "2": "No"},
         "descripcion": "Extension extracapsular."
     },
 
     "VVSS":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 3],
-        "reemplazar":{},
+        "reemplazar":{"1": "Si", "2": "No", "3": "NC"},
         "descripcion": "Invasion Vesiculas Seminales"
     },
 
     "IPERIN2":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 3],
-        "reemplazar":{},
+        "reemplazar":{"1": "Si", "2": "No", "3": "NC"},
         "descripcion": ""
     },
 
     "ILINF2":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 3],
-        "reemplazar":{},
+        "reemplazar":{"1": "Si", "2": "No", "3": "NC"},
         "descripcion": ""
     },
 
     "IVASCU2":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 3],
-        "reemplazar":{},
+        "reemplazar":{"1": "Si", "2": "No", "3": "NC"},
         "descripcion": ""
     },
 
     "PINAG":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 3],
-        "reemplazar":{},
+        "reemplazar":{"1": "Si", "2": "No", "3": "NC"},
         "descripcion": "PIN alto grado pieza."
     },
     
     "MARGEN":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 3],
-        "reemplazar":{},
+        "reemplazar":{"1": "Si", "2": "No", "3": "NC"},
         "descripcion": "Margenes quirurgicos positivos."
     },
     
     "TNM2":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 5],
-        "reemplazar":{},
+        "reemplazar":{"1": "pT2ab", "2": "pT2c", "3": "pT3", "4": "pT4", "5": "pN+"},
         "descripcion": "TNM pieza."
     },
     
@@ -268,7 +268,7 @@
     "RTPADYU":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 2],
-        "reemplazar":{},
+        "reemplazar":{"1": "Si", "2" : "No"},
         "descripcion": "RTP adyuvante"
     },
     
@@ -282,7 +282,7 @@
     "RBQ":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 3],
-        "reemplazar":{},
+        "reemplazar":{"1": "Si (CASOS)", "2": "No (CONTROLES)", "3": "Persitencia PSA (PSA > 0,2 primer posoperatorio tras PRL)"},
         "descripcion": "Recidiva BQ."
     },
     
@@ -317,7 +317,7 @@
     "FALLEC":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 2],
-        "reemplazar":{},
+        "reemplazar":{"1": "Si", "2": "No"},
         "descripcion": "Fallecimiento."
     },
     
@@ -352,49 +352,49 @@
     "RA-NUCLEAR":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [0, 1],
-        "reemplazar":{},
+        "reemplazar":{"0": "Negativo (< 90% expresión)","1": "Positivo ( 90% sobreexpresión)"},
         "descripcion": "Receptor androgenico nuclear epitelial."
     },
     
     "RA-ESTROMA":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [0, 1],
-        "reemplazar":{},
+        "reemplazar":{"0": "Negativo (< 30% expresión)","1": "Positivo ( 30% sobreexpresión)"},
         "descripcion": "Receptor androgenico nuclear estromal."
     },
     
     "PTEN":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [0, 1],
-        "reemplazar":{},
+        "reemplazar":{"0": "Positivo (Presencia / No pérdida)","1": "Pérdida parcial o completa"},
         "descripcion": "Perdida de expresion."
     },
     
     "ERG":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [0, 1],
-        "reemplazar":{},
+        "reemplazar":{"0": "Negativo (> 0,7)", "1": "Positivo (0-0,7)"},
         "descripcion": "Ausencia"
     },
     
     "KI-67":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [0, 1],
-        "reemplazar":{},
+        "reemplazar":{"0": "Bajo (0-0,005)", "1": "Intermedio-alto (0,06 sobreexpresión)"},
         "descripcion": "Presencia"
     },
     
     "SPINK1":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [0, 1],
-        "reemplazar":{},
+        "reemplazar":{"0": "Negativo (0-0,005)", "1": "Positivo (> 0,05 sobreexpresión)"},
         "descripcion": "Presencia"
     },
     
     "C-MYC":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [0, 1],
-        "reemplazar":{},
+        "reemplazar":{"0": "Negativo (0-0,2)", "1": "Positivo (> 0,2 sobreexpresión)"},
         "descripcion": "Presencia"
     },
     
