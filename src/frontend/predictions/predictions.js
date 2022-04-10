@@ -16,7 +16,6 @@ $(document).ready(() => {
                 request.setRequestHeader("x-access-token", $('#token').val());
             },
             success : result => {
-                console.log('test');
                 $('#last-train-date').text(result);
             },
             error : e => {

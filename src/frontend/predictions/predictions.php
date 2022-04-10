@@ -67,9 +67,12 @@
                     </div>            
 
                     <div id="predictionAlgorithm">
+                    <div class="jumbotron">
+                        <h1 style="font-weight:600;">Algoritmo a utilizar</h1>
+                        <hr class="my-4">
                         <?php require("predictionAlgorithm.php")?>
                     </div>
-
+                    </div>
                 </div>
             </div>    
             <footer class="bg-light text-center text-lg-start">
