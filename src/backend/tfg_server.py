@@ -485,7 +485,6 @@ def clearPatientsDF(df):
         else:
             invalidColumns.append(column)
 
-    df.to_excel("cacadeculo.xlsx")
     df.reset_index(drop=True, inplace=True)    
 
     return df, invalidColumns
@@ -681,6 +680,25 @@ def viewPatients(current_user):
             cursor.close()
 
             return response, status
+
+def dbTranslator(df):
+    variablesJson = open('jsons/variables.json', 'r')
+    dataJson = json.load(variablesJson)
+    
+    invalidColumns = list()
+    
+    #Ver si las claves del Json estan en las columnas del DF a guardar
+    for key in dataJson:
+        if key not in df.columns:
+            dataJson.pop(key)
+
+    for column in df.columns:
+        if column != 'N':
+            if len(dataJson[column]["reemplazar"]) > 0:
+                df[column] = df[column].astype(str)
+                df[column] = df[column].replace(dataJson[column]["reemplazar"])
+    
+    return df
 
 class FlaskConfig:
     '''Configuración de Flask'''

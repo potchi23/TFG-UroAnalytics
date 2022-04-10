@@ -2,390 +2,455 @@
     "FECHACIR": {
         "tipo": ["datetime64[ns]", "datetime"],
         "rango": [],
+        "reemplazar":{},
         "descripcion": "Fecha PRL."
     },
 
     "EDAD": {
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [],
+        "reemplazar":{},
         "descripcion": "Edad del paciente."
     },
 
     "ETNIA": {
         "tipo": ["float64", "float", "int64", "int"],
-        "rango": [0, 3],
+        "rango": [1, 4],
+        "reemplazar":{"1": "Caucasico", "2": "Negro", "3": "Hispano", "4": "Asiatico"},
         "descripcion": "Etnia del paciente."
     },
 
     "OBESO": {
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [0, 3],
+        "reemplazar":{},
         "descripcion": "Obesidad."
     },
 
     "HTA": {
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 2],
+        "reemplazar":{},
         "descripcion": ""
     },
 
     "DM": {
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 2],
+        "reemplazar":{},
         "descripcion": "Diabetes Mellitus."
     },
 
     "TABACO": {
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [0, 5],
+        "reemplazar":{},
         "descripcion": ""
     },
 
     "HEREDA": {
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 3],
+        "reemplazar":{},
         "descripcion": "Familiar 1º grado con CaP."
     },
 
     "TACTOR": {
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 3],
+        "reemplazar":{},
         "descripcion": "Tacto rectal preoperatorio."
     },
 
     "PSAPRE": {
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [],
+        "reemplazar":{},
         "descripcion": "PSA preoperatorio en biopsia."
     },
 
     "PSALT": {
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [0, 1],
+        "reemplazar":{},
         "descripcion": "PSAl/PSAt."
     },
 
     "TDUPPRE": {
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [],
+        "reemplazar":{},
         "descripcion": "Tiempo de duplicacion de PSA preoperatorio (2º el de biopsia)."
     },
 
     "ECOTR": {
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 2],
+        "reemplazar":{},
         "descripcion": ""
     },
 
     "NBIOPSIA": {
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [],
+        "reemplazar":{},
         "descripcion": "Nº biopsias previas."
     },
 
     "HISTO": {
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [0, 3],
+        "reemplazar":{},
         "descripcion": "Tipo histologico."
     },
 
     "GLEASON1": {
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 5],
+        "reemplazar":{},
         "descripcion": "Gleason en biopsia."
     },
 
     "NCILPOS": {
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 3],
+        "reemplazar":{},
         "descripcion": "Nº cilindros positivos (en cualquier lado)."
     },
 
     "BILAT": {
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 2],
+        "reemplazar":{},
         "descripcion": "Bilateralidad."
     },
 
     "PORCENT": {
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [0, 100],
+        "reemplazar":{},
         "descripcion": "Mayor % afectacion un cilindro."
     },
 
     "IPERIN": {
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 3],
+        "reemplazar":{},
         "descripcion": "Infiltracion perineural."
     },
 
     "ILINF": {
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 3],
+        "reemplazar":{},
         "descripcion": "Infiltracion linfatica."
     },
 
     "IVASCU": {
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 3],
+        "reemplazar":{},
         "descripcion": "Infiltracion vascular."
     },
 
     "TNM1": {
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 3],
+        "reemplazar":{},
         "descripcion": "cTNM biopsia."
     },
 
     "HISTO2": {
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 2],
+        "reemplazar":{},
         "descripcion": ""
     },
 
     "GLEASON2": {
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 5],
+        "reemplazar":{},
         "descripcion": "Gleason pieza PRL."
     },
 
     "BILAT2": {
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 2],
+        "reemplazar":{},
         "descripcion": "Bilateralidad."
     },
 
     "LOCALIZ": {
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 4],
+        "reemplazar":{},
         "descripcion": ""
     },
 
     "MULTIFOC":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 2],
+        "reemplazar":{},
         "descripcion": ""
     },
 
     "VOLUMEN":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 100],
+        "reemplazar":{},
         "descripcion": "Volumen tumoral (% pieza)."
     },
 
     "EXTRACAP":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 2],
+        "reemplazar":{},
         "descripcion": "Extension extracapsular."
     },
 
     "VVSS":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 3],
+        "reemplazar":{},
         "descripcion": "Invasion Vesiculas Seminales"
     },
 
     "IPERIN2":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 3],
+        "reemplazar":{},
         "descripcion": ""
     },
 
     "ILINF2":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 3],
+        "reemplazar":{},
         "descripcion": ""
     },
 
     "IVASCU2":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 3],
+        "reemplazar":{},
         "descripcion": ""
     },
 
     "PINAG":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 3],
+        "reemplazar":{},
         "descripcion": "PIN alto grado pieza."
     },
     
     "MARGEN":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 3],
+        "reemplazar":{},
         "descripcion": "Margenes quirurgicos positivos."
     },
     
     "TNM2":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 5],
+        "reemplazar":{},
         "descripcion": "TNM pieza."
     },
     
     "PSAPOS":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [],
+        "reemplazar":{},
         "descripcion": "PSA posoperatorio 1º (si mayor 0,2 no se considera RBQ)."
     },
     
     "RTPADYU":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 2],
+        "reemplazar":{},
         "descripcion": "RTP adyuvante"
     },
     
     "RTPMES":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [],
+        "reemplazar":{},
         "descripcion": "Tiempo hasta RTP adyuvante (meses)."
     },
     
     "RBQ":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 3],
+        "reemplazar":{},
         "descripcion": "Recidiva BQ."
     },
     
     "TRBQ":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [],
+        "reemplazar":{},
         "descripcion": "Tiempo hasta RBQ (meses desde PRL)."
     },
     
     "TDUPLI":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [],
+        "reemplazar":{},
         "descripcion": "Tiempo duplicacion PSA (todos PSA desde PRL hasta la RBQ)."
     },
     
     "T1MTX":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [],
+        "reemplazar":{},
         "descripcion": "Tiempo hasta 1ª metastasis (meses)."
     },
     
     "FECHAFIN":{
         "tipo": ["datetime64[ns]", "datetime"],
         "rango": [],
+        "reemplazar":{},
         "descripcion": "Fecha de ultima revision."
     },
     
     "FALLEC":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 2],
+        "reemplazar":{},
         "descripcion": "Fallecimiento."
     },
     
     "TSUPERV":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [],
+        "reemplazar":{},
         "descripcion": "Tiempo de supervivencia desde RBQ  si Fallecimiento (meses)."
     },
     
     "TSEGUI":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [],
+        "reemplazar":{},
         "descripcion": "Tiempo de seguimiento desde PRL (meses)."
     },
     
     "PSAFIN":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [],
+        "reemplazar":{},
         "descripcion": "ultimo PSA en seguimiento."
     },
     
     "CAPRA-S":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [],
+        "reemplazar":{},
         "descripcion": "Valor suma variables (11, 37, 32,26, 31, 38). Valor rango 0-13."
     },
     
     "RA-NUCLEAR":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [0, 1],
+        "reemplazar":{},
         "descripcion": "Receptor androgenico nuclear epitelial."
     },
     
     "RA-ESTROMA":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [0, 1],
+        "reemplazar":{},
         "descripcion": "Receptor androgenico nuclear estromal."
     },
     
     "PTEN":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [0, 1],
+        "reemplazar":{},
         "descripcion": "Perdida de expresion."
     },
     
     "ERG":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [0, 1],
+        "reemplazar":{},
         "descripcion": "Ausencia"
     },
     
     "KI-67":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [0, 1],
+        "reemplazar":{},
         "descripcion": "Presencia"
     },
     
     "SPINK1":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [0, 1],
+        "reemplazar":{},
         "descripcion": "Presencia"
     },
     
     "C-MYC":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [0, 1],
+        "reemplazar":{},
         "descripcion": "Presencia"
     },
     
     "IMC":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [],
+        "reemplazar":{},
         "descripcion": "Indice de masa corporal"
     },
     
     "ASA":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [],
+        "reemplazar":{},
         "descripcion": "Grado ASA (I-IV)."
     },
     
     "GR":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [],
+        "reemplazar":{},
         "descripcion": "Grupo de riesgo."
     },
     
     "PNV":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [],
+        "reemplazar":{},
         "descripcion": "Preservacion neurovascular (si/no)."
     },
     
     "TQ":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [],
+        "reemplazar":{},
         "descripcion": ""
     },
     
     "TH": {
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [],
+        "reemplazar":{},
         "descripcion": "Tiempo de hospitalizacion (dias)."
     },
     
     "NGG": {
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [],
+        "reemplazar":{},
         "descripcion": "Numero de ganglios afectados (Nº)."
     },
     
     "PGG": {
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [],
+        "reemplazar":{},
         "descripcion": "Porcentaje de ganglios afectados (%)."
     },
 
@@ -393,18 +458,21 @@
     "NOTAS": {
         "tipo": ["str", "object", "Object"],
         "rango": [],
+        "reemplazar":{},
         "descripcion": "Porcentaje de ganglios afectados (%)."
     },
 
     "T.SEG": {
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [],
+        "reemplazar":{},
         "descripcion": "Porcentaje de ganglios afectados (%)."
     },
 
     "TDUPLI.R1":{
         "tipo": ["str", "object", "Object"],
         "rango": [],
+        "reemplazar":{},
         "descripcion": "Porcentaje de ganglios afectados (%)."
     }
 }
