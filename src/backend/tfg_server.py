@@ -559,7 +559,6 @@ def numPatients(current_user):
 
         return response, status
 
-
 @app.route('/patients', methods=['POST', 'GET'])
 @token_required
 def viewPatients(current_user):
@@ -593,7 +592,6 @@ def viewPatients(current_user):
             response['num_entries'] = len(response['data'])
 
         status = 200
-        
         return response, status
 
     elif  request.method == 'POST':
@@ -680,6 +678,19 @@ def viewPatients(current_user):
             cursor.close()
 
             return response, status
+
+@app.route('/patients/variables', methods=['POST', 'GET'])
+@token_required
+def patientVariables(current_user):
+    response = {
+        'data':[]
+    }
+    if request.method == 'GET':
+        query = 'SELECT * FROM patients LIMIT 1'
+        columns = list(engine.execute(query).keys())
+        response['data'] = columns
+
+        return response, 200
 
 def dbTranslator(df):
     variablesJson = open('jsons/variables.json', 'r')

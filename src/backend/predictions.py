@@ -18,18 +18,9 @@ def drop_columns(df):
     df = df.drop('ETNIA', axis=1)
     df = df.drop('HISTO2', axis=1)
     df = df.drop('NOTAS', axis=1)
-
-    df = df.drop('IMC', axis=1)
-    df = df.drop('ASA', axis=1)
-    df = df.drop('GR', axis=1)
-    df = df.drop('PNV', axis=1)
-    df = df.drop('TQ', axis=1)
-    df = df.drop('TH', axis=1)
-    df = df.drop('NGG', axis=1)
-    df = df.drop('PGG', axis=1)
+    df = df.drop('N', axis=1)
     df = df.drop('TDUPLI.R1', axis=1)
-    df = df.drop('T.SEG', axis=1)
-    df = df.drop('RA-ESTROMA', axis=1)
+
 
     return df
 

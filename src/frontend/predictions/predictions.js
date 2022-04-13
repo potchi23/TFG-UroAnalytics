@@ -73,11 +73,39 @@ $(document).ready(() => {
     $('#prediction-button').click(() => {
         let features = [];
         $('.prediction-form-input').each((index, value) => {
-            if($(value).attr('id') != 'FECHACIR' && $(value).attr('id') != 'FECHAFIN' && $(value).attr('id') != 'ETNIA' && $(value).attr('id') != 'HISTO2' && $(value).attr('id') != 'NOTAS' && $(value).attr('id') != 'RBQ'){
+            if($(value).attr('id') != 'N' && $(value).attr('id') != 'FECHACIR' && $(value).attr('id') != 'FECHAFIN' && $(value).attr('id') != 'ETNIA' && $(value).attr('id') != 'HISTO2' && $(value).attr('id') != 'NOTAS' && $(value).attr('id') != 'RBQ' && $(value).attr('id') != 'TDUPLI.R1'){
                 features.push($(value).attr('value') == '' ? 0 : $(value).attr('value')*1);
             }
-             console.log(features);
+        });
+        
+        let data = {
+            'features': features.toString(),
+            'algorithm' : $('#algorithms').val()
+        }
+        $.ajax({
+            type: 'POST',
+            url: BACKEND_URL + '/predict',
+            data : data,
+            beforeSend: (request) => {
+                request.setRequestHeader("x-access-token", $('#token').val());
+            },
 
+            success : result => {
+                $('#prediction-result').val(result);
+            },
+            error : e => {
+                console.log('Request failed: ' + e);
+            }
+        });
+    });
+
+    $('#prediction-button-existent').click(() => {
+        let features = [];
+
+        $('.prediction-values-' + $('#selected').val()).each((index, value) => {
+            if($(value).attr('id') != 'N' && $(value).attr('id') != 'FECHACIR' && $(value).attr('id') != 'FECHAFIN' && $(value).attr('id') != 'ETNIA' && $(value).attr('id') != 'HISTO2' && $(value).attr('id') != 'NOTAS' && $(value).attr('id') != 'RBQ' && $(value).attr('id') != 'TDUPLI.R1'){
+                features.push($(value).text() == '' ? 0 : $(value).text()*1);
+            }
         });
         
         let data = {
@@ -101,3 +129,8 @@ $(document).ready(() => {
         });
     });
 });
+
+function select(event){
+    let id = event.id 
+    $('#selected').val(id);
+}

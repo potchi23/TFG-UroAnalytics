@@ -117,17 +117,20 @@
                                         echo "<th></th>";
                                         echo "<th>#</th>";
                                         foreach($data_array[0] as $key=>$value){
-                                            echo "<th>$key</th>";
+                                            if($key != "N"){
+                                                echo "<th>$key</th>";
+                                            }
                                         }
                                         echo "</tr>";  
   
                                         $numElems = count($data_array);
-
+                                        
+                                        echo"<input type='hidden' id='selected' value=''></input>";
                                         foreach($data_array as $petition){
                                             echo "<tr id='patients_$petition->N'>";
                                             echo <<<EOL
                                                 <td style="padding:0px;">
-                                                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#modal" style="margin-top:2rem;">
+                                                <button type="button" id="$petition->N" onclick="select(this)" class="btn" data-bs-toggle="modal" data-bs-target="#modal" style="margin-top:2rem;">
                                                     <input class="btn btn-outline-primary" type="submit" value="Predecir" style="padding-right:4.3rem; padding-bottom:2rem;"></input>
                                                 </button>
 
@@ -138,8 +141,10 @@
                                                                 <h5 class="modal-title" id="staticBackdropLabel01">Predecir sobre paciente #$petition->N</h5>
                                                             </div>
                                                             <div class="modal-body">
-                                                EOL;
-                                                            require("predictionAlgorithm.php");
+                                                            
+
+                                                EOL;        
+                                                            require("predictionModal.php");
                                                             echo <<<EOL
                                                             <br>
                                                             <p>¿Actualizar datos del paciente #$petition->N?</p>
@@ -147,7 +152,6 @@
                                                             </div>
                                                         
                                                             <div class="modal-footer">
-
                                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                                                                 <form action="requests/patchAcceptRegisterPetition.php?page=basura&numElems=basura" method="POST">
                                                                     <input type="hidden" id="id" name="id" value="basura"></input>
@@ -164,7 +168,9 @@
                                             echo "<td>$petition->N</td>";
                                             
                                             foreach($petition as $key=>$value){
-                                                echo "<td>$value</td>";
+                                                if($key != "N"){
+                                                    echo "<td id='$key' class='prediction-values-$petition->N'>$value</td>";
+                                                }
                                             }
                                             echo "</tr>";                                      
                                         }
@@ -173,7 +179,7 @@
                                         
                                         for ($i = 0; $i < $empty_rows; $i++){
                                             echo "<tr>";
-                                            for ($j = 0; $j < count((array)$data_array[0]) + 2; $j++){
+                                            for ($j = 0; $j < count((array)$data_array[0]) + 1; $j++){
                                                 echo "<td><div style='margin-bottom:2.38rem;'></div></td>";
                                             }
                                             echo "</tr>";
