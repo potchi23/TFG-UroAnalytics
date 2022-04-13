@@ -133,4 +133,6 @@ $(document).ready(() => {
 function select(event){
     let id = event.id 
     $('#selected').val(id);
+    $('.modal-title').text('Predecir sobre el paciente #' + id);
+    $('#prediction-result').val('');
 }

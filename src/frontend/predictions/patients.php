@@ -147,7 +147,7 @@
                                                             require("predictionModal.php");
                                                             echo <<<EOL
                                                             <br>
-                                                            <p>¿Actualizar datos del paciente #$petition->N?</p>
+                                                            <p>¿Actualizar datos del paciente con los resultados de la predicción?</p>
 
                                                             </div>
                                                         
@@ -219,5 +219,9 @@
             </div>
         </div>
         <input id='token' type="hidden" value=<?php echo $user->get_token()?>>
+        <div class="footer">
+            <?php require("../common/footer.php");?>
+        </div>   
+
     </body>
 </html>
