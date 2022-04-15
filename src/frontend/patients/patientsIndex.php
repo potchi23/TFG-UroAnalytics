@@ -3,11 +3,16 @@
 <?php
     require_once("../models/User.php");
     session_start();
+
+    if(isset($_GET["patientId"]) && $_GET["patientId"] == null){
+        header("Location: patientsIndex.php");
+    }
 ?>
 
 <html>
     <head>
         <title>Entorno pacientes</title>
+        <link rel="stylesheet" href="../css/predictions.css"></link>
         <?php include_once("../common/includes.php");?>
     </head>
     <body>  
@@ -24,8 +29,31 @@
                     <h1>Entorno de pacientes</h1>
                     <p>Seleccione en las opciones de su derecha la acción que desea realizar.</p>
                 </div>
+                
                 <div id="viewPatient">
-                    <?php require("viewPatient.php")?>
+                    <div class="content-container" style="padding:0px;">
+                        <div class="container-fluid">
+                            <div class="jumbotron">
+                                <h1 style="font-weight:600;">Pacientes</h1>
+                                <hr class="my-8">
+
+                                <div class="search">
+                                    <form action="../requests/postSearchPatient.php" method="POST">
+                                        <input id="patientId" name="patientId" type="text" placeholder="Buscar paciente por ID..."/>
+                                        <button class="btn btn-primary ml-4" type="submit">Buscar paciente</button>
+                                    </form>
+
+                                    <form action="patientsIndex.php">
+                                            <button class="btn btn-primary ml-4" type="submit">Limpiar búsqueda</button>
+                                    </form>
+                                </div>
+                                
+                                <?php 
+                                    require("viewPatient.php"); 
+                                ?>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>  

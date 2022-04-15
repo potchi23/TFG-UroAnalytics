@@ -91,7 +91,7 @@ $(document).ready(() => {
             },
 
             success : result => {
-                $('#prediction-result').val(result);
+                $('.prediction-result').val(result);
             },
             error : e => {
                 console.log('Request failed: ' + e);
@@ -121,7 +121,8 @@ $(document).ready(() => {
             },
 
             success : result => {
-                $('#prediction-result').val(result);
+                $('.prediction-result').val(result);
+                $('.prediction-result-input').val(result);
             },
             error : e => {
                 console.log('Request failed: ' + e);
@@ -134,5 +135,6 @@ function select(event){
     let id = event.id 
     $('#selected').val(id);
     $('.modal-title').text('Predecir sobre el paciente #' + id);
-    $('#prediction-result').val('');
+    $('.prediction-result').val('');
+    $('.prediction-result-input').val('');
 }

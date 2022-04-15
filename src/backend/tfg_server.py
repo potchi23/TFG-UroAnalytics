@@ -679,6 +679,52 @@ def viewPatients(current_user):
 
             return response, status
 
+@app.route('/patients/<patientId>', methods=['GET', 'PATCH'])
+@token_required
+def viewSinglePatient(current_user, patientId):
+    status = 400
+    response = {}
+    if request.method == 'GET':
+        response = {
+            'num_entries':engine.execute('SELECT COUNT(N) FROM patients').scalar(),
+            'data':[]
+        }
+
+        query = 'SELECT * FROM patients WHERE N = %s' % patientId
+        if('rbq_null' in request.form and request.form['rbq_null'] == 'true'):
+            query += ' AND RBQ IS NULL'
+
+        columns = tuple(engine.execute(query).keys())
+        result = engine.execute(query)
+
+        entry = {}
+        for row in result:
+            for i in range(0, len(row)):
+                entry[columns[i]] = row[i]
+            response['data'].append(dict(entry))
+        
+        if('rbq_null' in request.form and request.form['rbq_null'] == 'true'):
+            response['num_entries'] = len(response['data'])
+
+        status = 200
+        return response, status
+
+    elif request.method == 'PATCH':
+        response = {}
+        predictionResult = request.form['predictionResult']
+        print("result " + predictionResult)
+        query = 'UPDATE patients SET RBQ = %s WHERE N = %s' % (predictionResult, patientId)
+
+        #try:
+        engine.execute(query)
+        
+        status = 200
+        #except connector.Error as e:
+        #    print(e, file=sys.stderr)
+        #    response['errno'] = e.errno
+        #finally:
+        return response, status
+
 @app.route('/patients/variables', methods=['POST', 'GET'])
 @token_required
 def patientVariables(current_user):

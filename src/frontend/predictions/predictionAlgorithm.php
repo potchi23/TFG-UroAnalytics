@@ -62,5 +62,5 @@
         Resultado:
     </label>
     
-    <input type="text" id="prediction-result" name="prediction-result" value="" disabled>
+    <input type="text" class="prediction-result" id="prediction-result" name="prediction-result" value="" disabled>
 </div>

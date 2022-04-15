@@ -26,7 +26,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="../css/formUserProfile.css"/>
-       
+        <link rel="stylesheet" href="../css/predictions.css"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://smtpjs.com/v3/smtp.js"></script>
         <script src="predictions.js"></script>
@@ -87,7 +87,14 @@
                         );
                 
                         $http_requests = new HttpRequests();
-                        $response = $http_requests->getResponse("$BACKEND_URL/patients", "GET", $get_req, $user->get_token());
+
+                        if(isset($_GET["patientId"])){
+                            $patientId = is_numeric($_GET["patientId"]) ? $_GET["patientId"] : -1;
+                            $response = $http_requests->getResponse("$BACKEND_URL/patients/$patientId", "GET", $get_req, $user->get_token());
+                        }
+                        else{
+                            $response = $http_requests->getResponse("$BACKEND_URL/patients", "GET", $get_req, $user->get_token());
+                        }
             
                         $data_array = $response["data"]->data;
 
@@ -109,6 +116,17 @@
                     
                     <div class="table-container m-auto">
                         <div class="table-responsive table-content">
+
+                            <div class="search">
+                                <form action="../requests/postSearchPredictionPatient.php" method="POST">
+                                    <input id="patientId" name="patientId" type="text" placeholder="Buscar paciente por ID..."/>
+                                    <button class="btn btn-primary ml-4" type="submit">Buscar paciente</button>
+                                </form>
+
+                                <form action="patients.php">
+                                    <button class="btn btn-primary ml-4" type="submit">Limpiar búsqueda</button>
+                                </form>
+                            </div>
                             <table class="table table-striped table-bordered table-hover table-light">
                                 <?php                                    
                                     if (count($data_array) > 0) {
@@ -153,8 +171,9 @@
                                                         
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                                                <form action="requests/patchAcceptRegisterPetition.php?page=basura&numElems=basura" method="POST">
-                                                                    <input type="hidden" id="id" name="id" value="basura"></input>
+                                                                <form action="../requests/patchUpdatePrediction.php" method="POST">
+                                                                    <input type="hidden" id="patientId" name="patientId" value="$petition->N"></input>
+                                                                    <input type="hidden" class="prediction-result-input" name="prediction-result" value=""></input>
                                                                     <button type="submit" class="btn btn-primary">Actualizar</button>
                                                                 </form>
                                                             </div>
@@ -164,7 +183,6 @@
                                                 </td>
                                                 EOL;
                                             
-
                                             echo "<td>$petition->N</td>";
                                             
                                             foreach($petition as $key=>$value){
@@ -185,6 +203,9 @@
                                             echo "</tr>";
                                         }
                                     }
+                                    else{
+                                        echo "<h5>No se han encontrado pacientes</h5>";
+                                    }
                                 ?>
                             </table>                    
                         </div>
@@ -192,7 +213,7 @@
 
                     <div class="page-buttons">
                         <?php
-                        if(count($data_array) > 0){
+                        if(!isset($_GET["patientId"]) && count($data_array) > 0){
                             echo "<div>";
                             if($_SESSION["page"] != 1 && count($data_array) > 0){
                                 $prev_page = $_SESSION["page"] - 1;    

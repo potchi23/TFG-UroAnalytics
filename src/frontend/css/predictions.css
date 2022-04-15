@@ -69,3 +69,12 @@
 .alert-message {
     width:fit-content;
 }
+
+.search{
+    display: flex;
+    flex-direction: row;
+}
+
+.search input{
+    margin-right: 1rem;
+}
