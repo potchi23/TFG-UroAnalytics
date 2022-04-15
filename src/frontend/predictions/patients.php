@@ -72,7 +72,7 @@
             <div class="container-fluid">
                 <div class="jumbotron">
                     <h1 style="font-weight:600;">Pacientes existentes a predecir</h1>
-                    <p>Puede realizar una predicción sobre aquellos pacientes almacenados cuyo RBQ es desconocido.</p>
+                    <h5>Puede realizar una predicción sobre aquellos pacientes almacenados cuyo RBQ es desconocido.</h5>
                     <hr class="my-8">
 
                     <?php

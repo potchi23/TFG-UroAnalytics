@@ -26,8 +26,8 @@
             <div class="container-fluid">
     
                 <div class="jumbotron">
-                    <h1>Entorno de pacientes</h1>
-                    <p>Seleccione en las opciones de su derecha la acción que desea realizar.</p>
+                    <h1 class="display-8" style="font-weight:600;">Entorno de pacientes</h1>
+                    <h5>Seleccione en las opciones de su izquierda la acción que desea realizar.</h5>
                 </div>
                 
                 <div id="viewPatient">
