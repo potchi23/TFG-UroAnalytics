@@ -23,7 +23,10 @@
             if ($user->get_type() == 'admin') {
               echo "<li class='nav-item'><a class='nav-link' href='../registerPetitions.php?page=1'>Peticiones de registro</a></li>";
             }
-        ?> 
+        ?>
+        <li class="nav-item">
+          <a class="nav-link" href="../help/helpIndex.php">Ayuda</a>
+        </li> 
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <div class="dropdown">
