@@ -26,7 +26,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="../css/formUserProfile.css"/>
-       
+        <link rel="stylesheet" href="../css/predictions.css"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://smtpjs.com/v3/smtp.js"></script>
         <script src="predictions.js"></script>
@@ -72,7 +72,7 @@
             <div class="container-fluid">
                 <div class="jumbotron">
                     <h1 style="font-weight:600;">Pacientes existentes a predecir</h1>
-                    <p>Puede realizar una predicción sobre aquellos pacientes almacenados cuyo RBQ es desconocido.</p>
+                    <h5>Puede realizar una predicción sobre aquellos pacientes almacenados cuyo RBQ es desconocido.</h5>
                     <hr class="my-8">
 
                     <?php
@@ -87,7 +87,14 @@
                         );
                 
                         $http_requests = new HttpRequests();
-                        $response = $http_requests->getResponse("$BACKEND_URL/patients", "GET", $get_req, $user->get_token());
+
+                        if(isset($_GET["patientId"])){
+                            $patientId = is_numeric($_GET["patientId"]) ? $_GET["patientId"] : -1;
+                            $response = $http_requests->getResponse("$BACKEND_URL/patients/$patientId", "GET", $get_req, $user->get_token());
+                        }
+                        else{
+                            $response = $http_requests->getResponse("$BACKEND_URL/patients", "GET", $get_req, $user->get_token());
+                        }
             
                         $data_array = $response["data"]->data;
 
@@ -109,6 +116,17 @@
                     
                     <div class="table-container m-auto">
                         <div class="table-responsive table-content">
+
+                            <div class="search">
+                                <form action="../requests/postSearchPredictionPatient.php" method="POST">
+                                    <input id="patientId" name="patientId" type="text" placeholder="Buscar paciente por ID..."/>
+                                    <button class="btn btn-primary ml-4" type="submit">Buscar paciente</button>
+                                </form>
+
+                                <form action="patients.php">
+                                    <button class="btn btn-primary ml-4" type="submit">Limpiar búsqueda</button>
+                                </form>
+                            </div>
                             <table class="table table-striped table-bordered table-hover table-light">
                                 <?php                                    
                                     if (count($data_array) > 0) {
@@ -117,17 +135,20 @@
                                         echo "<th></th>";
                                         echo "<th>#</th>";
                                         foreach($data_array[0] as $key=>$value){
-                                            echo "<th>$key</th>";
+                                            if($key != "N"){
+                                                echo "<th>$key</th>";
+                                            }
                                         }
                                         echo "</tr>";  
   
                                         $numElems = count($data_array);
-
+                                        
+                                        echo"<input type='hidden' id='selected' value=''></input>";
                                         foreach($data_array as $petition){
                                             echo "<tr id='patients_$petition->N'>";
                                             echo <<<EOL
                                                 <td style="padding:0px;">
-                                                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#modal" style="margin-top:2rem;">
+                                                <button type="button" id="$petition->N" onclick="select(this)" class="btn" data-bs-toggle="modal" data-bs-target="#modal" style="margin-top:2rem;">
                                                     <input class="btn btn-outline-primary" type="submit" value="Predecir" style="padding-right:4.3rem; padding-bottom:2rem;"></input>
                                                 </button>
 
@@ -138,19 +159,21 @@
                                                                 <h5 class="modal-title" id="staticBackdropLabel01">Predecir sobre paciente #$petition->N</h5>
                                                             </div>
                                                             <div class="modal-body">
-                                                EOL;
-                                                            require("predictionAlgorithm.php");
+                                                            
+
+                                                EOL;        
+                                                            require("predictionModal.php");
                                                             echo <<<EOL
                                                             <br>
-                                                            <p>¿Actualizar datos del paciente #$petition->N?</p>
+                                                            <p>¿Actualizar datos del paciente con los resultados de la predicción?</p>
 
                                                             </div>
                                                         
                                                             <div class="modal-footer">
-
                                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                                                <form action="requests/patchAcceptRegisterPetition.php?page=basura&numElems=basura" method="POST">
-                                                                    <input type="hidden" id="id" name="id" value="basura"></input>
+                                                                <form action="../requests/patchUpdatePrediction.php" method="POST">
+                                                                    <input type="hidden" id="patientId" name="patientId" value="$petition->N"></input>
+                                                                    <input type="hidden" class="prediction-result-input" name="prediction-result" value=""></input>
                                                                     <button type="submit" class="btn btn-primary">Actualizar</button>
                                                                 </form>
                                                             </div>
@@ -160,11 +183,12 @@
                                                 </td>
                                                 EOL;
                                             
-
                                             echo "<td>$petition->N</td>";
                                             
                                             foreach($petition as $key=>$value){
-                                                echo "<td>$value</td>";
+                                                if($key != "N"){
+                                                    echo "<td id='$key' class='prediction-values-$petition->N'>$value</td>";
+                                                }
                                             }
                                             echo "</tr>";                                      
                                         }
@@ -173,11 +197,14 @@
                                         
                                         for ($i = 0; $i < $empty_rows; $i++){
                                             echo "<tr>";
-                                            for ($j = 0; $j < count((array)$data_array[0]) + 2; $j++){
+                                            for ($j = 0; $j < count((array)$data_array[0]) + 1; $j++){
                                                 echo "<td><div style='margin-bottom:2.38rem;'></div></td>";
                                             }
                                             echo "</tr>";
                                         }
+                                    }
+                                    else{
+                                        echo "<h5>No se han encontrado pacientes</h5>";
                                     }
                                 ?>
                             </table>                    
@@ -186,7 +213,7 @@
 
                     <div class="page-buttons">
                         <?php
-                        if(count($data_array) > 0){
+                        if(!isset($_GET["patientId"]) && count($data_array) > 0){
                             echo "<div>";
                             if($_SESSION["page"] != 1 && count($data_array) > 0){
                                 $prev_page = $_SESSION["page"] - 1;    
@@ -213,5 +240,9 @@
             </div>
         </div>
         <input id='token' type="hidden" value=<?php echo $user->get_token()?>>
+        <div class="footer">
+            <?php require("../common/footer.php");?>
+        </div>   
+
     </body>
 </html>

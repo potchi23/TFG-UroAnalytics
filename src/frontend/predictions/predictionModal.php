@@ -8,7 +8,7 @@
     <option value="best">Mejor resultado</option>
 </select>
 
-<button class="btn btn-danger btn-sm ml-2" id="prediction-button" type="button" style="z-index:0;">Predecir</button>
+<button class="btn btn-danger btn-sm ml-2" id="prediction-button-existent" type="button" style="z-index:0;">Predecir</button>
 
 <div>        
     <div>
