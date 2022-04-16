@@ -293,13 +293,6 @@
         "descripcion": "Tiempo hasta RBQ (meses desde PRL)."
     },
     
-    "TDUPLI":{
-        "tipo": ["float64", "float", "int64", "int"],
-        "rango": [],
-        "reemplazar":{},
-        "descripcion": "Tiempo duplicacion PSA (todos PSA desde PRL hasta la RBQ)."
-    },
-    
     "T1MTX":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [],
@@ -407,32 +400,25 @@
     
     "ASA":{
         "tipo": ["float64", "float", "int64", "int"],
-        "rango": [],
+        "rango": [1,4],
         "reemplazar":{},
         "descripcion": "Grado ASA (I-IV)."
     },
     
     "GR":{
         "tipo": ["float64", "float", "int64", "int"],
-        "rango": [],
-        "reemplazar":{},
+        "rango": [0,2],
+        "reemplazar":{"0": "Bajo", "1": "Medio", "2": "Alto"},
         "descripcion": "Grupo de riesgo."
     },
     
     "PNV":{
         "tipo": ["float64", "float", "int64", "int"],
-        "rango": [],
-        "reemplazar":{},
+        "rango": [1, 2],
+        "reemplazar":{"1": "Si", "2": "No"},
         "descripcion": "Preservacion neurovascular (si/no)."
     },
-    
-    "TQ":{
-        "tipo": ["float64", "float", "int64", "int"],
-        "rango": [],
-        "reemplazar":{},
-        "descripcion": ""
-    },
-    
+
     "TH": {
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [],
@@ -440,16 +426,9 @@
         "descripcion": "Tiempo de hospitalizacion (dias)."
     },
     
-    "NGG": {
-        "tipo": ["float64", "float", "int64", "int"],
-        "rango": [],
-        "reemplazar":{},
-        "descripcion": "Numero de ganglios afectados (Nº)."
-    },
-    
     "PGG": {
         "tipo": ["float64", "float", "int64", "int"],
-        "rango": [],
+        "rango": [0,1],
         "reemplazar":{},
         "descripcion": "Porcentaje de ganglios afectados (%)."
     },
@@ -466,13 +445,6 @@
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [],
         "reemplazar":{},
-        "descripcion": "Porcentaje de ganglios afectados (%)."
-    },
-
-    "TDUPLI.R1":{
-        "tipo": ["str", "object", "Object"],
-        "rango": [],
-        "reemplazar":{},
-        "descripcion": "Porcentaje de ganglios afectados (%)."
+        "descripcion": "Meses de revision."
     }
 }
