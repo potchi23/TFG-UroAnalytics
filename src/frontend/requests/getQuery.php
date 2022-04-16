@@ -184,23 +184,23 @@
         if($_POST["prostate2"] != ""){
             $BILAT2 = $_POST['prostate2'];
         }
-        if($_POST["prostate3"]!= ''){
+        if($_POST["prostate3"] != ''){
             $VOLUMENOP = minormayor("prostate3");
             $VOLUMEN = $VOLUMENOP." ".$_POST['prostate3'];
         }
-        if($_POST["prostate4"]!= ''){
+        if($_POST["prostate4"] != ''){
             $EXTRACAP = $_POST['prostate4'];
         }
-        if($_POST["prostate5"]!= ''){
+        if($_POST["prostate5"] != ''){
             $VVSS = $_POST['prostate5'];
         }
-        if($_POST["prostate6"]!= ''){
+        if($_POST["prostate6"] != ''){
             $PINAG = $_POST['prostate6'];
         }
-        if($_POST["prostate7"]!= ''){
+        if($_POST["prostate7"] != ''){
             $MARGEN = $_POST['prostate7'];
         }
-        if($_POST["prostate8"]!= ''){
+        if($_POST["prostate8"] != ''){
             $TNM2 = $_POST['prostate8'];
         }
     }
@@ -209,7 +209,7 @@
     $EDAD = NULL;
     
     if(isset($_POST["boolSociodemographic"])){
-        if($_POST["sociodemographic1"]!= ''){
+        if($_POST["sociodemographic1"] != ''){
             $EDADOP = minormayor("sociodemographic1");
             $EDAD = $EDADOP." ".$_POST['sociodemographic1'];
         }
