@@ -9,7 +9,6 @@ from flask_bcrypt import Bcrypt
 from functools import wraps
 import jwt
 from datetime import datetime, timedelta
-# from sqlalchemy import create_engine
 import sqlalchemy as sqla 
 import predictions
 import pandas as pd
@@ -87,7 +86,6 @@ def login():
         email = request.form['email']
         password = request.form['password']
 
-        cursor = mydb.cursor()
         query = f'SELECT id, name, surname_1, surname_2, email, password, accepted, type FROM users WHERE email=\'{email}\''
         user_info = engine.execute(query).fetchone()
         
