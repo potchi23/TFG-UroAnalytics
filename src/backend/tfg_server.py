@@ -89,8 +89,7 @@ def login():
 
         cursor = mydb.cursor()
         query = f'SELECT id, name, surname_1, surname_2, email, password, accepted, type FROM users WHERE email=\'{email}\''
-        cursor.execute(query)
-        user_info = cursor.fetchone()
+        user_info = engine.execute(query).fetchone()
         
         if not user_info:
             status = 401
@@ -116,7 +115,7 @@ def login():
 
                 if user_info[6] == 0:
                     response['accepted'] = False
-        
+
         return response, status 
 
     else:
@@ -139,7 +138,7 @@ def register():
         try:
             query = "INSERT INTO users(name, surname_1, surname_2, email, password) VALUES (%s,%s,%s,%s,%s)"
             values = (name, surname_1, surname_2, email, password)
-            id = engine.execute(query, values)    
+            engine.execute(query, values)    
             status = 200        
         except:
             response['errno'] = "Error al registrarse"
@@ -161,65 +160,55 @@ def register_petitions():
         offset = request.form['offset']
         num_elems = request.form['num_elems']
 
-        cursor = mydb.cursor()
         query = f'SELECT id, name, surname_1, surname_2, email FROM users WHERE accepted = 0 LIMIT {offset}, {num_elems}'
-        cursor.execute(query)
+        result = engine.execute(query).fetchall()
 
         response = {
             'num_entries':0,
             'data':[]
         }
 
-        for register_request in cursor:
-            data = {
+        for register_request in result:
+            user_data = {
                 'id': register_request[0],
                 'name':register_request[1],
                 'surname_1':register_request[2],
                 'surname_2':register_request[3],
                 'email':register_request[4]
             }
-            response['data'].append(data)
+            response['data'].append(user_data)
         
         query = f'SELECT COUNT(id) FROM users WHERE accepted = 0'
-        cursor.execute(query)
-        response['num_entries'] = cursor.fetchone()
-
-        cursor.close()
-
+        result = engine.execute(query).fetchone()
+        response['num_entries'] = result[0]
+        
         status = 200
         
         return response, status
 
     elif request.method == 'PATCH':
-        cursor = mydb.cursor()
         user_id = request.form['id']
 
         query = f'SELECT name, email FROM users WHERE id = {user_id}'
-        cursor.execute(query)
-        data = cursor.fetchone()
-
+        data = engine.execute(query).fetchone()
+        
         response = {}
             
         response['name'] = data[0]
         response['email'] = data[1]
 
         query = f'UPDATE users SET accepted = 1 WHERE id = {user_id}'
-        cursor.execute(query)
-        mydb.commit()
-
-        cursor.close()
+        engine.execute(query)
 
         status = 200
 
         return response, status
 
     elif request.method == 'DELETE':
-        cursor = mydb.cursor()
         user_id = request.form['id']
         
         query = f'SELECT name, email FROM users WHERE id = {user_id}'
-        cursor.execute(query)
-        data = cursor.fetchone()
+        data = engine.execute(query).fetchone()
 
         response = {}
         
@@ -227,10 +216,7 @@ def register_petitions():
         response['email'] = data[1]
         
         query = f'DELETE FROM users WHERE id = {user_id}'
-        cursor.execute(query)
-        mydb.commit()
-
-        cursor.close()
+        engine.execute(query)
 
         status = 200
 
@@ -257,19 +243,15 @@ def users(current_user, id):
         surname_1 = request.form['surname_1']
         surname_2 = request.form['surname_2']
         email = request.form['email']
-
-        cursor = mydb.cursor()
-        
+                
         if request.form['password'] != '':
             password = bcrypt.generate_password_hash(request.form['password']).decode('utf-8')
             query = f'UPDATE users SET name=\'{name}\', surname_1=\'{surname_1}\', surname_2=\'{surname_2}\', email=\'{email}\', password=\'{password}\' WHERE id={id}'
         else:
             query = f'UPDATE users SET name=\'{name}\', surname_1=\'{surname_1}\', surname_2=\'{surname_2}\', email=\'{email}\' WHERE id={id}'
 
-        cursor.execute(query)
-        mydb.commit()
-        cursor.close()
-        
+        engine.execute(query)
+
         response = 'User updated'
         status = 200
 
@@ -278,28 +260,24 @@ def users(current_user, id):
     elif request.method == 'DELETE':
         if current_user['public_id'] != int(id):
             return {'message' : 'Forbidden'}, 403
-        
-        cursor = mydb.cursor()
-        
+                
         query = f'SELECT name, email FROM users WHERE id = {id}'
-        cursor.execute(query)
-        data = cursor.fetchone()
+        data = engine.execute(query).fetchone()
         
         response['name'] = data[0],
         response['email'] = data[1]
 
         query = f'DELETE FROM users WHERE id={id}'
-
-        cursor.execute(query)
-        mydb.commit()
-        cursor.close()
+        engine.execute(query)
 
         status = 200
         
         return response, status
 
     else:
-        return 'Method not supported', status
+        response = 'Method not supported'
+        print(response, file=sys.stderr)
+        return response, status
 
 @app.before_first_request
 def trainOnStartup():
@@ -311,7 +289,6 @@ def trainOnStartup():
     global scores
     global last_train
     last_train = datetime.utcnow()
-    # engine = create_engine('mysql://root:@localhost/tfg_bd', echo = False)
     df = pd.read_sql('SELECT * FROM patients', engine)
     if not df.empty:
         pipe_rfc, pipe_lrc, pipe_knn, pipe_best, scores = predictions.trainModels(df)
@@ -330,7 +307,6 @@ def train(current_user):
     global last_train
 
     if request.method == 'GET':
-        # engine = create_engine('mysql://root:@localhost/tfg_bd', echo = False)
         df = pd.read_sql('SELECT * FROM patients', engine)
 
         pipe_rfc, pipe_lrc, pipe_knn, pipe_best, scores = predictions.trainModels(df)
