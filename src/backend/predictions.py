@@ -19,8 +19,6 @@ def drop_columns(df):
     df = df.drop('HISTO2', axis=1)
     df = df.drop('NOTAS', axis=1)
     df = df.drop('N', axis=1)
-    df = df.drop('TDUPLI.R1', axis=1)
-
 
     return df
 

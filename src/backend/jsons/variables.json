@@ -288,7 +288,7 @@
     
     "TRBQ":{
         "tipo": ["float64", "float", "int64", "int"],
-        "rango": [],
+        "rango": [], 
         "reemplazar":{},
         "descripcion": "Tiempo hasta RBQ (meses desde PRL)."
     },
@@ -337,7 +337,7 @@
     
     "CAPRA-S":{
         "tipo": ["float64", "float", "int64", "int"],
-        "rango": [],
+        "rango": [0, 13],
         "reemplazar":{},
         "descripcion": "Valor suma variables (11, 37, 32,26, 31, 38). Valor rango 0-13."
     },

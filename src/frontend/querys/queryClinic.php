@@ -10,7 +10,7 @@
                 </div>
                     <div class="col my-auto">
                         <select class="custom-select mr-sm-2" name="clinic1" id="inlineFormCustomSelect" style="width:10em">
-                            <option selected value="0">N/A</option>
+                            <option selected value="">Choose...</option>
                             <option value="1">0-6 ng/ml</option>
                             <option value="2">6,01-10 ng/ml</option>
                             <option value="3">10,01-20 ng/ml</option>

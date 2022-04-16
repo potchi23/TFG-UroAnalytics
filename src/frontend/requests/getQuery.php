@@ -54,7 +54,22 @@
     //CLINIC-------------------------
     $PSAPRE = NULL;
     if(isset($_POST["boolClinic"])){
-        $PSAPRE = $_POST['clinic1'];
+        if($_POST['clinic1'] != ''){ 
+            switch ($_POST['clinic1']) {
+                case 1:
+                    $PSAPRE = ">= 0 AND PSAPRE <= 6";
+                    break;
+                case 2:
+                    $PSAPRE = "> 6 AND PSAPRE <= 10";
+                    break;
+                case 3:
+                    $PSAPRE = "> 10 AND PSAPRE <= 20";
+                    break;
+                case 4:
+                    $PSAPRE = "> 20";
+                    break;
+            }
+        }
     }
 
     //EVOLVE-------------------------
@@ -63,28 +78,61 @@
     $RTPMES = NULL;
     $RBQ = NULL;
     $TRBQ = NULL;
-    $TDUPLI = NULL;
     $T1MTX = NULL;
     $TSEGUI = NULL;
     $PSAFIN = NULL;
     $CAPRA_S = NULL;
 
     if(isset($_POST["boolEvolve"])){
-        $PSAPOSOP = minormayor("evolve1");
-        $PSAPOS = $PSAPOSOP." ".$_POST["evolve1"];
-        $RTPADYU = $_POST["evolve2"];
-        $RTPMESOP = minormayor("evolve3");
-        $RTPMES = $RTPMESOP." ".$_POST["evolve3"];
-        $RBQ = $_POST["evolve4"];
-        $TRBQ = $_POST["evolve5"];
-        $TDUPLI = $_POST["evolve6"];        
-        $T1MTXOP = minormayor("evolve7");
-        $T1MTX = $T1MTXOP." ".$_POST["evolve7"];
-        $TSEGUIOP = minormayor("evolve8");
-        $TSEGUI = $TSEGUIOP." ".$_POST['evolve8'];
-        $PSAFINOP = minormayor("evolve9");
-        $PSAFIN = $PSAFINOP." ".$_POST['evolve9'];
-        $CAPRA_S = $_POST['evolve10'];
+        if($_POST['evolve1'] != ''){
+            $PSAPOSOP = minormayor("evolve1");
+            $PSAPOS = $PSAPOSOP." ".$_POST["evolve1"];
+        }
+        if($_POST['evolve2'] != ''){
+            $RTPADYU = $_POST["evolve2"];
+        }
+        if($_POST['evolve3'] != ''){
+            $RTPMESOP = minormayor("evolve3");
+            $RTPMES = $RTPMESOP." ".$_POST["evolve3"];
+        }
+        if($_POST['evolve4'] != ''){
+            $RBQ = $_POST["evolve4"];
+        }
+        if($_POST['evolve5'] != ''){
+            switch ($_POST["evolve5"]) {
+                case 1:
+                    $TRBQ = ">= 18";
+                    break;
+                case 2:
+                    $TRBQ = "< 18";
+                    break;
+            }
+        }
+        if($_POST['evolve6'] != ''){
+            $T1MTXOP = minormayor("evolve6");
+            $T1MTX = $T1MTXOP." ".$_POST["evolve6"];
+        }
+        if($_POST['evolve7'] != ''){
+            $TSEGUIOP = minormayor("evolve7");
+            $TSEGUI = $TSEGUIOP." ".$_POST['evolve7'];
+        }
+        if($_POST['evolve8'] != ''){
+            $PSAFINOP = minormayor("evolve8");
+            $PSAFIN = $PSAFINOP." ".$_POST['evolve8'];
+        }
+        if($_POST['evolve9'] != ''){
+            switch ($_POST["evolve9"]) {
+                case 1:
+                    $CAPRA_S = ">= 0 AND CAPRA-S <= 2";
+                    break;
+                case 2:
+                    $CAPRA_S = "> 2 AND CAPRA-S <= 5";
+                    break;
+                case 3:
+                    $CAPRA_S = "> 5";
+                    break;
+            }
+        }
     }
     //MARKERS-------------------------
     $RA1 = NULL;
@@ -96,13 +144,27 @@
     $C_MYC = NULL;
 
     if(isset($_POST["boolMarkers"])){
-        $RA1 = $_POST['markers1'];
-        $RA2 = $_POST['markers2'];
-        $PTEN = $_POST['markers3'];
-        $ERG = $_POST['markers4'];
-        $KI_67 = $_POST['markers5'];
-        $SPINK1 = $_POST['markers6'];
-        $C_MYC = $_POST['markers7'];
+        if($_POST['markers1'] != ''){
+            $RA1 = $_POST['markers1'];
+        }
+        if($_POST['markers2'] != ''){
+            $RA2 = $_POST['markers2'];
+        }
+        if($_POST['markers3'] != ''){
+            $PTEN = $_POST['markers3'];
+        }
+        if($_POST['markers4'] != ''){
+            $ERG = $_POST['markers4'];
+        }
+        if($_POST['markers5'] != ''){
+            $KI_67 = $_POST['markers5'];
+        }
+        if($_POST['markers6'] != ''){
+            $SPINK1 = $_POST['markers6'];
+        }
+        if($_POST['markers7'] != ''){
+            $C_MYC = $_POST['markers7'];
+        }
     }
 
     //PROSTATE-------------------------    
@@ -116,29 +178,29 @@
     $TNM2 = NULL;
 
     if(isset($_POST["boolProstate"])){
-        if(isset($_POST["prostate1"])){
+        if($_POST["prostate1"] != ""){
             $GLEASON2 = $_POST['prostate1'];
         }
-        if(isset($_POST["prostate2"])){
+        if($_POST["prostate2"] != ""){
             $BILAT2 = $_POST['prostate2'];
         }
-        if(isset($_POST["prostate3"])){
+        if($_POST["prostate3"]!= ''){
             $VOLUMENOP = minormayor("prostate3");
             $VOLUMEN = $VOLUMENOP." ".$_POST['prostate3'];
         }
-        if(isset($_POST["prostate4"])){
+        if($_POST["prostate4"]!= ''){
             $EXTRACAP = $_POST['prostate4'];
         }
-        if(isset($_POST["prostate5"])){
+        if($_POST["prostate5"]!= ''){
             $VVSS = $_POST['prostate5'];
         }
-        if(isset($_POST["prostate6"])){
+        if($_POST["prostate6"]!= ''){
             $PINAG = $_POST['prostate6'];
         }
-        if(isset($_POST["prostate7"])){
+        if($_POST["prostate7"]!= ''){
             $MARGEN = $_POST['prostate7'];
         }
-        if(isset($_POST["prostate8"])){
+        if($_POST["prostate8"]!= ''){
             $TNM2 = $_POST['prostate8'];
         }
     }
@@ -147,7 +209,7 @@
     $EDAD = NULL;
     
     if(isset($_POST["boolSociodemographic"])){
-        if(isset($_POST["sociodemographic1"])){
+        if($_POST["sociodemographic1"]!= ''){
             $EDADOP = minormayor("sociodemographic1");
             $EDAD = $EDADOP." ".$_POST['sociodemographic1'];
         }
