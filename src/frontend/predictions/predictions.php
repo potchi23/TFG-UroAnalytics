@@ -20,21 +20,6 @@
         <?php require_once("../common/includes.php");?>
         <link rel="stylesheet" href="../css/predictions.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <!-- <script language="javaScript">
-            function unselectButtons() {
-                b1 = document.getElementById("op1");
-                b2 = document.getElementById("op2");
-                b3 = document.getElementById("op3");
-
-                b1.disable = false; b1.checked = false;
-                b2.disable = false; b2.checked = false;
-                b3.disable = false; b3.checked = false;
-            }
-            
-            function disableButton3() {
-                document.getElementById("op3").disabled = true; 
-            }
-        </script> -->
     </head>
         <body>
             <div class="header">
@@ -44,7 +29,15 @@
             <div class="sidebar-container" id="list-example">
                 <?php require("sidebarPredictions.php")?>
             </div>
-            
+
+            <div id="training">
+                <?php
+                    if($user->is_admin()){
+                        require("trainingButton.php");  
+                    }
+                ?>
+            </div>
+
             <div class="content-container" data-bs-spy="scroll" data-bs-target="#list-example" data-bs-offset="0" class="scrollspy-example" tabindex="0">
                 <div class="container-fluid">
                     <div class="jumbotron" id="indexPrediction">                        

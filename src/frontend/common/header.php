@@ -20,7 +20,7 @@
         <?php
             $user = $_SESSION["user"];
             
-            if ($user->get_type() == 'admin') {
+            if ($user->is_admin()) {
               echo "<li class='nav-item'><a class='nav-link' href='../registerPetitions.php?page=1'>Peticiones de registro</a></li>";
             }
         ?>
@@ -29,8 +29,15 @@
         </li> 
       </ul>
       <ul class="nav navbar-nav navbar-right">
+        <div style="margin-top:0.8rem; margin-right:1rem;">
+          <?php
+            if ($user->is_admin()) {
+              echo "<li class='nav-item'>Modo Admin</li>";
+            }
+          ?>
+        </div>
         <div class="dropdown">
-          <i class="icon-account fa-solid fa-user-doctor fa-2x" onclick="dropdown()"></i>          
+          <i class="icon-account fa-solid fa-user-doctor fa-2x" onclick="dropdown()"></i>     
           <div id="myDropdown" class="dropdown-content">
             <a href="../userProfile.php">Ver mi perfil</a>
             <a href="../logout.php">Cerrar sesion</a>

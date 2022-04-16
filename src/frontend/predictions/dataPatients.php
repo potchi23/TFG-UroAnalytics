@@ -28,16 +28,6 @@
                 unset($_SESSION["error"]);
             }
         ?> 
-
-        <div class="training-form">
-            <form action="../requests/getTraining.php" method="get">
-                <label for="training-button" class="btn btn-danger">
-                    Entrenar [PRUEBA!!!]
-                </label>
-                <input id="training-button" type="submit"/> 
-            </form>
-            <p>Ver logs en la consola de Flask</p>
-        </div>
     </div>
     <br><br>
     

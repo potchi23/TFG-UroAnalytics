@@ -44,6 +44,19 @@
 
             <ul class="sidebar-navigation">
                 <li class="header-sidebar">Índice</li>
+
+                <?php
+                if($user->is_admin()){
+                    echo <<<EOL
+                        <li>
+                            <a href="predictions.php#training">
+                            <i aria-hidden="true"></i> Entrenamiento
+                            </a>
+                        </li>
+                    EOL;
+                }
+                ?>
+
                 <li>
                     <a href="predictions.php#indexPrediction">
                     <i aria-hidden="true"></i> Inicio Predicción
@@ -109,9 +122,7 @@
                         $num_patients = $response["data"]->num_entries;
 
                         if($num_patients > 0) 
-                            echo "<h5>Número de pacientes con RBQ desconocido: $num_patients</h5><br>";
-                        else
-                            echo "<h5>No hay pacientes en la base de datos con RBQ desconocido</h5><br>";                                        
+                            echo "<h5>Número de pacientes con RBQ desconocido: $num_patients</h5><br>";                                    
                     ?>
                     
                     <div class="table-container m-auto">
