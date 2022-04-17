@@ -27,24 +27,27 @@
             <?php include_once("sidebarPatients.php")?>
         </div>  
         <div class="jumbotron">
-            <div class="d-flex justify-content-between input-group prediction-data">
+            <h1 style="font-weight:600;">Añadir un paciente</h1>
+            <div class="container">
+                <div class="d-flex justify-content-between input-group prediction-data">
 
-                <?php
-                    if(!isset($_SESSION["dataInputs"])) {
-                        include("empty-form.php");
-                    }
-                    else {
-                        include("filled-form.php");
-                        unset($_SESSION["dataInputs"]);
-                    }
-                ?>
-            
-                <div class="training-form">
-                    <form action="../requests/addPatientRequest.php" method="post">
-                        <label for="patient-button" class="submit btn btn-success">
-                            Añadir
-                        </label>
-                    </form>
+                    <?php
+                        if(!isset($_SESSION["dataInputs"])) {
+                            include("empty-form.php");
+                        }
+                        else {
+                            include("filled-form.php");
+                            unset($_SESSION["dataInputs"]);
+                        }
+                    ?>
+                
+                    <div class="training-form">
+                        <form action="../requests/addPatientRequest.php" method="post">
+                            <label for="patient-button" class="submit btn btn-success">
+                                Añadir
+                            </label>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
