@@ -29,24 +29,24 @@
         <div class="jumbotron">
             <div class="d-flex justify-content-between input-group prediction-data">
 
-            <?php
-                if(!isset($_SESSION["dataInputs"])) {
-                    include("empty-form.php");
-                }
-                else {
-                    include("filled-form.php");
-                    unset($_SESSION["dataInputs"]);
-                }
-            ?>
+                <?php
+                    if(!isset($_SESSION["dataInputs"])) {
+                        include("empty-form.php");
+                    }
+                    else {
+                        include("filled-form.php");
+                        unset($_SESSION["dataInputs"]);
+                    }
+                ?>
+            
+                <div class="training-form">
+                    <form action="../requests/addPatientRequest.php" method="post">
+                        <label for="patient-button" class="submit btn btn-success">
+                            Añadir
+                        </label>
+                    </form>
+                </div>
             </div>
-            <div class="training-form">
-                <form action="../requests/addPatientRequest.php" method="post">
-                    <label for="patient-button" class="submit btn btn-success">
-                        Añadir
-                    </label>
-                    <input id="patient-button" type="submit"/> 
-                    <button class="btn btn-primary ml-4" type="submit">Añadir</button>
-                </form>
-            </div>
+        </div>
     </body>
 </html>
