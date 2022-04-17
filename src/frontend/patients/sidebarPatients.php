@@ -8,7 +8,7 @@
         </a>
     </li>
     <li>
-        <a href="#addPatient">
+        <a href="addPatient.php">
             <i aria-hidden="true"></i> Añadir paciente
         </a>
     </li>
