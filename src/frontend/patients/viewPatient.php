@@ -3,7 +3,7 @@
     require_once("../config/config.php");
     require_once("../models/User.php");
 
-    $NUM_ELEMENTS_BY_PAGE = 5;
+    $NUM_ELEMENTS_BY_PAGE = 20;
 
     $user = $_SESSION["user"];
 

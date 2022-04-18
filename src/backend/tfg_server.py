@@ -479,11 +479,6 @@ def clearPatientsDF(df):
     dataJson = json.load(variablesJson)
     
     invalidColumns = list()
-    
-    #Ver si las claves del Json estan en las columnas del DF a guardar
-    for key in copy.copy(dataJson):
-        if key not in df.columns:
-            dataJson.pop(key)
         
     #Por cada columna del DF, comprobar el tipo de la columna y que los datos esten comprendidos entre los rangos permitidos
     for column in df.columns:
@@ -529,33 +524,27 @@ def doQuery():
     response = {}
 
     if request.method == 'GET':
+
         offset = request.form['offset']
         num_elems = request.form['num_elems']
-        dataQuery = request.form['dataQuery']
         response = {
             'num_entries': 0,
             'data': [],
             'errorMsg': ""
         }
-        if len(dataQuery) > 0: 
-            queryWhere = buildQuery(dataQuery); 
 
-            response['num_entries']=engine.execute('SELECT COUNT(N) FROM patients ' + queryWhere).scalar(),
+        if len(request.form) > 2: 
+            queryWhere = buildQuery(request.form); 
 
-            df_db = pd.read_sql("SELECT * FROM PATIENTS " + queryWhere, engine)
+            response['num_entries']=engine.execute('SELECT COUNT(N) FROM patients ' + queryWhere).scalar()
+            queryWhere += ' LIMIT %s, %s' % (offset, num_elems)
+            result_patients = pd.read_sql("SELECT * FROM PATIENTS " + queryWhere, engine)
 
-            if not df_db.empty:
+            if not result_patients.empty:
                 status = 200
-
-                queryWhere += 'LIMIT %s, %s' % (offset, num_elems)
-                columns = tuple(df_db.columns)
-                result = engine.execute("SELECT * FROM PATIENTS " + queryWhere)
-
-                entry = {}
-                for row in result:
-                    for i in range(0, len(row)):
-                        entry[columns[i]] = row[i]
-                    response['data'].append(dict(entry))
+                variables = ["N", "FECHACIR", "EDAD", "PSAPRE", "GLEASON1", "NCILPOS", "PORCENT", "TNM1", "GLEASON2", "BILAT2", "VOLUMEN", "EXTRACAP", "VVSS", "PINAG", "MARGEN", "TNM2", "PSAPOS", "RTPADYU", "RTPMES", "RBQ", "TRBQ", "TDUPLI", "T1MTX", "TSEGUI", "PSAFIN", "CAPRA-S", "RA-NUCLEAR", "RA-ESTROMA", "PTEN", "ERG", "KI-67", "SPINK1", "C-MYC"]
+                df_aux = dbTranslator(result_patients.filter(items=variables).fillna(""))
+                response['data'] = df_aux.to_dict(orient='records')
             else:
                 status = 404
                 response["errorMsg"] = "No hay pacientes que concuerden con la consulta."
@@ -571,12 +560,13 @@ def buildQuery(req):
     operators = "=<>"
     keys = list(req.keys())
     for i in req:
-        if req[i][0] in operators:
-            query = query + i + " " + req[i]
-        else:
-            query = query + i + " = " + req[i]
-        if i != keys[-1]:
-            query = query + " AND "
+        if i not in ["offset", "num_elems"]:
+            if req[i][0] in operators:
+                query = query + i + " " + req[i]
+            else:
+                query = query + i + " = " + req[i]
+            if i != keys[-1]:
+                query = query + " AND "
 
     return query
 
@@ -620,14 +610,10 @@ def viewPatients(current_user):
 
         query += 'LIMIT %s, %s' % (offset, num_elems)
 
-        columns = tuple(engine.execute(query).keys())
-        result = engine.execute(query)
-
-        entry = {}
-        for row in result:
-            for i in range(0, len(row)):
-                entry[columns[i]] = row[i]
-            response['data'].append(dict(entry))
+        result_patients = pd.read_sql(query, engine)
+        variables = ["N", "FECHACIR", "EDAD", "PSAPRE", "GLEASON1", "NCILPOS", "PORCENT", "TNM1", "GLEASON2", "BILAT2", "VOLUMEN", "EXTRACAP", "VVSS", "PINAG", "MARGEN", "TNM2", "PSAPOS", "RTPADYU", "RTPMES", "RBQ", "TRBQ", "TDUPLI", "T1MTX", "TSEGUI", "PSAFIN", "CAPRA-S", "RA-NUCLEAR", "RA-ESTROMA", "PTEN", "ERG", "KI-67", "SPINK1", "C-MYC"]
+        df_aux = dbTranslator(result_patients.filter(items=variables).fillna(""))
+        response['data'] = df_aux.to_dict(orient='records')
         
         if('rbq_null' in request.form and request.form['rbq_null'] == 'true'):
             response['num_entries'] = len(response['data'])
@@ -776,16 +762,11 @@ def dbTranslator(df):
     dataJson = json.load(variablesJson)
     
     invalidColumns = list()
-    
-    #Ver si las claves del Json estan en las columnas del DF a guardar
-    for key in dataJson:
-        if key not in df.columns:
-            dataJson.pop(key)
 
     for column in df.columns:
+        df[column] = df[column].astype(str)
         if column != 'N':
             if len(dataJson[column]["reemplazar"]) > 0:
-                df[column] = df[column].astype(str)
                 df[column] = df[column].replace(dataJson[column]["reemplazar"])
     
     return df

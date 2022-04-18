@@ -1,9 +1,11 @@
 <?php
-    require_once("../requests/HttpRequests.php");
+    include_once("../models/User.php");
+    include_once("HttpRequests.php");
     require_once("../config/config.php");
-    require_once("../models/User.php");
 
-    $NUM_ELEMENTS_BY_PAGE = 5;
+    session_start();
+
+    $NUM_ELEMENTS_BY_PAGE = 20;
 
     $user = $_SESSION["user"];
 
@@ -12,15 +14,6 @@
     if($_SESSION["page"] <= 0){
         $_SESSION["page"] = 1;
     }
-
-?>
-
-<?php
-    include_once("../models/User.php");
-    include_once("HttpRequests.php");
-    require_once("../config/config.php");
-
-    session_start();
 
     function minormayor($arg){
         $aux = NULL;
@@ -241,48 +234,44 @@
     $get_req = array(
         "offset" => ($page - 1) * $NUM_ELEMENTS_BY_PAGE,
         "num_elems" => $NUM_ELEMENTS_BY_PAGE,
-        "dataQuery" => array(
-            //biopsy-------------
-            "GLEASON1" => $GLEASON1,
-            "NCILPOS" => $NCILPOS,
-            "PORCENT" => $PORCENT,
-            "TNM1" => $TNM1,
-            //cir------------------
-            "FECHACIR" => $FECHACIR,
-            //clinic---------------
-            "PSAPRE" => $PSAPRE,
-            //evolve---------------
-            "PSAPOS" => $PSAPOS,
-            "RTPADYU" => $RTPADYU,
-            "RTPMES" => $RTPMES,
-            "RBQ" => $RBQ,
-            "TRBQ" => $TRBQ,
-            "T1MTX" => $T1MTX,
-            "TSEGUI" => $TSEGUI,
-            "PSAFIN" => $PSAFIN,
-            "CAPRA-S" => $CAPRA_S,
-            //markers--------------
-            "RA-NUCLEAR" => $RA1,
-            "RA2-ESTROMA" => $RA2,
-            "PTEN" => $PTEN,
-            "ERG" => $ERG,
-            "KI-67" => $KI_67,
-            "SPINK1" => $SPINK1,
-            "C-MYC" => $C_MYC,
-            //prostate-------------
-            "GLEASON2" => $GLEASON2,
-            "VOLUMEN" => $VOLUMEN,
-            "EXTRACAP" => $EXTRACAP,
-            "VVSS" => $VVSS,
-            "PINAG" => $PINAG,
-            "MARGEN" => $MARGEN,
-            "TNM2" => $TNM2,
-            //sociodemographic-----
-            "EDAD" => $EDAD
-        )
+        //biopsy-------------
+        "GLEASON1" => $GLEASON1,
+        "NCILPOS" => $NCILPOS,
+        "PORCENT" => $PORCENT,
+        "TNM1" => $TNM1,
+        //cir------------------
+        "FECHACIR" => $FECHACIR,
+        //clinic---------------
+        "PSAPRE" => $PSAPRE,
+        //evolve---------------
+        "PSAPOS" => $PSAPOS,
+        "RTPADYU" => $RTPADYU,
+        "RTPMES" => $RTPMES,
+        "RBQ" => $RBQ,
+        "TRBQ" => $TRBQ,
+        "T1MTX" => $T1MTX,
+        "TSEGUI" => $TSEGUI,
+        "PSAFIN" => $PSAFIN,
+        "CAPRA-S" => $CAPRA_S,
+        //markers--------------
+        "RA-NUCLEAR" => $RA1,
+        "RA-ESTROMA" => $RA2,
+        "PTEN" => $PTEN,
+        "ERG" => $ERG,
+        "KI-67" => $KI_67,
+        "SPINK1" => $SPINK1,
+        "C-MYC" => $C_MYC,
+        //prostate-------------
+        "GLEASON2" => $GLEASON2,
+        "VOLUMEN" => $VOLUMEN,
+        "EXTRACAP" => $EXTRACAP,
+        "VVSS" => $VVSS,
+        "PINAG" => $PINAG,
+        "MARGEN" => $MARGEN,
+        "TNM2" => $TNM2,
+        //sociodemographic-----
+        "EDAD" => $EDAD
     );
-
-    print_r($get_req);
 
     $http_requests = new HttpRequests();
     $response = $http_requests->getResponse("$BACKEND_URL/getQuery", "GET", http_build_query($get_req));
