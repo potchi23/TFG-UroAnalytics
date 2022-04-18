@@ -8,7 +8,7 @@
             <h2>Importar datos de paciente</h2>
             <p>
                 Los ficheros admitidos son de extensión .csv, .xls y xlsx, con un tamaño menor a 200Kb. Si el fichero contiene más de una fila, solamente se utilizará la primera fila.
-                Los datos importados aparecerán automáticamente en el <b>Formulario de paciente</b> que aparece más abajo.
+                Los datos importados aparecerán automáticamente en el <b>Formulario de paciente para predicción</b> que aparece más abajo.
             </p>
             <form action="submit_data.php" method="post" enctype="multipart/form-data">
                 <input type="file" id="prediction-import" name="prediction-import">
@@ -17,7 +17,6 @@
         </div>
         </br>
 
-        <h2>Formulario de paciente</h2>
         <?php
             if (isset($_SESSION["message"])){
                 $message = $_SESSION["message"];
@@ -36,8 +35,10 @@
             }
         ?> 
     </div>
-    <br><br>
-    
+    <br>
+
+    <h2>Formulario de paciente para predicción</h2>
+    <br>
     <div class="d-flex justify-content-between input-group prediction-data">
 
         <?php

@@ -15,6 +15,7 @@ import pandas as pd
 import json
 import numpy as np
 import base64
+import copy
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
@@ -410,7 +411,7 @@ def import_prediction(current_user):
     if request.method == 'POST':
         file = base64.b64decode(request.form['file'])
         filename = HERE + "/tmp_uploads/prediction_tmp.xlsx"
-
+        
         if os.path.exists(filename):
             os.remove(filename)
 
@@ -480,7 +481,7 @@ def clearPatientsDF(df):
     invalidColumns = list()
     
     #Ver si las claves del Json estan en las columnas del DF a guardar
-    for key in dataJson:
+    for key in copy.copy(dataJson):
         if key not in df.columns:
             dataJson.pop(key)
         
