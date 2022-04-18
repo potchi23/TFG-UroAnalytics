@@ -45,11 +45,11 @@
                         <hr class="my-1"><br>
 
                         <h5>Para realizar una predicción debe importar un archivo CSV o Excel válido y después pulsar el botón "Importar desde fichero".
-                            También puede rellenar manualmente las siguientes variables.</h5>
+                            También puede rellenar manualmente las variables.</h5>
                         <h5>A continuación, debe elegir el algoritmo de predicción que desee emplear.</h5><br>
 
                         <h5>Existe la posibilidad de realizar predicciones sobre aquellos pacientes en la base de datos cuyo RBQ no ha sido obtenido aún, 
-                            en la sección "Predicción sobre paciente existente".</h5><br>
+                            en la sección <b>Predicción sobre paciente existente</b>.</h5><br>
 
                         <div id="last-train">
                             <span>Último entrenamiento: </span>

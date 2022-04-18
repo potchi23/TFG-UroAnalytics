@@ -11,7 +11,11 @@
     $target_file = $target_dir . basename($_FILES["prediction-import"]["name"]);
     $fileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
-    if($fileType != "csv" && $fileType != "xls" && $fileType != "xlsx") {
+    if($_FILES["prediction-import"]["name"] == ""){
+        array_push($_SESSION["error"], "No se ha seleccionado ningún fichero");
+    }
+
+    else if($fileType != "csv" && $fileType != "xls" && $fileType != "xlsx") {
         array_push($_SESSION["error"], "Solo se permiten ficheros CSV y Excel");
     }
 

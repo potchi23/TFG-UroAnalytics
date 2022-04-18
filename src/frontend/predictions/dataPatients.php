@@ -5,12 +5,19 @@
         <hr class="my-4">
                             
         <div class="import-form">
+            <h2>Importar datos de paciente</h2>
+            <p>
+                Los ficheros admitidos son de extensión .csv, .xls y xlsx, con un tamaño menor a 200Kb. Si el fichero contiene más de una fila, solamente se utilizará la primera fila.
+                Los datos importados aparecerán automáticamente en el <b>Formulario de paciente</b> que aparece más abajo.
+            </p>
             <form action="submit_data.php" method="post" enctype="multipart/form-data">
                 <input type="file" id="prediction-import" name="prediction-import">
                 <button class="btn btn-primary ml-4" type="submit">Importar desde fichero</button>
             </form>
         </div>
+        </br>
 
+        <h2>Formulario de paciente</h2>
         <?php
             if (isset($_SESSION["message"])){
                 $message = $_SESSION["message"];
