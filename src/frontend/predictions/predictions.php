@@ -48,6 +48,9 @@
                             También puede rellenar manualmente las siguientes variables.</h5>
                         <h5>A continuación, debe elegir el algoritmo de predicción que desee emplear.</h5><br>
 
+                        <h5>Existe la posibilidad de realizar predicciones sobre aquellos pacientes en la base de datos cuyo RBQ no ha sido obtenido aún, 
+                            en la sección "Predicción sobre paciente existente".</h5><br>
+
                         <div id="last-train">
                             <span>Último entrenamiento: </span>
                             <span id="last-train-date">Nunca</span>

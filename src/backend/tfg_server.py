@@ -377,13 +377,19 @@ def importdb(current_user):
     }
 
     if request.method == 'POST':
-        filename = request.form['filename']
-        filepath = HERE + "/tmp_uploads/" + filename
+        file = base64.b64decode(request.form['file'])
+        filename = HERE + "/tmp_uploads/import_tmp.xlsx"
+
+        if os.path.exists(filename):
+            os.remove(filename)
+
+        with open(filename, 'wb') as excel_file:
+            excel_file.write(file)
         #leer archivo
-        df = pd.read_excel(filepath, header=0)
+        df = pd.read_excel(filename, header=0)
         print(df.columns)
         #eliminar archivo del frontend
-        os.remove(filepath)
+        os.remove(filename)
 
         df, errorMSG = newPatientsDF(df)
         if errorMSG == None:
