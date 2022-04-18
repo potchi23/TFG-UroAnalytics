@@ -6,7 +6,6 @@
                 <div class="col-xl-">
                     <h3> Fecha PRL </h3>
                 </div>
-                    <br>
                     <h4>Día</h4>
                     <input type="text" class="form-control" name="cir1" placeholder="dd" style="width:10em;">
                     <h4>Mes</h4>

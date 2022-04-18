@@ -76,7 +76,7 @@
                     <div class="col my-auto">
                         <select class="custom-select mr-sm-2" name="evolve4" id="inlineFormCustomSelect" style="width:10em">
                             <option selected value="">Choose...</option>
-                            <option selected value="1">Si (CASOS)</option>
+                            <option value="1">Si (CASOS)</option>
                             <option value="2">No (CONTROLES)</option>
                             <option value="3">Persitencia PSA (PSA > 0,2 primer posoperatorio tras PRL)</option>
                         </select>

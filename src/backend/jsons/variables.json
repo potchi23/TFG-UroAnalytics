@@ -445,6 +445,6 @@
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [],
         "reemplazar":{},
-        "descripcion": "Meses de revision."
+        "descripcion": "Meses de revision del paciente."
     }
 }

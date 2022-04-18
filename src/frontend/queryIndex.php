@@ -11,7 +11,12 @@
 
         <?php include_once("common/includes.php");?>
         
-        <script language="javaScript">          
+        <script language="javaScript"> 
+
+            function enableRange(id){
+                document.getElementById(id).disabled = false;
+            }
+
             function toggleCB(op) { 
                 op.disabled = !op.disabled;
             }

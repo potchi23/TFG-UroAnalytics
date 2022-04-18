@@ -42,10 +42,20 @@
                 <div class="col-xl-">
                     <h3> Volumen tumoral </h3>
                 </div>
-                <div class="col my-auto">
-                    <input type="range" name="prostate3" value="50" min="0" style="width:80%; margin-left:10px" max="100" step="1" oninput="this.nextElementSibling.value = this.value">
-                <output style="margin-left:10px">50</output>%                    
+                <div class="col-xl-">
+                    <div class="custom-control custom-switch custom-switch-md" style="margin-bottom: 0.5em">
+                        <input type="checkbox" class="custom-control-input" id="boolProstate3" name="boolProstate3" onclick="toggleField('prostate3', 'boolProstate3')">
+                        <label class="custom-control-label" for="boolProstate3"></label>
+                    </div>
                 </div>
+            </div>
+            
+            <div id="prostate3" style="display:none;">
+                <div class="form-row align-items-center">
+                    <div class="col my-auto">
+                        <input type="range" name="prostate3" value="50" min="0" style="width:80%; margin-left:10px" max="100" step="1" oninput="this.nextElementSibling.value = this.value">
+                        <output style="margin-left:10px">50</output>%                    
+                    </div>
                     <div class="col my-auto">
                         <div class="custom-control custom-switch">
                             <input type="checkbox" value="<" class="custom-control-input" name="prostate3op" id="volop1" onclick="toggleCB(document.getElementById('volop3'))">
@@ -60,6 +70,7 @@
                             <label class="custom-control-label" for="volop3">Mayor que</label>
                         </div>
                     </div>
+                </div>
             </div>
 
             <hr class="my-4">
@@ -133,7 +144,7 @@
                 </div>
                     <div class="col my-auto">
                         <select class="custom-select mr-sm-2" name="prostate8" id="inlineFormCustomSelect" style="width:10em">
-                            <option value="" selected>Choose...</option>
+                            <option selected value="">Choose...</option>
                             <option value="1">pT2ab</option>
                             <option value="2">pT2c</option>
                             <option value="3">pT3</option>

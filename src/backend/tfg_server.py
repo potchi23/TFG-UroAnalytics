@@ -529,16 +529,45 @@ def doQuery():
     response = {}
 
     if request.method == 'GET':
+        offset = request.form['offset']
+        num_elems = request.form['num_elems']
+        dataQuery = request.form['dataQuery']
+        response = {
+            'num_entries': 0,
+            'data': [],
+            'errorMsg': ""
+        }
+        if len(dataQuery) > 0: 
+            queryWhere = buildQuery(dataQuery); 
 
-        query = buildQuery(request.form); 
-        print(query)
-        df_db = pd.read_sql(query, engine)
-        print(df_db)
+            response['num_entries']=engine.execute('SELECT COUNT(N) FROM patients ' + queryWhere).scalar(),
+
+            df_db = pd.read_sql("SELECT * FROM PATIENTS " + queryWhere, engine)
+
+            if not df_db.empty:
+                status = 200
+
+                queryWhere += 'LIMIT %s, %s' % (offset, num_elems)
+                columns = tuple(df_db.columns)
+                result = engine.execute("SELECT * FROM PATIENTS " + queryWhere)
+
+                entry = {}
+                for row in result:
+                    for i in range(0, len(row)):
+                        entry[columns[i]] = row[i]
+                    response['data'].append(dict(entry))
+            else:
+                status = 404
+                response["errorMsg"] = "No hay pacientes que concuerden con la consulta."
+        else:
+            response["errorMsg"] = "Consulta vacía."
+
+        print(response)
 
     return response
 
 def buildQuery(req):
-    query = "SELECT * FROM patients WHERE "
+    query = "WHERE "
     operators = "=<>"
     keys = list(req.keys())
     for i in req:
