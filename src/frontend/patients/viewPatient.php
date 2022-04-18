@@ -55,16 +55,16 @@
                 $response = $http_requests->getResponse("$BACKEND_URL/patients", "GET", $get_req, $user->get_token());
             }
 
-            $data_array = $response["data"]->data;
-
             if($response["status"] != 200) {
                 if($response["status"] == 401){
                     unset($_SESSION["user"]);
+                    echo "<script>alert('La sesión ha caducado. Vuelva a iniciar sesión.');</script>";
                     $_SESSION["message"] = "La sesión ha caducado";
                     echo "<script type='text/javascript'>window.location.href = '../login.php';</script>";
                 }
             }
             
+            $data_array = $response["data"]->data;
             $num_patients = $response["data"]->num_entries;
 
             if($num_patients > 0) 

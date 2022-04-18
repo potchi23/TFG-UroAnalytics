@@ -114,6 +114,7 @@
                         if($response["status"] != 200) {
                             if($response["status"] == 401){
                                 unset($_SESSION["user"]);
+                                echo "<script>alert('La sesión ha caducado. Vuelva a iniciar sesión.');</script>";
                                 $_SESSION["message"] = "La sesión ha caducado";
                                 echo "<script type='text/javascript'>window.location.href = '../login.php';</script>";
                             }

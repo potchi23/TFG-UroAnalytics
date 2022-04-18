@@ -65,7 +65,10 @@ $(document).ready(() => {
             },
 
             statusCode:{
-                401: ()=>{ window.location.href = '../login.php' }
+                401: () => { 
+                    alert('La sesión ha caducado. Vuelva a iniciar sesión.');
+                    window.location.href = '../login.php';
+                }
             },
             
             error : e => {
