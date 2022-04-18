@@ -63,6 +63,11 @@ $(document).ready(() => {
                     $('#prediction-precision-3').val(0.0 + '%');
                 }
             },
+
+            statusCode:{
+                401: ()=>{ window.location.href = '../login.php' }
+            },
+            
             error : e => {
                 console.log('Request failed: ' +  e);
             }
