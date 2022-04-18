@@ -13,8 +13,6 @@
     $http_requests = new HttpRequests();
     $response = $http_requests->getResponse("$BACKEND_URL/patients/variables", "GET", "", $user->get_token());
     $data_array = $response["data"]->data;
-    print_r("test");
-
 
     if ($response["status"] == 200){
         asort($data_array);
