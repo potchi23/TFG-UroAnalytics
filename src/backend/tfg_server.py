@@ -393,8 +393,36 @@ def importdb(current_user):
             response['errorMSG'] = errorMSG
 
     return response, status
-    
 
+@app.route('/import_prediction', methods=['POST'])
+@token_required
+def import_prediction(current_user):
+    status = 400
+    response = {
+    }
+
+    if request.method == 'POST':
+        filename = request.form['filename']
+        filepath = HERE + "/../frontend/predictions/tmp/" + filename
+
+        df = pd.read_excel(filepath, header=0)
+        df.columns = map(str.upper, df.columns)
+        df.rename(columns={'RA NUCLEAR':'RA-NUCLEAR', 'RA ESTROMA':'RA-ESTROMA'}, inplace=True)
+        
+        response = df.to_json()
+        #eliminar archivo del frontend
+        os.remove(filepath)
+
+        df, errorMSG = newPatientsDF(df)
+        if errorMSG == None:
+            status = 200
+        else:
+            response['errorMSG'] = errorMSG
+
+        print(response)
+
+        return response, status
+    
 def newPatientsDF(df):
     '''
     Devuelve los pacientes que no están incluidos en la base de datos.

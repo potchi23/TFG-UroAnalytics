@@ -5,9 +5,9 @@
         <hr class="my-4">
                             
         <div class="import-form">
-            <form action="submit_csv.php" method="post" enctype="multipart/form-data">
+            <form action="submit_data.php" method="post" enctype="multipart/form-data">
                 <input type="file" id="prediction-import" name="prediction-import">
-                <button class="btn btn-primary ml-4" type="submit">Importar desde CSV</button>
+                <button class="btn btn-primary ml-4" type="submit">Importar desde fichero</button>
             </form>
         </div>
 

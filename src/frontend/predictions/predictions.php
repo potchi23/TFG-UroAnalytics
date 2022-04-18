@@ -44,9 +44,9 @@
                         <h1 class="display-8" style="font-weight:600;">Realizar una predicción</h1><br>                        
                         <hr class="my-1"><br>
 
-                        <h5>Para realizar una predicción debe importar un archivo CSV y después pulsar el botón "Importar desde CSV"
-                            o puede rellenar manualmente las siguientes variables.</h5>
-                        <h5>Y a continuación debe elegir el algoritmo de predicción que desee emplear.</h5><br>
+                        <h5>Para realizar una predicción debe importar un archivo CSV o Excel válido y después pulsar el botón "Importar desde fichero".
+                            También puede rellenar manualmente las siguientes variables.</h5>
+                        <h5>A continuación, debe elegir el algoritmo de predicción que desee emplear.</h5><br>
 
                         <div id="last-train">
                             <span>Último entrenamiento: </span>
