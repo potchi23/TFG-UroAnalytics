@@ -14,6 +14,7 @@ import predictions
 import pandas as pd
 import json
 import numpy as np
+import base64
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
@@ -398,28 +399,30 @@ def importdb(current_user):
 @token_required
 def import_prediction(current_user):
     status = 400
-    response = {
-    }
+    response = {}
 
     if request.method == 'POST':
-        filename = request.form['filename']
-        filepath = HERE + "/../frontend/predictions/tmp/" + filename
+        file = base64.b64decode(request.form['file'])
+        filename = HERE + "/tmp_uploads/prediction_tmp.xlsx"
 
-        df = pd.read_excel(filepath, header=0)
-        df.columns = map(str.upper, df.columns)
-        df.rename(columns={'RA NUCLEAR':'RA-NUCLEAR', 'RA ESTROMA':'RA-ESTROMA'}, inplace=True)
-        
+        if os.path.exists(filename):
+            os.remove(filename)
+
+        with open(filename, 'wb') as excel_file:
+            excel_file.write(file)
+
+        df = pd.read_excel(filename, header=0)
+        os.remove(filename)
+        df.columns = df.columns.str.upper()
+        df.columns = df.columns.str.replace(' ', '-')
+
         response = df.to_json()
-        #eliminar archivo del frontend
-        os.remove(filepath)
 
         df, errorMSG = newPatientsDF(df)
         if errorMSG == None:
             status = 200
         else:
             response['errorMSG'] = errorMSG
-
-        print(response)
 
         return response, status
     

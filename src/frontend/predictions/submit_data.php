@@ -49,16 +49,19 @@
                 header("Location: predictions.php#dataPatients");
             }
             else{
+                $handle = fopen($target_file, "r");
+                $data = fread($handle, filesize($target_file));
                 $post_req = array(
-                    "filename" => $_FILES['prediction-import']['name']
+                    "file" => base64_encode($data)
                 );
-    
+                
+                fclose($handle);
+                unlink($target_file);
+
                 $http_requests = new HttpRequests();
                 $response = $http_requests->getResponse("$BACKEND_URL/import_prediction", "POST", $post_req, $user->get_token());
                 $data = $response["data"];
                 if($response["status"] == 200) {
-                    
-
                     foreach($data as $column=>$value){
                         $_SESSION["dataInputs"] += [$column => $value->{'0'}];
                     }
@@ -67,9 +70,9 @@
                     header("Location: predictions.php#dataPatients");
                 }
                 else {
-                    unset($_SESSION["user"]);
                     unset($_SESSION["dataInputs"]);
                     if($response["status"] == 401) {
+                        unset($_SESSION["user"]);
                         $_SESSION["error"] = "La sesión ha caducado";
                         header("Location: ../login.php");
                     }
