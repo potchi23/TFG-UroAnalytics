@@ -205,5 +205,8 @@
                 </div>
             </div>
         </div>
+        <footer class="bg-light text-center text-lg-start">
+            <?php require("common/footer.php")?>
+        </footer>  
     </body>
 </html>

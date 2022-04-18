@@ -252,6 +252,8 @@
             </div>
         </div>
         <input id='token' type="hidden" value=<?php echo $user->get_token()?>>
+        <div style="margin-bottom:25%;"></div>
+
         <div class="footer">
             <?php require("../common/footer.php");?>
         </div>   

@@ -52,7 +52,7 @@
 
         <meta charset="utf-8">
     </head>
-    <body>  
+    <body style="position: relative;">  
         <div class="header">
             <div class="fixed-top">
                 <?php include_once("common/header.php");?>
@@ -151,10 +151,12 @@
                 </div>
             </div>
         </form>
-               
+        
+        <div style="margin-bottom:10rem;"></div>
         <footer class="bg-light text-center text-lg-start">
             <?php include_once("common/footer.php")?>
-        </footer>  
+        </footer> 
+
         <script>
             let switches = ["boolCIR", "boolSociodemographic", "boolClinic", "boolBiopsy", "boolProstate", "boolEvolve", "boolMarkers"];
             let fields = ["queryCIR", "querySociodemographic", "queryClinic", "queryBiopsy", "queryProstate", "queryEvolve", "queryMarkers"];
@@ -166,5 +168,5 @@
             }
         </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    </body>
+    </body> 
 </html>

@@ -1,4 +1,4 @@
-<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary" style="background-color:#004370 !important; border-bottom:solid 1px black;">
   <div class="container-fluid">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -32,12 +32,13 @@
         <div style="margin-top:0.8rem; margin-right:1rem;">
           <?php
             if ($user->is_admin()) {
-              echo "<li class='nav-item'>Modo Admin</li>";
+              echo "<li class='nav-item' style='color:white;'>Modo Admin</li>";
             }
           ?>
         </div>
+
         <div class="dropdown">
-          <i class="icon-account fa-solid fa-user-doctor fa-2x" onclick="dropdown()"></i>     
+          <i class="icon-account fa-solid fa-user-doctor fa-2x" onclick="dropdown()" style="background-color: #004370;" onMouseOver="this.style.color='lightgray'" onMouseOut="this.style.color='white'"></i>     
           <div id="myDropdown" class="dropdown-content">
             <a href="../userProfile.php">Ver mi perfil</a>
             <a href="../logout.php">Cerrar sesion</a>

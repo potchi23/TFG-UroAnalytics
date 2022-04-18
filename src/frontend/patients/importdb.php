@@ -70,6 +70,7 @@
                 </div> 
             </div>
         </div>
+        <div style="margin-bottom:5%;"></div>
         <footer class="bg-light text-center text-lg-start">
             <?php include_once("../common/footer.php")?>
         </footer> 
