@@ -43,6 +43,9 @@
                             <label for="ETNIA">ETNIA</label>
                             <input type="number" id="ETNIA" name="ETNIA"><br><br>
 
+                            <label for="OBESO">OBESO</label>
+                            <input type="number" id="OBESO" name="OBESO"><br><br>
+
                             <label for="HTA">HTA</label>
                             <input type="number" id="HTA" name="HTA"><br><br>
 
@@ -69,6 +72,9 @@
 
                             <label for="ECOTR">ECOTR</label>
                             <input type="number" id="ECOTR" name="ECOTR"><br><br>
+
+                            <label for="NBIOPSIA">NBIOPSIA</label>
+                            <input type="number" id="NBIOPSIA" name="NBIOPSIA"><br><br>
 
                             <label for="HISTO">HISTO</label>
                             <input type="number" id="HISTO" name="HISTO"><br><br>
@@ -160,8 +166,8 @@
                             <label for="FECHAFIN">FECHAFIN</label>
                             <input type="date" id="FECHAFIN" name="FECHAFIN"><br><br>
 
-                            <label for="t.seg">t.seg</label>
-                            <input type="number" id="t.seg" name="t.seg"><br><br>
+                            <label for="t_seg">t_seg</label>
+                            <input type="number" id="t_seg" name="t_seg"><br><br>
 
                             <label for="FALLEC">FALLEC</label>
                             <input type="number" id="FALLEC" name="FALLEC"><br><br>
@@ -175,7 +181,7 @@
                             <label for="PSAFIN">PSAFIN</label>
                             <input type="number" id="PSAFIN" name="PSAFIN"><br><br>
 
-                            <label for="CAPRA S">CAPRA-S</label>
+                            <label for="CAPRA-S">CAPRA-S</label>
                             <input type="number" id="CAPRA-S" name="CAPRA-S"><br><br>
 
                             <label for="RA-NUCLEAR">RA-NUCLEAR</label>
@@ -214,14 +220,8 @@
                             <label for="PNV">PNV</label>
                             <input type="number" id="PNV" name="PNV"><br><br>
 
-                            <label for="TQ">TQ</label>
-                            <input type="number" id="TQ" name="TQ"><br><br>
-
                             <label for="TH">TH</label>
                             <input type="number" id="TH" name="TH"><br><br>
-
-                            <label for="NGG">NGG</label>
-                            <input type="number" id="NGG" name="NGG"><br><br>
 
                             <label for="PGG">PGG</label>
                             <input type="number" id="PGG" name="PGG"><br><br>

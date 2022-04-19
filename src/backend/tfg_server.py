@@ -14,8 +14,6 @@ import predictions
 import pandas as pd
 import json
 import numpy as np
-import base64
-import copy
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
@@ -378,19 +376,13 @@ def importdb(current_user):
     }
 
     if request.method == 'POST':
-        file = base64.b64decode(request.form['file'])
-        filename = HERE + "/tmp_uploads/import_tmp.xlsx"
-
-        if os.path.exists(filename):
-            os.remove(filename)
-
-        with open(filename, 'wb') as excel_file:
-            excel_file.write(file)
+        filename = request.form['filename']
+        filepath = HERE + "/tmp_uploads/" + filename
         #leer archivo
-        df = pd.read_excel(filename, header=0)
+        df = pd.read_excel(filepath, header=0)
         print(df.columns)
         #eliminar archivo del frontend
-        os.remove(filename)
+        os.remove(filepath)
 
         df, errorMSG = newPatientsDF(df)
         if errorMSG == None:
@@ -401,38 +393,8 @@ def importdb(current_user):
             response['errorMSG'] = errorMSG
 
     return response, status
-
-@app.route('/import_prediction', methods=['POST'])
-@token_required
-def import_prediction(current_user):
-    status = 400
-    response = {}
-
-    if request.method == 'POST':
-        file = base64.b64decode(request.form['file'])
-        filename = HERE + "/tmp_uploads/prediction_tmp.xlsx"
-        
-        if os.path.exists(filename):
-            os.remove(filename)
-
-        with open(filename, 'wb') as excel_file:
-            excel_file.write(file)
-
-        df = pd.read_excel(filename, header=0)
-        os.remove(filename)
-        df.columns = df.columns.str.upper()
-        df.columns = df.columns.str.replace(' ', '-')
-
-        response = df.to_json()
-
-        df, errorMSG = newPatientsDF(df)
-        if errorMSG == None:
-            status = 200
-        else:
-            response['errorMSG'] = errorMSG
-
-        return response, status
     
+
 def newPatientsDF(df):
     '''
     Devuelve los pacientes que no están incluidos en la base de datos.
@@ -479,6 +441,11 @@ def clearPatientsDF(df):
     dataJson = json.load(variablesJson)
     
     invalidColumns = list()
+    
+    #Ver si las claves del Json estan en las columnas del DF a guardar
+    for key in dataJson:
+        if key not in df.columns:
+            dataJson.pop(key)
         
     #Por cada columna del DF, comprobar el tipo de la columna y que los datos esten comprendidos entre los rangos permitidos
     for column in df.columns:
@@ -525,33 +492,15 @@ def doQuery():
 
     if request.method == 'GET':
 
-        response = {
-            'num_entries': 0,
-            'data': [],
-            'errorMsg': ""
-        }
+        query = buildQuery(request.form); 
+        print(query)
+        df_db = pd.read_sql(query, engine)
+        print(df_db)
 
-        if len(request.form) > 0: 
-            queryWhere = buildQuery(request.form); 
-
-            response['num_entries']=engine.execute('SELECT COUNT(N) FROM patients ' + queryWhere).scalar()
-            result_patients = pd.read_sql("SELECT * FROM PATIENTS " + queryWhere, engine)
-
-            if not result_patients.empty:
-                status = 200
-                variables = ["N", "FECHACIR", "EDAD", "PSAPRE", "GLEASON1", "NCILPOS", "PORCENT", "TNM1", "GLEASON2", "BILAT2", "VOLUMEN", "EXTRACAP", "VVSS", "PINAG", "MARGEN", "TNM2", "PSAPOS", "RTPADYU", "RTPMES", "RBQ", "TRBQ", "TDUPLI", "T1MTX", "TSEGUI", "PSAFIN", "CAPRA-S", "RA-NUCLEAR", "RA-ESTROMA", "PTEN", "ERG", "KI-67", "SPINK1", "C-MYC"]
-                df_aux = dbTranslator(result_patients.filter(items=variables).fillna(""))
-                response['data'] = df_aux.to_dict(orient='records')
-            else:
-                status = 404
-                response["errorMsg"] = "No hay pacientes que concuerden con la consulta."
-        else:
-            response["errorMsg"] = "Consulta vacía."
-
-    return response, status
+    return response
 
 def buildQuery(req):
-    query = "WHERE "
+    query = "SELECT * FROM patients WHERE "
     operators = "=<>"
     keys = list(req.keys())
     for i in req:
@@ -604,10 +553,14 @@ def viewPatients(current_user):
 
         query += 'LIMIT %s, %s' % (offset, num_elems)
 
-        result_patients = pd.read_sql(query, engine)
-        variables = ["N", "FECHACIR", "EDAD", "PSAPRE", "GLEASON1", "NCILPOS", "PORCENT", "TNM1", "GLEASON2", "BILAT2", "VOLUMEN", "EXTRACAP", "VVSS", "PINAG", "MARGEN", "TNM2", "PSAPOS", "RTPADYU", "RTPMES", "RBQ", "TRBQ", "TDUPLI", "T1MTX", "TSEGUI", "PSAFIN", "CAPRA-S", "RA-NUCLEAR", "RA-ESTROMA", "PTEN", "ERG", "KI-67", "SPINK1", "C-MYC"]
-        df_aux = dbTranslator(result_patients.filter(items=variables).fillna(""))
-        response['data'] = df_aux.to_dict(orient='records')
+        columns = tuple(engine.execute(query).keys())
+        result = engine.execute(query)
+
+        entry = {}
+        for row in result:
+            for i in range(0, len(row)):
+                entry[columns[i]] = row[i]
+            response['data'].append(dict(entry))
         
         if('rbq_null' in request.form and request.form['rbq_null'] == 'true'):
             response['num_entries'] = len(response['data'])
@@ -619,6 +572,7 @@ def viewPatients(current_user):
         FECHACIR = request.form['FECHACIR']
         EDAD = request.form['EDAD']
         ETNIA = request.form['ETNIA']
+        OBESO = request.form['OBESO']
         HTA = request.form['HTA']
         DM = request.form['DM']
         TABACO = request.form['TABACO']
@@ -659,7 +613,7 @@ def viewPatients(current_user):
         TRBQ = request.form['TRBQ']
         T1MTX = request.form['T1MTX']
         FECHAFIN = request.form['FECHAFIN']
-        t_seg = request.form['t.seg']
+        t_seg = request.form['t_seg']
         FALLEC = request.form['FALLEC']
         TSUPERV = request.form['TSUPERV']
         TSEGUI = request.form['TSEGUI']
@@ -677,14 +631,12 @@ def viewPatients(current_user):
         ASA = request.form['ASA']
         GR = request.form['GR']
         PNV = request.form['PNV']
-        TQ = request.form['TQ']
         TH = request.form['TH']
-        NGG = request.form['NGG']
         PGG = request.form['PGG']
         
         try:
-            query = 'INSERT INTO patients(FECHACIR, EDAD, ETNIA, HTA, DM, TABACO, HEREDA, TACTOR, PSAPRE, PSALT, TDUPPRE, ECOTR, NBIOPSIA, HISTO, GLEASON1, NCILPOS, BILAT, PORCENT, IPERIN, ILINF,IVASCU, TNM1, HISTO2, GLEASON2, BILAT2, LOCALIZ, MULTIFOC, VOLUMEN, EXTRACAP, VVSS, IPERIN2, ILINF2, IVASCU2, PINAG, MARGEN, TNM2, PSAPOS, RTPADYU, RTPMES, RBQ, TRBQ, T1MTX, FECHAFIN, t.seg, FALLEC, TSUPERV, TSEGUI, PSAFIN, CAPRA S, RA-NUCLEAR, RA-ESTROMA, PTEN, ERG, KI-67, SPINK1, C-MYC, NOTAS, IMC, ASA, GR, PNV, TQ, TH, NGG, PGG) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
-            values = (FECHACIR, EDAD, ETNIA, HTA, DM, TABACO, HEREDA, TACTOR, PSAPRE, PSALT, TDUPPRE, ECOTR, NBIOPSIA, HISTO, GLEASON1, NCILPOS, BILAT, PORCENT, IPERIN, ILINF,IVASCU, TNM1, HISTO2, GLEASON2, BILAT2, LOCALIZ, MULTIFOC, VOLUMEN, EXTRACAP, VVSS, IPERIN2, ILINF2, IVASCU2, PINAG, MARGEN, TNM2, PSAPOS, RTPADYU, RTPMES, RBQ, TRBQ, T1MTX, FECHAFIN, t_seg, FALLEC, TSUPERV, TSEGUI, PSAFIN, CAPRA_S, RA_nuclear, RA_estroma, PTEN, ERG, KI_67, SPINK1, C_MYC, NOTAS, IMC, ASA, GR, PNV, TQ, TH, NGG, PGG)
+            query = "INSERT INTO patients(FECHACIR, EDAD, ETNIA, OBESO,  HTA, DM, TABACO, HEREDA, TACTOR, PSAPRE, PSALT, TDUPPRE, ECOTR, NBIOPSIA, HISTO, GLEASON1, NCILPOS, BILAT, PORCENT, IPERIN, ILINF,IVASCU, TNM1, HISTO2, GLEASON2, BILAT2, LOCALIZ, MULTIFOC, VOLUMEN, EXTRACAP, VVSS, IPERIN2, ILINF2, IVASCU2, PINAG, MARGEN, TNM2, PSAPOS, RTPADYU, RTPMES, RBQ, TRBQ, T1MTX, FECHAFIN, t.seg, FALLEC, TSUPERV, TSEGUI, PSAFIN, CAPRA S, RA-NUCLEAR, RA-ESTROMA, PTEN, ERG, KI-67, SPINK1, C-MYC, NOTAS, IMC, ASA, GR, PNV, TH, PGG) VALUES (%s,%d,%d,%d,%d,%d,%d,%d,%d,%f,%f,%f,%d,%d,%d,%d,%d,%f,%f,%d,%d,%d,%d,%d,%d,%d,%d,%d,%f,%d,%d,%d,%d,%d,%d,%d,%d,%f,%d,%f,%d,%f,%f,%s,%f,%f,%f,%f,%f,%d,%f,%f,%f,%f,%f,%f,%f,%s,%f,%d,%d,%d,%d,%f)"
+            values = (FECHACIR, EDAD, ETNIA, OBESO, HTA, DM, TABACO, HEREDA, TACTOR, PSAPRE, PSALT, TDUPPRE, ECOTR, NBIOPSIA, HISTO, GLEASON1, NCILPOS, BILAT, PORCENT, IPERIN, ILINF,IVASCU, TNM1, HISTO2, GLEASON2, BILAT2, LOCALIZ, MULTIFOC, VOLUMEN, EXTRACAP, VVSS, IPERIN2, ILINF2, IVASCU2, PINAG, MARGEN, TNM2, PSAPOS, RTPADYU, RTPMES, RBQ, TRBQ, T1MTX, FECHAFIN, t_seg, FALLEC, TSUPERV, TSEGUI, PSAFIN, CAPRA_S, RA_nuclear, RA_estroma, PTEN, ERG, KI_67, SPINK1, C_MYC, NOTAS, IMC, ASA, GR, PNV, TH, PGG)
             engine.execute(query, values)    
             status = 200        
         except:
@@ -756,11 +708,16 @@ def dbTranslator(df):
     dataJson = json.load(variablesJson)
     
     invalidColumns = list()
+    
+    #Ver si las claves del Json estan en las columnas del DF a guardar
+    for key in dataJson:
+        if key not in df.columns:
+            dataJson.pop(key)
 
     for column in df.columns:
-        df[column] = df[column].astype(str)
         if column != 'N':
             if len(dataJson[column]["reemplazar"]) > 0:
+                df[column] = df[column].astype(str)
                 df[column] = df[column].replace(dataJson[column]["reemplazar"])
     
     return df
