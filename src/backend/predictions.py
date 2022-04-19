@@ -55,7 +55,7 @@ def randomForestTraining(X_train, X_test, y_train, y_test):
 def logisticRegresionTraining(X_train, X_test, y_train, y_test):
     pipe_lrc = Pipeline([
                     ('scl', StandardScaler()),
-                    ('clr', LogisticRegression(C=0.05, penalty='l2', solver='liblinear', class_weight='balanced'))   
+                    ('clr', LogisticRegression(C=0.5, penalty='l2', solver='liblinear', class_weight='balanced'))   
                     ])
     pipe_lrc.fit(X_train, y_train)
     accuracy = pipe_lrc.score(X_test, y_test)
