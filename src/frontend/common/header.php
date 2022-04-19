@@ -9,7 +9,7 @@
       </a>
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
         <li class="nav-item">
-          <a class="nav-link" href="../queryIndex.php">Consultas <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="../querys/queryIndex.php">Consultas <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="../predictions/predictions.php">Predicciones</a>

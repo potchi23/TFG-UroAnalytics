@@ -525,19 +525,16 @@ def doQuery():
 
     if request.method == 'GET':
 
-        offset = request.form['offset']
-        num_elems = request.form['num_elems']
         response = {
             'num_entries': 0,
             'data': [],
             'errorMsg': ""
         }
 
-        if len(request.form) > 2: 
+        if len(request.form) > 0: 
             queryWhere = buildQuery(request.form); 
 
             response['num_entries']=engine.execute('SELECT COUNT(N) FROM patients ' + queryWhere).scalar()
-            queryWhere += ' LIMIT %s, %s' % (offset, num_elems)
             result_patients = pd.read_sql("SELECT * FROM PATIENTS " + queryWhere, engine)
 
             if not result_patients.empty:
@@ -551,22 +548,19 @@ def doQuery():
         else:
             response["errorMsg"] = "Consulta vacía."
 
-        print(response)
-
-    return response
+    return response, status
 
 def buildQuery(req):
     query = "WHERE "
     operators = "=<>"
     keys = list(req.keys())
     for i in req:
-        if i not in ["offset", "num_elems"]:
-            if req[i][0] in operators:
-                query = query + i + " " + req[i]
-            else:
-                query = query + i + " = " + req[i]
-            if i != keys[-1]:
-                query = query + " AND "
+        if req[i][0] in operators:
+            query = query + i + " " + req[i]
+        else:
+            query = query + i + " = " + req[i]
+        if i != keys[-1]:
+            query = query + " AND "
 
     return query
 
