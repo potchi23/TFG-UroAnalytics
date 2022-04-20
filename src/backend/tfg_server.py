@@ -488,18 +488,38 @@ def exportdb(current_user):
 @app.route('/getQuery', methods=['GET'])
 def doQuery():
     status = 400
-    response = {}
+    response = {
+        'num_entries':0,
+        'data':[]
+    }
 
     if request.method == 'GET':
 
-        query = buildQuery(request.form); 
+        query, num_entries = buildQuery(request.form); 
         print(query)
-        df_db = pd.read_sql(query, engine)
-        print(df_db)
+        #df_db = pd.read_sql(query, engine)
+        #print(df_db)
+        
+        columns = tuple(engine.execute(query).keys())
+        result = engine.execute(query)
 
+        entry = {}
+        for row in result:
+            for i in range(0, len(row)):
+                entry[columns[i]] = row[i]
+            response['data'].append(dict(entry))
+
+        response['num_entries'] = num_entries
     return response
 
 def buildQuery(req):
+    req = dict(req)
+    offset = req['offset']
+    num_elems = req['num_elems']
+
+    req.pop('offset', None)
+    req.pop('num_elems', None)
+
     query = "SELECT * FROM patients WHERE "
     operators = "=<>"
     keys = list(req.keys())
@@ -511,7 +531,10 @@ def buildQuery(req):
         if i != keys[-1]:
             query = query + " AND "
 
-    return query
+    num_entries = pd.read_sql(query, engine).shape[0]
+
+    query += ' LIMIT %s, %s' % (offset, num_elems)
+    return query, num_entries
 
 @app.route('/numPatients', methods=['GET'])
 @token_required

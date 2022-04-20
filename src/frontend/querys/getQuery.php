@@ -5,6 +5,9 @@
 
     $user = $_SESSION["user"];
 
+    $NUM_ELEMENTS_BY_PAGE = 20;
+    $page = $_SESSION["page"];
+
     function minormayor($arg){
         $aux = NULL;
 
@@ -220,6 +223,9 @@
     }
         
     $get_req = array(
+        //paging-------------
+        "offset" => ($page - 1) * $NUM_ELEMENTS_BY_PAGE,
+        "num_elems" => $NUM_ELEMENTS_BY_PAGE,
         //biopsy-------------
         "GLEASON1" => $GLEASON1,
         "NCILPOS" => $NCILPOS,
@@ -258,10 +264,19 @@
         //sociodemographic-----
         "EDAD" => $EDAD
     );
+    if(!isset($_SESSION["get_req"])){
+        $_SESSION["get_req"] = $get_req;
+    }
+    else{
+        $_SESSION["get_req"]["offset"] = ($page - 1) * $NUM_ELEMENTS_BY_PAGE;
+        $_SESSION["get_req"]["num_elems"] = $NUM_ELEMENTS_BY_PAGE;
+    }
+
     $http_requests = new HttpRequests();
 
-    $response = $http_requests->getResponse("$BACKEND_URL/getQuery", "GET", http_build_query($get_req), $user->get_token());
+    $response = $http_requests->getResponse("$BACKEND_URL/getQuery", "GET", http_build_query($_SESSION["get_req"]), $user->get_token());
 
     $father = "viewQuery.php";
-    require_once("../common/viewTable.php");
+    
+    require("../common/viewTable.php");
 ?>

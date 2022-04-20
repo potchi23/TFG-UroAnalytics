@@ -1,5 +1,5 @@
 <?php
-if($response["status"] != 200) {
+            if($response["status"] != 200) {
                 if($response["status"] == 401){
                     unset($_SESSION["user"]);
                     echo "<script>alert('La sesión ha caducado. Vuelva a iniciar sesión.');</script>";
@@ -46,6 +46,6 @@ if($response["status"] != 200) {
                             echo "<h5>No se han encontrado pacientes</h5>";
                         }
                     ?>
-                </table>                    
+                </table>             
             </div>
         </div>

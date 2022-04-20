@@ -3,6 +3,19 @@
 <?php
     require_once("../models/User.php");
     session_start();
+
+    $user = $_SESSION["user"];
+
+    $_SESSION["page"] = isset($_GET["page"]) ? $_GET["page"] : 1;
+    
+    if($_SESSION["page"] <= 0){
+        $_SESSION["page"] = 1;
+    }
+
+    if(isset($_POST["fromIndex"])){
+        unset($_POST["fromIndex"]);
+        unset($_SESSION["get_req"]);
+    }
 ?>
 
 <html>
@@ -32,9 +45,37 @@
                                 <hr class="my-8">
 
                                 <?php 
+                                    $page = $_SESSION["page"];
                                     require("getQuery.php");
                                 ?>
-                            
+
+                                <div class="page-buttons">
+                                    <?php
+                                    
+                                    if(!isset($_GET["patientId"]) && count($data_array) > 0){
+                                        echo "<div>";
+                                        if($_SESSION["page"] != 1 && count($data_array) > 0){
+                                            $prev_page = $_SESSION["page"] - 1;    
+                                            echo "<a class='btn btn-primary previous' href='viewQuery.php?page=$prev_page'><</a>";
+                                        }                                    
+                                        echo "</div>";
+                                        
+                                        $numPages = ceil($response["data"]->num_entries/$NUM_ELEMENTS_BY_PAGE);
+                                        echo "<div style='background-color:#e9ecef; border-color:#e9ecef' class='btn btn-warning'>$page/$numPages</div>";
+
+                                        echo "<div>";
+                                        if ($get_req["offset"] + $NUM_ELEMENTS_BY_PAGE < $response["data"]->num_entries && count($data_array) > 0){
+                                            $next_page = $_SESSION["page"] + 1;    
+                                            echo "<a class='btn btn-primary next' href='viewQuery.php?page=$next_page'>></a>"; 
+                                        }
+                                        else{
+                                            echo "<div style='background-color:#e9ecef; border-color:#e9ecef;'class='btn btn-primary previous'>></div>";      
+                                        }
+                                        echo "</div>";
+                                    }
+                                    unset($_GET["patientId"]);
+                                    ?>
+                                </div>
                             </div>
                         </div>
                     </div>
