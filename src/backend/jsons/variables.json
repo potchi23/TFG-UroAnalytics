@@ -44,7 +44,7 @@
     "TABACO": {
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [0, 5],
-        "reemplazar":{"0": "NC", "1": "No", "2": "Exfumador", "3": "< 10 cigarrillos/día", "4": "10-20 cigarrillos/día", "5": "> 20 cigarrillos/día"},
+        "reemplazar":{"0": "NC", "1": "No", "2": "Exfumador", "3": "< 10 cigarrillos/dia", "4": "10-20 cigarrillos/dia", "5": "> 20 cigarrillos/dia"},
         "descripcion": ""
     },
 
@@ -52,7 +52,7 @@
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 3],
         "reemplazar":{"1": "Si", "2": "No"},
-        "descripcion": "Familiar 1º grado con CaP."
+        "descripcion": "Familiar primer grado con CaP."
     },
 
     "TACTOR": {
@@ -80,13 +80,13 @@
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [],
         "reemplazar":{},
-        "descripcion": "Tiempo de duplicacion de PSA preoperatorio (2º el de biopsia)."
+        "descripcion": "Tiempo de duplicacion de PSA preoperatorio (segundo el de biopsia)."
     },
 
     "ECOTR": {
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 2],
-        "reemplazar":{"1": "Normal", "2": "Sospechosa (nódulo)"},
+        "reemplazar":{"1": "Normal", "2": "Sospechosa (nodulo)"},
         "descripcion": ""
     },
 
@@ -94,7 +94,7 @@
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [],
         "reemplazar":{},
-        "descripcion": "Nº biopsias previas."
+        "descripcion": "Numero biopsias previas."
     },
 
     "HISTO": {
@@ -115,7 +115,7 @@
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 3],
         "reemplazar":{"1": "< 25%", "2": "25-50%", "3": ">= 50%"},
-        "descripcion": "Nº cilindros positivos (en cualquier lado)."
+        "descripcion": "Numero cilindros positivos (en cualquier lado)."
     },
 
     "BILAT": {
@@ -184,7 +184,7 @@
     "LOCALIZ": {
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 4],
-        "reemplazar":{"1": "ZP", "2": "ZT", "3": "ZFMA", "4": "Múltiple"},
+        "reemplazar":{"1": "ZP", "2": "ZT", "3": "ZFMA", "4": "Multiple"},
         "descripcion": ""
     },
 
@@ -262,7 +262,7 @@
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [],
         "reemplazar":{},
-        "descripcion": "PSA posoperatorio 1º (si mayor 0,2 no se considera RBQ)."
+        "descripcion": "PSA posoperatorio primero (si mayor 0,2 no se considera RBQ)."
     },
     
     "RTPADYU":{
@@ -297,7 +297,7 @@
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [],
         "reemplazar":{},
-        "descripcion": "Tiempo hasta 1ª metastasis (meses)."
+        "descripcion": "Tiempo hasta primera metastasis (meses)."
     },
     
     "FECHAFIN":{
@@ -345,21 +345,21 @@
     "RA-NUCLEAR":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [0, 1],
-        "reemplazar":{"0": "Negativo (< 90% expresión)","1": "Positivo ( 90% sobreexpresión)"},
+        "reemplazar":{"0": "Negativo (< 90% expresion)","1": "Positivo (>= 90% sobreexpresion)"},
         "descripcion": "Receptor androgenico nuclear epitelial."
     },
     
     "RA-ESTROMA":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [0, 1],
-        "reemplazar":{"0": "Negativo (< 30% expresión)","1": "Positivo ( 30% sobreexpresión)"},
+        "reemplazar":{"0": "Negativo (< 30% expresion)","1": "Positivo (>= 30% sobreexpresion)"},
         "descripcion": "Receptor androgenico nuclear estromal."
     },
     
     "PTEN":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [0, 1],
-        "reemplazar":{"0": "Positivo (Presencia / No pérdida)","1": "Pérdida parcial o completa"},
+        "reemplazar":{"0": "Positivo (Presencia / No perdida)","1": "Perdida parcial o completa"},
         "descripcion": "Perdida de expresion."
     },
     
@@ -373,21 +373,21 @@
     "KI-67":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [0, 1],
-        "reemplazar":{"0": "Bajo (0-0,005)", "1": "Intermedio-alto (0,06 sobreexpresión)"},
+        "reemplazar":{"0": "Bajo (0-0,005)", "1": "Intermedio-alto (>=0,06 sobreexpresion)"},
         "descripcion": "Presencia"
     },
     
     "SPINK1":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [0, 1],
-        "reemplazar":{"0": "Negativo (0-0,005)", "1": "Positivo (> 0,05 sobreexpresión)"},
+        "reemplazar":{"0": "Negativo (0-0,005)", "1": "Positivo (> 0,05 sobreexpresion)"},
         "descripcion": "Presencia"
     },
     
     "C-MYC":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [0, 1],
-        "reemplazar":{"0": "Negativo (0-0,2)", "1": "Positivo (> 0,2 sobreexpresión)"},
+        "reemplazar":{"0": "Negativo (0-0,2)", "1": "Positivo (> 0,2 sobreexpresion)"},
         "descripcion": "Presencia"
     },
     

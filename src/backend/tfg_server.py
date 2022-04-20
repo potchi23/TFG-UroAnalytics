@@ -482,11 +482,6 @@ def clearPatientsDF(df):
     dataJson = json.load(variablesJson)
     
     invalidColumns = list()
-    
-    #Ver si las claves del Json estan en las columnas del DF a guardar
-    for key in dataJson:
-        if key not in df.columns:
-            dataJson.pop(key)
         
     #Por cada columna del DF, comprobar el tipo de la columna y que los datos esten comprendidos entre los rangos permitidos
     for column in df.columns:
@@ -531,27 +526,29 @@ def doQuery():
     status = 400
     response = {
         'num_entries':0,
-        'data':[]
+        'data':[],
+        'errorMsg': ""
     }
 
     if request.method == 'GET':
+        if len(request.form) > 0:
+            queryWhere, num_entries = buildQuery(request.form); 
 
-        query, num_entries = buildQuery(request.form); 
-        print(query)
-        #df_db = pd.read_sql(query, engine)
-        #print(df_db)
-        
-        columns = tuple(engine.execute(query).keys())
-        result = engine.execute(query)
+            result_patients = pd.read_sql("SELECT * FROM PATIENTS " + queryWhere, engine)
 
-        entry = {}
-        for row in result:
-            for i in range(0, len(row)):
-                entry[columns[i]] = row[i]
-            response['data'].append(dict(entry))
+            if not result_patients.empty:
+                status = 200
+                df_aux = dbTranslator(result_patients.fillna(""))
+                response['data'] = df_aux.to_dict(orient='records')
+            else:
+                status = 404
+                response["errorMsg"] = "No hay pacientes que concuerden con la consulta."
 
-        response['num_entries'] = num_entries
-    return response
+            response['num_entries'] = num_entries
+        else:
+            response["errorMsg"] = "Consulta vacía."
+
+    return response, status
 
 def buildQuery(req):
     req = dict(req)
@@ -561,7 +558,7 @@ def buildQuery(req):
     req.pop('offset', None)
     req.pop('num_elems', None)
 
-    query = "SELECT * FROM patients WHERE "
+    query = "WHERE "
     operators = "=<>"
     keys = list(req.keys())
     for i in req:
@@ -572,7 +569,7 @@ def buildQuery(req):
         if i != keys[-1]:
             query = query + " AND "
 
-    num_entries = pd.read_sql(query, engine).shape[0]
+    num_entries = pd.read_sql("SELECT * FROM patients " + query, engine).shape[0]
 
     query += ' LIMIT %s, %s' % (offset, num_elems)
     return query, num_entries
@@ -772,16 +769,11 @@ def dbTranslator(df):
     dataJson = json.load(variablesJson)
     
     invalidColumns = list()
-    
-    #Ver si las claves del Json estan en las columnas del DF a guardar
-    for key in dataJson:
-        if key not in df.columns:
-            dataJson.pop(key)
 
     for column in df.columns:
         if column != 'N':
+            df[column] = df[column].astype(str)
             if len(dataJson[column]["reemplazar"]) > 0:
-                df[column] = df[column].astype(str)
                 df[column] = df[column].replace(dataJson[column]["reemplazar"])
     
     return df
