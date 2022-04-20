@@ -269,7 +269,6 @@
     }
     else{
         $_SESSION["get_req"]["offset"] = ($page - 1) * $NUM_ELEMENTS_BY_PAGE;
-        $_SESSION["get_req"]["num_elems"] = $NUM_ELEMENTS_BY_PAGE;
     }
 
     $http_requests = new HttpRequests();
