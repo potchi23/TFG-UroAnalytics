@@ -3,9 +3,11 @@ const BACKEND_URL = 'http://localhost:5000';
 $(document).ready(() => {
     if($('#algorithms').val() != 'none'){
         $('#prediction-button').show();
+        $('#prediction-button-existent').show();
     }
     else{
         $('#prediction-button').hide();
+        $('#prediction-button-existent').hide();
     }
 
     $('#last-train').ready(() => {
