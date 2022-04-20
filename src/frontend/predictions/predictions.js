@@ -80,8 +80,14 @@ $(document).ready(() => {
 
     $('#prediction-button').click(() => {
         let features = [];
+        ['N', 'NOTAS', 'FECHACIR', 'FECHAFIN','ETNIA', 'HISTO', 'IPERIN', 'ILINF', 'IVASCU', 'HISTO2', 'ILINF2', 'IVASCU2', 'FALLEC']
         $('.prediction-form-input').each((index, value) => {
-            if($(value).attr('id') != 'N' && $(value).attr('id') != 'FECHACIR' && $(value).attr('id') != 'FECHAFIN' && $(value).attr('id') != 'ETNIA' && $(value).attr('id') != 'HISTO2' && $(value).attr('id') != 'NOTAS' && $(value).attr('id') != 'RBQ' && $(value).attr('id') != 'TDUPLI.R1'){
+            if($(value).attr('id') != 'N' && $(value).attr('id') != 'FECHACIR' && $(value).attr('id') != 'FECHAFIN' && $(value).attr('id') != 'ETNIA' &&
+               $(value).attr('id') != 'HISTO2' && $(value).attr('id') != 'NOTAS' && $(value).attr('id') != 'RBQ' && $(value).attr('id') != 'TDUPLI.R1' &&
+               $(value).attr('id') != 'HISTO' && $(value).attr('id') != 'IPERIN' && $(value).attr('id') != 'ILINF' && $(value).attr('id') != 'TDUPLI.R1' &&
+               $(value).attr('id') != 'IVASCU' && $(value).attr('id') != 'HISTO2' && $(value).attr('id') != 'ILINF2' && $(value).attr('id') != 'IVASCU2' 
+               && $(value).attr('id') != 'FALLEC'
+               ){
                 features.push($(value).attr('value') == '' ? 0 : $(value).attr('value')*1);
             }
         });
@@ -111,7 +117,13 @@ $(document).ready(() => {
         let features = [];
 
         $('.prediction-values-' + $('#selected').val()).each((index, value) => {
-            if($(value).attr('id') != 'N' && $(value).attr('id') != 'FECHACIR' && $(value).attr('id') != 'FECHAFIN' && $(value).attr('id') != 'ETNIA' && $(value).attr('id') != 'HISTO2' && $(value).attr('id') != 'NOTAS' && $(value).attr('id') != 'RBQ' && $(value).attr('id') != 'TDUPLI.R1'){
+            if(
+               $(value).attr('id') != 'N' && $(value).attr('id') != 'FECHACIR' && $(value).attr('id') != 'FECHAFIN' && $(value).attr('id') != 'ETNIA' &&
+               $(value).attr('id') != 'HISTO2' && $(value).attr('id') != 'NOTAS' && $(value).attr('id') != 'RBQ' && $(value).attr('id') != 'TDUPLI.R1' &&
+               $(value).attr('id') != 'HISTO' && $(value).attr('id') != 'IPERIN' && $(value).attr('id') != 'ILINF' && $(value).attr('id') != 'TDUPLI.R1' &&
+               $(value).attr('id') != 'IVASCU' && $(value).attr('id') != 'HISTO2' && $(value).attr('id') != 'ILINF2' && $(value).attr('id') != 'IVASCU2' 
+               && $(value).attr('id') != 'FALLEC'
+            ){
                 features.push($(value).text() == '' ? 0 : $(value).text()*1);
             }
         });

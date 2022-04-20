@@ -14,6 +14,8 @@ import predictions
 import pandas as pd
 import json
 import numpy as np
+import base64
+import copy
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
@@ -366,6 +368,37 @@ def predict(current_user=''):
         status = 200
         return response, status
 
+@app.route('/import_prediction', methods=['POST'])
+@token_required
+def import_prediction(current_user):
+    status = 400
+    response = {}
+
+    if request.method == 'POST':
+        file = base64.b64decode(request.form['file'])
+        filename = HERE + "/tmp_uploads/prediction_tmp.xlsx"
+        
+        if os.path.exists(filename):
+            os.remove(filename)
+
+        with open(filename, 'wb') as excel_file:
+            excel_file.write(file)
+
+        df = pd.read_excel(filename, header=0)
+        os.remove(filename)
+        df.columns = df.columns.str.upper()
+        df.columns = df.columns.str.replace(' ', '-')
+
+        response = df.to_json()
+
+        df, errorMSG = newPatientsDF(df)
+        if errorMSG == None:
+            status = 200
+        else:
+            response['errorMSG'] = errorMSG
+
+        return response, status
+
 @app.route('/importdb', methods=['POST'])
 @token_required
 def importdb(current_user):
@@ -376,13 +409,21 @@ def importdb(current_user):
     }
 
     if request.method == 'POST':
-        filename = request.form['filename']
-        filepath = HERE + "/tmp_uploads/" + filename
+        file = base64.b64decode(request.form['file'])
+        filename = HERE + "/tmp_uploads/import_tmp.xlsx"
+
+        if os.path.exists(filename):
+            os.remove(filename)
+
+        with open(filename, 'wb') as excel_file:
+            excel_file.write(file)
+
         #leer archivo
-        df = pd.read_excel(filepath, header=0)
+        df = pd.read_excel(filename, header=0)
         print(df.columns)
+
         #eliminar archivo del frontend
-        os.remove(filepath)
+        os.remove(filename)
 
         df, errorMSG = newPatientsDF(df)
         if errorMSG == None:
