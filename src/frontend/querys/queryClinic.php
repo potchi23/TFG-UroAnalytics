@@ -14,7 +14,7 @@
                             <option value="1">0-6 ng/ml</option>
                             <option value="2">6,01-10 ng/ml</option>
                             <option value="3">10,01-20 ng/ml</option>
-                            <option value="3">más de 20 ng/ml</option>
+                            <option value="4">más de 20 ng/ml</option>
                         </select>
                     </div>
             </div>
