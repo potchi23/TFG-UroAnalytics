@@ -36,6 +36,8 @@ $(document).ready(() => {
 
                 if($('#algorithms').val() != 'none'){
                     $('#prediction-button').show();
+                    $('#prediction-button-existent').show();
+
                     $('#prediction-accuracy').val((parseFloat(scores[$('#algorithms').val()]['accuracy'])*100).toFixed(2) + '%');
 
                     $('#prediction-recall-1').val((parseFloat(scores[$('#algorithms').val()]['recall'][0])*100).toFixed(2) + '%');
@@ -49,6 +51,7 @@ $(document).ready(() => {
                 }
                 else{
                     $('#prediction-button').hide();
+                    $('#prediction-button-existent').hide();
 
                     $('#prediction-accuracy').val('0.0%');
 
