@@ -71,8 +71,6 @@ CREATE TABLE `patients` (
   `RTPMES` double DEFAULT NULL,
   `RBQ` bigint(20) DEFAULT NULL,
   `TRBQ` double DEFAULT NULL,
-  `TDUPLI` double DEFAULT NULL,
-  `TDUPLI.R1` text COLLATE utf8_spanish_ci DEFAULT NULL,
   `T1MTX` double DEFAULT NULL,
   `FECHAFIN` datetime DEFAULT NULL,
   `T.SEG` double DEFAULT NULL,
@@ -90,12 +88,10 @@ CREATE TABLE `patients` (
   `C-MYC` double DEFAULT NULL,
   `NOTAS` text COLLATE utf8_spanish_ci DEFAULT NULL,
   `IMC` double DEFAULT NULL,
-  `ASA` double DEFAULT NULL,
-  `GR` double DEFAULT NULL,
-  `PNV` double DEFAULT NULL,
-  `TQ` double DEFAULT NULL,
-  `TH` double DEFAULT NULL,
-  `NGG` double DEFAULT NULL,
+  `ASA` bigint(20) DEFAULT NULL,
+  `GR` bigint(20) DEFAULT NULL,
+  `PNV` bigint(20) DEFAULT NULL,
+  `TH` bigint(20) DEFAULT NULL,
   `PGG` double DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 

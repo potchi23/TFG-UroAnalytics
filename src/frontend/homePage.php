@@ -98,7 +98,8 @@
                                 if($response["status"] == 401) {
                                     unset($_SESSION["user"]);
                                     $_SESSION["message"] = "La sesión ha caducado";
-                                    header("Location: ./login.php");
+                                    echo "<script>alert('La sesión ha caducado. Vuelva a iniciar sesión.');</script>";
+                                    echo "<script type='text/javascript'>window.location.href = '../login.php';</script>";
                                 }
                             } 
                         ?>

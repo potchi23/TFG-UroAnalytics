@@ -1,33 +1,23 @@
-from calendar import c
-from itertools import count
 import os
 import sys
-from flask import Flask, request, session
-from mysql import connector
+from flask import Flask, request
 from flask_cors import CORS
 from flask_bcrypt import Bcrypt
 from functools import wraps
 import jwt
 from datetime import datetime, timedelta
-# from sqlalchemy import create_engine
 import sqlalchemy as sqla 
 import predictions
 import pandas as pd
 import json
 import numpy as np
+import base64
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
 app = Flask(__name__)
 CORS(app)
 bcrypt = Bcrypt(app)
-
-mydb = connector.connect(
-    host='localhost',
-    user='root',
-    password='',
-    database='tfg_bd'
-)
 
 engine = sqla.create_engine('mysql://root:@localhost/tfg_bd', echo = False)
 
@@ -87,10 +77,9 @@ def login():
         email = request.form['email']
         password = request.form['password']
 
-        cursor = mydb.cursor()
-        query = f'SELECT id, name, surname_1, surname_2, email, password, accepted, type FROM users WHERE email=\'{email}\''
-        cursor.execute(query)
-        user_info = cursor.fetchone()
+        query = 'SELECT id, name, surname_1, surname_2, email, password, accepted, type FROM users WHERE email=%s'
+        params = (email)
+        user_info = engine.execute(query, params).fetchone()
         
         if not user_info:
             status = 401
@@ -116,7 +105,7 @@ def login():
 
                 if user_info[6] == 0:
                     response['accepted'] = False
-        
+
         return response, status 
 
     else:
@@ -137,9 +126,9 @@ def register():
         password = bcrypt.generate_password_hash(request.form['password']).decode('utf-8')
 
         try:
-            query = "INSERT INTO users(name, surname_1, surname_2, email, password) VALUES (%s,%s,%s,%s,%s)"
+            query = 'INSERT INTO users(name, surname_1, surname_2, email, password) VALUES (%s,%s,%s,%s,%s)'
             values = (name, surname_1, surname_2, email, password)
-            id = engine.execute(query, values)    
+            engine.execute(query, values)    
             status = 200        
         except:
             response['errno'] = "Error al registrarse"
@@ -158,79 +147,69 @@ def register_petitions():
     status = 400
 
     if request.method == 'GET':
-        offset = request.form['offset']
-        num_elems = request.form['num_elems']
+        offset = int(request.form['offset'])
+        num_elems = int(request.form['num_elems'])
 
-        cursor = mydb.cursor()
-        query = f'SELECT id, name, surname_1, surname_2, email FROM users WHERE accepted = 0 LIMIT {offset}, {num_elems}'
-        cursor.execute(query)
+        query = 'SELECT id, name, surname_1, surname_2, email FROM users WHERE accepted = 0 LIMIT %s, %s'
+        params = (offset, num_elems)
+        result = engine.execute(query, params).fetchall()
 
         response = {
             'num_entries':0,
             'data':[]
         }
 
-        for register_request in cursor:
-            data = {
+        for register_request in result:
+            user_data = {
                 'id': register_request[0],
                 'name':register_request[1],
                 'surname_1':register_request[2],
                 'surname_2':register_request[3],
                 'email':register_request[4]
             }
-            response['data'].append(data)
+            response['data'].append(user_data)
         
-        query = f'SELECT COUNT(id) FROM users WHERE accepted = 0'
-        cursor.execute(query)
-        response['num_entries'] = cursor.fetchone()
-
-        cursor.close()
-
+        query = 'SELECT COUNT(id) FROM users WHERE accepted = 0'
+        result = engine.execute(query).fetchone()
+        response['num_entries'] = result[0]
+        
         status = 200
         
         return response, status
 
     elif request.method == 'PATCH':
-        cursor = mydb.cursor()
-        user_id = request.form['id']
+        user_id = int(request.form['id'])
 
-        query = f'SELECT name, email FROM users WHERE id = {user_id}'
-        cursor.execute(query)
-        data = cursor.fetchone()
-
+        query = 'SELECT name, email FROM users WHERE id = %s'
+        params = (user_id)
+        data = engine.execute(query, params).fetchone()
+        
         response = {}
             
         response['name'] = data[0]
         response['email'] = data[1]
 
-        query = f'UPDATE users SET accepted = 1 WHERE id = {user_id}'
-        cursor.execute(query)
-        mydb.commit()
-
-        cursor.close()
+        query = 'UPDATE users SET accepted = 1 WHERE id = %s'
+        engine.execute(query, params)
 
         status = 200
 
         return response, status
 
     elif request.method == 'DELETE':
-        cursor = mydb.cursor()
-        user_id = request.form['id']
+        user_id = int(request.form['id'])
         
-        query = f'SELECT name, email FROM users WHERE id = {user_id}'
-        cursor.execute(query)
-        data = cursor.fetchone()
+        query = 'SELECT name, email FROM users WHERE id = %s'
+        params = (user_id)
+        data = engine.execute(query, params).fetchone()
 
         response = {}
         
         response['name'] = data[0],
         response['email'] = data[1]
         
-        query = f'DELETE FROM users WHERE id = {user_id}'
-        cursor.execute(query)
-        mydb.commit()
-
-        cursor.close()
+        query = 'DELETE FROM users WHERE id = %s'
+        engine.execute(query, params)
 
         status = 200
 
@@ -257,19 +236,18 @@ def users(current_user, id):
         surname_1 = request.form['surname_1']
         surname_2 = request.form['surname_2']
         email = request.form['email']
+        id = int(id)
 
-        cursor = mydb.cursor()
-        
         if request.form['password'] != '':
             password = bcrypt.generate_password_hash(request.form['password']).decode('utf-8')
-            query = f'UPDATE users SET name=\'{name}\', surname_1=\'{surname_1}\', surname_2=\'{surname_2}\', email=\'{email}\', password=\'{password}\' WHERE id={id}'
+            query = 'UPDATE users SET name=%s, surname_1=%s, surname_2=%s, email=%s, password=%s WHERE id=%s'
+            params = (name, surname_1, surname_2, email, password, id)
         else:
-            query = f'UPDATE users SET name=\'{name}\', surname_1=\'{surname_1}\', surname_2=\'{surname_2}\', email=\'{email}\' WHERE id={id}'
+            query = 'UPDATE users SET name=%s, surname_1=%s, surname_2=%s, email=%s WHERE id=%s'
+            params = (name, surname_1, surname_2, email, id)
 
-        cursor.execute(query)
-        mydb.commit()
-        cursor.close()
-        
+        engine.execute(query, params)
+
         response = 'User updated'
         status = 200
 
@@ -278,28 +256,26 @@ def users(current_user, id):
     elif request.method == 'DELETE':
         if current_user['public_id'] != int(id):
             return {'message' : 'Forbidden'}, 403
-        
-        cursor = mydb.cursor()
-        
-        query = f'SELECT name, email FROM users WHERE id = {id}'
-        cursor.execute(query)
-        data = cursor.fetchone()
+
+        id = int(id)
+        query = 'SELECT name, email FROM users WHERE id = %s'
+        params = (id)
+        data = engine.execute(query, params).fetchone()
         
         response['name'] = data[0],
         response['email'] = data[1]
 
-        query = f'DELETE FROM users WHERE id={id}'
-
-        cursor.execute(query)
-        mydb.commit()
-        cursor.close()
+        query = 'DELETE FROM users WHERE id=%s'
+        engine.execute(query, params)
 
         status = 200
         
         return response, status
 
     else:
-        return 'Method not supported', status
+        response = 'Method not supported'
+        print(response, file=sys.stderr)
+        return response, status
 
 @app.before_first_request
 def trainOnStartup():
@@ -311,7 +287,6 @@ def trainOnStartup():
     global scores
     global last_train
     last_train = datetime.utcnow()
-    # engine = create_engine('mysql://root:@localhost/tfg_bd', echo = False)
     df = pd.read_sql('SELECT * FROM patients', engine)
     if not df.empty:
         pipe_rfc, pipe_lrc, pipe_knn, pipe_best, scores = predictions.trainModels(df)
@@ -330,7 +305,6 @@ def train(current_user):
     global last_train
 
     if request.method == 'GET':
-        # engine = create_engine('mysql://root:@localhost/tfg_bd', echo = False)
         df = pd.read_sql('SELECT * FROM patients', engine)
 
         pipe_rfc, pipe_lrc, pipe_knn, pipe_best, scores = predictions.trainModels(df)
@@ -392,6 +366,37 @@ def predict(current_user=''):
         status = 200
         return response, status
 
+@app.route('/import_prediction', methods=['POST'])
+@token_required
+def import_prediction(current_user):
+    status = 400
+    response = {}
+
+    if request.method == 'POST':
+        file = base64.b64decode(request.form['file'])
+        filename = HERE + "/tmp_uploads/prediction_tmp.xlsx"
+        
+        if os.path.exists(filename):
+            os.remove(filename)
+
+        with open(filename, 'wb') as excel_file:
+            excel_file.write(file)
+
+        df = pd.read_excel(filename, header=0)
+        os.remove(filename)
+        df.columns = df.columns.str.upper()
+        df.columns = df.columns.str.replace(' ', '-')
+
+        response = df.to_json()
+
+        df, errorMSG = newPatientsDF(df)
+        if errorMSG == None:
+            status = 200
+        else:
+            response['errorMSG'] = errorMSG
+
+        return response, status
+
 @app.route('/importdb', methods=['POST'])
 @token_required
 def importdb(current_user):
@@ -402,13 +407,21 @@ def importdb(current_user):
     }
 
     if request.method == 'POST':
-        filename = request.form['filename']
-        filepath = HERE + "/tmp_uploads/" + filename
+        file = base64.b64decode(request.form['file'])
+        filename = HERE + "/tmp_uploads/import_tmp.xlsx"
+
+        if os.path.exists(filename):
+            os.remove(filename)
+
+        with open(filename, 'wb') as excel_file:
+            excel_file.write(file)
+
         #leer archivo
-        df = pd.read_excel(filepath, header=0)
+        df = pd.read_excel(filename, header=0)
         print(df.columns)
+
         #eliminar archivo del frontend
-        os.remove(filepath)
+        os.remove(filename)
 
         df, errorMSG = newPatientsDF(df)
         if errorMSG == None:
@@ -428,7 +441,7 @@ def newPatientsDF(df):
         df: dataFrame del excel
     '''
     errorMSG = None
-    query = f'SELECT * FROM patients'
+    query = 'SELECT * FROM patients'
 
     df_db = pd.read_sql(query, engine)
 
@@ -467,11 +480,6 @@ def clearPatientsDF(df):
     dataJson = json.load(variablesJson)
     
     invalidColumns = list()
-    
-    #Ver si las claves del Json estan en las columnas del DF a guardar
-    for key in dataJson:
-        if key not in df.columns:
-            dataJson.pop(key)
         
     #Por cada columna del DF, comprobar el tipo de la columna y que los datos esten comprendidos entre los rangos permitidos
     for column in df.columns:
@@ -496,7 +504,7 @@ def exportdb(current_user):
     response = {}
 
     if request.method == 'GET':
-        query = "SELECT * FROM patients"
+        query = 'SELECT * FROM patients'
         df_db = pd.read_sql(query, engine)        
 
         df_db["FECHACIR"] = pd.to_datetime(df_db["FECHACIR"]).dt.strftime('%d-%m-%Y')
@@ -514,30 +522,57 @@ def exportdb(current_user):
 @app.route('/getQuery', methods=['GET'])
 def doQuery():
     status = 400
-    response = {}
+    response = {
+        'num_entries':0,
+        'data':[],
+        'errorMsg': ""
+    }
 
     if request.method == 'GET':
+        if len(request.form) > 0:
+            queryWhere, num_entries = buildQuery(request.form); 
 
-        query = buildQuery(request.form); 
-        print(query)
-        df_db = pd.read_sql(query, engine)
-        print(df_db)
+            result_patients = pd.read_sql("SELECT * FROM PATIENTS " + queryWhere, engine)
 
-    return response
+            if not result_patients.empty:
+                status = 200
+                df_aux = dbTranslator(result_patients.fillna(""))
+                response['data'] = df_aux.to_dict(orient='records')
+            else:
+                status = 404
+                response["errorMsg"] = "No hay pacientes que concuerden con la consulta."
+
+            response['num_entries'] = num_entries
+        else:
+            response["errorMsg"] = "Consulta vacía."
+
+    return response, status
 
 def buildQuery(req):
-    query = "SELECT * FROM patients WHERE "
-    operators = "=<>"
-    keys = list(req.keys())
-    for i in req:
-        if req[i][0] in operators:
-            query = query + i + " " + req[i]
-        else:
-            query = query + i + " = " + req[i]
-        if i != keys[-1]:
-            query = query + " AND "
+    req = dict(req)
+    offset = req['offset']
+    num_elems = req['num_elems']
 
-    return query
+    req.pop('offset', None)
+    req.pop('num_elems', None)
+
+    query = ''
+    if(len(req) > 0):
+        query = "WHERE "
+        operators = "=<>"
+        keys = list(req.keys())
+        for i in req:
+            if req[i][0] in operators:
+                query = query + i + " " + req[i]
+            else:
+                query = query + i + " = " + req[i]
+            if i != keys[-1]:
+                query = query + " AND "
+    
+    num_entries = pd.read_sql("SELECT * FROM patients " + query, engine).shape[0]
+
+    query += ' LIMIT %s, %s' % (offset, num_elems)
+    return query, num_entries
 
 @app.route('/numPatients', methods=['GET'])
 @token_required
@@ -565,8 +600,8 @@ def viewPatients(current_user):
     status = 400
     response = {}
     if request.method == 'GET':
-        offset = request.form['offset']
-        num_elems = request.form['num_elems']
+        offset = int(request.form['offset'])
+        num_elems = int(request.form['num_elems'])
         response = {
             'num_entries':engine.execute('SELECT COUNT(N) FROM patients').scalar(),
             'data':[]
@@ -577,10 +612,11 @@ def viewPatients(current_user):
         if('rbq_null' in request.form and request.form['rbq_null'] == 'true'):
             query += 'WHERE RBQ IS NULL '
 
-        query += 'LIMIT %s, %s' % (offset, num_elems)
+        query += 'LIMIT %s, %s'
+        params = (offset, num_elems)
 
-        columns = tuple(engine.execute(query).keys())
-        result = engine.execute(query)
+        columns = tuple(engine.execute(query, params).keys())
+        result = engine.execute(query, params)
 
         entry = {}
         for row in result:
@@ -598,6 +634,7 @@ def viewPatients(current_user):
         FECHACIR = request.form['FECHACIR']
         EDAD = request.form['EDAD']
         ETNIA = request.form['ETNIA']
+        OBESO = request.form['OBESO']
         HTA = request.form['HTA']
         DM = request.form['DM']
         TABACO = request.form['TABACO']
@@ -636,11 +673,9 @@ def viewPatients(current_user):
         RTPMES = request.form['RTPMES']
         RBQ = request.form['RBQ']
         TRBQ = request.form['TRBQ']
-        TDUPLI = request.form['TDUPLI']
-        TDUPLI_r1 = request.form['TDUPLI.r1']
         T1MTX = request.form['T1MTX']
         FECHAFIN = request.form['FECHAFIN']
-        t_seg = request.form['t.seg']
+        t_seg = request.form['t_seg']
         FALLEC = request.form['FALLEC']
         TSUPERV = request.form['TSUPERV']
         TSEGUI = request.form['TSEGUI']
@@ -658,26 +693,18 @@ def viewPatients(current_user):
         ASA = request.form['ASA']
         GR = request.form['GR']
         PNV = request.form['PNV']
-        TQ = request.form['TQ']
         TH = request.form['TH']
-        NGG = request.form['NGG']
         PGG = request.form['PGG']
         
-        cursor = mydb.cursor()
-        query = 'INSERT INTO patients(FECHACIR, EDAD, ETNIA, HTA, DM, TABACO, HEREDA, TACTOR, PSAPRE, PSALT, TDUPPRE, ECOTR, NBIOPSIA, HISTO, GLEASON1, NCILPOS, BILAT, PORCENT, IPERIN, ILINF,IVASCU, TNM1, HISTO2, GLEASON2, BILAT2, LOCALIZ, MULTIFOC, VOLUMEN, EXTRACAP, VVSS, IPERIN2, ILINF2, IVASCU2, PINAG, MARGEN, TNM2, PSAPOS, RTPADYU, RTPMES, RBQ, TRBQ, TDUPLI, TDUPLI.r1, T1MTX, FECHAFIN, t.seg, FALLEC, TSUPERV, TSEGUI, PSAFIN, CAPRA S, RA-NUCLEAR, RA-ESTROMA, PTEN, ERG, KI-67, SPINK1, C-MYC, NOTAS, IMC, ASA, GR, PNV, TQ, TH, NGG, PGG) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
-        values = (FECHACIR, EDAD, ETNIA, HTA, DM, TABACO, HEREDA, TACTOR, PSAPRE, PSALT, TDUPPRE, ECOTR, NBIOPSIA, HISTO, GLEASON1, NCILPOS, BILAT, PORCENT, IPERIN, ILINF,IVASCU, TNM1, HISTO2, GLEASON2, BILAT2, LOCALIZ, MULTIFOC, VOLUMEN, EXTRACAP, VVSS, IPERIN2, ILINF2, IVASCU2, PINAG, MARGEN, TNM2, PSAPOS, RTPADYU, RTPMES, RBQ, TRBQ, TDUPLI, TDUPLI_r1, T1MTX, FECHAFIN, t_seg, FALLEC, TSUPERV, TSEGUI, PSAFIN, CAPRA_S, RA_nuclear, RA_estroma, PTEN, ERG, KI_67, SPINK1, C_MYC, NOTAS, IMC, ASA, GR, PNV, TQ, TH, NGG, PGG)
-        
         try:
-            cursor.execute(query, values)
-            mydb.commit()
-            status = 200
-        except connector.Error as e:
-            print(e, file=sys.stderr)
-            response['errno'] = e.errno
-        finally:
-            cursor.close()
-
-            return response, status
+            query = "INSERT INTO patients(FECHACIR, EDAD, ETNIA, OBESO,  HTA, DM, TABACO, HEREDA, TACTOR, PSAPRE, PSALT, TDUPPRE, ECOTR, NBIOPSIA, HISTO, GLEASON1, NCILPOS, BILAT, PORCENT, IPERIN, ILINF,IVASCU, TNM1, HISTO2, GLEASON2, BILAT2, LOCALIZ, MULTIFOC, VOLUMEN, EXTRACAP, VVSS, IPERIN2, ILINF2, IVASCU2, PINAG, MARGEN, TNM2, PSAPOS, RTPADYU, RTPMES, RBQ, TRBQ, T1MTX, FECHAFIN, t.seg, FALLEC, TSUPERV, TSEGUI, PSAFIN, CAPRA S, RA-NUCLEAR, RA-ESTROMA, PTEN, ERG, KI-67, SPINK1, C-MYC, NOTAS, IMC, ASA, GR, PNV, TH, PGG) VALUES (%s,%d,%d,%d,%d,%d,%d,%d,%d,%f,%f,%f,%d,%d,%d,%d,%d,%f,%f,%d,%d,%d,%d,%d,%d,%d,%d,%d,%f,%d,%d,%d,%d,%d,%d,%d,%d,%f,%d,%f,%d,%f,%f,%s,%f,%f,%f,%f,%f,%d,%f,%f,%f,%f,%f,%f,%f,%s,%f,%d,%d,%d,%d,%f)"
+            values = (FECHACIR, EDAD, ETNIA, OBESO, HTA, DM, TABACO, HEREDA, TACTOR, PSAPRE, PSALT, TDUPPRE, ECOTR, NBIOPSIA, HISTO, GLEASON1, NCILPOS, BILAT, PORCENT, IPERIN, ILINF,IVASCU, TNM1, HISTO2, GLEASON2, BILAT2, LOCALIZ, MULTIFOC, VOLUMEN, EXTRACAP, VVSS, IPERIN2, ILINF2, IVASCU2, PINAG, MARGEN, TNM2, PSAPOS, RTPADYU, RTPMES, RBQ, TRBQ, T1MTX, FECHAFIN, t_seg, FALLEC, TSUPERV, TSEGUI, PSAFIN, CAPRA_S, RA_nuclear, RA_estroma, PTEN, ERG, KI_67, SPINK1, C_MYC, NOTAS, IMC, ASA, GR, PNV, TH, PGG)
+            engine.execute(query, values)    
+            status = 200        
+        except:
+            response['errno'] = "Error al añadir paciente"
+            
+        return response, status
 
 @app.route('/patients/<patientId>', methods=['GET', 'PATCH'])
 @token_required
@@ -690,12 +717,13 @@ def viewSinglePatient(current_user, patientId):
             'data':[]
         }
 
-        query = 'SELECT * FROM patients WHERE N = %s' % patientId
+        query = 'SELECT * FROM patients WHERE N = %s'
         if('rbq_null' in request.form and request.form['rbq_null'] == 'true'):
             query += ' AND RBQ IS NULL'
 
-        columns = tuple(engine.execute(query).keys())
-        result = engine.execute(query)
+        params = (patientId)
+        columns = tuple(engine.execute(query, params).keys())
+        result = engine.execute(query, params)
 
         entry = {}
         for row in result:
@@ -713,16 +741,13 @@ def viewSinglePatient(current_user, patientId):
         response = {}
         predictionResult = request.form['predictionResult']
         print("result " + predictionResult)
-        query = 'UPDATE patients SET RBQ = %s WHERE N = %s' % (predictionResult, patientId)
+        query = 'UPDATE patients SET RBQ = %s WHERE N = %s'
+        params = (predictionResult, patientId)
 
-        #try:
-        engine.execute(query)
+        engine.execute(query, params)
         
         status = 200
-        #except connector.Error as e:
-        #    print(e, file=sys.stderr)
-        #    response['errno'] = e.errno
-        #finally:
+
         return response, status
 
 @app.route('/patients/variables', methods=['POST', 'GET'])
@@ -743,16 +768,11 @@ def dbTranslator(df):
     dataJson = json.load(variablesJson)
     
     invalidColumns = list()
-    
-    #Ver si las claves del Json estan en las columnas del DF a guardar
-    for key in dataJson:
-        if key not in df.columns:
-            dataJson.pop(key)
 
     for column in df.columns:
         if column != 'N':
+            df[column] = df[column].astype(str)
             if len(dataJson[column]["reemplazar"]) > 0:
-                df[column] = df[column].astype(str)
                 df[column] = df[column].replace(dataJson[column]["reemplazar"])
     
     return df
@@ -771,4 +791,4 @@ class FlaskConfig:
 
 if __name__ == '__main__':
     app.config.from_object(FlaskConfig())
-    app.run()
+    app.run('0.0.0.0', 5000)

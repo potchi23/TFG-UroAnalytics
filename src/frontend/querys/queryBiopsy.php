@@ -42,10 +42,20 @@
                 <div class="col-xl-">
                     <h3> Mayor % afectación un cilindro </h3>
                 </div>
-                <div class="col my-auto">
-                    <input type="range" value="50" name="biopsy3" min="0" style="width:80%; margin-left:10px" max="100" step="1" oninput="this.nextElementSibling.value = this.value">
-                <output style="margin-left:10px">50</output>%                    
+                <div class="col-xl-">
+                    <div class="custom-control custom-switch custom-switch-md" style="margin-bottom: 0.5em">
+                        <input type="checkbox" class="custom-control-input" id="boolBiopsy3" name="boolBiopsy3" onclick="toggleField('biopsy3', 'boolBiopsy3')">
+                        <label class="custom-control-label" for="boolBiopsy3"></label>
+                    </div>
                 </div>
+            </div>
+
+            <div id="biopsy3" style="display:none;">
+                <div class="form-row align-items-center">
+                    <div class="col my-auto">
+                        <input type="range" value="50" name="biopsy3" min="0" style="width:80%; margin-left:10px" max="100" step="1" oninput="this.nextElementSibling.value = this.value">
+                        <output style="margin-left:10px">50</output>%                    
+                    </div>
                     <div class="col my-auto">
                         <div class="custom-control custom-switch">
                             <input type="checkbox" value="<" class="custom-control-input" name="biopsy3op" id="portcilop1" onclick="toggleCB(document.getElementById('portcilop3'))">
@@ -60,6 +70,7 @@
                             <label class="custom-control-label" for="portcilop3">Mayor que</label>
                         </div>
                     </div>
+                </div>
             </div>
 
             <hr class="my-4">

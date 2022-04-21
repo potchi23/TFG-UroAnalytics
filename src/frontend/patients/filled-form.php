@@ -1,11 +1,6 @@
 <?php
 
-if(!defined('import-form')) {
-    die('Direct access not permitted');
-}
-    if(!defined('import-form')) {
-        die('Direct access not permitted');
-    }
+
 
     require_once("../models/User.php");
     require_once("../requests/HttpRequests.php");
@@ -20,11 +15,11 @@ if(!defined('import-form')) {
     asort($data_array);
     
     if ($response["status"] == 200){
-        foreach($data_array as $column){
+        foreach($response["data"]->data as $column){
             echo <<<EOL
             <div class="input-group-prepend">
                 <span class="input-group-text">$column</span>
-                <input class="prediction-form-input" type="text" id="$column" name="$column" placeholder="$column" value="{$_SESSION["dataInputs"][$column]}">
+                <input class="patient-form-input" type="text" id="$column" name="$column" placeholder="$column" value="{$_SESSION["dataInputs"][$column]}">
             </div>
             EOL;
         }

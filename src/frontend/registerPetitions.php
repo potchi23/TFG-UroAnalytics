@@ -56,17 +56,18 @@
                 
                         $http_requests = new HttpRequests();
                         $response = $http_requests->getResponse("$BACKEND_URL/register_petitions", "GET", $get_req, $user->get_token());
-            
-                        $data_array = $response["data"]->data;
-                        $num_petitions = $response["data"]->num_entries[0];
-
+                        
                         if($response["status"] != 200) {
                             if($response["status"] == 401){
                                 unset($_SESSION["user"]);
+                                echo "<script>alert('La sesión ha caducado. Vuelva a iniciar sesión.');</script>";                                
                                 $_SESSION["message"] = "La sesión ha caducado";
-                                header("Location: ../login.php");
+                                echo "<script type='text/javascript'>window.location.href = '../login.php';</script>";
                             }
                         }
+
+                        $data_array = $response["data"]->data;
+                        $num_petitions = $response["data"]->num_entries;
 
                         if($num_petitions > 0) 
                             echo "<h5>Número de solicitudes: " . $num_petitions . "</h5><br>";
@@ -184,11 +185,11 @@
                                     }                                    
                                     echo "</div>";
                                     
-                                    $numPages = ceil($response["data"]->num_entries[0]/$NUM_ELEMENTS_BY_PAGE);
+                                    $numPages = ceil($response["data"]->num_entries/$NUM_ELEMENTS_BY_PAGE);
                                     echo "<div style='background-color:#e9ecef; border-color:#e9ecef' class='btn btn-warning'>$page/$numPages</div>";
 
                                     echo "<div>";
-                                    if ($get_req["offset"] + $NUM_ELEMENTS_BY_PAGE < $response["data"]->num_entries[0] && count($data_array) > 0){
+                                    if ($get_req["offset"] + $NUM_ELEMENTS_BY_PAGE < $response["data"]->num_entries && count($data_array) > 0){
                                         $next_page = $_SESSION["page"] + 1;    
                                         echo "<a class='btn btn-primary next' href='registerPetitions.php?page=$next_page'>></a>"; 
                                     }
@@ -204,5 +205,9 @@
                 </div>
             </div>
         </div>
+        <div style="margin-bottom:5%;"></div>
+        <footer class="bg-light text-center text-lg-start">
+            <?php require("common/footer.php")?>
+        </footer>  
     </body>
 </html>

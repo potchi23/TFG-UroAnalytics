@@ -46,7 +46,7 @@
     <li class="header-sidebar">Opciones</li>
     <li>
       <a href="#">
-        <i aria-hidden="true"></i> <input type="submit" value="Realizar consulta"> 
+        <i aria-hidden="true"></i> <input type="submit" value="Realizar consulta">
       </a>
     </li>
     <li>

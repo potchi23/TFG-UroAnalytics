@@ -13,15 +13,7 @@ from sklearn.metrics import accuracy_score
 from sklearn.metrics import f1_score
 
 def drop_columns(df):
-    df = df.drop('FECHACIR', axis=1)
-    df = df.drop('FECHAFIN', axis=1)
-    df = df.drop('ETNIA', axis=1)
-    df = df.drop('HISTO2', axis=1)
-    df = df.drop('NOTAS', axis=1)
-    df = df.drop('N', axis=1)
-    df = df.drop('TDUPLI.R1', axis=1)
-
-
+    df = df.drop(['N', 'NOTAS', 'FECHACIR', 'FECHAFIN','ETNIA', 'HISTO', 'IPERIN', 'ILINF', 'IVASCU', 'HISTO2', 'ILINF2', 'IVASCU2', 'FALLEC'], axis=1)
     return df
 
 def df_categorical_to_encoded(df):
@@ -42,59 +34,56 @@ def na_to_median(df):
     return df
 
 def randomForestTraining(X_train, X_test, y_train, y_test):
-    pipe_rfc = Pipeline([
-                    ('scl', StandardScaler()),
-                    ('norm', MinMaxScaler()),
-                    ('rfc', RandomForestClassifier(n_estimators=100, bootstrap=False, max_features='sqrt'))    
-                    ])
+    pipe_rfc = RandomForestClassifier(n_estimators=100, bootstrap=True, max_samples=100, class_weight='balanced')
     pipe_rfc.fit(X_train, y_train)
     accuracy = pipe_rfc.score(X_test, y_test)
 
     y_predict = pipe_rfc.predict(X_test)
-    recall = recall_score(y_test, y_predict, average=None)
-    precision = precision_score(y_test, y_predict, average=None)
+    recall = recall_score(y_test, y_predict, average=None, zero_division=0)
+    precision = precision_score(y_test, y_predict, average=None, zero_division=0)
 
     scores = {
             'accuracy':accuracy,
             'recall':list(recall),
             'precision':list(precision)
         }
+
+    print('random forest score: ' + str(scores))
 
     return pipe_rfc, scores
 
 def logisticRegresionTraining(X_train, X_test, y_train, y_test):
     pipe_lrc = Pipeline([
                     ('scl', StandardScaler()),
-                    ('norm', MinMaxScaler()),
-                    ('lrc', LogisticRegression(C=1.0, penalty='l2'))    
+                    ('clr', LogisticRegression(C=0.5, penalty='l2', solver='liblinear', class_weight='balanced'))   
                     ])
     pipe_lrc.fit(X_train, y_train)
     accuracy = pipe_lrc.score(X_test, y_test)
     
     y_predict = pipe_lrc.predict(X_test)
-    recall = recall_score(y_test, y_predict, average=None)
-    precision = precision_score(y_test, y_predict, average=None)
-
+    recall = recall_score(y_test, y_predict, average=None, zero_division=0)
+    precision = precision_score(y_test, y_predict, average=None, zero_division=0)
     scores = {
             'accuracy':accuracy,
             'recall':list(recall),
             'precision':list(precision)
         }
+
+    print('logistic regression score: ' + str(scores))
 
     return pipe_lrc, scores
     
 def knnTraining(X_train, X_test, y_train, y_test):
     pipe_knn = Pipeline([
-                     ('scl', StandardScaler()),
                      ('norm', MinMaxScaler()),
-                     ('knn', KNeighborsClassifier(8))    
+                     ('knn', KNeighborsClassifier(n_neighbors=10, p=2))     
                     ])
     pipe_knn.fit(X_train, y_train)
     accuracy = pipe_knn.score(X_test, y_test)
 
     y_predict = pipe_knn.predict(X_test)
-    recall = recall_score(y_test, y_predict, average=None)
-    precision = precision_score(y_test, y_predict, average=None)
+    recall = recall_score(y_test, y_predict, average=None, zero_division=0)
+    precision = precision_score(y_test, y_predict, average=None, zero_division=0)
 
     scores = {
             'accuracy':accuracy,
@@ -102,10 +91,12 @@ def knnTraining(X_train, X_test, y_train, y_test):
             'precision':list(precision)
         }
 
+    print('knn score: ' + str(scores))
+
     return pipe_knn, scores
 
 def bestTraining(X_train, X_test, y_train, y_test, estimators):
-    #estimators = [('prfc', pipe_rfc),('pknn', pipe_knn), ('plrc', pipe_clr)]
+    # estimators = [('prfc', pipe_rfc),('pknn', pipe_knn), ('plrc', pipe_clr)]
     pipe_best = VotingClassifier(
                     estimators=estimators,
                     voting='soft'
@@ -114,14 +105,16 @@ def bestTraining(X_train, X_test, y_train, y_test, estimators):
     accuracy = pipe_best.score(X_test, y_test)
 
     y_predict = pipe_best.predict(X_test)
-    recall = recall_score(y_test, y_predict, average=None)
-    precision = precision_score(y_test, y_predict, average=None)
+    recall = recall_score(y_test, y_predict, average=None, zero_division=0)
+    precision = precision_score(y_test, y_predict, average=None, zero_division=0)
 
     scores = {
             'accuracy':accuracy,
             'recall':list(recall),
             'precision':list(precision)
         }
+
+    print('best train score: ' + str(scores))
 
     return pipe_best, scores
 

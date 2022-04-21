@@ -20,21 +20,6 @@
         <?php require_once("../common/includes.php");?>
         <link rel="stylesheet" href="../css/predictions.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <!-- <script language="javaScript">
-            function unselectButtons() {
-                b1 = document.getElementById("op1");
-                b2 = document.getElementById("op2");
-                b3 = document.getElementById("op3");
-
-                b1.disable = false; b1.checked = false;
-                b2.disable = false; b2.checked = false;
-                b3.disable = false; b3.checked = false;
-            }
-            
-            function disableButton3() {
-                document.getElementById("op3").disabled = true; 
-            }
-        </script> -->
     </head>
         <body>
             <div class="header">
@@ -44,16 +29,27 @@
             <div class="sidebar-container" id="list-example">
                 <?php require("sidebarPredictions.php")?>
             </div>
-            
+
+            <div id="training">
+                <?php
+                    if($user->is_admin()){
+                        require("trainingButton.php");  
+                    }
+                ?>
+            </div>
+
             <div class="content-container" data-bs-spy="scroll" data-bs-target="#list-example" data-bs-offset="0" class="scrollspy-example" tabindex="0">
                 <div class="container-fluid">
                     <div class="jumbotron" id="indexPrediction">                        
                         <h1 class="display-8" style="font-weight:600;">Realizar una predicción</h1><br>                        
                         <hr class="my-1"><br>
 
-                        <h5>Para realizar una predicción debe importar un archivo CSV y después pulsar el botón "Importar desde CSV"
-                            o puede rellenar manualmente las siguientes variables.</h5>
-                        <h5>Y a continuación debe elegir el algoritmo de predicción que desee emplear.</h5><br>
+                        <h5>Para realizar una predicción debe importar un archivo CSV o Excel válido y después pulsar el botón "Importar desde fichero".
+                            También puede rellenar manualmente las variables.</h5>
+                        <h5>A continuación, debe elegir el algoritmo de predicción que desee emplear.</h5><br>
+
+                        <h5>Existe la posibilidad de realizar predicciones sobre aquellos pacientes en la base de datos cuyo RBQ no ha sido obtenido aún, 
+                            en la sección <b>Predicción sobre paciente existente</b>.</h5><br>
 
                         <div id="last-train">
                             <span>Último entrenamiento: </span>

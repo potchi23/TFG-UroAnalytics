@@ -18,40 +18,40 @@
         <input type="text" id="prediction-accuracy" name="prediction-accuracy" value="0.0" disabled>
     </div>
     <br>
-    <div>
-        <label for="prediction-recall-1" style="margin-right:1.7rem;">
-            Recall Si (CASOS): 
-        </label>
-        <input type="text" id="prediction-recall-1" name="prediction-recall-1" value="0.0" disabled>
+    <div class="prediction-scores" style="display:flex; flex-direction:row;">
+        <div>
+            <label for="prediction-recall-1" style="margin-right:1.7rem;">
+                Recall Si (CASOS): 
+            </label>
+            <input type="text" id="prediction-recall-1" name="prediction-recall-1" value="0.0" disabled>
 
-        <label for="prediction-recall-2" style="margin-right:1.7rem;">
-            Recall No (CONTROLES): 
-        </label>
-        <input type="text" id="prediction-recall-2" name="prediction-recall-2" value="0.0" disabled>
+            <label for="prediction-recall-2" style="margin-right:1.7rem;">
+                Recall No (CONTROLES): 
+            </label>
+            <input type="text" id="prediction-recall-2" name="prediction-recall-2" value="0.0" disabled>
 
-        <label for="prediction-recall-3" style="margin-right:1.7rem;">
-            Recall Persitencia PSA: 
-        </label>
-        <input type="text" id="prediction-recall-3" name="prediction-recall-3" value="0.0" disabled>
-    </div>
+            <label for="prediction-recall-3" style="margin-right:1.7rem;">
+                Recall Persitencia PSA: 
+            </label>
+            <input type="text" id="prediction-recall-3" name="prediction-recall-3" value="0.0" disabled>
+        </div>
 
-    <br>
-
-    <div>
-        <label for="prediction-precision-1">
-            Precision Si (CASOS): 
-        </label>
-        <input type="text" id="prediction-precision-1" name="prediction-precision-1" value="0.0" disabled>
-        
-        <label for="prediction-precision-2">
-            Precision No (CONTROLES): 
-        </label>
-        <input type="text" id="prediction-precision-2" name="prediction-precision-2" value="0.0" disabled>
-        
-        <label for="prediction-precision-3">
-            Precision Persitencia PSA: 
-        </label>
-        <input type="text" id="prediction-precision-3" name="prediction-precision-3" value="0.0" disabled>
+        <div>
+            <label for="prediction-precision-1">
+                Precision Si (CASOS): 
+            </label>
+            <input type="text" id="prediction-precision-1" name="prediction-precision-1" value="0.0" disabled>
+            
+            <label for="prediction-precision-2">
+                Precision No (CONTROLES): 
+            </label>
+            <input type="text" id="prediction-precision-2" name="prediction-precision-2" value="0.0" disabled>
+            
+            <label for="prediction-precision-3">
+                Precision Persitencia PSA: 
+            </label>
+            <input type="text" id="prediction-precision-3" name="prediction-precision-3" value="0.0" disabled>
+        </div>
     </div>
 </div>
 

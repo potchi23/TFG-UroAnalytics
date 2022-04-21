@@ -3,9 +3,11 @@ const BACKEND_URL = 'http://localhost:5000';
 $(document).ready(() => {
     if($('#algorithms').val() != 'none'){
         $('#prediction-button').show();
+        $('#prediction-button-existent').show();
     }
     else{
         $('#prediction-button').hide();
+        $('#prediction-button-existent').hide();
     }
 
     $('#last-train').ready(() => {
@@ -36,6 +38,8 @@ $(document).ready(() => {
 
                 if($('#algorithms').val() != 'none'){
                     $('#prediction-button').show();
+                    $('#prediction-button-existent').show();
+
                     $('#prediction-accuracy').val((parseFloat(scores[$('#algorithms').val()]['accuracy'])*100).toFixed(2) + '%');
 
                     $('#prediction-recall-1').val((parseFloat(scores[$('#algorithms').val()]['recall'][0])*100).toFixed(2) + '%');
@@ -49,6 +53,7 @@ $(document).ready(() => {
                 }
                 else{
                     $('#prediction-button').hide();
+                    $('#prediction-button-existent').hide();
 
                     $('#prediction-accuracy').val('0.0%');
 
@@ -61,8 +66,18 @@ $(document).ready(() => {
                     $('#prediction-precision-1').val(0.0 + '%');
                     $('#prediction-precision-2').val(0.0 + '%');
                     $('#prediction-precision-3').val(0.0 + '%');
+
+                    $('.prediction-result').val('');
                 }
             },
+
+            statusCode:{
+                401: () => { 
+                    alert('La sesión ha caducado. Vuelva a iniciar sesión.');
+                    window.location.href = '../login.php';
+                }
+            },
+            
             error : e => {
                 console.log('Request failed: ' +  e);
             }
@@ -72,8 +87,14 @@ $(document).ready(() => {
 
     $('#prediction-button').click(() => {
         let features = [];
+        ['N', 'NOTAS', 'FECHACIR', 'FECHAFIN','ETNIA', 'HISTO', 'IPERIN', 'ILINF', 'IVASCU', 'HISTO2', 'ILINF2', 'IVASCU2', 'FALLEC']
         $('.prediction-form-input').each((index, value) => {
-            if($(value).attr('id') != 'N' && $(value).attr('id') != 'FECHACIR' && $(value).attr('id') != 'FECHAFIN' && $(value).attr('id') != 'ETNIA' && $(value).attr('id') != 'HISTO2' && $(value).attr('id') != 'NOTAS' && $(value).attr('id') != 'RBQ' && $(value).attr('id') != 'TDUPLI.R1'){
+            if($(value).attr('id') != 'N' && $(value).attr('id') != 'FECHACIR' && $(value).attr('id') != 'FECHAFIN' && $(value).attr('id') != 'ETNIA' &&
+               $(value).attr('id') != 'HISTO2' && $(value).attr('id') != 'NOTAS' && $(value).attr('id') != 'RBQ' && $(value).attr('id') != 'TDUPLI.R1' &&
+               $(value).attr('id') != 'HISTO' && $(value).attr('id') != 'IPERIN' && $(value).attr('id') != 'ILINF' && $(value).attr('id') != 'TDUPLI.R1' &&
+               $(value).attr('id') != 'IVASCU' && $(value).attr('id') != 'HISTO2' && $(value).attr('id') != 'ILINF2' && $(value).attr('id') != 'IVASCU2' 
+               && $(value).attr('id') != 'FALLEC'
+               ){
                 features.push($(value).attr('value') == '' ? 0 : $(value).attr('value')*1);
             }
         });
@@ -103,7 +124,13 @@ $(document).ready(() => {
         let features = [];
 
         $('.prediction-values-' + $('#selected').val()).each((index, value) => {
-            if($(value).attr('id') != 'N' && $(value).attr('id') != 'FECHACIR' && $(value).attr('id') != 'FECHAFIN' && $(value).attr('id') != 'ETNIA' && $(value).attr('id') != 'HISTO2' && $(value).attr('id') != 'NOTAS' && $(value).attr('id') != 'RBQ' && $(value).attr('id') != 'TDUPLI.R1'){
+            if(
+               $(value).attr('id') != 'N' && $(value).attr('id') != 'FECHACIR' && $(value).attr('id') != 'FECHAFIN' && $(value).attr('id') != 'ETNIA' &&
+               $(value).attr('id') != 'HISTO2' && $(value).attr('id') != 'NOTAS' && $(value).attr('id') != 'RBQ' && $(value).attr('id') != 'TDUPLI.R1' &&
+               $(value).attr('id') != 'HISTO' && $(value).attr('id') != 'IPERIN' && $(value).attr('id') != 'ILINF' && $(value).attr('id') != 'TDUPLI.R1' &&
+               $(value).attr('id') != 'IVASCU' && $(value).attr('id') != 'HISTO2' && $(value).attr('id') != 'ILINF2' && $(value).attr('id') != 'IVASCU2' 
+               && $(value).attr('id') != 'FALLEC'
+            ){
                 features.push($(value).text() == '' ? 0 : $(value).text()*1);
             }
         });

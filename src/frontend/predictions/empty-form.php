@@ -12,10 +12,10 @@
 
     $http_requests = new HttpRequests();
     $response = $http_requests->getResponse("$BACKEND_URL/patients/variables", "GET", "", $user->get_token());
-
     $data_array = $response["data"]->data;
-    asort($data_array);
+
     if ($response["status"] == 200){
+        asort($data_array);
        
         foreach($data_array as $column){
             echo <<<EOL
@@ -29,8 +29,9 @@
     else{
         if ($response["status"] == 401){
             unset($_SESSION["user"]);
+            echo "<script>alert('La sesión ha caducado. Vuelva a iniciar sesión.');</script>";
             $_SESSION["message"] = "La sesión ha caducado";
-            header("Location: ../login.php");
+            echo "<script type='text/javascript'>window.location.href = '../login.php';</script>";
         }
     }
 ?>

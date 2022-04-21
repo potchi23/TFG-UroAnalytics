@@ -44,6 +44,19 @@
 
             <ul class="sidebar-navigation">
                 <li class="header-sidebar">Índice</li>
+
+                <?php
+                if($user->is_admin()){
+                    echo <<<EOL
+                        <li>
+                            <a href="predictions.php#training">
+                            <i aria-hidden="true"></i> Entrenamiento
+                            </a>
+                        </li>
+                    EOL;
+                }
+                ?>
+
                 <li>
                     <a href="predictions.php#indexPrediction">
                     <i aria-hidden="true"></i> Inicio Predicción
@@ -101,17 +114,16 @@
                         if($response["status"] != 200) {
                             if($response["status"] == 401){
                                 unset($_SESSION["user"]);
+                                echo "<script>alert('La sesión ha caducado. Vuelva a iniciar sesión.');</script>";
                                 $_SESSION["message"] = "La sesión ha caducado";
-                                header("Location: ../login.php");
+                                echo "<script type='text/javascript'>window.location.href = '../login.php';</script>";
                             }
                         }
                         
                         $num_patients = $response["data"]->num_entries;
 
                         if($num_patients > 0) 
-                            echo "<h5>Número de pacientes con RBQ desconocido: $num_patients</h5><br>";
-                        else
-                            echo "<h5>No hay pacientes en la base de datos con RBQ desconocido</h5><br>";                                        
+                            echo "<h5>Número de pacientes con RBQ desconocido: $num_patients</h5><br>";                                    
                     ?>
                     
                     <div class="table-container m-auto">
@@ -240,6 +252,8 @@
             </div>
         </div>
         <input id='token' type="hidden" value=<?php echo $user->get_token()?>>
+        <div style="margin-bottom:25%;"></div>
+
         <div class="footer">
             <?php require("../common/footer.php");?>
         </div>   
