@@ -556,17 +556,19 @@ def buildQuery(req):
     req.pop('offset', None)
     req.pop('num_elems', None)
 
-    query = "WHERE "
-    operators = "=<>"
-    keys = list(req.keys())
-    for i in req:
-        if req[i][0] in operators:
-            query = query + i + " " + req[i]
-        else:
-            query = query + i + " = " + req[i]
-        if i != keys[-1]:
-            query = query + " AND "
-
+    query = ''
+    if(len(req) > 0):
+        query = "WHERE "
+        operators = "=<>"
+        keys = list(req.keys())
+        for i in req:
+            if req[i][0] in operators:
+                query = query + i + " " + req[i]
+            else:
+                query = query + i + " = " + req[i]
+            if i != keys[-1]:
+                query = query + " AND "
+    
     num_entries = pd.read_sql("SELECT * FROM patients " + query, engine).shape[0]
 
     query += ' LIMIT %s, %s' % (offset, num_elems)
