@@ -1,9 +1,6 @@
-from calendar import c
-from itertools import count
 import os
 import sys
-from flask import Flask, request, session
-from mysql import connector
+from flask import Flask, request
 from flask_cors import CORS
 from flask_bcrypt import Bcrypt
 from functools import wraps
@@ -15,20 +12,12 @@ import pandas as pd
 import json
 import numpy as np
 import base64
-import copy
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
 app = Flask(__name__)
 CORS(app)
 bcrypt = Bcrypt(app)
-
-mydb = connector.connect(
-    host='localhost',
-    user='root',
-    password='',
-    database='tfg_bd'
-)
 
 engine = sqla.create_engine('mysql://root:@localhost/tfg_bd', echo = False)
 
@@ -88,8 +77,9 @@ def login():
         email = request.form['email']
         password = request.form['password']
 
-        query = f'SELECT id, name, surname_1, surname_2, email, password, accepted, type FROM users WHERE email=\'{email}\''
-        user_info = engine.execute(query).fetchone()
+        query = 'SELECT id, name, surname_1, surname_2, email, password, accepted, type FROM users WHERE email=%s'
+        params = (email)
+        user_info = engine.execute(query, params).fetchone()
         
         if not user_info:
             status = 401
@@ -136,7 +126,7 @@ def register():
         password = bcrypt.generate_password_hash(request.form['password']).decode('utf-8')
 
         try:
-            query = "INSERT INTO users(name, surname_1, surname_2, email, password) VALUES (%s,%s,%s,%s,%s)"
+            query = 'INSERT INTO users(name, surname_1, surname_2, email, password) VALUES (%s,%s,%s,%s,%s)'
             values = (name, surname_1, surname_2, email, password)
             engine.execute(query, values)    
             status = 200        
@@ -157,11 +147,12 @@ def register_petitions():
     status = 400
 
     if request.method == 'GET':
-        offset = request.form['offset']
-        num_elems = request.form['num_elems']
+        offset = int(request.form['offset'])
+        num_elems = int(request.form['num_elems'])
 
-        query = f'SELECT id, name, surname_1, surname_2, email FROM users WHERE accepted = 0 LIMIT {offset}, {num_elems}'
-        result = engine.execute(query).fetchall()
+        query = 'SELECT id, name, surname_1, surname_2, email FROM users WHERE accepted = 0 LIMIT %s, %s'
+        params = (offset, num_elems)
+        result = engine.execute(query, params).fetchall()
 
         response = {
             'num_entries':0,
@@ -178,7 +169,7 @@ def register_petitions():
             }
             response['data'].append(user_data)
         
-        query = f'SELECT COUNT(id) FROM users WHERE accepted = 0'
+        query = 'SELECT COUNT(id) FROM users WHERE accepted = 0'
         result = engine.execute(query).fetchone()
         response['num_entries'] = result[0]
         
@@ -187,36 +178,38 @@ def register_petitions():
         return response, status
 
     elif request.method == 'PATCH':
-        user_id = request.form['id']
+        user_id = int(request.form['id'])
 
-        query = f'SELECT name, email FROM users WHERE id = {user_id}'
-        data = engine.execute(query).fetchone()
+        query = 'SELECT name, email FROM users WHERE id = %s'
+        params = (user_id)
+        data = engine.execute(query, params).fetchone()
         
         response = {}
             
         response['name'] = data[0]
         response['email'] = data[1]
 
-        query = f'UPDATE users SET accepted = 1 WHERE id = {user_id}'
-        engine.execute(query)
+        query = 'UPDATE users SET accepted = 1 WHERE id = %s'
+        engine.execute(query, params)
 
         status = 200
 
         return response, status
 
     elif request.method == 'DELETE':
-        user_id = request.form['id']
+        user_id = int(request.form['id'])
         
-        query = f'SELECT name, email FROM users WHERE id = {user_id}'
-        data = engine.execute(query).fetchone()
+        query = 'SELECT name, email FROM users WHERE id = %s'
+        params = (user_id)
+        data = engine.execute(query, params).fetchone()
 
         response = {}
         
         response['name'] = data[0],
         response['email'] = data[1]
         
-        query = f'DELETE FROM users WHERE id = {user_id}'
-        engine.execute(query)
+        query = 'DELETE FROM users WHERE id = %s'
+        engine.execute(query, params)
 
         status = 200
 
@@ -243,14 +236,17 @@ def users(current_user, id):
         surname_1 = request.form['surname_1']
         surname_2 = request.form['surname_2']
         email = request.form['email']
-                
+        id = int(id)
+
         if request.form['password'] != '':
             password = bcrypt.generate_password_hash(request.form['password']).decode('utf-8')
-            query = f'UPDATE users SET name=\'{name}\', surname_1=\'{surname_1}\', surname_2=\'{surname_2}\', email=\'{email}\', password=\'{password}\' WHERE id={id}'
+            query = 'UPDATE users SET name=%s, surname_1=%s, surname_2=%s, email=%s, password=%s WHERE id=%s'
+            params = (name, surname_1, surname_2, email, password, id)
         else:
-            query = f'UPDATE users SET name=\'{name}\', surname_1=\'{surname_1}\', surname_2=\'{surname_2}\', email=\'{email}\' WHERE id={id}'
+            query = 'UPDATE users SET name=%s, surname_1=%s, surname_2=%s, email=%s WHERE id=%s'
+            params = (name, surname_1, surname_2, email, id)
 
-        engine.execute(query)
+        engine.execute(query, params)
 
         response = 'User updated'
         status = 200
@@ -260,15 +256,17 @@ def users(current_user, id):
     elif request.method == 'DELETE':
         if current_user['public_id'] != int(id):
             return {'message' : 'Forbidden'}, 403
-                
-        query = f'SELECT name, email FROM users WHERE id = {id}'
-        data = engine.execute(query).fetchone()
+
+        id = int(id)
+        query = 'SELECT name, email FROM users WHERE id = %s'
+        params = (id)
+        data = engine.execute(query, params).fetchone()
         
         response['name'] = data[0],
         response['email'] = data[1]
 
-        query = f'DELETE FROM users WHERE id={id}'
-        engine.execute(query)
+        query = 'DELETE FROM users WHERE id=%s'
+        engine.execute(query, params)
 
         status = 200
         
@@ -443,7 +441,7 @@ def newPatientsDF(df):
         df: dataFrame del excel
     '''
     errorMSG = None
-    query = f'SELECT * FROM patients'
+    query = 'SELECT * FROM patients'
 
     df_db = pd.read_sql(query, engine)
 
@@ -506,7 +504,7 @@ def exportdb(current_user):
     response = {}
 
     if request.method == 'GET':
-        query = "SELECT * FROM patients"
+        query = 'SELECT * FROM patients'
         df_db = pd.read_sql(query, engine)        
 
         df_db["FECHACIR"] = pd.to_datetime(df_db["FECHACIR"]).dt.strftime('%d-%m-%Y')
@@ -600,8 +598,8 @@ def viewPatients(current_user):
     status = 400
     response = {}
     if request.method == 'GET':
-        offset = request.form['offset']
-        num_elems = request.form['num_elems']
+        offset = int(request.form['offset'])
+        num_elems = int(request.form['num_elems'])
         response = {
             'num_entries':engine.execute('SELECT COUNT(N) FROM patients').scalar(),
             'data':[]
@@ -612,10 +610,11 @@ def viewPatients(current_user):
         if('rbq_null' in request.form and request.form['rbq_null'] == 'true'):
             query += 'WHERE RBQ IS NULL '
 
-        query += 'LIMIT %s, %s' % (offset, num_elems)
+        query += 'LIMIT %s, %s'
+        params = (offset, num_elems)
 
-        columns = tuple(engine.execute(query).keys())
-        result = engine.execute(query)
+        columns = tuple(engine.execute(query, params).keys())
+        result = engine.execute(query, params)
 
         entry = {}
         for row in result:
@@ -716,12 +715,13 @@ def viewSinglePatient(current_user, patientId):
             'data':[]
         }
 
-        query = 'SELECT * FROM patients WHERE N = %s' % patientId
+        query = 'SELECT * FROM patients WHERE N = %s'
         if('rbq_null' in request.form and request.form['rbq_null'] == 'true'):
             query += ' AND RBQ IS NULL'
 
-        columns = tuple(engine.execute(query).keys())
-        result = engine.execute(query)
+        params = (patientId)
+        columns = tuple(engine.execute(query, params).keys())
+        result = engine.execute(query, params)
 
         entry = {}
         for row in result:
@@ -739,16 +739,13 @@ def viewSinglePatient(current_user, patientId):
         response = {}
         predictionResult = request.form['predictionResult']
         print("result " + predictionResult)
-        query = 'UPDATE patients SET RBQ = %s WHERE N = %s' % (predictionResult, patientId)
+        query = 'UPDATE patients SET RBQ = %s WHERE N = %s'
+        params = (predictionResult, patientId)
 
-        #try:
-        engine.execute(query)
+        engine.execute(query, params)
         
         status = 200
-        #except connector.Error as e:
-        #    print(e, file=sys.stderr)
-        #    response['errno'] = e.errno
-        #finally:
+
         return response, status
 
 @app.route('/patients/variables', methods=['POST', 'GET'])
@@ -792,4 +789,4 @@ class FlaskConfig:
 
 if __name__ == '__main__':
     app.config.from_object(FlaskConfig())
-    app.run()
+    app.run('0.0.0.0', 5000)

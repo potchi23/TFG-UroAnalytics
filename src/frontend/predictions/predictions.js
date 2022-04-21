@@ -66,6 +66,8 @@ $(document).ready(() => {
                     $('#prediction-precision-1').val(0.0 + '%');
                     $('#prediction-precision-2').val(0.0 + '%');
                     $('#prediction-precision-3').val(0.0 + '%');
+
+                    $('.prediction-result').val('');
                 }
             },
 
