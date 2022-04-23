@@ -34,6 +34,9 @@
             <?php require("../common/header.php");?>
         </div>
 
+        <div class="sidebar-container" id="list-example">
+            <?php include_once("sidebarQueryResult.php");?>
+        </div>
 
         <div class="content-container">
             <div class="container-fluid">

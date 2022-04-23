@@ -11,8 +11,16 @@
     session_start();
     $user = $_SESSION["user"];
 
+    $get_req = NULL;
+
+    if(isset($_GET["father"])){
+        $get_req = $_SESSION["get_req"];
+    }
+    else{
+        $get_req = array();
+    }
     $http_requests = new HttpRequests();
-    $response = $http_requests->getResponse("$BACKEND_URL/exportdb", "GET", "", $user->get_token());
+    $response = $http_requests->getResponse("$BACKEND_URL/exportdb", "GET", $get_req, $user->get_token());
 
 
     if($response["status"] == 200) {
@@ -55,7 +63,11 @@
         }
         else {
             $_SESSION["error"] = "Error al exportar los datos de los pacientes";
-            header("Location: ../patients/exportdb.php");
+            if(isset($_GET["father"])){
+                header("Location: ../querys/exportQuery.php");
+            }else{
+                header("Location: ../patients/exportdb.php");
+            }
         }
     }
 ?>

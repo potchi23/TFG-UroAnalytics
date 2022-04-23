@@ -502,7 +502,12 @@ def exportdb(current_user):
     response = {}
 
     if request.method == 'GET':
-        query = 'SELECT * FROM patients'
+        
+        query = 'SELECT * FROM patients '
+
+        if len(request.form) != 0:
+            query += buildQuery(request.form)[0]
+        
         df_db = pd.read_sql(query, engine)        
 
         df_db["FECHACIR"] = pd.to_datetime(df_db["FECHACIR"]).dt.strftime('%d-%m-%Y')
@@ -528,10 +533,16 @@ def doQuery():
 
     if request.method == 'GET':
         if len(request.form) > 0:
+            offset = request.form['offset']
+            num_elems = request.form['num_elems']
+            
             queryWhere, num_entries = buildQuery(request.form); 
 
-            result_patients = pd.read_sql("SELECT * FROM PATIENTS " + queryWhere, engine)
+            queryWhere += ' LIMIT %s, %s' % (offset, num_elems)
 
+
+            result_patients = pd.read_sql("SELECT * FROM PATIENTS " + queryWhere, engine)
+            print(queryWhere)
             if not result_patients.empty:
                 status = 200
                 df_aux = dbTranslator(result_patients.fillna(""))
@@ -548,8 +559,6 @@ def doQuery():
 
 def buildQuery(req):
     req = dict(req)
-    offset = req['offset']
-    num_elems = req['num_elems']
 
     req.pop('offset', None)
     req.pop('num_elems', None)
@@ -560,16 +569,17 @@ def buildQuery(req):
         operators = "=<>"
         keys = list(req.keys())
         for i in req:
-            if req[i][0] in operators:
-                query = query + i + " " + req[i]
-            else:
-                query = query + i + " = " + req[i]
-            if i != keys[-1]:
-                query = query + " AND "
+            if req[i] != '':
+                if req[i][0] in operators:
+                    query = query + i + " " + req[i]
+                else:
+                    query = query + i + " = " + req[i]
+                query = query + " AND"
+        if query[len(query)-3:len(query)] == "AND":
+            query = query[:len(query) - 3]
     
     num_entries = pd.read_sql("SELECT * FROM patients " + query, engine).shape[0]
 
-    query += ' LIMIT %s, %s' % (offset, num_elems)
     return query, num_entries
 
 @app.route('/numPatients', methods=['GET'])
