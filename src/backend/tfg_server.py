@@ -537,12 +537,11 @@ def doQuery():
             num_elems = request.form['num_elems']
             
             queryWhere, num_entries = buildQuery(request.form); 
+            print(queryWhere)
 
             queryWhere += ' LIMIT %s, %s' % (offset, num_elems)
 
-
             result_patients = pd.read_sql("SELECT * FROM PATIENTS " + queryWhere, engine)
-            print(queryWhere)
             if not result_patients.empty:
                 status = 200
                 df_aux = dbTranslator(result_patients.fillna(""))
@@ -574,9 +573,9 @@ def buildQuery(req):
                     query = query + i + " " + req[i]
                 else:
                     query = query + i + " = " + req[i]
-                query = query + " AND"
-        if query[len(query)-3:len(query)] == "AND":
-            query = query[:len(query) - 3]
+                query = query + " AND "
+        if query[len(query)-4:len(query)] == "AND ":
+            query = query[:len(query) - 4]
     
     num_entries = pd.read_sql("SELECT * FROM patients " + query, engine).shape[0]
 
