@@ -460,8 +460,6 @@ def newPatientsDF(df):
         df = df[columns_to_include]
 
         df, invalidColumns = clearPatientsDF(df)
-        print("----------------------------")
-        print(len(df.index))
         
         if len(invalidColumns) == 0:
             if not df_db.empty:
@@ -631,80 +629,32 @@ def viewPatients(current_user):
         return response, status
 
     elif  request.method == 'POST':
-        FECHACIR = request.form['FECHACIR']
-        EDAD = request.form['EDAD']
-        ETNIA = request.form['ETNIA']
-        OBESO = request.form['OBESO']
-        HTA = request.form['HTA']
-        DM = request.form['DM']
-        TABACO = request.form['TABACO']
-        HEREDA = request.form['HEREDA']
-        TACTOR = request.form['TACTOR']
-        PSAPRE = request.form['PSAPRE']
-        PSALT = request.form['PSALT']
-        TDUPPRE = request.form['TDUPPRE']
-        ECOTR = request.form['ECOTR']
-        NBIOPSIA = request.form['NBIOPSIA']
-        HISTO = request.form['HISTO']
-        GLEASON1 = request.form['GLEASON1']
-        NCILPOS = request.form['NCILPOS']
-        BILAT = request.form['BILAT']
-        PORCENT = request.form['PORCENT']
-        IPERIN = request.form['IPERIN']
-        ILINF = request.form['ILINF']
-        IVASCU = request.form['IVASCU']
-        TNM1 = request.form['TNM1']
-        HISTO2 = request.form['HISTO2']
-        GLEASON2 = request.form['GLEASON2']
-        BILAT2 = request.form['BILAT2']
-        LOCALIZ = request.form['LOCALIZ']
-        MULTIFOC = request.form['MULTIFOC']
-        VOLUMEN = request.form['VOLUMEN']
-        EXTRACAP = request.form['EXTRACAP']
-        VVSS = request.form['VVSS']
-        IPERIN2 = request.form['IPERIN2']
-        ILINF2 = request.form['ILINF2']
-        IVASCU2 = request.form['IVASCU2']
-        PINAG = request.form['PINAG']
-        MARGEN = request.form['MARGEN']
-        TNM2 = request.form['TNM2']
-        PSAPOS = request.form['PSAPOS']
-        RTPADYU = request.form['RTPADYU']
-        RTPMES = request.form['RTPMES']
-        RBQ = request.form['RBQ']
-        TRBQ = request.form['TRBQ']
-        T1MTX = request.form['T1MTX']
-        FECHAFIN = request.form['FECHAFIN']
-        t_seg = request.form['t_seg']
-        FALLEC = request.form['FALLEC']
-        TSUPERV = request.form['TSUPERV']
-        TSEGUI = request.form['TSEGUI']
-        PSAFIN = request.form['PSAFIN']
-        CAPRA_S = request.form['CAPRA-S']
-        RA_nuclear = request.form['RA-NUCLEAR']
-        RA_estroma = request.form['RA-ESTROMA']
-        PTEN = request.form['PTEN']
-        ERG = request.form['ERG']
-        KI_67 = request.form['KI-67']
-        SPINK1 = request.form['SPINK1']
-        C_MYC = request.form['C-MYC']
-        NOTAS = request.form['NOTAS']
-        IMC = request.form['IMC']
-        ASA = request.form['ASA']
-        GR = request.form['GR']
-        PNV = request.form['PNV']
-        TH = request.form['TH']
-        PGG = request.form['PGG']
-        
+        response = {
+            "errorMSG" : "",
+            "num_entries" : 0
+        }
+        df, response["errorMSG"] = insertDF(request.form)
+        print(df)
         try:
-            query = "INSERT INTO patients(FECHACIR, EDAD, ETNIA, OBESO,  HTA, DM, TABACO, HEREDA, TACTOR, PSAPRE, PSALT, TDUPPRE, ECOTR, NBIOPSIA, HISTO, GLEASON1, NCILPOS, BILAT, PORCENT, IPERIN, ILINF,IVASCU, TNM1, HISTO2, GLEASON2, BILAT2, LOCALIZ, MULTIFOC, VOLUMEN, EXTRACAP, VVSS, IPERIN2, ILINF2, IVASCU2, PINAG, MARGEN, TNM2, PSAPOS, RTPADYU, RTPMES, RBQ, TRBQ, T1MTX, FECHAFIN, t.seg, FALLEC, TSUPERV, TSEGUI, PSAFIN, CAPRA S, RA-NUCLEAR, RA-ESTROMA, PTEN, ERG, KI-67, SPINK1, C-MYC, NOTAS, IMC, ASA, GR, PNV, TH, PGG) VALUES (%s,%d,%d,%d,%d,%d,%d,%d,%d,%f,%f,%f,%d,%d,%d,%d,%d,%f,%f,%d,%d,%d,%d,%d,%d,%d,%d,%d,%f,%d,%d,%d,%d,%d,%d,%d,%d,%f,%d,%f,%d,%f,%f,%s,%f,%f,%f,%f,%f,%d,%f,%f,%f,%f,%f,%f,%f,%s,%f,%d,%d,%d,%d,%f)"
-            values = (FECHACIR, EDAD, ETNIA, OBESO, HTA, DM, TABACO, HEREDA, TACTOR, PSAPRE, PSALT, TDUPPRE, ECOTR, NBIOPSIA, HISTO, GLEASON1, NCILPOS, BILAT, PORCENT, IPERIN, ILINF,IVASCU, TNM1, HISTO2, GLEASON2, BILAT2, LOCALIZ, MULTIFOC, VOLUMEN, EXTRACAP, VVSS, IPERIN2, ILINF2, IVASCU2, PINAG, MARGEN, TNM2, PSAPOS, RTPADYU, RTPMES, RBQ, TRBQ, T1MTX, FECHAFIN, t_seg, FALLEC, TSUPERV, TSEGUI, PSAFIN, CAPRA_S, RA_nuclear, RA_estroma, PTEN, ERG, KI_67, SPINK1, C_MYC, NOTAS, IMC, ASA, GR, PNV, TH, PGG)
-            engine.execute(query, values)    
+            df.to_sql(name='patients', con=engine, if_exists='append', index=False)
             status = 200        
+            response["num_entries"] = 1
         except:
-            response['errno'] = "Error al añadir paciente"
-            
+            response["errorMSG"] = "Error al insertar en la base de datos."    
+        print(response)    
         return response, status
+
+def insertDF(req):
+    req = dict(req)
+    df = pd.DataFrame([req.values()], columns=list(req.keys())).replace({"": np.nan})
+
+    errorMSG = ""
+    df, errorMSG = newPatientsDF(df)
+
+    return df, errorMSG
+
+
+
 
 @app.route('/patients/<patientId>', methods=['GET', 'PATCH'])
 @token_required
