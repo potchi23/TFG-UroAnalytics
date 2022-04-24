@@ -54,8 +54,12 @@
                                     <input type="file" id="import-data" name="import-data">
                                     <button type="submit" id="submit" class="btn btn-primary ml-4">Importar</button>
                                 </form>
+                                <br>
+                                <form action="./downloadTemplate.php" method="get" name="downloadTemplate">
+                                    <button id="downloadTemplate" class="btn btn-success">Descargar plantilla Excel</button>
+                                </form>
                             </div>
-                        </div>  
+                        </div> 
                     </div>  
                 </div> 
                 

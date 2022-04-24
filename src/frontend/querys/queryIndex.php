@@ -73,8 +73,9 @@
                     <div class="jumbotron" id="indexQuery">
                         <h1 style="font-weight: 600">Realizador de consultas</h1>
                         <hr class="my-4">
-                        <h5>Para realizar una consulta debe rellenar los filtros deseados de la barra lateral izquierda.</h5>
-                        <h5>A continuación deberá presionar el botón de realizar consulta.</h5>
+                        <h5>Para realizar una consulta debe seleccionar los filtros que desee que se muestran a continuación.
+                            Una vez seleccionados los filtros, pulsar el botón "Realizar consulta" que se encuentra en la barra lateral izquierda.
+                        </h5>
                     </div>
 
                     <div class="jumbotron">

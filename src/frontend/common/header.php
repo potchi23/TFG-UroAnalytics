@@ -25,7 +25,7 @@
             }
         ?>
         <li class="nav-item">
-          <a class="nav-link" href="../help/helpIndex.php">Ayuda</a>
+          <a class="nav-link" href="../userGuide/userGuideIndex.php">Manual de usuario</a>
         </li> 
       </ul>
       <ul class="nav navbar-nav navbar-right">

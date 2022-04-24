@@ -3,22 +3,22 @@
   </div>
   <ul class="sidebar-navigation">
     <li>
-      <a href="#indexHelp">
+      <a href="#indexUserGuide">
         <i aria-hidden="true"></i>Inicio 
       </a>
     </li>    
     <li>
-      <a href="#querysHelpSection">
+      <a href="#querysGuide">
         <i aria-hidden="true"></i>Consultas
       </a>
     </li>
     <li>
-      <a href="#predictionsHelpSection">
+      <a href="#predictionsGuide">
         <i aria-hidden="true"></i>Predicciones
       </a>
     </li>
     <li>
-      <a href="#patientsHelpSection">
+      <a href="#patientsGuide">
         <i aria-hidden="true"></i>Pacientes
       </a>
     </li>
@@ -26,12 +26,12 @@
         $user = $_SESSION["user"];
         
         if ($user->get_type() == 'admin') {
-            echo "<li><a href='#registerPetitionsHelpSection'><i aria-hidden='true'></i>Página Peticiones de registro</a></li>";
+            echo "<li><a href='#registerPetitionsGuide'><i aria-hidden='true'></i>Página Peticiones de registro</a></li>";
         }
     ?>       
     <li>
-      <a href="#profileHelpSection">
-        <i class="fa-solid fa-user-doctor fa-2x" aria-hidden="true"></i>
+      <a href="#myAccountGuide">
+        <i aria-hidden="true"></i>Mi cuenta
       </a>
     </li>
   </ul>

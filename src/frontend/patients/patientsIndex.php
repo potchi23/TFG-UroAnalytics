@@ -44,9 +44,13 @@
                                     </form>
 
                                     <form action="patientsIndex.php">
-                                            <button class="btn btn-primary ml-4" type="submit">Limpiar búsqueda</button>
+                                        <button class="btn btn-primary ml-4" type="submit">Limpiar búsqueda</button>
                                     </form>
                                 </div>
+                                <br>
+                                <form action="#" method="get" name="">
+                                    <button class="btn btn-danger" type="submit">Descargar descripción variables</button>
+                                </form>
                                 
                                 <?php 
                                     require("viewPatient.php"); 
