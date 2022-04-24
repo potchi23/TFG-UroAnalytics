@@ -736,6 +736,28 @@ def dbTranslator(df):
     
     return df
 
+@app.route('/graphicPatients', methods=['GET'])
+def getGraphics():
+    status = 400
+    response = {
+        'edad':[],
+        'tabaco':[],
+        'obeso':[],
+        'etnia':[]
+    }
+    try:
+        query_edad = 'Select * from edad'
+        query_tabaco = 'Select * from tabaco'
+        query_obeso = 'Select * from obeso'
+        query_etnia = 'Select * from etnia'
+        response['edad'] = engine.execute(query_edad)
+        response['tabaco'] = engine.execute(query_tabaco)
+        response['obeso'] = engine.execute(query_obeso)
+        response['etnia'] = engine.execute(query_etnia)
+    except:
+        response["errorMSG"] = "Error al insertar en la base de datos."   
+    return status,response
+
 class FlaskConfig:
     '''Configuración de Flask'''
     # Activa depurador y recarga automáticamente

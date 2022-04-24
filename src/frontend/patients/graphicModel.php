@@ -10,7 +10,7 @@
 
 
 		function getData(){
-			$sql = "Select * from users";	
+			$sql = "Select * from edad"; //edad es una vista que devuelve tres columnas con rangos de edad	
 			$arreglo = array();
 			if ($consulta = $this->conexion->conexion->query($sql)) {
 
