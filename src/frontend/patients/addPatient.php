@@ -62,13 +62,13 @@
                             <input type="number" id="TACTOR" name="TACTOR" ><br><br>
 
                             <label for="PSAPRE">PSAPRE</label>
-                            <input type="number" id="PSAPRE" name="PSAPRE" ><br><br>
+                            <input type="number" id="PSAPRE" name="PSAPRE" step="any"><br><br>
 
                             <label for="PSALT">PSALT</label>
-                            <input type="number" id="PSALT" name="PSALT" ><br><br>
+                            <input type="number" id="PSALT" name="PSALT" step="any"><br><br>
 
                             <label for="TDUPPRE">TDUPPRE</label>
-                            <input type="number" id="TDUPPRE" name="TDUPPRE" ><br><br>
+                            <input type="number" id="TDUPPRE" name="TDUPPRE" step="any"><br><br>
 
                             <label for="ECOTR">ECOTR</label>
                             <input type="number" id="ECOTR" name="ECOTR" ><br><br>
@@ -86,10 +86,10 @@
                             <input type="number" id="NCILPOS" name="NCILPOS" ><br><br>
 
                             <label for="BILAT">BILAT</label>
-                            <input type="number" id="BILAT" name="BILAT" ><br><br>
+                            <input type="number" id="BILAT" name="BILAT" step="any"><br><br>
 
                             <label for="PORCENT">PORCENT</label>
-                            <input type="number" id="PORCENT" name="PORCENT" ><br><br>
+                            <input type="number" id="PORCENT" name="PORCENT" step="any"><br><br>
 
                             <label for="IPERIN">IPERIN</label>
                             <input type="number" id="IPERIN" name="IPERIN" ><br><br>
@@ -119,7 +119,7 @@
                             <input type="number" id="MULTIFOC" name="MULTIFOC" ><br><br>
 
                             <label for="VOLUMEN">VOLUMEN</label>
-                            <input type="number" id="VOLUMEN" name="VOLUMEN" ><br><br>
+                            <input type="number" id="VOLUMEN" name="VOLUMEN" step="any"><br><br>
 
                             <label for="EXTRACAP">EXTRACAP</label>
                             <input type="number" id="EXTRACAP" name="EXTRACAP" ><br><br>
@@ -146,70 +146,70 @@
                             <input type="number" id="TNM2" name="TNM2" ><br><br>
 
                             <label for="PSAPOS">PSAPOS</label>
-                            <input type="number" id="PSAPOS" name="PSAPOS" ><br><br>
+                            <input type="number" id="PSAPOS" name="PSAPOS" step="any"><br><br>
 
                             <label for="RTPADYU">RTPADYU</label>
                             <input type="number" id="RTPADYU" name="RTPADYU" ><br><br>
 
                             <label for="RTPMES">RTPMES</label>
-                            <input type="number" id="RTPMES" name="RTPMES" ><br><br>
+                            <input type="number" id="RTPMES" name="RTPMES" step="any"><br><br>
 
                             <label for="RBQ">RBQ</label>
                             <input type="number" id="RBQ" name="RBQ" ><br><br>
 
                             <label for="TRBQ">TRBQ</label>
-                            <input type="number" id="TRBQ" name="TRBQ" ><br><br>
+                            <input type="number" id="TRBQ" name="TRBQ" step="any"><br><br>
 
                             <label for="T1MTX">T1MTX</label>
-                            <input type="number" id="T1MTX" name="T1MTX" ><br><br>
+                            <input type="number" id="T1MTX" name="T1MTX" step="any"><br><br>
 
                             <label for="FECHAFIN">FECHAFIN</label>
                             <input type="date" id="FECHAFIN" name="FECHAFIN" ><br><br>
 
                             <label for="t_seg">t_seg</label>
-                            <input type="number" id="t_seg" name="t_seg" ><br><br>
+                            <input type="number" id="t_seg" name="t_seg" step="any"><br><br>
 
                             <label for="FALLEC">FALLEC</label>
-                            <input type="number" id="FALLEC" name="FALLEC" ><br><br>
+                            <input type="number" id="FALLEC" name="FALLEC" step="any"><br><br>
 
                             <label for="TSUPERV">TSUPERV</label>
-                            <input type="number" id="TSUPERV" name="TSUPERV" ><br><br>
+                            <input type="number" id="TSUPERV" name="TSUPERV" step="any"><br><br>
 
                             <label for="TSEGUI">TSEGUI</label>
-                            <input type="number" id="TSEGUI" name="TSEGUI" ><br><br>
+                            <input type="number" id="TSEGUI" name="TSEGUI" step="any"><br><br>
 
                             <label for="PSAFIN">PSAFIN</label>
-                            <input type="number" id="PSAFIN" name="PSAFIN" ><br><br>
+                            <input type="number" id="PSAFIN" name="PSAFIN" step="any"><br><br>
 
                             <label for="CAPRA-S">CAPRA-S</label>
                             <input type="number" id="CAPRA-S" name="CAPRA-S" ><br><br>
 
                             <label for="RA-NUCLEAR">RA-NUCLEAR</label>
-                            <input type="number" id="RA-NUCLEAR" name="RA-NUCLEAR" ><br><br>
+                            <input type="number" id="RA-NUCLEAR" name="RA-NUCLEAR" step="any"><br><br>
 
                             <label for="RA-ESTROMA">RA-ESTROMA</label>
-                            <input type="number" id="RA-ESTROMA" name="RA-ESTROMA" ><br><br>
+                            <input type="number" id="RA-ESTROMA" name="RA-ESTROMA" step="any"><br><br>
 
                             <label for="PTEN">PTEN</label>
-                            <input type="number" id="PTEN" name="PTEN" ><br><br>
+                            <input type="number" id="PTEN" name="PTEN" step="any"><br><br>
 
                             <label for="ERG">ERG</label>
-                            <input type="number" id="ERG" name="ERG" ><br><br>
+                            <input type="number" id="ERG" name="ERG" step="any"><br><br>
 
                             <label for="KI-67">KI-67</label>
-                            <input type="number" id="KI-67" name="KI-67" ><br><br>
+                            <input type="number" id="KI-67" name="KI-67" step="any"><br><br>
 
                             <label for="SPINK1">SPINK1</label>
-                            <input type="number" id="SPINK1" name="SPINK1" ><br><br>
+                            <input type="number" id="SPINK1" name="SPINK1" step="any"><br><br>
 
                             <label for="C-MYC">C-MYC</label>
-                            <input type="number" id="C-MYC" name="C-MYC" ><br><br>
+                            <input type="number" id="C-MYC" name="C-MYC" step="any"><br><br>
 
                             <label for="NOTAS">NOTAS</label>
                             <input type="text" id="NOTAS" name="NOTAS" ><br><br>
 
                             <label for="IMC">IMC</label>
-                            <input type="number" id="IMC" name="IMC" ><br><br>
+                            <input type="number" id="IMC" name="IMC" step="any"><br><br>
 
                             <label for="ASA">ASA</label>
                             <input type="number" id="ASA" name="ASA" ><br><br>
@@ -224,7 +224,7 @@
                             <input type="number" id="TH" name="TH" ><br><br>
 
                             <label for="PGG">PGG</label>
-                            <input type="number" id="PGG" name="PGG" ><br><br>
+                            <input type="number" id="PGG" name="PGG" step="any"><br><br>
 
                             <input class="submit btn btn-success" type="submit" value="Añadir">
                         </form>
