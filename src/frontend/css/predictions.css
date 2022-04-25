@@ -78,3 +78,11 @@
 .search input{
     margin-right: 1rem;
 }
+
+.prediction-accuracy{
+    margin-top: 2rem;
+}
+
+.prediction-recall input, .prediction-precision input{
+    width: 5rem;
+}

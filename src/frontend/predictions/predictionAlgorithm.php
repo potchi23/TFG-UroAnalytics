@@ -11,14 +11,14 @@
 <button class="btn btn-danger btn-sm ml-2" id="prediction-button" type="button" style="z-index:0;">Predecir</button>
 
 <div>        
-    <div>
+    <div class="prediction-accuracy">
         <label for="prediction-accuracy">
             Accuracy: 
         </label>
         <input type="text" id="prediction-accuracy" name="prediction-accuracy" value="0.0" disabled>
     </div>
     <br>
-    <div>
+    <div class="prediction-recall">
         <label for="prediction-recall-1" style="margin-right:1.7rem;">
             Recall Si (CASOS): 
         </label>
@@ -37,7 +37,7 @@
 
     <br>
 
-    <div>
+    <div class="prediction-precision">
         <label for="prediction-precision-1">
             Precision Si (CASOS): 
         </label>
