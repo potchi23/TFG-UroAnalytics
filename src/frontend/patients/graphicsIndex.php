@@ -1,15 +1,16 @@
 <?php
     require_once("../config/config.php");
     require_once("../models/User.php");
+    require_once("../requests/HttpRequests.php");
     
    session_start();
 
     $user = $_SESSION["user"];
 
     //TODO
-    //[]Cambiar o borrar graphicModel.php para hacer bien las conexiones con la bd
-    //[]graphic_controler.php darle una vuelta igual se puede quitar
-    //[]Crear procedimiento en sql para mostrar las medias de los datos importantes
+    //[D]Cambiar o borrar graphicModel.php para hacer bien las conexiones con la bd
+    //[D]graphic_controler.php darle una vuelta igual se puede quitar
+    //[D]Crear vistas en sql
     //[]poner bien el estilo de las graficas
     //[]refactorizar codigo (posibilidad de hacer funciones con parámetros para que quede más limpio y mostrar varias gráficas)
 
@@ -43,10 +44,32 @@
         </div>   
         <div class="card-body">
             <canvas id="myChart" width="400" height="400"></canvas>
+            <?php
+            $http_requests = new HttpRequests();
+            $response = $http_requests->getResponse("$BACKEND_URL/graphicPatients", "GET");
+            if($response["status"] != 200) {
+                if($response["status"] == 401){
+                    unset($_SESSION["user"]);
+                    echo "<script>alert('La sesión ha caducado. Vuelva a iniciar sesión.');</script>";
+                    $_SESSION["message"] = "La sesión ha caducado";
+                    echo "<script type='text/javascript'>window.location.href = '../login.php';</script>";
+                }
+                $etnia = $response["etnia"]->etnia;
+                $edad = $response["etnia"]->edad;
+                $tabaco = $response["etnia"]->tabaco;
+                $obeso = $response["etnia"]->obeso;
+
+                cargarDatos($etnia);
+                cargarDatos($edad);
+                cargarDatos($tabaco);
+                cargarDatos($obeso);
+
+            }
+            ?>
             <script>
-            function cargarDatos(){
+            function cargarDatos(query){
                 $.ajax({
-                    url:'graphic_controler.php',
+                    url:'graphic_controler.php', //que cojones hace esta parte?
                     type:'POST'
                 }).done(function(resp){
                     if(resp.length() > 0){
@@ -54,11 +77,11 @@
                         var x = [];
                         var y = []
                         for(var i=0; i < data.length();i++){
-                            x.push(resp[i][1]); //se refiere a fila i columna 1, habría que crear un procedimiento en sql para las medias de lo que queremos
-                            y.push(resp[i][2])
+                            x.push(resp[0][i]); //se refiere a fila 0 columna i
+                            y.push(resp[1][i])
                         }
                     }
-                    const ctx = document.getElementById('myChart').getContext('2d');
+                    const ctx = document.getElementById('myChart').getContext('2d'); //y esto?
                     const myChart = new Chart(ctx, {
                     type: 'bar',
                     data: {
