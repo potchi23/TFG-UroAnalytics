@@ -28,11 +28,6 @@
             Recall No (CONTROLES): 
         </label>
         <input type="text" id="prediction-recall-2" name="prediction-recall-2" value="0.0" disabled>
-
-        <label for="prediction-recall-3" style="margin-right:1.7rem;">
-            Recall Persitencia PSA: 
-        </label>
-        <input type="text" id="prediction-recall-3" name="prediction-recall-3" value="0.0" disabled>
     </div>
 
     <br>
@@ -47,11 +42,6 @@
             Precision No (CONTROLES): 
         </label>
         <input type="text" id="prediction-precision-2" name="prediction-precision-2" value="0.0" disabled>
-        
-        <label for="prediction-precision-3">
-            Precision Persitencia PSA: 
-        </label>
-        <input type="text" id="prediction-precision-3" name="prediction-precision-3" value="0.0" disabled>
     </div>
 </div>
 

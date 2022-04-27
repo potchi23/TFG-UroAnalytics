@@ -1,4 +1,4 @@
-import pandas as pd
+from random import randrange
 from sklearn.preprocessing import LabelEncoder
 from sklearn.ensemble import RandomForestClassifier, VotingClassifier
 from sklearn.model_selection import train_test_split
@@ -14,6 +14,10 @@ from sklearn.metrics import f1_score
 
 def drop_columns(df):
     df = df.drop(['N', 'NOTAS', 'FECHACIR', 'FECHAFIN','ETNIA', 'HISTO', 'IPERIN', 'ILINF', 'IVASCU', 'HISTO2', 'ILINF2', 'IVASCU2', 'FALLEC'], axis=1)
+    return df
+
+def replace_persistencia(df):
+    df["RBQ"] = df["RBQ"].replace(to_replace=3, value=randrange(1,3))
     return df
 
 def df_categorical_to_encoded(df):
@@ -122,10 +126,10 @@ def bestTraining(X_train, X_test, y_train, y_test, estimators):
 def trainModels(df):
     print('Starting training...')
 
-    #df = pd.read_csv('data.csv', sep=';', encoding='cp1252',decimal=",")
     df = drop_columns(df)
     df = df_categorical_to_encoded(df)
     df = na_to_median(df)
+    df = replace_persistencia(df)
 
     df.info()
 
