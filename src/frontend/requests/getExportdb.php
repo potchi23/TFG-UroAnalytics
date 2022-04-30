@@ -20,7 +20,7 @@
         $get_req = array();
     }
     $http_requests = new HttpRequests();
-    $response = $http_requests->getResponse("$BACKEND_URL/exportdb", "GET", $get_req, $user->get_token());
+    $response = $http_requests->getResponse("$BACKEND_URL/database", "GET", $get_req, $user->get_token());
 
 
     if($response["status"] == 200) {

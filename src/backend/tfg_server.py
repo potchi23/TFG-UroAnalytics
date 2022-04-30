@@ -397,16 +397,31 @@ def import_prediction(current_user):
 
         return response, status
 
-@app.route('/importdb', methods=['POST'])
+@app.route('/database', methods=['GET', 'POST'])
 @token_required
-def importdb(current_user):
+def database(current_user):
     status = 400
-    response = {
-        'num_entries':0,
-        'errorMSG':"",
-    }
+    response = {}
 
-    if request.method == 'POST':
+    if request.method == 'GET':
+        query = 'SELECT * FROM patients'
+
+        if len(request.form) != 0:
+            query += buildQuery(request.form)[0]
+        
+        df_db = pd.read_sql(query, engine)        
+
+        df_db["FECHACIR"] = pd.to_datetime(df_db["FECHACIR"]).dt.strftime('%d-%m-%Y')
+        df_db["FECHAFIN"] = pd.to_datetime(df_db["FECHAFIN"]).dt.strftime('%d-%m-%Y')
+
+        json = df_db.to_json(orient = 'columns', date_format='iso')
+
+        response['json'] = json        
+        status = 200
+
+        return response, status
+    
+    elif request.method == 'POST':
         file = base64.b64decode(request.form['file'])
         filename = HERE + "/tmp_uploads/import_tmp.xlsx"
 
@@ -430,8 +445,12 @@ def importdb(current_user):
             status = 200
         else:
             response['errorMSG'] = errorMSG
+        return response, status
 
-    return response, status
+    else:
+        response = 'Method not supported'
+        print(response, file=sys.stderr)
+        return response, status
     
 
 def newPatientsDF(df):
@@ -494,32 +513,6 @@ def clearPatientsDF(df):
     df.reset_index(drop=True, inplace=True)    
 
     return df, invalidColumns
-
-@app.route('/exportdb', methods=['GET'])
-@token_required
-def exportdb(current_user):
-    status = 400
-    response = {}
-
-    if request.method == 'GET':
-        
-        query = 'SELECT * FROM patients '
-
-        if len(request.form) != 0:
-            query += buildQuery(request.form)[0]
-        
-        df_db = pd.read_sql(query, engine)        
-
-        df_db["FECHACIR"] = pd.to_datetime(df_db["FECHACIR"]).dt.strftime('%d-%m-%Y')
-        df_db["FECHAFIN"] = pd.to_datetime(df_db["FECHAFIN"]).dt.strftime('%d-%m-%Y')
-
-        json = df_db.to_json(orient = 'columns', date_format='iso')
-
-        response['json'] = json        
-        status = 200
-    else:
-        response = 'Method not supported'
-    return response, status
 
 
 @app.route('/getQuery', methods=['GET'])

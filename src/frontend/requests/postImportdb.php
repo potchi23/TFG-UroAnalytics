@@ -42,7 +42,7 @@
                 unlink($target_file);
 
                 $http_requests = new HttpRequests();
-                $response = $http_requests->getResponse("$BACKEND_URL/importdb", "POST", $post_req, $user->get_token());
+                $response = $http_requests->getResponse("$BACKEND_URL/database", "POST", $post_req, $user->get_token());
 
                 if($response["status"] == 200) {
                     $num_entries = $response["data"]->num_entries;
