@@ -12,12 +12,22 @@ from sklearn.metrics import precision_score
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import f1_score
 
+train_size = 0.6
+
 def drop_columns(df):
-    df = df.drop(['N', 'NOTAS', 'FECHACIR', 'FECHAFIN','ETNIA', 'HISTO', 'IPERIN', 'ILINF', 'IVASCU', 'HISTO2', 'ILINF2', 'IVASCU2', 'FALLEC'], axis=1)
+    df = df.drop(['N', 'NOTAS', 'FECHACIR', 'FECHAFIN','ETNIA', 'IPERIN', 'ILINF', 'IVASCU', 'ILINF2', 'IVASCU2', 'FALLEC'], axis=1)
     return df
 
-def replace_persistencia(df):
-    df["RBQ"] = df["RBQ"].replace(to_replace=3, value=randrange(1,3))
+def replace_IPERIN2_NC(df):
+    for row in df[df["IPERIN2"] == 3].index:
+        df.at[row, "IPERIN2"] = randrange(1,3)
+    
+    return df
+
+def replace_RBQ_persistencia(df):
+    for row in df[df["RBQ"] == 3].index:
+        df.at[row, "RBQ"] = randrange(1,3)
+
     return df
 
 def df_categorical_to_encoded(df):
@@ -37,7 +47,9 @@ def na_to_median(df):
     
     return df
 
-def randomForestTraining(X_train, X_test, y_train, y_test):
+def randomForestTraining(X, y):
+    X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=train_size)
+
     pipe_rfc = RandomForestClassifier(n_estimators=100, bootstrap=True, max_samples=100, class_weight='balanced')
     pipe_rfc.fit(X_train, y_train)
     accuracy = pipe_rfc.score(X_test, y_test)
@@ -56,7 +68,9 @@ def randomForestTraining(X_train, X_test, y_train, y_test):
 
     return pipe_rfc, scores
 
-def logisticRegresionTraining(X_train, X_test, y_train, y_test):
+def logisticRegresionTraining(X, y):
+    X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=train_size)
+
     pipe_lrc = Pipeline([
                     ('scl', StandardScaler()),
                     ('clr', LogisticRegression(C=0.5, penalty='l2', solver='liblinear', class_weight='balanced'))   
@@ -77,7 +91,9 @@ def logisticRegresionTraining(X_train, X_test, y_train, y_test):
 
     return pipe_lrc, scores
     
-def knnTraining(X_train, X_test, y_train, y_test):
+def knnTraining(X, y):
+    X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=train_size)
+
     pipe_knn = Pipeline([
                      ('norm', MinMaxScaler()),
                      ('knn', KNeighborsClassifier(n_neighbors=10, p=2))     
@@ -99,7 +115,9 @@ def knnTraining(X_train, X_test, y_train, y_test):
 
     return pipe_knn, scores
 
-def bestTraining(X_train, X_test, y_train, y_test, estimators):
+def bestTraining(X, y, estimators):
+    X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=train_size)
+
     # estimators = [('prfc', pipe_rfc),('pknn', pipe_knn), ('plrc', pipe_clr)]
     pipe_best = VotingClassifier(
                     estimators=estimators,
@@ -129,18 +147,18 @@ def trainModels(df):
     df = drop_columns(df)
     df = df_categorical_to_encoded(df)
     df = na_to_median(df)
-    df = replace_persistencia(df)
+    df = replace_RBQ_persistencia(df)
+    df = replace_IPERIN2_NC(df)
 
     df.info()
 
     y = df['RBQ'] 
     X = df.drop('RBQ', axis=1)
-    X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=0.7)
 
-    pipe_rfc, scores_rfc = randomForestTraining(X_train, X_test, y_train, y_test)
-    pipe_lrc, scores_lrc = logisticRegresionTraining(X_train, X_test, y_train, y_test)
-    pipe_knn, scores_knn = knnTraining(X_train, X_test, y_train, y_test)
-    pipe_best, scores_best = bestTraining(X_train, X_test, y_train, y_test, [('prfc', pipe_rfc),('pknn', pipe_knn), ('plrc', pipe_lrc)])
+    pipe_rfc, scores_rfc = randomForestTraining(X, y)
+    pipe_lrc, scores_lrc = logisticRegresionTraining(X, y)
+    pipe_knn, scores_knn = knnTraining(X, y)
+    pipe_best, scores_best = bestTraining(X, y, [('prfc', pipe_rfc),('pknn', pipe_knn), ('plrc', pipe_lrc)])
 
     scores = {
         'rfc' : scores_rfc,
