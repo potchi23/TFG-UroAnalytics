@@ -48,8 +48,8 @@
                                     </form>
                                 </div>
                                 <br>
-                                <form action="#" method="get" name="">
-                                    <button class="btn btn-danger" type="submit">Descargar descripción variables</button>
+                                <form action="./downloadVariablesDescription.php" method="get" name="downloadVariablesDescription">
+                                    <button id="downloadVariablesDescription" class="btn btn-danger" type="submit">Descargar descripción variables</button>
                                 </form>
                                 
                                 <?php 
