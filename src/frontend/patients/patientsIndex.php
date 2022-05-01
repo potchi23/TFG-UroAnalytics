@@ -48,10 +48,9 @@
                                     </form>
                                 </div>
                                 <br>
-                                <form action="./downloadVariablesDescription.php" method="get" name="downloadVariablesDescription">
-                                    <button id="downloadVariablesDescription" class="btn btn-danger" type="submit">Descargar descripción variables</button>
-                                </form>
-                                
+                                <a href="../resources/descripcion_variables.pdf" download="descripcion_variables">
+                                    <button id="descripcion_variables" class="btn btn-success">Descargar descripción variables</button>
+                                </a>
                                 <?php 
                                     require("viewPatient.php"); 
                                 ?>

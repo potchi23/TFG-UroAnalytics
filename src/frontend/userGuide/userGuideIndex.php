@@ -38,9 +38,18 @@
 
                     <h5>Si quiere descargarse el manual de usuario pulse en el siguiente botón:</h5>
                     <br>
-                    <form action="./downloadUserGuide.php" method="get" name="downloadUserGuide">
-                        <button id="downloadUserGuide" class="btn btn-primary">Descargar manual de usuario</button>
-                    </form>
+
+                    <?php
+                        $filename = "manual_usuario";
+
+                        if ($user->is_admin()) {
+                            $filename = "manual_usuario_admin";
+                        }
+                    ?>
+
+                    <a href="../resources/<?php echo $filename . ".pdf";?>" download="<?php echo $filename; ?>">
+                        <button id="descripcion_variables" class="btn btn-primary">Descargar manual de usuario</button>
+                    </a>
 
                 </div>
                 <div id="querysGuide">

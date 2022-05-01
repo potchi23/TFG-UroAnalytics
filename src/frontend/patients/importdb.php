@@ -55,9 +55,9 @@
                                     <button type="submit" id="submit" class="btn btn-primary ml-4">Importar</button>
                                 </form>
                                 <br>
-                                <form action="./downloadTemplate.php" method="get" name="downloadTemplate">
+                                <a href="../resources/plantilla_datos_pacientes.xlsx" download="plantilla_datos_pacientes">
                                     <button id="downloadTemplate" class="btn btn-success">Descargar plantilla Excel</button>
-                                </form>
+                                </a>
                             </div>
                         </div> 
                     </div>  
