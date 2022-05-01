@@ -581,17 +581,15 @@ def numPatients(current_user):
     response = {}
 
     if request.method == 'GET':        
-
-        meta_data = sqla.MetaData(bind=engine)
-        sqla.MetaData.reflect(meta_data)
-        
-        patients_table = meta_data.tables['patients']
-        
-        result = sqla.select([sqla.func.count()]).select_from(patients_table).scalar()
-        
-        response['num_patients'] = result
+        query = "SELECT COUNT(N) FROM patients"
+        result = pd.read_sql(query, engine)
+        response['num_patients'] = int(result['COUNT(N)'].iloc[0])
         status = 200
-
+        return response, status
+            
+    else:
+        response = 'Method not supported'
+        print(response, file=sys.stderr)
         return response, status
 
 @app.route('/patients', methods=['POST', 'GET'])
