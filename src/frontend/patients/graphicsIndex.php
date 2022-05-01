@@ -7,13 +7,6 @@
 
     $user = $_SESSION["user"];
 
-    //TODO
-    //[D]Cambiar o borrar graphicModel.php para hacer bien las conexiones con la bd
-    //[D]graphic_controler.php darle una vuelta igual se puede quitar
-    //[D]Crear vistas en sql
-    //[]poner bien el estilo de las graficas
-    //[]refactorizar codigo (posibilidad de hacer funciones con parámetros para que quede más limpio y mostrar varias gráficas)
-
 ?>
 
 <!DOCTYPE html>
@@ -42,38 +35,31 @@
         <div class="header">
             <?php require("../common/header.php");?>
         </div>   
+        <div class="sidebar-container">
+            <?php include_once("sidebarPatients.php");?>
+        </div>
         <div class="card-body">
             <canvas id="myChart" width="400" height="400"></canvas>
             <?php
             $http_requests = new HttpRequests();
-            $response = $http_requests->getResponse("$BACKEND_URL/graphicPatients", "GET");
+            $response = $http_requests->getResponse("$BACKEND_URL/graphicPatients", "GET","");
             if($response["status"] != 200) {
-                if($response["status"] == 401){
-                    unset($_SESSION["user"]);
-                    echo "<script>alert('La sesión ha caducado. Vuelva a iniciar sesión.');</script>";
-                    $_SESSION["message"] = "La sesión ha caducado";
-                    echo "<script type='text/javascript'>window.location.href = '../login.php';</script>";
-                }
-                $etnia = $response["etnia"]->etnia;
-                $edad = $response["etnia"]->edad;
-                $tabaco = $response["etnia"]->tabaco;
-                $obeso = $response["etnia"]->obeso;
+                $etnia = $response["data"]->etnia;
+                $edad = $response["data"]->edad;
+                $tabaco = $response["data"]->tabaco;
+                $obeso = $response["data"]->obeso;
 
-                cargarDatos($etnia);
-                cargarDatos($edad);
-                cargarDatos($tabaco);
-                cargarDatos($obeso);
+                cargarDatos($etnia,"2d");
+                cargarDatos($edad, "3d");
+                cargarDatos($tabaco, "4d");
+                cargarDatos($obeso, "5d");
 
             }
             ?>
             <script>
-            function cargarDatos(query){
-                $.ajax({
-                    url:'graphic_controler.php', //que cojones hace esta parte?
-                    type:'POST'
-                }).done(function(resp){
-                    if(resp.length() > 0){
-                        var data = JSON.parse(resp); 
+            function cargarDatos(query, id){
+                    if(query.length() > 0){
+                        var data = JSON.parse(query); 
                         var x = [];
                         var y = []
                         for(var i=0; i < data.length();i++){
@@ -81,7 +67,7 @@
                             y.push(resp[1][i])
                         }
                     }
-                    const ctx = document.getElementById('myChart').getContext('2d'); //y esto?
+                    const ctx = document.getElementById('myChart').getContext(id); 
                     const myChart = new Chart(ctx, {
                     type: 'bar',
                     data: {
@@ -116,7 +102,6 @@
                         }
                     }
                 });
-                    })
                 }
             </script>
 

@@ -743,10 +743,11 @@ def getGraphics():
         query_tabaco = 'Select * from tabaco'
         query_obeso = 'Select * from obeso'
         query_etnia = 'Select * from etnia'
-        response['edad'] = engine.execute(query_edad)
-        response['tabaco'] = engine.execute(query_tabaco)
-        response['obeso'] = engine.execute(query_obeso)
-        response['etnia'] = engine.execute(query_etnia)
+        response['edad'].append(engine.execute(query_edad).fetchone())
+        print(response['edad'])
+        response['tabaco'].append(engine.execute(query_tabaco).fetchone())
+        response['obeso'].append(engine.execute(query_obeso).fetchone())
+        response['etnia'].append(engine.execute(query_etnia).fetchone())
     except:
         response["errorMSG"] = "Error al insertar en la base de datos."   
     return status,response

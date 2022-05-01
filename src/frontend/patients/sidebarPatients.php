@@ -22,4 +22,9 @@
             <i aria-hidden="true"></i> Exportar pacientes
         </a>
     </li>
+    <li>
+        <a href="graphicsIndex.php">
+            <i aria-hidden="true"></i> Análisis
+        </a>
+    </li>
 </ul>
