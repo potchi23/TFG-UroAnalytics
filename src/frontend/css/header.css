@@ -1,3 +1,7 @@
+.header {
+    height:4em;
+}
+
 div#navbarTogglerDemo01 .active {
     background-color: #0265a7;
     padding: 10px;
