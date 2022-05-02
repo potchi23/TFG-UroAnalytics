@@ -1,6 +1,6 @@
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary" style="background-color:#004370 !important; border-bottom:solid 1px black;">
   <div class="container-fluid">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+    <button id="brand-logo" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
@@ -67,5 +67,16 @@
       }
     }
   }
+
+  var currentLocation = location.href;
+  var menuItem = document.getElementsByClassName('nav-link');
+  var menuLength = menuItem.length;
+
+  for(let i = 0; i < menuLength; i++) {      
+    if(menuItem[i].href === currentLocation) {
+        menuItem[i].className = "active";
+    }
+  }
+  
   </script>
 </nav>

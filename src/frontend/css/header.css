@@ -1,18 +1,18 @@
-.header {
-    height:4em;
+div#navbarTogglerDemo01 .active {
+    background-color: #0265a7;
+    padding: 10px;
+    text-decoration: none;
+    color: #f1f1f1;
+    margin-bottom: none;
+    display: block;
+
 }
 
 .icon-account {
-    background-color: #007BFF;
     color: white;
     padding: 10px 10px;
     border: none;
     cursor: pointer;
-    margin: auto;
-}
-
-.icon-account:hover, .icon-account:focus {
-    background-color: #00a2ff;
 }
 
 .dropdown {
