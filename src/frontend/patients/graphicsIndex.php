@@ -15,12 +15,10 @@
     <head>
         <title>Pacientes</title>
         <link rel="stylesheet" href="../css/forms.css"/>
-        <link rel="stylesheet" href="../css/registerPetitions.css"/>
         <?php require_once("../common/includes.php");?>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link rel="stylesheet" href="../css/formUserProfile.css"/>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css">
        
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -29,52 +27,19 @@
         <script src="http://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
         <script src="http://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
         <script src="http://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+        <script>
 
-    </head>
-    <body>
-        <div class="header">
-            <?php require("../common/header.php");?>
-        </div>   
-        <div class="sidebar-container">
-            <?php include_once("sidebarPatients.php");?>
-        </div>
-        <div class="card-body">
-            <canvas id="myChart" width="400" height="400"></canvas>
-            <?php
-            $http_requests = new HttpRequests();
-            $response = $http_requests->getResponse("$BACKEND_URL/graphicPatients", "GET","");
-            if($response["status"] != 200) {
-                $etnia = $response["data"]->etnia;
-                $edad = $response["data"]->edad;
-                $tabaco = $response["data"]->tabaco;
-                $obeso = $response["data"]->obeso;
+            
+            function cargarDatos(query, id){                    
+                    const canvas = document.getElementById(id)
+                    const ctx = canvas.getContext('2d'); 
 
-                cargarDatos($etnia,"2d");
-                cargarDatos($edad, "3d");
-                cargarDatos($tabaco, "4d");
-                cargarDatos($obeso, "5d");
-
-            }
-            ?>
-            <script>
-            function cargarDatos(query, id){
-                    if(query.length() > 0){
-                        var data = JSON.parse(query); 
-                        var x = [];
-                        var y = []
-                        for(var i=0; i < data.length();i++){
-                            x.push(resp[0][i]); //se refiere a fila 0 columna i
-                            y.push(resp[1][i])
-                        }
-                    }
-                    const ctx = document.getElementById('myChart').getContext(id); 
                     const myChart = new Chart(ctx, {
                     type: 'bar',
                     data: {
-                        labels: x,
+                        labels: Object.keys(query),
                         datasets: [{
-                            label: '# of Votes',
-                            data: y,
+                            data: Object.values(query),
                             backgroundColor: [
                                 'rgba(255, 99, 132, 0.2)',
                                 'rgba(54, 162, 235, 0.2)',
@@ -95,15 +60,89 @@
                         }]
                     },
                     options: {
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
-                        }
+                        legend: { display: false }
                     }
-                });
-                }
+                    });
+            }
             </script>
+    </head>
+    <body>
+        <<div class="header">
+            <?php require("../common/header.php");?>
+        </div>   
+        <div class="sidebar-container">
+            <?php include_once("sidebarPatients.php");?>
+        </div>
+
+        <div class="content-container">
+            <div class="container-fluid">
+                <div class="jumbotron">
+
+                    <div class="card-body">
+                    
+                    <div class="row">
+                        <div class="col">
+                            <center>
+                                <h3>TABLA ETNIA</h3>
+                            </center>
+                        </div>
+                        <div class="col">
+                            <center>
+                                <h3>TABLA EDAD</h3>                     
+                            </center>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <canvas id="etnia" width="50" height="50"></canvas>
+                        </div>
+                        <div class="col">
+                            <canvas id="edad"  width="50" height="50"></canvas>                        
+                        </div>
+                    </div>
+                    <hr class="my-8">
+                    <div class="row">
+                        <div class="col">
+                            <center>
+                                <h3>TABLA TABACO</h3>
+                            </center>
+                        </div>
+                        <div class="col">
+                            <center>
+                                <h3>TABLA OBESIDAD</h3>                     
+                            </center>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <canvas id="tabaco" width="50" height="50" ></canvas>
+                        </div>
+                        <div class="col">
+                            <canvas id="obeso" width="50" height="50"></canvas>
+                        </div>
+                    </div>
+                    
+                    <?php
+                    $http_requests = new HttpRequests();
+                    $response = $http_requests->getResponse("$BACKEND_URL/graphicPatients", "GET","");
+                   
+                    if($response["status"] == 200) {
+                        $ETNIA = json_encode($response["data"]->ETNIA);
+                        $EDAD = json_encode($response["data"]->EDAD);
+                        $TABACO = json_encode($response["data"]->TABACO);
+                        $OBESO = json_encode($response["data"]->OBESO);
+
+                        echo "<script> cargarDatos($ETNIA,'etnia')</script>";
+                        echo "<script> cargarDatos($EDAD, 'edad') </script>";
+                        echo "<script> cargarDatos($TABACO, 'tabaco') </script>";
+                        echo "<script> cargarDatos($OBESO, 'obeso') </script>";
+
+                    }
+                    ?>
+                    </div>
+                </div>
+            </div>
+        </div>    
 
     </body>
 </html>

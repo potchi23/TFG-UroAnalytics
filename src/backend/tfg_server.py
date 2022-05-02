@@ -731,24 +731,31 @@ def dbTranslator(df):
 def getGraphics():
     status = 400
     response = {
-        'edad':[],
-        'tabaco':[],
-        'obeso':[],
-        'etnia':[]
+        'EDAD':{},
+        'TABACO':{},
+        'OBESO':{},
+        'ETNIA':{}
     }
     try:
         query_edad = 'Select * from edad'
         query_tabaco = 'Select * from tabaco'
         query_obeso = 'Select * from obeso'
         query_etnia = 'Select * from etnia'
-        response['edad'].append(engine.execute(query_edad).fetchone())
-        print(response['edad'])
-        response['tabaco'].append(engine.execute(query_tabaco).fetchone())
-        response['obeso'].append(engine.execute(query_obeso).fetchone())
-        response['etnia'].append(engine.execute(query_etnia).fetchone())
+
+        edadDF = pd.read_sql(query_edad, engine)
+        tabacoDF = pd.read_sql(query_tabaco, engine)
+        obesoDF = pd.read_sql(query_obeso, engine)
+        etniaDF = pd.read_sql(query_etnia, engine)
+
+        response['EDAD'] = edadDF.to_dict(orient="records")[0]
+        response['TABACO'] = tabacoDF.to_dict(orient="records")[0]
+        response['OBESO'] = obesoDF.to_dict(orient="records")[0]
+        response['ETNIA'] = etniaDF.to_dict(orient="records")[0]
+
+        status = 200
     except:
         response["errorMSG"] = "Error al insertar en la base de datos."   
-    return status,response
+    return response,status
 
 class FlaskConfig:
     '''Configuración de Flask'''
