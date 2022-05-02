@@ -306,7 +306,13 @@
         "reemplazar":{},
         "descripcion": "Fecha de ultima revision."
     },
-    
+
+    "TSEGUI":{
+        "tipo": ["float64", "float", "int64", "int"],
+        "rango": [],
+        "reemplazar":{},
+        "descripcion": "Tiempo de seguimiento desde PRL (meses)."
+    },    
     "FALLEC":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [1, 2],
@@ -320,14 +326,7 @@
         "reemplazar":{},
         "descripcion": "Tiempo de supervivencia desde RBQ  si Fallecimiento (meses)."
     },
-    
-    "TSEGUI":{
-        "tipo": ["float64", "float", "int64", "int"],
-        "rango": [],
-        "reemplazar":{},
-        "descripcion": "Tiempo de seguimiento desde PRL (meses)."
-    },
-    
+        
     "PSAFIN":{
         "tipo": ["float64", "float", "int64", "int"],
         "rango": [],
@@ -439,12 +438,6 @@
         "rango": [],
         "reemplazar":{},
         "descripcion": "Porcentaje de ganglios afectados (%)."
-    },
-
-    "T.SEG": {
-        "tipo": ["float64", "float", "int64", "int"],
-        "rango": [],
-        "reemplazar":{},
-        "descripcion": "Meses de revision del paciente."
     }
+
 }
