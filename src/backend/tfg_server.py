@@ -734,27 +734,43 @@ def getGraphics():
         'EDAD':{},
         'TABACO':{},
         'OBESO':{},
-        'ETNIA':{}
+        'ETNIA':{},
+        'RBQ':{},
+        'HEREDA':{},
+        'TACTOR':{},
+        'ECOTR':{}
     }
     try:
         query_edad = 'Select * from edad'
         query_tabaco = 'Select * from tabaco'
         query_obeso = 'Select * from obeso'
         query_etnia = 'Select * from etnia'
+        query_rbq = 'Select * from rbq'
+        query_hereda = 'Select * from hereda'
+        query_tactor = 'Select * from tactor'
+        query_ecotr = 'Select * from ecotr'
 
         edadDF = pd.read_sql(query_edad, engine)
         tabacoDF = pd.read_sql(query_tabaco, engine)
         obesoDF = pd.read_sql(query_obeso, engine)
         etniaDF = pd.read_sql(query_etnia, engine)
+        rbqDF = pd.read_sql(query_rbq, engine)
+        heredaDF = pd.read_sql(query_hereda, engine)
+        tactorDF = pd.read_sql(query_tactor, engine)
+        ecotrDF = pd.read_sql(query_ecotr, engine)
 
         response['EDAD'] = edadDF.to_dict(orient="records")[0]
         response['TABACO'] = tabacoDF.to_dict(orient="records")[0]
         response['OBESO'] = obesoDF.to_dict(orient="records")[0]
         response['ETNIA'] = etniaDF.to_dict(orient="records")[0]
+        response['RBQ'] = rbqDF.to_dict(orient="records")[0]
+        response['HEREDA'] = heredaDF.to_dict(orient="records")[0]
+        response['TACTOR'] = tactorDF.to_dict(orient="records")[0]
+        response['ECOTR'] = ecotrDF.to_dict(orient="records")[0]
 
         status = 200
     except:
-        response["errorMSG"] = "Error al insertar en la base de datos."   
+        response["errorMSG"] = "Error en la obtención de vistas."   
     return response,status
 
 class FlaskConfig:

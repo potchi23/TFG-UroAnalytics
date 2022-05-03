@@ -80,65 +80,116 @@
 
                     <div class="card-body">
                     
-                    <div class="row">
-                        <div class="col">
-                            <center>
-                                <h3>TABLA ETNIA</h3>
-                            </center>
+                        <div class="row">
+                            <div class="col">
+                                <center>
+                                    <h3>TABLA ETNIA</h3>
+                                </center>
+                            </div>
+                            <div class="col">
+                                <center>
+                                    <h3>TABLA EDAD</h3>                     
+                                </center>
+                            </div>
                         </div>
-                        <div class="col">
-                            <center>
-                                <h3>TABLA EDAD</h3>                     
-                            </center>
+                        <div class="row">
+                            <div class="col">
+                                <canvas id="etnia" width="50" height="50"></canvas>
+                            </div>
+                            <div class="col">
+                                <canvas id="edad"  width="50" height="50"></canvas>                        
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <canvas id="etnia" width="50" height="50"></canvas>
+                        <hr class="my-8">
+                        <div class="row">
+                            <div class="col">
+                                <center>
+                                    <h3>TABLA TABACO</h3>
+                                </center>
+                            </div>
+                            <div class="col">
+                                <center>
+                                    <h3>TABLA OBESIDAD</h3>                     
+                                </center>
+                            </div>
                         </div>
-                        <div class="col">
-                            <canvas id="edad"  width="50" height="50"></canvas>                        
+                        <div class="row">
+                            <div class="col">
+                                <canvas id="tabaco" width="50" height="50" ></canvas>
+                            </div>
+                            <div class="col">
+                                <canvas id="obeso" width="50" height="50"></canvas>
+                            </div>
                         </div>
-                    </div>
-                    <hr class="my-8">
-                    <div class="row">
-                        <div class="col">
-                            <center>
-                                <h3>TABLA TABACO</h3>
-                            </center>
+                        <hr class="my-8">
+                        <div class="row">
+                            <div class="col">
+                                <center>
+                                    <h3>TABLA RBQ</h3>
+                                </center>
+                            </div>
+                            <div class="col">
+                                <center>
+                                    <h3>TABLA ECOTR</h3>                     
+                                </center>
+                            </div>
                         </div>
-                        <div class="col">
-                            <center>
-                                <h3>TABLA OBESIDAD</h3>                     
-                            </center>
+                        <div class="row">
+                            <div class="col">
+                                <canvas id="rbq" width="50" height="50" ></canvas>
+                            </div>
+                            <div class="col">
+                                <canvas id="ecotr" width="50" height="50"></canvas>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <canvas id="tabaco" width="50" height="50" ></canvas>
+                        <hr class="my-8">
+                        <div class="row">
+                            <div class="col">
+                                <center>
+                                    <h3>TABLA TACTOR</h3>
+                                </center>
+                            </div>
+                            <div class="col">
+                                <center>
+                                    <h3>TABLA HEREDA</h3>                     
+                                </center>
+                            </div>
                         </div>
-                        <div class="col">
-                            <canvas id="obeso" width="50" height="50"></canvas>
+                        <div class="row">
+                            <div class="col">
+                                <canvas id="tactor" width="50" height="50" ></canvas>
+                            </div>
+                            <div class="col">
+                                <canvas id="hereda" width="50" height="50"></canvas>
+                            </div>
                         </div>
-                    </div>
                     
-                    <?php
-                    $http_requests = new HttpRequests();
-                    $response = $http_requests->getResponse("$BACKEND_URL/graphicPatients", "GET","");
-                   
-                    if($response["status"] == 200) {
-                        $ETNIA = json_encode($response["data"]->ETNIA);
-                        $EDAD = json_encode($response["data"]->EDAD);
-                        $TABACO = json_encode($response["data"]->TABACO);
-                        $OBESO = json_encode($response["data"]->OBESO);
+                    
+                        <?php
+                        $http_requests = new HttpRequests();
+                        $response = $http_requests->getResponse("$BACKEND_URL/graphicPatients", "GET","");
+                    
+                        if($response["status"] == 200) {
+                            $ETNIA = json_encode($response["data"]->ETNIA);
+                            $EDAD = json_encode($response["data"]->EDAD);
+                            $TABACO = json_encode($response["data"]->TABACO);
+                            $OBESO = json_encode($response["data"]->OBESO);
+                            $RBQ = json_encode($response["data"]->RBQ);
+                            $ECOTR = json_encode($response["data"]->ECOTR);
+                            $TACTOR = json_encode($response["data"]->TACTOR);
+                            $HEREDA = json_encode($response["data"]->HEREDA);
 
-                        echo "<script> cargarDatos($ETNIA,'etnia')</script>";
-                        echo "<script> cargarDatos($EDAD, 'edad') </script>";
-                        echo "<script> cargarDatos($TABACO, 'tabaco') </script>";
-                        echo "<script> cargarDatos($OBESO, 'obeso') </script>";
+                            echo "<script> cargarDatos($ETNIA,'etnia')</script>";
+                            echo "<script> cargarDatos($EDAD, 'edad') </script>";
+                            echo "<script> cargarDatos($TABACO, 'tabaco') </script>";
+                            echo "<script> cargarDatos($OBESO, 'obeso') </script>";
+                            echo "<script> cargarDatos($RBQ, 'rbq') </script>";
+                            echo "<script> cargarDatos($ECOTR, 'ecotr') </script>";
+                            echo "<script> cargarDatos($TACTOR, 'tactor') </script>";
+                            echo "<script> cargarDatos($HEREDA, 'hereda') </script>";
 
-                    }
-                    ?>
+                        }
+                        ?>
                     </div>
                 </div>
             </div>
