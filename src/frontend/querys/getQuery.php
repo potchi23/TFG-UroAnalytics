@@ -50,10 +50,12 @@
     //CIR----------------------------
     $FECHACIR = NULL;
     if(isset($_POST["boolCIR"])){
-        $DIACIR = $_POST["cir1"];
-        $MESCIR = $_POST["cir2"];
-        $ANYOCIR = $_POST["cir3"];
-        $FECHACIR = "'".$ANYOCIR."-".$MESCIR."-".$DIACIR."'";
+        if($_POST['cir1'] != ''){
+            $FECHACIR = "'".$_POST["cir1"]."'";
+            if($_POST['cir2'] != ''){
+                $FECHACIR = ">= '".$_POST['cir1']."' AND FECHACIR <= '".$_POST['cir2']."'";
+            }
+        }
     }
 
     //CLINIC-------------------------
@@ -128,10 +130,10 @@
         if($_POST['evolve9'] != ''){
             switch ($_POST["evolve9"]) {
                 case 1:
-                    $CAPRA_S = ">= 0 AND CAPRA-S <= 2";
+                    $CAPRA_S = ">= 0 AND 'CAPRA-S' <= 2";
                     break;
                 case 2:
-                    $CAPRA_S = "> 2 AND CAPRA-S <= 5";
+                    $CAPRA_S = "> 2 AND 'CAPRA-S' <= 5";
                     break;
                 case 3:
                     $CAPRA_S = "> 5";
@@ -244,15 +246,15 @@
         "T1MTX" => $T1MTX,
         "TSEGUI" => $TSEGUI,
         "PSAFIN" => $PSAFIN,
-        "CAPRA-S" => $CAPRA_S,
+        "'CAPRA-S'" => $CAPRA_S,
         //markers--------------
-        "RA-NUCLEAR" => $RA1,
-        "RA-ESTROMA" => $RA2,
+        "'RA-NUCLEAR'" => $RA1,
+        "'RA-ESTROMA'" => $RA2,
         "PTEN" => $PTEN,
         "ERG" => $ERG,
-        "KI-67" => $KI_67,
+        "'KI-67'" => $KI_67,
         "SPINK1" => $SPINK1,
-        "C-MYC" => $C_MYC,
+        "'C-MYC'" => $C_MYC,
         //prostate-------------
         "GLEASON2" => $GLEASON2,
         "VOLUMEN" => $VOLUMEN,
