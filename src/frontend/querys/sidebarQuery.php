@@ -45,18 +45,13 @@
     </li>
     <li class="header-sidebar">Opciones</li>
     <li>
-      <a href="#">
-        <i aria-hidden="true"></i> <input type="submit" value="Realizar consulta">
+      <a href="#" onclick="document.getElementById('queryForm').submit();">
+        <i aria-hidden="true"></i>Realizar consulta
       </a>
     </li>
     <li>
       <a href="../queryIndex.php">
         <i aria-hidden="true"></i> Reiniciar filtros
-      </a>
-    </li>
-    <li>
-      <a href="#">
-        <i aria-hidden="true"></i> Exportar consulta
       </a>
     </li>
   </ul>
