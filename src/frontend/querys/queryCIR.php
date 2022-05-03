@@ -11,10 +11,10 @@
                 <div class="col-xl-">
                     <input type="date" name="cir1">      
                 </div>
-                <div id="cir21" class="col-xl-">
+                <div id="cir21" class="col-xl-" style="display: none">
                     <h4>Hasta: </h4>
                 </div>
-                <div id="cir22" class="col-xl-">
+                <div id="cir22" class="col-xl-" style="display: none">
                     <input type="date" name="cir2">
                 </div>
                 </div>

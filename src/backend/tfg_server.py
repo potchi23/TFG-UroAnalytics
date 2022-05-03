@@ -540,7 +540,7 @@ def doQuery():
     }
 
     if request.method == 'GET':
-        if len(request.form) > 0:
+        if len(request.form) > 2:
             offset = request.form['offset']
             num_elems = request.form['num_elems']
             
