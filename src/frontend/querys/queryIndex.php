@@ -63,7 +63,7 @@
                 <?php include_once("../common/header.php");?>
             </div>
         </div>
-        <form action="viewQuery.php?page=1" method="post">
+        <form action="viewQuery.php?page=1" id="queryForm" method="post">
             <div class="sidebar-container" id="list-example">
                 <?php include_once("sidebarQuery.php")?>
             </div>
