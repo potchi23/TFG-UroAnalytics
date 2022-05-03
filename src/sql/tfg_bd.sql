@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-04-2022 a las 18:47:14
+-- Tiempo de generación: 03-05-2022 a las 18:53:53
 -- Versión del servidor: 10.4.22-MariaDB
 -- Versión de PHP: 8.1.2
 
@@ -20,6 +20,17 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `tfg_bd`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura Stand-in para la vista `ecotr`
+-- (Véase abajo para la vista actual)
+--
+CREATE TABLE `ecotr` (
+`NORMAL` bigint(21)
+,`SOSPECHOSA` bigint(21)
+);
 
 -- --------------------------------------------------------
 
@@ -44,6 +55,17 @@ CREATE TABLE `etnia` (
 ,`negro` bigint(21)
 ,`hispano` bigint(21)
 ,`asiatico` bigint(21)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura Stand-in para la vista `hereda`
+-- (Véase abajo para la vista actual)
+--
+CREATE TABLE `hereda` (
+`SI` bigint(21)
+,`NO` bigint(21)
 );
 
 -- --------------------------------------------------------
@@ -295,11 +317,11 @@ INSERT INTO `patients` (`N`, `FECHACIR`, `EDAD`, `ETNIA`, `OBESO`, `HTA`, `DM`, 
 (158, '2012-11-14 00:00:00', 59, 1, 2, 1, 2, 1, 2, 1, 4.3, 0.39, 69.1, 1, 0, 1, 1, 3, 2, 15, 3, 3, 3, 1, 1, 3, 1, 1, 2, 7, 2, 2, 3, 3, 3, 3, 2, 2, 0.05, 2, NULL, 2, NULL, NULL, '2018-06-18 00:00:00', 67.17105263157895, 2, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 27.5, 1, 2, NULL, 8, 0),
 (159, '2012-01-26 00:00:00', 59, 1, 3, 2, 2, 5, 2, 1, 5.68, 0.23, NULL, 2, 0, 1, 3, 3, 1, 18, 1, 3, 3, 2, 1, 3, 1, 1, 1, 35, 1, 1, 1, 3, 3, 3, 2, 3, 0.02, 1, NULL, 2, NULL, NULL, '2012-05-10 00:00:00', 3.4539473684210527, 2, NULL, NULL, 5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 32.5, 2, 2, NULL, 6, 0),
 (160, '2015-10-07 00:00:00', 65, 1, 2, 1, 2, 2, 1, 3, 10.32, NULL, 18.25, 2, 1, 1, 2, 2, 1, 40, 1, 3, 3, 2, 1, 4, 1, 1, 2, 50, 1, 1, 1, 1, 3, 1, 1, 3, 0.08, 2, NULL, 2, NULL, NULL, '2017-11-27 00:00:00', 25.72368421052632, 2, NULL, NULL, 10, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 27.3, 2, 2, NULL, 14, 0.055),
-(161, '2009-10-08 00:00:00', 60, 1, 2, 2, 2, 2, 2, 2, 5.98, 0.9, NULL, 1, 0, 1, 2, 3, 2, 40, 3, 3, 3, 1, 1, 3, 1, 1, 2, 22, 2, 2, 1, 3, 3, 1, 2, 2, 0.04, 2, NULL, 2, NULL, NULL, '2010-02-24 00:00:00', 4.572368421052632, 2, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 26.4, 2, 2, NULL, 15, 0);
-INSERT INTO `patients` (`N`, `FECHACIR`, `EDAD`, `ETNIA`, `OBESO`, `HTA`, `DM`, `TABACO`, `HEREDA`, `TACTOR`, `PSAPRE`, `PSALT`, `TDUPPRE`, `ECOTR`, `NBIOPSIA`, `HISTO`, `GLEASON1`, `NCILPOS`, `BILAT`, `PORCENT`, `IPERIN`, `ILINF`, `IVASCU`, `TNM1`, `HISTO2`, `GLEASON2`, `BILAT2`, `LOCALIZ`, `MULTIFOC`, `VOLUMEN`, `EXTRACAP`, `VVSS`, `IPERIN2`, `ILINF2`, `IVASCU2`, `PINAG`, `MARGEN`, `TNM2`, `PSAPOS`, `RTPADYU`, `RTPMES`, `RBQ`, `TRBQ`, `T1MTX`, `FECHAFIN`, `TSEGUI`, `FALLEC`, `TSUPERV`, `PSAFIN`, `CAPRA-S`, `RA-NUCLEAR`, `RA-ESTROMA`, `PTEN`, `ERG`, `KI-67`, `SPINK1`, `C-MYC`, `NOTAS`, `IMC`, `ASA`, `GR`, `PNV`, `TH`, `PGG`) VALUES
+(161, '2009-10-08 00:00:00', 60, 1, 2, 2, 2, 2, 2, 2, 5.98, 0.9, NULL, 1, 0, 1, 2, 3, 2, 40, 3, 3, 3, 1, 1, 3, 1, 1, 2, 22, 2, 2, 1, 3, 3, 1, 2, 2, 0.04, 2, NULL, 2, NULL, NULL, '2010-02-24 00:00:00', 4.572368421052632, 2, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 26.4, 2, 2, NULL, 15, 0),
 (162, '2009-05-20 00:00:00', 52, 1, 1, 2, 2, 4, 2, 1, 7.99, NULL, NULL, 2, 0, 1, 1, 1, 2, 20, 3, 3, 3, 1, 1, 4, 1, 1, 2, 12, 2, 2, 1, 3, 3, 3, 2, 2, 0.03, 2, NULL, 2, NULL, NULL, '2016-12-29 00:00:00', 91.44736842105263, 2, NULL, NULL, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 23.8, 2, 2, NULL, 11, 0),
 (163, '2014-11-24 00:00:00', 67, 1, 1, 1, 2, 1, 2, 1, 6.3, 0.36, NULL, 1, 0, 1, 2, 3, 2, 7, 3, 3, 3, 1, 1, 2, 2, 1, 2, 20, 2, 2, 3, 3, 3, 3, 2, 1, 0.03, 2, NULL, 2, NULL, NULL, '2018-01-29 00:00:00', 38.223684210526315, 2, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 22.3, 3, 1, NULL, 5, 0),
-(164, '2015-09-09 00:00:00', 70, 1, 3, 1, 2, 2, 2, 1, 11.92, NULL, 19.9, 1, 1, 1, 1, 1, 2, 3, 3, 3, 3, 1, 1, 1, 2, 1, 2, 5, 2, 2, 2, 3, 3, 3, 2, 1, 0.06, 2, NULL, 2, NULL, NULL, '2018-01-26 00:00:00', 28.61842105263158, 2, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 30.3, 2, 1, NULL, 7, 0),
+(164, '2015-09-09 00:00:00', 70, 1, 3, 1, 2, 2, 2, 1, 11.92, NULL, 19.9, 1, 1, 1, 1, 1, 2, 3, 3, 3, 3, 1, 1, 1, 2, 1, 2, 5, 2, 2, 2, 3, 3, 3, 2, 1, 0.06, 2, NULL, 2, NULL, NULL, '2018-01-26 00:00:00', 28.61842105263158, 2, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 30.3, 2, 1, NULL, 7, 0);
+INSERT INTO `patients` (`N`, `FECHACIR`, `EDAD`, `ETNIA`, `OBESO`, `HTA`, `DM`, `TABACO`, `HEREDA`, `TACTOR`, `PSAPRE`, `PSALT`, `TDUPPRE`, `ECOTR`, `NBIOPSIA`, `HISTO`, `GLEASON1`, `NCILPOS`, `BILAT`, `PORCENT`, `IPERIN`, `ILINF`, `IVASCU`, `TNM1`, `HISTO2`, `GLEASON2`, `BILAT2`, `LOCALIZ`, `MULTIFOC`, `VOLUMEN`, `EXTRACAP`, `VVSS`, `IPERIN2`, `ILINF2`, `IVASCU2`, `PINAG`, `MARGEN`, `TNM2`, `PSAPOS`, `RTPADYU`, `RTPMES`, `RBQ`, `TRBQ`, `T1MTX`, `FECHAFIN`, `TSEGUI`, `FALLEC`, `TSUPERV`, `PSAFIN`, `CAPRA-S`, `RA-NUCLEAR`, `RA-ESTROMA`, `PTEN`, `ERG`, `KI-67`, `SPINK1`, `C-MYC`, `NOTAS`, `IMC`, `ASA`, `GR`, `PNV`, `TH`, `PGG`) VALUES
 (165, '2012-10-24 00:00:00', 68, 1, 1, 2, 2, 2, 2, 1, 4.62, 0.18, 111.23, 1, 0, 1, 2, 3, 1, 12.5, 3, 3, 3, 2, 1, 4, 1, 1, 2, 20, 1, 2, 1, 3, 3, 3, 2, 3, 0.03, 2, NULL, 2, NULL, NULL, '2019-10-18 00:00:00', 83.88157894736842, 2, NULL, NULL, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 24.9, 2, 2, NULL, 6, 0),
 (166, '2012-08-16 00:00:00', 67, 1, 2, 1, 2, 4, 2, 1, 8.82, 0.08, NULL, 1, 0, 1, 3, 1, 1, 11, 3, 3, 3, 2, 1, 3, 1, 1, 2, 10, 2, 2, 3, 2, 3, 1, 2, 2, 0.03, 2, NULL, 2, NULL, NULL, '2016-12-23 00:00:00', 52.30263157894737, 2, NULL, NULL, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 27, 2, 2, NULL, 6, 0),
 (167, '2011-08-30 00:00:00', 59, 1, 3, 2, 2, 1, 2, 1, 4.5, NULL, NULL, 1, 0, 1, 3, 3, 1, 17, 3, 3, 3, 2, 1, 3, 1, 1, 2, 33, 2, 2, 3, 3, 3, 3, 1, 5, 0.02, 2, NULL, 2, NULL, NULL, '2017-11-10 00:00:00', 74.47368421052632, 2, NULL, NULL, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 32, 1, 2, NULL, 4, 0),
@@ -317,7 +339,7 @@ INSERT INTO `patients` (`N`, `FECHACIR`, `EDAD`, `ETNIA`, `OBESO`, `HTA`, `DM`, 
 (179, '2013-06-17 00:00:00', 60, 1, 2, 2, 2, 4, 2, 1, 5.77, 0.31, NULL, 2, 0, 1, 1, 1, 2, 5, 3, 3, 3, 1, 1, 1, 1, 1, 2, 3, 2, 2, 3, 3, 3, 1, 2, 2, 0.03, 2, NULL, 2, NULL, NULL, '2017-11-27 00:00:00', 53.42105263157895, 2, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 28.9, 2, 2, NULL, 5, 0),
 (180, '2012-05-17 00:00:00', 68, 1, 3, 1, 1, 1, 2, 2, 6.4, NULL, 32.18, 1, 0, 1, 1, 2, 2, 7, 3, 3, 3, 1, 1, 2, 1, 1, 2, 6, 2, 2, 3, 3, 3, 1, 2, 2, 0.03, 2, NULL, 2, NULL, NULL, '2017-10-27 00:00:00', 65.42763157894737, 2, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 31.9, 3, 2, NULL, 6, 0),
 (181, '2013-09-25 00:00:00', 67, 1, 3, 2, 2, 3, 2, 1, 7.52, 0.22, 27.03, 1, 0, 1, 1, 1, 1, 5, 3, 3, 3, 2, 1, 1, 1, 1, 2, 20, 2, 2, 1, 3, 3, 1, 2, 2, 0.02, 2, NULL, 2, NULL, NULL, '2018-07-05 00:00:00', 57.36842105263158, 2, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 30.1, 1, 2, NULL, 5, 0),
-(182, '2013-08-01 00:00:00', 67, 1, 2, 2, 2, 1, 1, 1, 4.2, 0.24, 602.42, 1, 0, 1, 2, 1, 2, 5, 1, 3, 3, 1, 1, 3, 1, 1, 2, 10, 1, 1, 3, 3, 3, 3, 1, 3, 0.01, 2, NULL, 2, NULL, NULL, '2018-05-04 00:00:00', 57.13815789473684, 2, NULL,  NULL, 7, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 24.2, 2, 2, NULL, 6, 0),
+(182, '2013-08-01 00:00:00', 67, 1, 2, 2, 2, 1, 1, 1, 4.2, 0.24, 602.42, 1, 0, 1, 2, 1, 2, 5, 1, 3, 3, 1, 1, 3, 1, 1, 2, 10, 1, 1, 3, 3, 3, 3, 1, 3, 0.01, 2, NULL, 2, NULL, NULL, '2018-05-04 00:00:00', 57.13815789473684, 2, NULL, NULL, 7, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 24.2, 2, 2, NULL, 6, 0),
 (183, '2010-07-26 00:00:00', 53, 1, 3, 1, 2, 2, 2, 1, 7.45, 0.16, 60.58, 1, 1, 1, 1, 1, 2, 5, 3, 3, 3, 1, 1, 1, 2, 1, 2, 1, 2, 2, 1, 3, 2, 3, 2, 1, 0.05, 2, NULL, 2, NULL, NULL, '2016-01-14 00:00:00', 65.72368421052632, 2, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 32, 2, 0, NULL, 6, 0),
 (184, '2011-12-07 00:00:00', 62, 1, 1, 2, 2, 5, 2, 1, 5.21, 0.26, 32.88, 1, 1, 1, 1, 1, 2, 3, 3, 3, 3, 1, 1, 1, 1, 1, 2, 6, 2, 2, 3, 3, 3, 3, 2, 2, 0.03, 2, NULL, 2, NULL, NULL, '2018-04-05 00:00:00', 76.01973684210526, 2, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 19.7, 2, 2, NULL, 7, 0),
 (185, '2011-11-10 00:00:00', 55, 1, 1, 2, 2, 4, 1, 2, 5.23, 0.11, NULL, 1, 0, 1, 3, 1, 2, 10, 3, 3, 3, 1, 1, 3, 2, 1, 2, 20, 2, 2, 3, 3, 3, 1, 1, 5, 0.02, 2, NULL, 2, NULL, NULL, '2015-09-24 00:00:00', 46.51315789473684, 1, NULL, NULL, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 20.7, 2, 1, NULL, 6, 0),
@@ -360,6 +382,18 @@ CREATE TABLE `prediciones` (
 -- --------------------------------------------------------
 
 --
+-- Estructura Stand-in para la vista `rbq`
+-- (Véase abajo para la vista actual)
+--
+CREATE TABLE `rbq` (
+`SI` bigint(21)
+,`NO` bigint(21)
+,`PERSISTENCIA_PSA` bigint(21)
+);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura Stand-in para la vista `tabaco`
 -- (Véase abajo para la vista actual)
 --
@@ -370,6 +404,18 @@ CREATE TABLE `tabaco` (
 ,`10CIG_DIA` bigint(21)
 ,`1020CIG_DIA` bigint(21)
 ,`20CIG_DIA` bigint(21)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura Stand-in para la vista `tactor`
+-- (Véase abajo para la vista actual)
+--
+CREATE TABLE `tactor` (
+`NEGATIVO` bigint(21)
+,`SOSPECHOSO` bigint(21)
+,`POSITIVO` bigint(21)
 );
 
 -- --------------------------------------------------------
@@ -423,6 +469,15 @@ INSERT INTO `users` (`id`, `name`, `surname_1`, `surname_2`, `email`, `password`
 -- --------------------------------------------------------
 
 --
+-- Estructura para la vista `ecotr`
+--
+DROP TABLE IF EXISTS `ecotr`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `ecotr`  AS SELECT (select count(0) from `patients` where `patients`.`ECOTR` = 1) AS `NORMAL`, (select count(0) from `patients` where `patients`.`ECOTR` = 2) AS `SOSPECHOSA` FROM `patients` LIMIT 0, 1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura para la vista `edad`
 --
 DROP TABLE IF EXISTS `edad`;
@@ -441,6 +496,15 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
+-- Estructura para la vista `hereda`
+--
+DROP TABLE IF EXISTS `hereda`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `hereda`  AS SELECT (select count(0) from `patients` where `patients`.`HEREDA` = 1) AS `SI`, (select count(0) from `patients` where `patients`.`HEREDA` = 2) AS `NO` FROM `patients` LIMIT 0, 1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura para la vista `obeso`
 --
 DROP TABLE IF EXISTS `obeso`;
@@ -450,11 +514,29 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
+-- Estructura para la vista `rbq`
+--
+DROP TABLE IF EXISTS `rbq`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `rbq`  AS SELECT (select count(0) from `patients` where `patients`.`RBQ` = 1) AS `SI`, (select count(0) from `patients` where `patients`.`RBQ` = 2) AS `NO`, (select count(0) from `patients` where `patients`.`RBQ` = 3) AS `PERSISTENCIA_PSA` FROM `patients` LIMIT 0, 1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura para la vista `tabaco`
 --
 DROP TABLE IF EXISTS `tabaco`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `tabaco`  AS SELECT (select count(0) AS `NC` from `patients` where `patients`.`TABACO` = 0) AS `NC`, (select count(0) AS `NO` from `patients` where `patients`.`TABACO` = 1) AS `NO`, (select count(0) AS `EXFUMADOR` from `patients` where `patients`.`TABACO` = 2) AS `EXFUMADOR`, (select count(0) AS `10CIG_DIA` from `patients` where `patients`.`TABACO` = 3) AS `10CIG_DIA`, (select count(0) AS `1020CIG_DIA` from `patients` where `patients`.`TABACO` = 4) AS `1020CIG_DIA`, (select count(0) AS `20CIG_DIA` from `patients` where `patients`.`TABACO` = 5) AS `20CIG_DIA` FROM `patients` LIMIT 0, 1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura para la vista `tactor`
+--
+DROP TABLE IF EXISTS `tactor`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `tactor`  AS SELECT (select count(0) from `patients` where `patients`.`TACTOR` = 1) AS `NEGATIVO`, (select count(0) from `patients` where `patients`.`TACTOR` = 2) AS `SOSPECHOSO`, (select count(0) from `patients` where `patients`.`TACTOR` = 3) AS `POSITIVO` FROM `patients` LIMIT 0, 1 ;
 
 --
 -- Índices para tablas volcadas
