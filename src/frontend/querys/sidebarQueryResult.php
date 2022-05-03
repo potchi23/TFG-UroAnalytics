@@ -14,6 +14,11 @@
       </a>
     </li>
     <li>
+      <a href="viewDetails.php">
+        <i aria-hidden="true"></i> Ver detalles
+      </a>
+    </li>
+    <li>
       <a href="exportQuery.php">
         <i aria-hidden="true"></i> Exportar consulta
       </a>
