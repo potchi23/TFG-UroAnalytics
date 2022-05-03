@@ -1,16 +1,22 @@
 
         <div class="jumbotron">
             <h1 style="font-weight:600;">Filtro de filiación</h1>
+            <input type="button" value="Fecha exacta" onclick="document.getElementById('cir21').style.display = 'none'; document.getElementById('cir22').style.display = 'none';">
+            <input type="button" value="Intervalo" onclick="document.getElementById('cir21').style.display = 'block'; document.getElementById('cir22').style.display = 'block';">
             <hr class="my-4">
             <div class="form-row align-items-center">
                 <div class="col-xl-">
-                    <h3> Fecha PRL </h3>
+                    <h3> Fecha PRL:  </h3>
                 </div>
-                    <h4>Día</h4>
-                    <input type="text" class="form-control" name="cir1" placeholder="dd" style="width:10em;">
-                    <h4>Mes</h4>
-                    <input type="text" class="form-control" name="cir2" placeholder="mm" style="width:10em;">
-                    <h4>Año</h4>
-                    <input type="text" class="form-control" name="cir3" placeholder="yyyy" style="width:10em;">
-            </div>
+                <div class="col-xl-">
+                    <input type="date" name="cir1">      
+                </div>
+                <div id="cir21" class="col-xl-">
+                    <h4>Hasta: </h4>
+                </div>
+                <div id="cir22" class="col-xl-">
+                    <input type="date" name="cir2">
+                </div>
+                </div>
+            </div>     
         </div>
