@@ -8,10 +8,12 @@ import jwt
 from datetime import datetime, timedelta
 import sqlalchemy as sqla 
 import predictions
+import pandas_profiling
 import pandas as pd
 import json
 import numpy as np
 import base64
+import threading
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
@@ -27,6 +29,8 @@ pipe_knn = ''
 pipe_best = ''
 scores = {}
 last_train = 'never'
+
+user_threads = {}
 
 # Decorador para verificar el JWT
 def token_required(f):
@@ -327,6 +331,18 @@ def getScores(current_user=''):
 
         status = 200
         return response, status
+    
+@app.route('/getColumns', methods=['GET'])
+@token_required
+def getCols(current_user=''):
+    response = {}
+    status = 400
+    if request.method == 'GET':
+        df = pd.read_sql("SELECT * FROM PATIENTS", engine)
+        response["data"] = list(df.columns)
+        status = 200
+        
+    return response, status
 
 @app.route('/training/lastTraining', methods=['GET'])
 @token_required
@@ -433,8 +449,7 @@ def database(current_user):
 
         #leer archivo
         df = pd.read_excel(filename, header=0)
-        print(df.columns)
-
+        
         #eliminar archivo del frontend
         os.remove(filename)
 
@@ -530,8 +545,6 @@ def doQuery():
             num_elems = request.form['num_elems']
             
             queryWhere, num_entries = buildQuery(request.form); 
-            print(queryWhere)
-
             queryWhere += ' LIMIT %s, %s' % (offset, num_elems)
 
             result_patients = pd.read_sql("SELECT * FROM PATIENTS " + queryWhere, engine)
@@ -561,7 +574,7 @@ def buildQuery(req):
         operators = "=<>"
         keys = list(req.keys())
         for i in req:
-            if req[i] != '':
+            if req[i] != '' and "drop" not in i and "extended" not in i:
                 if req[i][0] in operators:
                     query = query + i + " " + req[i]
                 else:
@@ -573,6 +586,72 @@ def buildQuery(req):
     num_entries = pd.read_sql("SELECT * FROM patients " + query, engine).shape[0]
 
     return query, num_entries
+
+@app.route('/getDetails', methods=['GET'])
+@token_required
+def getDetails(current_user):
+    status = 400
+    response = {}
+
+    if request.method == 'GET':
+        if len(request.form) > 2:
+            query = str(buildQuery(request.form)[0])
+            columns, status = getCols()
+            minimal = True
+
+            if status == 200:
+                for i in request.form:
+                    if "drop" in i:
+                        if i == "dropT_SEG":
+                            columns["data"].pop(columns["data"].index('T.SEG'))
+                        else:
+                            columns["data"].pop(columns["data"].index(request.form[i]))
+                        
+                minimal = request.form["extended"]
+                
+                for i in range(0, len(columns["data"])):
+                    if "-" in columns["data"][i] or "." in columns["data"][i]:
+                        columns["data"][i] = "'" + columns["data"][i] + "'"
+                
+                df = pd.read_sql("SELECT " + ", ".join(columns["data"]) + " FROM PATIENTS " + query, engine)
+                user_threads[str(current_user['public_id'])] = threading.Thread(target=detailsThread, kwargs={'df': df, 'current_user': current_user, 'minimal': minimal})
+                user_threads[str(current_user['public_id'])].start()
+                response = str(current_user['public_id'])
+        else:
+            response["errorMsg"] = "Consulta vacía."
+
+    return response, status
+
+@app.route('/getDetailsFile', methods=['GET'])
+def getDetailsFile():
+    status = 400
+    response = {"data": "",
+                "errorMSG": ""}
+
+    if request.method == 'GET':
+        try:
+            if user_threads[request.form['current_user']].is_alive():
+                user_threads[request.form['current_user']].join()
+            user_threads.pop(request.form['current_user'])
+            
+            file = open("detalles" + request.form['current_user'] + ".html", "r", encoding="utf8")
+            response["data"] = file.read()
+            file.close()
+            os.remove("detalles" + request.form['current_user'] + ".html") 
+            status = 200
+
+        except:
+            response["errorMSG"] = "Error al leer el archivo de detalles."
+
+    return response, status
+
+def detailsThread(df, current_user, minimal):
+    try:
+        detalles = pandas_profiling.ProfileReport(df, title="Patient Details", minimal=minimal)
+        detalles.to_file("detalles" + str(current_user['public_id']) + ".html")
+    except:
+        print("Error al generar el pandas profiling.")
+    return
 
 @app.route('/numPatients', methods=['GET'])
 @token_required
@@ -787,4 +866,4 @@ class FlaskConfig:
 
 if __name__ == '__main__':
     app.config.from_object(FlaskConfig())
-    app.run('0.0.0.0', 5000)
+    app.run('0.0.0.0', 5000, threaded=True)
