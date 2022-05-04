@@ -1,5 +1,6 @@
 import os
 import sys
+from unittest import result
 from flask import Flask, request
 from flask_cors import CORS
 from flask_bcrypt import Bcrypt
@@ -548,6 +549,7 @@ def doQuery():
             queryWhere += ' LIMIT %s, %s' % (offset, num_elems)
 
             result_patients = pd.read_sql("SELECT * FROM PATIENTS " + queryWhere, engine)
+
             if not result_patients.empty:
                 status = 200
                 df_aux = dbTranslator(result_patients.fillna(""))
@@ -819,37 +821,60 @@ def getGraphics():
         'TACTOR':{},
         'ECOTR':{}
     }
-    try:
-        query_edad = 'Select * from edad'
-        query_tabaco = 'Select * from tabaco'
-        query_obeso = 'Select * from obeso'
-        query_etnia = 'Select * from etnia'
-        query_rbq = 'Select * from rbq'
-        query_hereda = 'Select * from hereda'
-        query_tactor = 'Select * from tactor'
-        query_ecotr = 'Select * from ecotr'
+    query = "SELECT * FROM patients "
+    if len(request.form) > 0:
+        query += buildQuery(request.form)[0]
 
-        edadDF = pd.read_sql(query_edad, engine)
-        tabacoDF = pd.read_sql(query_tabaco, engine)
-        obesoDF = pd.read_sql(query_obeso, engine)
-        etniaDF = pd.read_sql(query_etnia, engine)
-        rbqDF = pd.read_sql(query_rbq, engine)
-        heredaDF = pd.read_sql(query_hereda, engine)
-        tactorDF = pd.read_sql(query_tactor, engine)
-        ecotrDF = pd.read_sql(query_ecotr, engine)
+    patients = pd.read_sql(query, engine)
 
-        response['EDAD'] = edadDF.to_dict(orient="records")[0]
-        response['TABACO'] = tabacoDF.to_dict(orient="records")[0]
-        response['OBESO'] = obesoDF.to_dict(orient="records")[0]
-        response['ETNIA'] = etniaDF.to_dict(orient="records")[0]
-        response['RBQ'] = rbqDF.to_dict(orient="records")[0]
-        response['HEREDA'] = heredaDF.to_dict(orient="records")[0]
-        response['TACTOR'] = tactorDF.to_dict(orient="records")[0]
-        response['ECOTR'] = ecotrDF.to_dict(orient="records")[0]
+    edadDF = pd.DataFrame(columns=["JOVEN", "ADULTO", "3EDAD"], data={"JOVEN" : [patients[patients["EDAD"] < 18].shape[0]], 
+                                                                        "ADULTO" : [patients[(patients["EDAD"] >= 18) & (patients["EDAD"] < 65)].shape[0]], 
+                                                                        "3EDAD" : [patients[patients["EDAD"] >= 65].shape[0]]})
+    
+    tabacoDF = pd.DataFrame(columns=["NC", "NO", "EXFUMADOR","10CIG_DIA","10-20CIG_DIA","20CIG_DIA"], data={
+                                                                        "NC" : [patients[patients["TABACO"] == 0].shape[0]], 
+                                                                        "NO" : [patients[patients["TABACO"] == 1].shape[0]],
+                                                                        "EXFUMADOR" : [patients[patients["TABACO"] == 2].shape[0]],
+                                                                        "10CIG_DIA" : [patients[patients["TABACO"] == 3].shape[0]],
+                                                                        "10-20CIG_DIA" : [patients[patients["TABACO"] == 4].shape[0]],
+                                                                        "20CIG_DIA" : [patients[patients["TABACO"] == 5].shape[0]]})
 
-        status = 200
-    except:
-        response["errorMSG"] = "Error en la obtención de vistas."   
+    obesoDF = pd.DataFrame(columns=["NC", "IMC < 25", "IMC 25-30", "IMC > 30"], data={"NC" : [patients[patients["OBESO"] == 0].shape[0]], 
+                                                                                    "IMC < 25" : [patients[patients["OBESO"] == 1].shape[0]],
+                                                                                    "IMC 25-30" : [patients[patients["OBESO"] == 2].shape[0]],
+                                                                                    "IMC > 30" : [patients[patients["OBESO"] == 3].shape[0]]})
+
+    etniaDF = pd.DataFrame(columns=["Caucasico", "Negro", "Hispano", "Asiatico"], data={"Caucasico" : [patients[patients["ETNIA"] == 1].shape[0]], 
+                                                                                    "Negro" : [patients[patients["ETNIA"] == 2].shape[0]],
+                                                                                    "Hispano" : [patients[patients["ETNIA"] == 3].shape[0]],
+                                                                                    "Asiatico" : [patients[patients["ETNIA"] == 4].shape[0]]})
+
+    rbqDF = pd.DataFrame(columns=["SI", "NO", "PERSISTENCIA_PSA"], data={"SI" : [patients[patients["RBQ"] == 0].shape[0]], 
+                                                                        "NO" : [patients[patients["RBQ"] == 1].shape[0]], 
+                                                                        "PERSISTENCIA_PSA" : [patients[patients["RBQ"] ==2].shape[0]]})
+    
+    heredaDF = pd.DataFrame(columns=["Si", "No"], data={"Si" : [patients[patients["HEREDA"] == 1].shape[0]], 
+                                                        "No" : [patients[patients["HEREDA"] == 2].shape[0]]})
+
+    tactorDF = pd.DataFrame(columns=["NEGATIVO", "SOSPECHOSO", "POSITIVO"], data={"NEGATIVO" : [patients[patients["TACTOR"] == 0].shape[0]], 
+                                                                        "SOSPECHOSO" : [patients[patients["TACTOR"] == 1].shape[0]], 
+                                                                        "POSITIVO" : [patients[patients["TACTOR"] ==2].shape[0]]})
+    
+    ecotrDF = pd.DataFrame(columns=["NORMAL", "SOSPECHOSA"], data={"NORMAL" : [patients[patients["ECOTR"] == 0].shape[0]], 
+                                                                        "SOSPECHOSA" : [patients[patients["ECOTR"] == 1].shape[0]]})
+                                                                        
+    response['EDAD'] = edadDF.to_dict(orient="records")[0]
+    response['TABACO'] = tabacoDF.to_dict(orient="records")[0]
+    response['OBESO'] = obesoDF.to_dict(orient="records")[0]
+    response['ETNIA'] = etniaDF.to_dict(orient="records")[0]
+    response['RBQ'] = rbqDF.to_dict(orient="records")[0]
+    response['HEREDA'] = heredaDF.to_dict(orient="records")[0]
+    response['TACTOR'] = tactorDF.to_dict(orient="records")[0]
+    response['ECOTR'] = ecotrDF.to_dict(orient="records")[0]
+
+    status = 200
+    # except:
+    #     response["errorMSG"] = "Error en la obtención de vistas."   
     return response,status
 
 class FlaskConfig:

@@ -9,7 +9,7 @@
       </a>
     </li>
     <li>
-      <a href="#queryCIR">
+      <a href="viewQueryGraphs.php">
         <i aria-hidden="true"></i> Ver estadísticas
       </a>
     </li>
