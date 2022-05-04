@@ -55,65 +55,10 @@
                 $response = $http_requests->getResponse("$BACKEND_URL/patients", "GET", $get_req, $user->get_token());
             }
 
-            if($response["status"] != 200) {
-                if($response["status"] == 401){
-                    unset($_SESSION["user"]);
-                    echo "<script>alert('La sesión ha caducado. Vuelva a iniciar sesión.');</script>";
-                    $_SESSION["message"] = "La sesión ha caducado";
-                    echo "<script type='text/javascript'>window.location.href = '../login.php';</script>";
-                }
-            }
-            
-            $data_array = $response["data"]->data;
-            $num_patients = $response["data"]->num_entries;
-
-            if($num_patients > 0) 
-                echo "<h5>Número de pacientes: $num_patients</h5><br>";
-            else
-                echo "<h5>No hay pacientes en la base de datos</h5><br>";                                        
+            require_once("../common/viewTable.php");
         ?>
         
-        <div class="table-container m-auto">
-            <div class="table-responsive table-content">
-                <table class="table table-striped table-bordered table-hover table-light">
-                    <?php                                    
-                        if (count($data_array) > 0) {
-
-                            echo '<tr class="thead-dark">';
-                            echo "<th>#</th>";
-                            foreach($data_array[0] as $key=>$value){
-                                echo "<th>$key</th>";
-                            }
-                            echo "</tr>";  
-
-                            $numElems = count($data_array);
-
-                            foreach($data_array as $petition){
-                                echo "<tr id='patients_$petition->N'>";
-                                echo "<td>$petition->N</td>";
-                                foreach($petition as $key=>$value){
-                                    echo "<td>$value</td>";
-                                }
-                                echo "</tr>";                                      
-                            }
-
-                            $empty_rows = $NUM_ELEMENTS_BY_PAGE - $numElems;
-                            
-                            for ($i = 0; $i < $empty_rows; $i++){
-                                echo "<tr>";
-                                for ($j = 0; $j < count((array)$data_array[0]) + 1; $j++){
-                                    echo "<td><div style='margin-bottom:2.38rem;'></div></td>";
-                                }
-                                echo "</tr>";
-                            }
-                        }
-                        else{
-                            echo "<h5>No se han encontrado pacientes</h5>";
-                        }
-                    ?>
-                </table>                    
-            </div>
-        </div>
+        
         
         <div class="page-buttons">
             <?php

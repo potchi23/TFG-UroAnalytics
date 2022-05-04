@@ -9,7 +9,7 @@
       </a>
     </li>
     <li>
-      <a href="viewQueryGraphs.php">
+      <a href="../common/viewGraphs.php?father=querys">
         <i aria-hidden="true"></i> Ver estadísticas
       </a>
     </li>

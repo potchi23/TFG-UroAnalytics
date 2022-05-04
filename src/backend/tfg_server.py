@@ -691,17 +691,12 @@ def viewPatients(current_user):
         if('rbq_null' in request.form and request.form['rbq_null'] == 'true'):
             query += 'WHERE RBQ IS NULL '
 
-        query += 'LIMIT %s, %s'
-        params = (offset, num_elems)
+        query += ' LIMIT %s, %s' % (offset, num_elems)
+        
+        patients = pd.read_sql(query, engine)
 
-        columns = tuple(engine.execute(query, params).keys())
-        result = engine.execute(query, params)
-
-        entry = {}
-        for row in result:
-            for i in range(0, len(row)):
-                entry[columns[i]] = row[i]
-            response['data'].append(dict(entry))
+        df_aux = dbTranslator(patients.fillna(""))
+        response['data'] = df_aux.to_dict(orient='records')
         
         if('rbq_null' in request.form and request.form['rbq_null'] == 'true'):
             response['num_entries'] = len(response['data'])

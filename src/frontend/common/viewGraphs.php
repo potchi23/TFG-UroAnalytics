@@ -13,7 +13,7 @@
 
 <html>
     <head>
-        <title>Pacientes</title>
+        <title>Estadísticas de consulta</title>
         <link rel="stylesheet" href="../css/forms.css"/>
         <?php require_once("../common/includes.php");?>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -66,12 +66,20 @@
             }
             </script>
     </head>
-    <body>
-        <<div class="header">
-            <?php require("../common/header.php");?>
+    <body style="position: relative;">
+        <div class="header">
+            <div class="fixed-top">
+            <?php include_once("../common/header.php");?>
+            </div>
         </div>   
         <div class="sidebar-container">
-            <?php include_once("sidebarPatients.php");?>
+            <?php if($_GET["father"] == "querys"){
+                    include_once("../querys/sidebarQueryResult.php");
+                }elseif($_GET["father"] == "patients"){
+                    include_once("../patients/sidebarPatients.php");
+                }
+            ?>
+        
         </div>
 
         <div class="content-container">
@@ -166,8 +174,15 @@
                     
                     
                         <?php
+
                         $http_requests = new HttpRequests();
-                        $response = $http_requests->getResponse("$BACKEND_URL/graphicPatients", "GET","");
+                        $get_req = NULL;
+                        if($_GET["father"] == "querys"){
+                            $get_req = $_SESSION["get_req"];
+                            $response = $http_requests->getResponse("$BACKEND_URL/graphicPatients", "GET", $get_req, $user->get_token());
+                        }elseif($_GET["father"] == "patients"){
+                            $response = $http_requests->getResponse("$BACKEND_URL/graphicPatients", "GET", $get_req, $user->get_token());
+                        }
                     
                         if($response["status"] == 200) {
                             $ETNIA = json_encode($response["data"]->ETNIA);
@@ -194,6 +209,9 @@
                 </div>
             </div>
         </div>    
-
+        <div style="margin-bottom:10rem;"></div>
+        <footer class="bg-light text-center text-lg-start">
+            <?php include_once("../common/footer.php")?>
+        </footer> 
     </body>
 </html>
