@@ -421,7 +421,7 @@ def database(current_user):
     response = {}
 
     if request.method == 'GET':
-        query = 'SELECT * FROM patients'
+        query = 'SELECT * FROM patients '
 
         if len(request.form) != 0:
             query += buildQuery(request.form)[0]
