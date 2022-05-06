@@ -43,7 +43,6 @@
         <link rel="stylesheet" href="../css/formUserProfile.css"/>
         <html lang="es">
         <script src="https://unpkg.com/htmlincludejs"></script>
-        <script src="https://community-mall.com/js/loading.js"></script>
     </head>
     <body>
         <script type="text/javascript">
@@ -86,18 +85,6 @@
         <footer class="bg-light text-center text-lg-start">
             <?php require("../common/footer.php")?>
         </footer>
-        <script>
-            var myVar;
-
-            function myFunction() {
-            myVar = setTimeout(showPage, 3000);
-            }
-
-            function showPage() {
-                document.getElementById("loader").style.display = "none";
-                document.getElementById("myDiv").style.display = "block";
-            }
-        </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     </body>
 </html>
