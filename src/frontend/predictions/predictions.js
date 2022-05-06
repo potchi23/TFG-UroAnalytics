@@ -85,81 +85,71 @@ $(document).ready(() => {
         
     });
 
+    function Exception() {
+    }
+
     $('#prediction-button').click(() => {
         let features = [];
-        ['N', 'NOTAS', 'FECHACIR', 'FECHAFIN','ETNIA', 'HISTO', 'IPERIN', 'ILINF', 'IVASCU', 'HISTO2', 'ILINF2', 'IVASCU2', 'FALLEC']
-        $('.prediction-form-input').each((index, value) => {
-            if($(value).attr('id') != 'N' && $(value).attr('id') != 'FECHACIR' && $(value).attr('id') != 'FECHAFIN' && $(value).attr('id') != 'ETNIA' &&
-               $(value).attr('id') != 'NOTAS' && $(value).attr('id') != 'RBQ' && $(value).attr('id') != 'TDUPLI.R1' &&
-               $(value).attr('id') != 'IPERIN' && $(value).attr('id') != 'ILINF' && $(value).attr('id') != 'TDUPLI.R1' &&
-               $(value).attr('id') != 'IVASCU' && $(value).attr('id') != 'ILINF2' && $(value).attr('id') != 'IVASCU2' && $(value).attr('id') != 'FALLEC'
-               ){
-                features.push($(value).attr('value') == '' ? 0 : $(value).attr('value')*1);
-            }
-        });
-        
-        let data = {
-            'features': features.toString(),
-            'algorithm' : $('#algorithms').val()
-        }
-        $.ajax({
-            type: 'POST',
-            url: BACKEND_URL + '/predict',
-            data : data,
-            beforeSend: (request) => {
-                request.setRequestHeader("x-access-token", $('#token').val());
-            },
 
-            success : result => {
-                $('.prediction-result').val(result);
-            },
-            error : e => {
-                console.log('Request failed: ' + e);
+        $('.prediction-form-input').each((index, row) => {
+            if(rowUsedForTraining(row)){
+                // if(!$(row).attr('value')){
+                //     $("#" + row.id).css("border-color","red");
+                // }
+                features.push(isNaN($(row).text()) ? undefined : $(row).attr('value')*1);    
             }
         });
+
+        predict(features);
     });
 
     $('#prediction-button-existent').click(() => {
         let features = [];
 
-        $('.prediction-values-' + $('#selected').val()).each((index, value) => {
-            if(
-                $(value).attr('id') != 'N' && $(value).attr('id') != 'FECHACIR' && $(value).attr('id') != 'FECHAFIN' && $(value).attr('id') != 'ETNIA' &&
-                $(value).attr('id') != 'NOTAS' && $(value).attr('id') != 'RBQ' && $(value).attr('id') != 'TDUPLI.R1' &&
-                $(value).attr('id') != 'IPERIN' && $(value).attr('id') != 'ILINF' && $(value).attr('id') != 'TDUPLI.R1' &&
-                $(value).attr('id') != 'IVASCU' && $(value).attr('id') != 'ILINF2' && $(value).attr('id') != 'IVASCU2' && $(value).attr('id') != 'FALLEC'
-            ){
-                features.push($(value).text() == '' ? 0 : $(value).text()*1);
+        $('.prediction-values-' + $('#selected').val()).each((index, row) => {
+            if(rowUsedForTraining(row)){
+                features.push(isNaN($(row).text())? 0 : $(row).text()*1);
             }
         });
         
-        let data = {
-            'features': features.toString(),
-            'algorithm' : $('#algorithms').val()
-        }
-        $.ajax({
-            type: 'POST',
-            url: BACKEND_URL + '/predict',
-            data : data,
-            beforeSend: (request) => {
-                request.setRequestHeader("x-access-token", $('#token').val());
-            },
-
-            success : result => {
-                $('.prediction-result').val(result);
-                $('.prediction-result-input').val(result);
-            },
-            error : e => {
-                console.log('Request failed: ' + e);
-            }
-        });
+        predict(features);
     });
 });
 
 function select(event){
     let id = event.id 
+
     $('#selected').val(id);
     $('.modal-title').text('Predecir sobre el paciente #' + id);
     $('.prediction-result').val('');
     $('.prediction-result-input').val('');
+}
+
+function rowUsedForTraining(row){
+    return $(row).attr('id') != 'N' && $(row).attr('id') != 'FECHACIR' && $(row).attr('id') != 'FECHAFIN' && $(row).attr('id') != 'ETNIA' &&
+           $(row).attr('id') != 'NOTAS' && $(row).attr('id') != 'RBQ' && $(row).attr('id') != 'TDUPLI.R1' &&
+           $(row).attr('id') != 'IPERIN' && $(row).attr('id') != 'ILINF' && $(row).attr('id') != 'TDUPLI.R1' &&
+           $(row).attr('id') != 'IVASCU' && $(row).attr('id') != 'ILINF2' && $(row).attr('id') != 'IVASCU2' && $(row).attr('id') != 'FALLEC'
+}
+
+function predict(features){
+    let data = {
+        'features': features.toString(),
+        'algorithm' : $('#algorithms').val()
+    }
+    $.ajax({
+        type: 'POST',
+        url: BACKEND_URL + '/predict',
+        data : data,
+        beforeSend: (request) => {
+            request.setRequestHeader("x-access-token", $('#token').val());
+        },
+
+        success : result => {
+            $('.prediction-result').val(result);
+        },
+        error : e => {
+            console.log('Request failed: ' + e);
+        }
+    });
 }

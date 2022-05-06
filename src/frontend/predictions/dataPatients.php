@@ -42,11 +42,9 @@
     <div class="d-flex justify-content-between input-group prediction-data">
 
         <?php
+            include("predictionForm.php");
+
             if(!isset($_SESSION["dataInputs"])) {
-                include("empty-form.php");
-            }
-            else {
-                include("filled-form.php");
                 unset($_SESSION["dataInputs"]);
             }
         ?>

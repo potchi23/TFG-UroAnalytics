@@ -30,14 +30,6 @@
                 <?php require("sidebarPredictions.php")?>
             </div>
 
-            <div id="training">
-                <?php
-                    if($user->is_admin()){
-                        require("trainingButton.php");  
-                    }
-                ?>
-            </div>
-
             <div class="content-container" data-bs-spy="scroll" data-bs-target="#list-example" data-bs-offset="0" class="scrollspy-example" tabindex="0">
                 <div class="container-fluid">
                     <div class="jumbotron" id="indexPrediction">                        
@@ -52,7 +44,7 @@
                             en la sección <b>Predicción sobre paciente existente</b>.</h5><br>
 
                         <div id="last-train">
-                            <span>Último entrenamiento: </span>
+                            <span>Entrenado en: </span>
                             <span id="last-train-date">Nunca</span>
                         </div>
                         <hr class="my-4">

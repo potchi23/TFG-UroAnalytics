@@ -17,6 +17,7 @@ import base64
 import threading
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+SESSION_EXPIRATION_IN_MINUTES = 120
 
 app = Flask(__name__)
 CORS(app)
@@ -101,7 +102,7 @@ def login():
                 response['is_registered'] = True
                 response['type'] = user_info[7]
                 response['accepted'] = True
-                response['token'] = jwt.encode({'public_id': response['id'], 'type' : response['type'], 'exp' : datetime.utcnow() + timedelta(minutes = 60) }, str(app.config['SECRET_KEY']), 'HS256')
+                response['token'] = jwt.encode({'public_id': response['id'], 'type' : response['type'], 'exp' : datetime.utcnow() + timedelta(minutes = SESSION_EXPIRATION_IN_MINUTES) }, str(app.config['SECRET_KEY']), 'HS256')
 
             else:
                 status = 401
@@ -310,7 +311,7 @@ def train(current_user):
     global last_train
 
     if request.method == 'GET':
-        df = pd.read_sql('SELECT * FROM patients', engine)
+        df = pd.read_sql('SELECT * FROM patients LIMIT 204', engine)
 
         pipe_rfc, pipe_lrc, pipe_knn, pipe_best, scores = predictions.trainModels(df)
     
