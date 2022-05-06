@@ -4,7 +4,7 @@
   <ul class="sidebar-navigation">
     <li class="header-sidebar">Opciones</li>
     <li>
-      <a href="viewQuery.php?page=1">
+      <a href="../querys/viewQuery.php?page=1">
         <i aria-hidden="true"></i> Ver tabla
       </a>
     </li>
@@ -14,12 +14,12 @@
       </a>
     </li>
     <li>
-      <a href="viewDetails.php">
+      <a href="../querys/viewDetails.php">
         <i aria-hidden="true"></i> Ver detalles
       </a>
     </li>
     <li>
-      <a href="exportQuery.php">
+      <a href="../querys/exportQuery.php">
         <i aria-hidden="true"></i> Exportar consulta
       </a>
     </li>

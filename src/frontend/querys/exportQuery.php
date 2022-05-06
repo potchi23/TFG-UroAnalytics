@@ -46,10 +46,10 @@
                 </div>      
             </div>
         </div>
-        <div style="margin-bottom:25%;"></div>
-        <footer class="bg-light text-center text-lg-start">
+        <footer class="bg-light text-center text-lg-start", style="position:fixed; left: 0; bottom: 0; width: 100%;">
             <?php include_once("../common/footer.php")?>
         </footer> 
+
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     </body>
 </html>        

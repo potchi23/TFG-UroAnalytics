@@ -37,7 +37,7 @@
                             <img src="img/banner.jpg" class="d-block w-100" style="border-radius:20px; height: 450px;" alt="banner">
                             <div class="centered-left">                
                                 <h4>Hola, <?php echo $user->get_full_name();?></h4><br>
-                                <h1 class="display-8" style="font-weight:700;">Bienvenido a Savana Barata</h1>
+                                <h1 class="display-8" style="font-weight:700;">Bienvenido a UroAnalytics</h1>
                                 <br>
                                 <h2>Servicio de consultas y predicciones <br>
                                 sobre pacientes</h2>
@@ -48,7 +48,7 @@
                 </div>
 
                 <div class="jumbotron">
-                    <h1>¿Qué puedes hacer en Savana Barata?</h1>
+                    <h1>¿Qué puedes hacer en UroAnalytics?</h1>
                     <hr>
                     <div class="container mt-4 mb-5">
                         <div class="d-flex justify-content-center">

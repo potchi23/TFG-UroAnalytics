@@ -44,7 +44,7 @@
                     <div class="content-container" style="padding:0px;">
                         <div class="container-fluid">
                             <div class="jumbotron">
-                                <h1 style="font-weight:600;">Pacientes</h1>
+                                <h1 style="font-weight:600;">Consultas</h1>
                                 <hr class="my-8">
 
                                 <?php 
@@ -54,8 +54,8 @@
 
                                 <div class="page-buttons">
                                     <?php
-                                    
-                                    if(!isset($_GET["patientId"]) && count($data_array) > 0){
+                        
+                                    if($data_array != NULL && !isset($_GET["patientId"]) && count($data_array) > 0){
                                         echo "<div>";
                                         if($_SESSION["page"] != 1 && count($data_array) > 0){
                                             $prev_page = $_SESSION["page"] - 1;    
