@@ -32,7 +32,7 @@
                     <h1 style="font-weight: 600">Manual de usuario</h1>
                     <hr class="my-4">
                     <h5>Este es el manual de usuario, donde se describe la funcionalidad de cada una de las páginas 
-                        que compone la aplicación web de <b>Savana Barata</b>.</h5>
+                        que compone la aplicación web de <b>UroAnalytics</b>.</h5>
 
                     <br>
 

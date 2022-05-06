@@ -10,7 +10,7 @@
 
 <html>
     <head>
-        <title>Savana Barata - Login </title>
+        <title>UroAnalytics - Login </title>
         <link rel="stylesheet" href="css/form.css" styles="width=18.9px; height=61.7px;"/>
         <?php require_once("common/includes.php");?>
     </head>
@@ -18,7 +18,7 @@
         <div class="container">
             <div class="form-container">
                 <img class="logo" src="img/logo.png" alt="logo" draggable="false"/>
-                <h1 class="form-title font-weight-bold">Acceder a la copia barata de Savana</h1>
+                <h1 class="form-title font-weight-bold">Acceder a UroAnalytics</h1>
 
                 <div class="form-content">
 
