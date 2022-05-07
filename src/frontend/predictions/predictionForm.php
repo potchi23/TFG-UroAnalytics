@@ -15,29 +15,34 @@
     $data_array = $response["data"]->data;
 
     if ($response["status"] == 200){
+        $ignored_columns = array('N', 'NOTAS', 'FECHACIR', 'FECHAFIN','ETNIA', 'IPERIN', 'ILINF', 'IVASCU', 'ILINF2', 'IVASCU2', 'FALLEC', 'RBQ');
 
         asort($data_array);
         
         if(isset($_SESSION["dataInputs"])){
             foreach($data_array as $column){
-                echo <<<EOL
-                <div class="input-group-prepend">
-                    <span style="width:7rem" class="prediction-form-label input-group-text">$column</span>
-                    <input style="width:13rem;" class="prediction-form-input" type="text" id="$column" name="$column" placeholder="$column" value="{$_SESSION["dataInputs"][$column]}">
-                </div>
-                EOL;
+                if(!in_array($column, $ignored_columns)){
+                    echo <<<EOL
+                    <div class="input-group-prepend">
+                        <span class="prediction-form-label input-group-text">$column</span>
+                        <input class="prediction-form-input" type="text" id="$column" name="$column" value="{$_SESSION["dataInputs"][$column]}">
+                    </div>
+                    EOL;
+                }
             }
 
             unset($_SESSION["dataInputs"]);
         }
         else{
             foreach($data_array as $column){
-                echo <<<EOL
-                <div class="input-group-prepend">
-                    <span class="prediction-form-label input-group-text">$column</span>
-                    <input class="prediction-form-input" type="text" id="$column" name="$column" placeholder="$column">
-                </div>
-                EOL;
+                if(!in_array($column, $ignored_columns)){
+                    echo <<<EOL
+                    <div class="input-group-prepend">
+                        <span class="prediction-form-label input-group-text">$column</span>
+                        <input class="prediction-form-input" type="text" id="$column" name="$column">
+                    </div>
+                    EOL;
+                }
             }
         }
     }

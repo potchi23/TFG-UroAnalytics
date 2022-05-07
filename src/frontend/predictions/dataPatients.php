@@ -7,7 +7,7 @@
         <div class="import-form">
             <h2>Importar datos de paciente</h2>
             <p>
-                Los ficheros admitidos son de extensión .csv, .xls y xlsx, con un tamaño menor a 200Kb. Si el fichero contiene más de una fila, solamente se utilizará la primera fila.
+                Los ficheros admitidos son de extensión .csv, .xls y xlsx. Si el fichero contiene más de una fila, solamente se utilizará la primera fila.
                 Los datos importados aparecerán automáticamente en el <b>Formulario de paciente para predicción</b> que aparece más abajo.
             </p>
             <form action="submit_data.php" method="post" enctype="multipart/form-data">

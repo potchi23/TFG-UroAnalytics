@@ -43,10 +43,4 @@
       <i aria-hidden="true"></i> Algoritmo a utilizar
     </a>
   </li>
-
-  <li>
-    <a href="patients.php">
-      <i aria-hidden="true"></i> Prediccion sobre paciente existente
-    </a>
-  </li>
 </ul>

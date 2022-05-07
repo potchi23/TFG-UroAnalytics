@@ -89,7 +89,10 @@
 
 .prediction-form-label{
     width: 7rem;
+    margin-bottom: 5px;
 }
 .prediction-form-input{
     width: 13rem;
+    border: solid 1px lightgrey;
+    margin-bottom: 5px;
 }

@@ -3,11 +3,9 @@ const BACKEND_URL = 'http://localhost:5000';
 $(document).ready(() => {
     if($('#algorithms').val() != 'none'){
         $('#prediction-button').show();
-        $('#prediction-button-existent').show();
     }
     else{
         $('#prediction-button').hide();
-        $('#prediction-button-existent').hide();
     }
 
     $('#last-train').ready(() => {
@@ -44,12 +42,10 @@ $(document).ready(() => {
 
                     $('#prediction-recall-1').val((parseFloat(scores[$('#algorithms').val()]['recall'][0])*100).toFixed(2) + '%');
                     $('#prediction-recall-2').val((parseFloat(scores[$('#algorithms').val()]['recall'][1])*100).toFixed(2) + '%');
-                    $('#prediction-recall-3').val((parseFloat(scores[$('#algorithms').val()]['recall'][2])*100).toFixed(2) + '%');
+
 
                     $('#prediction-precision-1').val((parseFloat(scores[$('#algorithms').val()]['precision'][0])*100).toFixed(2) + '%');
                     $('#prediction-precision-2').val((parseFloat(scores[$('#algorithms').val()]['precision'][1])*100).toFixed(2) + '%');
-                    $('#prediction-precision-3').val((parseFloat(scores[$('#algorithms').val()]['precision'][2])*100).toFixed(2) + '%');
-
                 }
                 else{
                     $('#prediction-button').hide();
@@ -61,11 +57,9 @@ $(document).ready(() => {
 
                     $('#prediction-recall-1').val(0.0 + '%');
                     $('#prediction-recall-2').val(0.0 + '%');
-                    $('#prediction-recall-3').val(0.0 + '%');
 
                     $('#prediction-precision-1').val(0.0 + '%');
                     $('#prediction-precision-2').val(0.0 + '%');
-                    $('#prediction-precision-3').val(0.0 + '%');
 
                     $('.prediction-result').val('');
                 }
@@ -85,34 +79,33 @@ $(document).ready(() => {
         
     });
 
-    function Exception() {
-    }
-
     $('#prediction-button').click(() => {
         let features = [];
+        let hasEmptyValues = false;
 
         $('.prediction-form-input').each((index, row) => {
             if(rowUsedForTraining(row)){
-                // if(!$(row).attr('value')){
-                //     $("#" + row.id).css("border-color","red");
-                // }
-                features.push(isNaN($(row).text()) ? undefined : $(row).attr('value')*1);    
+                let value = document.getElementById(row.id).value;
+                if(!value || isNaN(parseFloat(value))){
+                    $("#" + row.id + ".prediction-form-input").css("border-color","red");
+                    hasEmptyValues = true;
+                }
+                else{
+                    $("#" + row.id + ".prediction-form-input").css("border-color","lightgray");
+                }
+
+                features.push(value == "" || value == undefined ? undefined : parseFloat(value));
             }
         });
 
-        predict(features);
-    });
-
-    $('#prediction-button-existent').click(() => {
-        let features = [];
-
-        $('.prediction-values-' + $('#selected').val()).each((index, row) => {
-            if(rowUsedForTraining(row)){
-                features.push(isNaN($(row).text())? 0 : $(row).text()*1);
-            }
-        });
-        
-        predict(features);
+        if(hasEmptyValues){
+            document.getElementById('dataPatients').scrollIntoView();
+            $('.alert-message').remove();
+            alert("Error en el formulario. Por favor, revise y rellene todos los campos requeridos correctamente");
+        }
+        else{
+            predict(features);
+        }
     });
 });
 
@@ -126,10 +119,9 @@ function select(event){
 }
 
 function rowUsedForTraining(row){
-    return $(row).attr('id') != 'N' && $(row).attr('id') != 'FECHACIR' && $(row).attr('id') != 'FECHAFIN' && $(row).attr('id') != 'ETNIA' &&
-           $(row).attr('id') != 'NOTAS' && $(row).attr('id') != 'RBQ' && $(row).attr('id') != 'TDUPLI.R1' &&
-           $(row).attr('id') != 'IPERIN' && $(row).attr('id') != 'ILINF' && $(row).attr('id') != 'TDUPLI.R1' &&
-           $(row).attr('id') != 'IVASCU' && $(row).attr('id') != 'ILINF2' && $(row).attr('id') != 'IVASCU2' && $(row).attr('id') != 'FALLEC'
+    let ignored_columns = ['N', 'NOTAS', 'FECHACIR', 'FECHAFIN','ETNIA', 'IPERIN', 'ILINF', 'IVASCU', 'ILINF2', 'IVASCU2', 'FALLEC', 'RBQ'];
+
+    return !ignored_columns.includes($(row).attr('id')) ;
 }
 
 function predict(features){
