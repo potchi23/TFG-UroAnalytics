@@ -367,19 +367,6 @@ INSERT INTO `patients` (`N`, `FECHACIR`, `EDAD`, `ETNIA`, `OBESO`, `HTA`, `DM`, 
 
 -- --------------------------------------------------------
 
---
--- Estructura de tabla para la tabla `prediciones`
---
-
-CREATE TABLE `prediciones` (
-  `id_predic` int(10) UNSIGNED NOT NULL,
-  `nombre` varchar(50) NOT NULL,
-  `id_paciente` int(10) UNSIGNED NOT NULL,
-  `fecha` date NOT NULL,
-  `informe` varchar(10000) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
 
 --
 -- Estructura Stand-in para la vista `rbq`
@@ -549,13 +536,6 @@ ALTER TABLE `patients`
   ADD PRIMARY KEY (`N`);
 
 --
--- Indices de la tabla `prediciones`
---
-ALTER TABLE `prediciones`
-  ADD PRIMARY KEY (`id_predic`),
-  ADD KEY `id_paciente` (`id_paciente`);
-
---
 -- Indices de la tabla `users`
 --
 ALTER TABLE `users`
@@ -582,12 +562,6 @@ ALTER TABLE `users`
 -- Restricciones para tablas volcadas
 --
 
---
--- Filtros para la tabla `prediciones`
---
-ALTER TABLE `prediciones`
-  ADD CONSTRAINT `prediciones_ibfk_1` FOREIGN KEY (`id_paciente`) REFERENCES `patients` (`N`) ON DELETE CASCADE;
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
