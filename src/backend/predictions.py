@@ -9,8 +9,6 @@ from sklearn.pipeline import Pipeline
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import recall_score
 from sklearn.metrics import precision_score
-from sklearn.metrics import accuracy_score
-from sklearn.metrics import f1_score
 
 train_size = 0.6
 
@@ -50,11 +48,11 @@ def na_to_median(df):
 def randomForestTraining(X, y):
     X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=train_size)
 
-    pipe_rfc = RandomForestClassifier(n_estimators=100, bootstrap=True, max_samples=100, class_weight='balanced')
-    pipe_rfc.fit(X_train, y_train)
-    accuracy = pipe_rfc.score(X_test, y_test)
+    rfc = RandomForestClassifier(n_estimators=100, bootstrap=True, max_samples=100, class_weight='balanced')
+    rfc.fit(X_train, y_train)
+    accuracy = rfc.score(X_test, y_test)
 
-    y_predict = pipe_rfc.predict(X_test)
+    y_predict = rfc.predict(X_test)
     recall = recall_score(y_test, y_predict, average=None, zero_division=0)
     precision = precision_score(y_test, y_predict, average=None, zero_division=0)
 
@@ -66,19 +64,17 @@ def randomForestTraining(X, y):
 
     print('random forest score: ' + str(scores))
 
-    return pipe_rfc, scores
+    return rfc, scores
 
 def logisticRegresionTraining(X, y):
     X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=train_size)
 
-    pipe_lrc = Pipeline([
-                    ('scl', StandardScaler()),
-                    ('clr', LogisticRegression(C=0.5, penalty='l2', solver='liblinear', class_weight='balanced'))   
-                    ])
-    pipe_lrc.fit(X_train, y_train)
-    accuracy = pipe_lrc.score(X_test, y_test)
+    lrc = LogisticRegression(C=0.5, penalty='l2', solver='liblinear', class_weight='balanced')
+
+    lrc.fit(X_train, y_train)
+    accuracy = lrc.score(X_test, y_test)
     
-    y_predict = pipe_lrc.predict(X_test)
+    y_predict = lrc.predict(X_test)
     recall = recall_score(y_test, y_predict, average=None, zero_division=0)
     precision = precision_score(y_test, y_predict, average=None, zero_division=0)
     scores = {
@@ -89,14 +85,14 @@ def logisticRegresionTraining(X, y):
 
     print('logistic regression score: ' + str(scores))
 
-    return pipe_lrc, scores
+    return lrc, scores
     
 def knnTraining(X, y):
     X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=train_size)
 
     pipe_knn = Pipeline([
                      ('norm', MinMaxScaler()),
-                     ('knn', KNeighborsClassifier(n_neighbors=10, p=2))     
+                     ('knn', KNeighborsClassifier(n_neighbors=4, p=2))     
                     ])
     pipe_knn.fit(X_train, y_train)
     accuracy = pipe_knn.score(X_test, y_test)
@@ -115,13 +111,13 @@ def knnTraining(X, y):
 
     return pipe_knn, scores
 
-def bestTraining(X, y, estimators):
+def votingTraining(X, y, estimators):
     X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=train_size)
 
     # estimators = [('prfc', pipe_rfc),('pknn', pipe_knn), ('plrc', pipe_clr)]
     pipe_best = VotingClassifier(
                     estimators=estimators,
-                    voting='soft'
+                    voting='hard'
                 )
     pipe_best.fit(X_train, y_train)
     accuracy = pipe_best.score(X_test, y_test)
@@ -158,7 +154,7 @@ def trainModels(df):
     pipe_rfc, scores_rfc = randomForestTraining(X, y)
     pipe_lrc, scores_lrc = logisticRegresionTraining(X, y)
     pipe_knn, scores_knn = knnTraining(X, y)
-    pipe_best, scores_best = bestTraining(X, y, [('prfc', pipe_rfc),('pknn', pipe_knn), ('plrc', pipe_lrc)])
+    pipe_best, scores_best = votingTraining(X, y, [('prfc', pipe_rfc),('pknn', pipe_knn), ('plrc', pipe_lrc)])
 
     scores = {
         'rfc' : scores_rfc,
