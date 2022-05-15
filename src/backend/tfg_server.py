@@ -25,10 +25,10 @@ bcrypt = Bcrypt(app)
 
 engine = sqla.create_engine('mysql://root:@localhost/tfg_bd', echo = False)
 
-pipe_rfc = ''
-pipe_lrc = ''
-pipe_knn = ''
-pipe_best = ''
+pipe_rfc = None
+pipe_lrc = None
+pipe_knn = None
+pipe_best = None
 scores = {}
 last_train = 'never'
 
