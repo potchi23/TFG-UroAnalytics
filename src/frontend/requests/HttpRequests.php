@@ -3,12 +3,9 @@
 class HttpRequests {
     private $ch;
 
-    function __construct()
-    {
-        $this->ch = curl_init();
-    }
-
     function getResponse($endpoint, $method, $body, $token = null){
+        $this->ch = curl_init();
+
         if($token != null){
             curl_setopt($this->ch, CURLOPT_HTTPHEADER, array("x-access-token: $token"));
         }
