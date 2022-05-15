@@ -605,10 +605,7 @@ def getDetails(current_user):
             if status == 200:
                 for i in request.form:
                     if "drop" in i:
-                        if i == "dropT_SEG":
-                            columns["data"].pop(columns["data"].index('T.SEG'))
-                        else:
-                            columns["data"].pop(columns["data"].index(request.form[i]))
+                        columns["data"].pop(columns["data"].index(request.form[i]))
                         
                 minimal = request.form["extended"]
                 
