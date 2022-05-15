@@ -15,19 +15,6 @@
 
 <ul class="sidebar-navigation">
   <li class="header-sidebar">Índice</li>
-
-  <?php
-  if($user->is_admin()){
-    echo <<<EOL
-      <li>
-        <a href="#training">
-          <i aria-hidden="true"></i> Entrenamiento
-        </a>
-      </li>
-      EOL;
-  }
-  ?>
-
   <li>
     <a href="#indexPrediction">
       <i aria-hidden="true"></i> Inicio Predicción
