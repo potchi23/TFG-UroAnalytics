@@ -736,8 +736,9 @@ def viewSinglePatient(current_user, patientId):
     status = 400
     response = {}
     if request.method == 'GET':
+        params = (patientId)
         response = {
-            'num_entries':engine.execute('SELECT COUNT(N) FROM patients').scalar(),
+            'num_entries':engine.execute('SELECT COUNT(N) FROM patients WHERE N = %s', params).scalar(),
             'data':[]
         }
 
@@ -745,7 +746,7 @@ def viewSinglePatient(current_user, patientId):
         if('rbq_null' in request.form and request.form['rbq_null'] == 'true'):
             query += ' AND RBQ IS NULL'
 
-        params = (patientId)
+        
         columns = tuple(engine.execute(query, params).keys())
         result = engine.execute(query, params)
 
@@ -757,7 +758,7 @@ def viewSinglePatient(current_user, patientId):
         
         if('rbq_null' in request.form and request.form['rbq_null'] == 'true'):
             response['num_entries'] = len(response['data'])
-
+            
         status = 200
         return response, status
 
