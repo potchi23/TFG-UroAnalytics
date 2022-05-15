@@ -22,10 +22,11 @@
         if(isset($_SESSION["dataInputs"])){
             foreach($data_array as $column){
                 if(!in_array($column, $ignored_columns)){
+                    $value = isset($_SESSION["dataInputs"][$column]) ? $_SESSION["dataInputs"][$column] : "";
                     echo <<<EOL
                     <div class="input-group-prepend">
                         <span class="prediction-form-label input-group-text">$column</span>
-                        <input class="prediction-form-input" type="text" id="$column" name="$column" value="{$_SESSION["dataInputs"][$column]}">
+                        <input class="prediction-form-input" type="text" id="$column" name="$column" value="{$value}">
                     </div>
                     EOL;
                 }

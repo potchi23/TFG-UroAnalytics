@@ -35,21 +35,27 @@
         }
         else {
             $_SESSION["dataInputs"] = array();
+            $http_requests = new HttpRequests();
 
             if($fileType == "csv"){
                 $file = fopen($target_file,"r");
                 $header = fgetcsv($file, 0, ";");
                 $data = fgetcsv($file, 0, ";");
+                
+                $columns_response = $http_requests->getResponse("$BACKEND_URL/getColumns", "GET", "", $user->get_token());
+                $db_columns = $columns_response["data"]->data;
 
                 $i = 0;
                 foreach($header as $column){
-                    $_SESSION["dataInputs"] += [$column => $data[$i]];
+                    if(in_array($column, $db_columns)){
+                        $_SESSION["dataInputs"] += [$column => $data[$i]];
+                    }
                     $i++;
                 }
 
                 fclose($file);
                 unlink($target_file);
-                $_SESSION["message"] = "Fichero CSV importado con éxito";
+                $_SESSION["message"] = "Se importado el paciente correctamente";
                 header("Location: predictions.php#dataPatients");
             }
             else{
@@ -62,12 +68,16 @@
                 fclose($handle);
                 unlink($target_file);
 
-                $http_requests = new HttpRequests();
                 $response = $http_requests->getResponse("$BACKEND_URL/import_prediction", "POST", $post_req, $user->get_token());
+                $columns_response = $http_requests->getResponse("$BACKEND_URL/getColumns", "GET", "", $user->get_token());
+                $db_columns = $columns_response["data"]->data;
+
                 $data = $response["data"];
                 if($response["status"] == 200) {
                     foreach($data as $column=>$value){
-                        $_SESSION["dataInputs"] += [$column => $value->{'0'}];
+                        if(in_array($column, $db_columns)){
+                            $_SESSION["dataInputs"] += [$column => $value->{'0'}];
+                        }
                     }
   
                     $_SESSION["message"] = "Se importado el paciente correctamente";
