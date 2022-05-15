@@ -107,7 +107,6 @@
                                                                 <button type="button" class="btn btn-green" data-bs-toggle="modal" data-bs-target="#modal01-$petition->id">
                                                                     <input class="btn btn-outline-success" type="submit" value="✔" style="padding:10px 30px 28px 10px;"></input>
                                                                 </button>
-                                        
                                                                 <div class="modal fade" id="modal01-$petition->id" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel01" aria-hidden="true">
                                                                     <div class="modal-dialog">
                                                                         <div class="modal-content">
@@ -132,7 +131,6 @@
                                                                 <button type="button" class="btn btn-red" data-bs-toggle="modal" data-bs-target="#modal02-$petition->id">
                                                                     <input class="btn btn-outline-danger" type="submit" value="✘" style="padding:10px 28px 28px 10px;"></input>
                                                                 </button>
-                                    
                                                                 <div class="modal fade" id="modal02-$petition->id" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel02" aria-hidden="true">
                                                                     <div class="modal-dialog">
                                                                         <div class="modal-content">
