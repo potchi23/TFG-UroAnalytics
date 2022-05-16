@@ -83,19 +83,17 @@ $(document).ready(() => {
         let features = [];
         let hasEmptyValues = false;
 
-        $('.prediction-form-input').each((index, row) => {
-            if(rowUsedForTraining(row)){
-                let value = document.getElementById(row.id).value;
-                if(!value || isNaN(parseFloat(value))){
-                    $("#" + row.id + ".prediction-form-input").css("border-color","red");
-                    hasEmptyValues = true;
-                }
-                else{
-                    $("#" + row.id + ".prediction-form-input").css("border-color","lightgray");
-                }
-
-                features.push(value == "" || value == undefined ? undefined : parseFloat(value));
+        $('.prediction-form-input').each((index, row) => {         
+            let value = document.getElementById(row.id).value;
+            if(!value || isNaN(parseFloat(value))){
+                $("#" + row.id + ".prediction-form-input").css("border-color","red");
+                hasEmptyValues = true;
             }
+            else{
+                $("#" + row.id + ".prediction-form-input").css("border-color","lightgray");
+            }
+
+            features.push(value == "" || value == undefined ? undefined : parseFloat(value));   
         });
 
         if(hasEmptyValues){
@@ -116,12 +114,6 @@ function select(event){
     $('.modal-title').text('Predecir sobre el paciente #' + id);
     $('.prediction-result').val('');
     $('.prediction-result-input').val('');
-}
-
-function rowUsedForTraining(row){
-    let ignored_columns = ['N', 'NOTAS', 'FECHACIR', 'FECHAFIN','ETNIA', 'IPERIN', 'ILINF', 'IVASCU', 'ILINF2', 'IVASCU2', 'FALLEC', 'RBQ'];
-
-    return !ignored_columns.includes($(row).attr('id')) ;
 }
 
 function predict(features){
