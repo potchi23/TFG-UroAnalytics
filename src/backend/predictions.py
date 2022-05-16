@@ -132,7 +132,7 @@ def votingTraining(X, y, estimators):
             'precision':list(precision)
         }
 
-    print('best train score: ' + str(scores))
+    print('Voting classifier score: ' + str(scores))
 
     return pipe_best, scores
 

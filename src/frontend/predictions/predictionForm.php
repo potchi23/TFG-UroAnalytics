@@ -16,9 +16,7 @@
 
     if ($response["status"] == 200){
         $ignored_columns = array('N', 'NOTAS', 'FECHACIR', 'FECHAFIN','ETNIA', 'IPERIN', 'ILINF', 'IVASCU', 'ILINF2', 'IVASCU2', 'FALLEC', 'RBQ');
-
-        asort($data_array);
-        
+ 
         if(isset($_SESSION["dataInputs"])){
             foreach($data_array as $column){
                 if(!in_array($column, $ignored_columns)){

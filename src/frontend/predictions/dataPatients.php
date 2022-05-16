@@ -8,8 +8,12 @@
             <h2>Importar datos de paciente</h2>
             <p>
                 Los ficheros admitidos son de extensión .csv, .xls y xlsx. Si el fichero contiene más de una fila, solamente se utilizará la primera fila.
-                Los datos importados aparecerán automáticamente en el <b>Formulario de paciente para predicción</b> que aparece más abajo.
+                Los datos importados aparecerán automáticamente en el <b>Formulario de paciente para predicción</b> que aparece más abajo. <br/><br/>
+
+                Si se dispone de una hoja de datos, se sugiere copiar la fila con los datos necesarios en la plantilla que puede descargarse 
+                <a href="../resources/plantilla_datos_pacientes.xlsx" download="plantilla_datos_pacientes">aquí</a>.
             </p>
+
             <form action="submit_data.php" method="post" enctype="multipart/form-data">
                 <input type="file" id="prediction-import" name="prediction-import">
                 <button class="btn btn-primary ml-4" type="submit">Importar desde fichero</button>
