@@ -11,7 +11,7 @@
                 Los datos importados aparecerán automáticamente en el <b>Formulario de paciente para predicción</b> que aparece más abajo. <br/><br/>
 
                 Si se dispone de una hoja de datos, se sugiere copiar la fila con los datos necesarios en la plantilla que puede descargarse 
-                <a href="../resources/plantilla_datos_pacientes.xlsx" download="plantilla_datos_pacientes">aquí</a>.
+                <a href="../resources/plantilla_datos_pacientes.xlsx" download="plantilla_datos_pacientes.xlsx">aquí</a>.
             </p>
 
             <form action="submit_data.php" method="post" enctype="multipart/form-data">

@@ -23,7 +23,7 @@
         </a>
     </li>
     <li>
-        <a href="../common/viewGraphs.php?father=patients">
+        <a href="viewGraphs.php?father=patients">
             <i aria-hidden="true"></i> Ver estadísticas
         </a>
     </li>

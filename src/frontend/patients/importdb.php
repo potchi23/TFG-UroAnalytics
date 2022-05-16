@@ -55,7 +55,7 @@
                                     <button type="submit" id="submit" class="btn btn-primary ml-4">Importar</button>
                                 </form>
                                 <br>
-                                <a href="../resources/plantilla_datos_pacientes.xlsx" download="plantilla_datos_pacientes">
+                                <a href="../resources/plantilla_datos_pacientes.xlsx" download="plantilla_datos_pacientes.xlsx">
                                     <button id="downloadTemplate" class="btn btn-success">Descargar plantilla Excel</button>
                                 </a>
                             </div>
