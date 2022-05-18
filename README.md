@@ -12,7 +12,7 @@
     - **MySQL** y **phpMyAdmin**
 ## Descripción
 En ```src``` se encuentra el código del proyecto. Tenemos tres carpetas:
-  - ```backend```: Contiene toda la lógica de la aplicación. Dentro se encuentra la REST API hecha con Flask. Tambien se encuentra el
+  - ```backend```: Contiene toda la lógica de la aplicación. Dentro se encuentra la API hecha con Flask. Tambien se encuentra el
                    fichero ```requirements.txt``` con las dependencias necesarias para nuestro servidor.
   - ```frontend```: Contiene la GUI de la aplicación. Dentro se incluyen los ficheros HTML, CSS, PHP y Javascript.
   - ```sql```: Contiene un fichero con la base de datos. Se puede **importar** directamente en **phpMyAdmin**.
