@@ -30,7 +30,7 @@
         <script>
 
             
-            function cargarDatos(query, id){                    
+            function loadData(query, id){                    
                     const canvas = document.getElementById(id)
                     const ctx = canvas.getContext('2d'); 
 
@@ -194,14 +194,14 @@
                             $TACTOR = json_encode($response["data"]->TACTOR);
                             $HEREDA = json_encode($response["data"]->HEREDA);
 
-                            echo "<script> cargarDatos($ETNIA,'etnia')</script>";
-                            echo "<script> cargarDatos($EDAD, 'edad') </script>";
-                            echo "<script> cargarDatos($TABACO, 'tabaco') </script>";
-                            echo "<script> cargarDatos($OBESO, 'obeso') </script>";
-                            echo "<script> cargarDatos($RBQ, 'rbq') </script>";
-                            echo "<script> cargarDatos($ECOTR, 'ecotr') </script>";
-                            echo "<script> cargarDatos($TACTOR, 'tactor') </script>";
-                            echo "<script> cargarDatos($HEREDA, 'hereda') </script>";
+                            echo "<script> loadData($ETNIA,'etnia')</script>";
+                            echo "<script> loadData($EDAD, 'edad') </script>";
+                            echo "<script> loadData($TABACO, 'tabaco') </script>";
+                            echo "<script> loadData($OBESO, 'obeso') </script>";
+                            echo "<script> loadData($RBQ, 'rbq') </script>";
+                            echo "<script> loadData($ECOTR, 'ecotr') </script>";
+                            echo "<script> loadData($TACTOR, 'tactor') </script>";
+                            echo "<script> loadData($HEREDA, 'hereda') </script>";
 
                         }
                         ?>
