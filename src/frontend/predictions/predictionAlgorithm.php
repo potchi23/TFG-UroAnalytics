@@ -2,7 +2,7 @@
 <label for="algorithms">Algoritmo seleccionado: </label>
 <select name="algorithms" id="algorithms">
     <option value="none">Seleccione algoritmo...</option>
-    <option value="rfc">Árboles Aleatorios</option>
+    <option value="rfc">Bosques Aleatorios</option>
     <option value="lrc">Regresión Logística</option>
     <option value="knn">k-NN</option>
     <option value="best">Clasificación por votación</option>
