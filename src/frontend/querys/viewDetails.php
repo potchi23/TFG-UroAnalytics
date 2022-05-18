@@ -21,10 +21,20 @@
         }
 
         $http_requests = new HttpRequests();
-        $generate = $http_requests->getResponse("$BACKEND_URL/getDetails", "GET", $get_req, $user->get_token());
+        $response = $http_requests->getResponse("$BACKEND_URL/getDetails", "GET", $get_req, $user->get_token());
         
-        $user_id = (string) $generate["data"];
-        header("Location: viewProfiling.php?current_user=$user_id");
+        if($response["status"] == 200){
+            $user_id = (string) $response["data"];
+            header("Location: viewProfiling.php?current_user=$user_id");
+        }else if($response["status"] == 401){
+            unset($_SESSION["user"]);
+            echo "<script>alert('La sesión ha caducado. Vuelva a iniciar sesión.');</script>";
+            $_SESSION["message"] = "La sesión ha caducado";
+            echo "<script type='text/javascript'>window.location.href = '../login.php';</script>";
+        }else if($response["data"]->errorMsg != ""){
+            $error = $response["data"]->errorMsg;
+            echo"<div class='alert-message'><div class='alert alert-danger'>$error</div></div>";
+        }
     }else{
         $http_requests = new HttpRequests();
         $columns = $http_requests->getResponse("$BACKEND_URL/getColumns", "GET", "", $user->get_token());

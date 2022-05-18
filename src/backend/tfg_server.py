@@ -15,6 +15,9 @@ import json
 import numpy as np
 import base64
 import threading
+import matplotlib
+matplotlib.use('Agg')
+from matplotlib import pyplot
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SESSION_EXPIRATION_IN_MINUTES = 120
@@ -599,6 +602,7 @@ def getDetails(current_user):
     if request.method == 'GET':
         if len(request.form) > 2:
             query = str(buildQuery(request.form)[0])
+
             columns, status = getCols()
             minimal = True
 
@@ -614,9 +618,14 @@ def getDetails(current_user):
                         columns["data"][i] = "'" + columns["data"][i] + "'"
                 
                 df = pd.read_sql("SELECT " + ", ".join(columns["data"]) + " FROM PATIENTS " + query, engine)
-                user_threads[str(current_user['public_id'])] = threading.Thread(target=detailsThread, kwargs={'df': df, 'current_user': current_user, 'minimal': minimal})
-                user_threads[str(current_user['public_id'])].start()
-                response = str(current_user['public_id'])
+
+                if str(current_user['public_id']) not in user_threads:
+                    user_threads[str(current_user['public_id'])] = threading.Thread(target=detailsThread, kwargs={'df': df, 'current_user': current_user, 'minimal': minimal}, daemon = True)
+                    user_threads[str(current_user['public_id'])].start()
+                    response = str(current_user['public_id'])
+                else:
+                    response["errorMsg"] = "Ya se están generando detalles. Por favor espere a que termine."
+                    status = 503
         else:
             response["errorMsg"] = "Consulta vacía."
 
@@ -708,14 +717,14 @@ def viewPatients(current_user):
             "num_entries" : 0
         }
         df, response["errorMSG"] = insertDF(request.form)
-        print(df)
+
         try:
             df.to_sql(name='patients', con=engine, if_exists='append', index=False)
             status = 200        
             response["num_entries"] = 1
         except:
-            response["errorMSG"] = "Error al insertar en la base de datos."    
-        print(response)    
+            response["errorMSG"] = "Error al insertar en la base de datos."   
+             
         return response, status
 
 def insertDF(req):

@@ -6,6 +6,8 @@ class HttpRequests {
     function getResponse($endpoint, $method, $body, $token = null){
         $this->ch = curl_init();
 
+        set_time_limit(300);
+        
         if($token != null){
             curl_setopt($this->ch, CURLOPT_HTTPHEADER, array("x-access-token: $token"));
         }
