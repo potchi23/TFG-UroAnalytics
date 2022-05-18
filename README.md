@@ -1,4 +1,4 @@
-# TFG: Predicción de datos para una unidad de urooncología
+# UroAnalytics: Predicción y gestión de datos para una unidad de urooncología
 *Autores: Laura González Falque ([@laurafalque14](https://github.com/laurafalque14)), Mariana de la Caridad Villar Rojas ([@marianavillar](https://github.com/marianavillar)), Maryny Zara Castada Collado ([@marynyzcc](https://github.com/marynyzcc)), Mateo González de Miguel ([@matgon](https://github.com/matgon)) y Richard Junior Mercado Correa ([@potchi23](https://github.com/potchi23/))*
 
 ## Requisitos<a name="requisitos"></a>:
