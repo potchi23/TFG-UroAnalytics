@@ -296,7 +296,7 @@ def trainOnStartup():
     global scores
     global last_train
     last_train = datetime.utcnow()
-    df = pd.read_sql('SELECT * FROM patients', engine)
+    df = pd.read_sql('SELECT * FROM patients LIMIT 204', engine)
     if not df.empty:
         pipe_rfc, pipe_lrc, pipe_knn, pipe_best, scores = predictions.trainModels(df)
 
