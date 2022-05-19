@@ -60,6 +60,9 @@
                 </div>
                 <div id="patientsGuide">
                     <?php include_once("./patientsGuide.php")?>
+                </div>                
+                <div id="userAccountGuide">
+                    <?php include_once("./userAccountGuide.php")?>
                 </div>
                 <?php                    
                     if ($user->get_type() == 'admin') {
@@ -67,10 +70,7 @@
                         include_once("./registerPetitionsGuide.php");
                         echo "</div>";
                     }
-                ?>
-                <div id="myAccountGuide">
-                    <?php include_once("./myAccountGuide.php")?>
-                </div>           
+                ?>           
             </div>
         </div>
         
