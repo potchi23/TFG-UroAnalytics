@@ -1,6 +1,5 @@
 <?php
 
-   
     require_once("../models/User.php");
     require_once("../requests/HttpRequests.php");
     require_once("../config/config.php");

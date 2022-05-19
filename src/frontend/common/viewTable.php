@@ -8,6 +8,7 @@
             echo "<script type='text/javascript'>window.location.href = '../login.php';</script>";
         }else if($response["data"]->errorMsg != ""){
             $error = $response["data"]->errorMsg;
+            $_SESSION["errorMsg"] = 1;
             echo"<div class='alert-message'><div class='alert alert-danger'>$error</div></div>";
         }
     }else{

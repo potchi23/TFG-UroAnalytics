@@ -22,7 +22,7 @@
             <?php include_once("../common/header.php");?>
         </div> 
         <div class="sidebar-container">
-            <?php include_once("sidebarPatients.php")?>
+            <?php include_once("../patients/sidebarPatients.php")?>
         </div>  
         <div class="content-container">
             <div class="container-fluid">
@@ -69,7 +69,8 @@
                     <div class="justify-content-center">
                         <p>La información dentro del Excel debe empezar en la primera fila que serán las columnas.</p>
                         <p>Cualquier campo de un paciente que no esté incluido en la Base de Datos será descartado.</p>
-                        
+                        <br>
+                        <h5>Para más detalles consultar el <a href="../userGuide/userGuideIndex.php#patientsGuide">manual de usuario</a>.</h5>
                     </div>  
                 </div> 
             </div>

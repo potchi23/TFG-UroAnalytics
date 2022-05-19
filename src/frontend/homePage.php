@@ -48,38 +48,80 @@
                 </div>
 
                 <div class="jumbotron">
-                    <h1>¿Qué puedes hacer en UroAnalytics?</h1>
-                    <hr>
+                    <center>
+                        <h1>¿Qué puedes hacer en UroAnalytics?</h1>
+                        <hr>
+                        <h5>Aquí te mostramos algunas de las opciones.</h5>
+                    </center>
                     <div class="container mt-4 mb-5">
                         <div class="d-flex justify-content-center">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <div class="services">
-                                        <div class="icon"> <img src="img/query.png" style="max-height:125px;max-width:125px;"> </div>
-                                        <div class="services-body">
-                                            <h5 style="font-weight: bold;">Consultar pacientes</h5>
-                                            <p>Realizar consultas de pacientes con más de 40 filtros diferentes.</p> 
+                                    <a href="patients/importdb.php">
+                                        <div class="services">
+                                            <div class="icon"> <img src="img/query.png" style="max-height:125px;max-width:125px;"> </div>
+                                            <div class="services-body">
+                                                <h5 style="font-weight: bold;">Importar pacientes</h5>
+                                                <p>Importar pacientes para enriquecer la base de datos.</p> 
+                                            </div>
                                         </div>
-                                    </div>
+                                    </a>
                                 </div>
                                 <div class="col-md-4">
-                                    <div class="services">
-                                        <div class="icon"> <img src="img/prediction.png" style="max-height:125px;max-width:125px;"> </div>
-                                        <div class="services-body">
-                                            <h5 style="font-weight: bold;">Predicciones</h5>
-                                            <p>Realizar una predicción sobre un paciente en concreto.</p>
+                                    <a href="querys/queryIndex.php">
+                                        <div class="services">
+                                            <div class="icon"> <img src="img/query.png" style="max-height:125px;max-width:125px;"> </div>
+                                            <div class="services-body">
+                                                <h5 style="font-weight: bold;">Consultar pacientes</h5>
+                                                <p>Realizar consultas de pacientes con más de 40 filtros diferentes.</p> 
+                                            </div>
                                         </div>
-                                    </div>
+                                    </a>
                                 </div>
                                 <div class="col-md-4">
-                                    <div class="services">
-                                        <div class="icon"> <img src="img/patient.png" style="max-height:125px;max-width:125px;"> </div>
-                                        <div class="services-body">
-                                            <h5 style="font-weight: bold;">Editar pacientes</h5>
-                                            <p>Editar la información de pacientes existentes en la 
-                                                base de datos o añadir los datos de un paciente nuevo.</p>
+                                    <a href="predictions/predictions.php">
+                                        <div class="services">
+                                            <div class="icon"> <img src="img/prediction.png" style="max-height:125px;max-width:125px;"> </div>
+                                            <div class="services-body">
+                                                <h5 style="font-weight: bold;">Predicciones</h5>
+                                                <p>Realizar una predicción sobre un paciente en concreto.</p>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </a>
+                                </div>
+                                <div class="col-md-4">
+                                    <a href="patients/patientsIndex.php">
+                                        <div class="services">
+                                            <div class="icon"> <img src="img/patient.png" style="max-height:125px;max-width:125px;"> </div>
+                                            <div class="services-body">
+                                                <h5 style="font-weight: bold;">Visualizar pacientes</h5>
+                                                <p>Visualizar la información de pacientes existentes en la 
+                                                    base de datos.</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-md-4">
+                                    <a href="common/viewGraphs.php?father=patients">
+                                        <div class="services">
+                                            <div class="icon"> <img src="img/patient.png" style="max-height:125px;max-width:125px;"> </div>
+                                            <div class="services-body">
+                                                <h5 style="font-weight: bold;">Estudios estadísticos</h5>
+                                                <p>Recopilar información estadóstica sobre un conjunto de pacientes extenso.</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-md-4">
+                                    <a href="patients/exportdb.php">
+                                        <div class="services">
+                                            <div class="icon"> <img src="img/patient.png" style="max-height:125px;max-width:125px;"> </div>
+                                            <div class="services-body">
+                                                <h5 style="font-weight: bold;">Exportar datos</h5>
+                                                <p>Guarda los datos de la consulta realizada de forma sencilla.</p>
+                                            </div>
+                                        </div>
+                                    </a>
                                 </div>
                             </div>  
                         </div>                      

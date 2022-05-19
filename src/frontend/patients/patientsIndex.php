@@ -5,7 +5,7 @@
     session_start();
 
     if(isset($_GET["patientId"]) && $_GET["patientId"] == null){
-        header("Location: patientsIndex.php");
+        header("Location: ../patients/patientsIndex.php");
     }
 ?>
 
@@ -27,7 +27,10 @@
     
                 <div class="jumbotron">
                     <h1 class="display-8" style="font-weight:600;">Entorno de pacientes</h1>
-                    <h5>Seleccione en las opciones de su izquierda la acción que desea realizar.</h5>
+                    <hr class="my-4">
+                    <p>Seleccione en las opciones de su izquierda la acción que desea realizar.</p>
+                    <br>
+                    <h5>Para más detalles consultar el <a href="../userGuide/userGuideIndex.php#patientsGuide">manual de usuario</a>.</h5>
                 </div>
                 
                 <div id="viewPatient">
@@ -39,11 +42,11 @@
 
                                 <div class="search">
                                     <form action="../requests/postSearchPatient.php" method="POST">
-                                        <input id="patientId" name="patientId" type="text" placeholder="Buscar paciente por ID..."/>
+                                        <input id="patientId" name="patientId" type="number" placeholder="Buscar paciente por ID..."/>
                                         <button class="btn btn-primary ml-4" type="submit">Buscar paciente</button>
                                     </form>
 
-                                    <form action="patientsIndex.php">
+                                    <form action="../patients/patientsIndex.php">
                                         <button class="btn btn-primary ml-4" type="submit">Limpiar búsqueda</button>
                                     </form>
                                 </div>

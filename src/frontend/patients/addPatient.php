@@ -24,13 +24,13 @@
             <?php include_once("../common/header.php");?>
         </div> 
         <div class="sidebar-container">
-            <?php include_once("sidebarPatients.php");?>
+            <?php include_once("../patients/sidebarPatients.php");?>
         </div>  
         <div class="content-container">
             <div class="container-fluid">
                 <div class="jumbotron">
                     <h1 style="font-weight:600;">Añadir un paciente</h1>
-                    <br><br>
+                    <hr class="my-4">
                     <div class="form-content">
                         <form action="../requests/postAddPatientRequest.php" method="post" target="_self">
                         <div class='col-md-auto'>    

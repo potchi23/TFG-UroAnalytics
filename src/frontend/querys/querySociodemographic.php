@@ -8,7 +8,7 @@
                     <h3> Edad del paciente </h3>
                 </div>
                     <div class="col-">
-                            <input type="text" class="form-control" name="sociodemographic1" placeholder="Edad" style="width:10em;">
+                            <input type="number" class="form-control" name="sociodemographic1" placeholder="Edad" style="width:10em;">
                     </div>
                     <div class="col my-auto">
                         <div class="custom-control custom-switch">

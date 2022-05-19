@@ -64,18 +64,21 @@
             </div>
         </div>
         <form action="viewQuery.php?page=1" id="queryForm" method="post">
-            <div class="sidebar-container" id="list-example">
+            <div class="sidebar-container">
                 <?php include_once("sidebarQuery.php")?>
             </div>
-            <div class="content-container" data-bs-spy="scroll" data-bs-target="#list-example" data-bs-offset="0" class="scrollspy-example" tabindex="0">
+            <div class="content-container">
                 <div class="container-fluid">
                     <!-- Main component for a primary marketing message or call to action -->
                     <div class="jumbotron" id="indexQuery">
                         <h1 style="font-weight: 600">Realizador de consultas</h1>
                         <hr class="my-4">
-                        <h5>Para realizar una consulta debe seleccionar los filtros que desee que se muestran a continuación.
+                        <p>Para realizar una consulta debe seleccionar los filtros que desee que se muestran a continuación.
                             Una vez seleccionados los filtros, pulsar el botón "Realizar consulta" que se encuentra en la barra lateral izquierda.
-                        </h5>
+                        </p>
+                        <br>
+                        <h5>Para más detalles consultar el <a href="../userGuide/userGuideIndex.php#querysGuide">manual de usuario</a>.</h5>
+
                     </div>
 
                     <div class="jumbotron">

@@ -1,7 +1,6 @@
-<div class="sidebar-logo">
-    ÍNDICE
-  </div>
-  <ul class="sidebar-navigation">
+  <ul class="sidebar-navigation" style="padding-top: 5px;">
+  <li class="header-sidebar">Índice</li>
+
     <li>
       <a href="#indexUserGuide">
         <i aria-hidden="true"></i>Inicio 

@@ -50,12 +50,18 @@
             if(isset($_GET["patientId"])){
                 $patientId = is_numeric($_GET["patientId"]) ? $_GET["patientId"] : -1;
                 $response = $http_requests->getResponse("$BACKEND_URL/patients/$patientId", "GET", $get_req, $user->get_token());
+                if($response["data"]->errorMsg != ""){
+                    $error = $response["data"]->errorMsg;
+                    echo"<div class='alert-message'><div class='alert alert-danger'>$error</div></div>";
+                }else{
+                    require_once("../common/viewTable.php");
+                }
             }
             else{
                 $response = $http_requests->getResponse("$BACKEND_URL/patients", "GET", $get_req, $user->get_token());
+                require_once("../common/viewTable.php");
             }
 
-            require_once("../common/viewTable.php");
         ?>
         
         
@@ -67,7 +73,7 @@
                 echo "<div>";
                 if($_SESSION["page"] != 1 && count($data_array) > 0){
                     $prev_page = $_SESSION["page"] - 1;    
-                    echo "<a class='btn btn-primary previous' href='patientsIndex.php?page=$prev_page'><</a>";
+                    echo "<a class='btn btn-primary previous' href='../patients/patientsIndex.php?page=$prev_page'><</a>";
                 }                                    
                 echo "</div>";
                 
@@ -77,7 +83,7 @@
                 echo "<div>";
                 if ($get_req["offset"] + $NUM_ELEMENTS_BY_PAGE < $response["data"]->num_entries && count($data_array) > 0){
                     $next_page = $_SESSION["page"] + 1;    
-                    echo "<a class='btn btn-primary next' href='patientsIndex.php?page=$next_page'>></a>"; 
+                    echo "<a class='btn btn-primary next' href='../patients/patientsIndex.php?page=$next_page'>></a>"; 
                 }
                 else{
                     echo "<div style='background-color:#e9ecef; border-color:#e9ecef;'class='btn btn-primary previous'>></div>";      

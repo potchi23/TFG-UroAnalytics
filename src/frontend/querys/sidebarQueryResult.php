@@ -1,7 +1,4 @@
-<div class="sidebar-logo">
-    RESULTADO CONSULTA
-  </div>
-  <ul class="sidebar-navigation">
+  <ul class="sidebar-navigation" style="padding-top: 5px;">
     <li class="header-sidebar">Opciones</li>
     <li>
       <a href="../querys/viewQuery.php?page=1">

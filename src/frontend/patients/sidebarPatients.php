@@ -1,24 +1,22 @@
-<div class="sidebar-logo">
-    OPCIONES
-</div>
-<ul class="sidebar-navigation">
+<ul class="sidebar-navigation" style="padding-top: 5px;">
+    <li class="header-sidebar">Opciones</li>
     <li>
-        <a href="patientsIndex.php?page=1">
+        <a href="../patients/patientsIndex.php?page=1">
             <i aria-hidden="true"></i> Visualizar pacientes
         </a>
     </li>
     <li>
-        <a href="addPatient.php">
+        <a href="../patients/addPatient.php">
             <i aria-hidden="true"></i> Añadir paciente
         </a>
     </li>
     <li>
-        <a href="importdb.php">
+        <a href="../patients/importdb.php">
             <i aria-hidden="true"></i> Importar pacientes
         </a>
     </li>
     <li>
-        <a href="exportdb.php">
+        <a href="../patients/exportdb.php">
             <i aria-hidden="true"></i> Exportar pacientes
         </a>
     </li>

@@ -748,28 +748,31 @@ def viewSinglePatient(current_user, patientId):
         params = (patientId)
         response = {
             'num_entries':engine.execute('SELECT COUNT(N) FROM patients WHERE N = %s', params).scalar(),
-            'data':[]
+            'data':[],
+            'errorMsg': ""
         }
 
-        query = 'SELECT * FROM patients WHERE N = %s'
-        if('rbq_null' in request.form and request.form['rbq_null'] == 'true'):
-            query += ' AND RBQ IS NULL'
+        if response['num_entries'] != 0:
+            query = 'SELECT * FROM patients WHERE N = %s'
+            if('rbq_null' in request.form and request.form['rbq_null'] == 'true'):
+                query += ' AND RBQ IS NULL'
 
-        
-        columns = tuple(engine.execute(query, params).keys())
-        result = engine.execute(query, params)
-
-        entry = {}
-        for row in result:
-            for i in range(0, len(row)):
-                entry[columns[i]] = row[i]
-            response['data'].append(dict(entry))
-        
-        if('rbq_null' in request.form and request.form['rbq_null'] == 'true'):
-            response['num_entries'] = len(response['data'])
             
-        status = 200
-        return response, status
+            columns = tuple(engine.execute(query, params).keys())
+            result = engine.execute(query, params)
+
+            entry = {}
+            for row in result:
+                for i in range(0, len(row)):
+                    entry[columns[i]] = row[i]
+                response['data'].append(dict(entry))
+            
+            if('rbq_null' in request.form and request.form['rbq_null'] == 'true'):
+                response['num_entries'] = len(response['data'])
+                
+            status = 200
+        else:
+            response['errorMsg'] = "No existen pacientes con el id proporcionado."
 
     elif request.method == 'PATCH':
         response = {}
@@ -782,7 +785,7 @@ def viewSinglePatient(current_user, patientId):
         
         status = 200
 
-        return response, status
+    return response, status
 
 @app.route('/patients/variables', methods=['POST', 'GET'])
 @token_required

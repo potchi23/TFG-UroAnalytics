@@ -36,15 +36,15 @@
                         <h1 class="display-8" style="font-weight:600;">Realizar una predicción</h1><br>                        
                         <hr class="my-1"><br>
 
-                        <h5>Para realizar una predicción debe importar un archivo de formato <b>.csv, .xls y .xlsx</b> y después pulsar el botón "Importar desde fichero".
-                            También puede rellenar manualmente las variables.</h5>
-                        <h5>A continuación, debe elegir el algoritmo de predicción que desee emplear.</h5><br>
-
+                        <p>Para realizar una predicción debe importar un archivo de formato <b>.csv, .xls y .xlsx</b> y después pulsar el botón "Importar desde fichero".
+                            También puede rellenar manualmente las variables.</p>
+                        <p>A continuación, debe elegir el algoritmo de predicción que desee emplear.</p><br>
+                        <h5>Para más detalles consultar el <a href="../userGuide/userGuideIndex.php#predictionsGuide">manual de usuario</a>.</h5>
+                        <hr class="my-4">
                         <div id="last-train">
                             <span>Entrenado en: </span>
                             <span id="last-train-date">Nunca</span>
                         </div>
-                        <hr class="my-4">
                     </div> 
                         
                     <div id="dataPatients">

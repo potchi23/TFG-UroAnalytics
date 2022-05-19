@@ -9,7 +9,7 @@
                     <h3> PSA posoperatorio 1º </h3>
                 </div>
                     <div class="col-">
-                            <input type="text" class="form-control" name="evolve1" placeholder="PSAPOS" style="width:10em;">
+                            <input type="number" class="form-control" name="evolve1" placeholder="PSAPOS" style="width:10em;">
                     </div>
                     <div class="col my-auto">
                         <div class="custom-control custom-switch">
@@ -49,7 +49,7 @@
                     <h3> Tiempo hasta RTP adyuvante </h3>
                 </div>
                     <div class="col-">
-                            <input type="text" class="form-control" name="evolve3" placeholder="meses" style="width:10em;">
+                            <input type="number" class="form-control" name="evolve3" placeholder="meses" style="width:10em;">
                     </div>
                     <div class="col my-auto">
                         <div class="custom-control custom-switch">
@@ -105,7 +105,7 @@
                     <h3> Tiempo hasta 1ª metástasis </h3>
                 </div>
                     <div class="col-">
-                            <input type="text" class="form-control" name="evolve6" placeholder="meses" style="width:10em;">
+                            <input type="number" class="form-control" name="evolve6" placeholder="meses" style="width:10em;">
                     </div>
                     <div class="col my-auto">
                         <div class="custom-control custom-switch">
@@ -130,7 +130,7 @@
                     <h3> Tiempo de seguimiento desde PRL </h3>
                 </div>
                     <div class="col-">
-                            <input type="text" class="form-control" name="evolve7" placeholder="meses" style="width:10em;">
+                            <input type="number" class="form-control" name="evolve7" placeholder="meses" style="width:10em;">
                     </div>
                     <div class="col my-auto">
                         <div class="custom-control custom-switch">
@@ -155,7 +155,7 @@
                     <h3> Último PSA en seguimiento </h3>
                 </div>
                     <div class="col-">
-                            <input type="text" class="form-control" name="evolve8" placeholder="PSAPOS" style="width:10em;">
+                            <input type="number" class="form-control" name="evolve8" placeholder="PSAPOS" style="width:10em;">
                     </div>
                     <div class="col my-auto">
                         <div class="custom-control custom-switch">

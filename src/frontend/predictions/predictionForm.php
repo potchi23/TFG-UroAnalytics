@@ -24,7 +24,7 @@
                     echo <<<EOL
                     <div class="input-group-prepend">
                         <span class="prediction-form-label input-group-text">$column</span>
-                        <input class="prediction-form-input" type="text" id="$column" name="$column" value="{$value}">
+                        <input class="prediction-form-input" type="number" id="$column" name="$column" value="{$value}">
                     </div>
                     EOL;
                 }
@@ -38,7 +38,7 @@
                     echo <<<EOL
                     <div class="input-group-prepend">
                         <span class="prediction-form-label input-group-text">$column</span>
-                        <input class="prediction-form-input" type="text" id="$column" name="$column">
+                        <input class="prediction-form-input" type="number" id="$column" name="$column">
                     </div>
                     EOL;
                 }

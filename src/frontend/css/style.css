@@ -20,3 +20,7 @@
 .custom-switch.custom-switch-md .custom-control-input:checked ~ .custom-control-label::after {
     transform: translateX(calc(1.5rem - 0.25rem));
 }
+
+.content-container {
+    padding-top: 20px;
+}

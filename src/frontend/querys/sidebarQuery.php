@@ -1,7 +1,4 @@
-  <div class="sidebar-logo">
-    CONSULTAS
-  </div>
-  <ul class="sidebar-navigation">
+  <ul class="sidebar-navigation"style="padding-top: 5px;">
     <li class="header-sidebar">Índice</li>
     <li>
       <a href="#indexQuery">
