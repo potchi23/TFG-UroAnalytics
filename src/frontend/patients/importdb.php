@@ -54,10 +54,6 @@
                                     <input type="file" id="import-data" name="import-data">
                                     <button type="submit" id="submit" class="btn btn-primary ml-4">Importar</button>
                                 </form>
-                                <br>
-                                <a href="../resources/plantilla_datos_pacientes.xlsx" download="plantilla_datos_pacientes.xlsx">
-                                    <button id="downloadTemplate" class="btn btn-success">Descargar plantilla Excel</button>
-                                </a>
                             </div>
                         </div> 
                     </div>  
@@ -67,6 +63,11 @@
                     <h1>Requisitos para importar un Excel</h1>
                     <hr>
                     <div class="justify-content-center">
+                        <a href="../resources/plantilla_datos_pacientes.xlsx" download="plantilla_datos_pacientes.xlsx">
+                            <button id="downloadTemplate" class="btn btn-success">Descargar plantilla Excel</button>
+                        </a>
+                        <br>
+                        <br>
                         <p>La información dentro del Excel debe empezar en la primera fila que serán las columnas.</p>
                         <p>Cualquier campo de un paciente que no esté incluido en la Base de Datos será descartado.</p>
                         <br>
