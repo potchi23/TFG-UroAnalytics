@@ -17,6 +17,5 @@
                 <div id="cir22" class="col-xl-" style="display: none">
                     <input type="date" name="cir2">
                 </div>
-                </div>
             </div>     
         </div>
