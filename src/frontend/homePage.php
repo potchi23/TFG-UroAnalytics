@@ -59,7 +59,7 @@
                                 <div class="col-md-4">
                                     <a href="patients/importdb.php">
                                         <div class="services">
-                                            <div class="icon"> <img src="img/query.png" style="max-height:125px;max-width:125px;"> </div>
+                                            <div class="icon"> <img src="img/importdb.png" style="max-height:125px;max-width:125px;"> </div>
                                             <div class="services-body">
                                                 <h5 style="font-weight: bold;">Importar pacientes</h5>
                                                 <p>Importar pacientes para enriquecer la base de datos.</p> 
@@ -104,7 +104,7 @@
                                 <div class="col-md-4">
                                     <a href="common/viewGraphs.php?father=patients">
                                         <div class="services">
-                                            <div class="icon"> <img src="img/patient.png" style="max-height:125px;max-width:125px;"> </div>
+                                            <div class="icon"> <img src="img/stats.png" style="max-height:125px;max-width:125px;"> </div>
                                             <div class="services-body">
                                                 <h5 style="font-weight: bold;">Estudios estadísticos</h5>
                                                 <p>Recopilar información estadóstica sobre un conjunto de pacientes extenso.</p>
@@ -115,7 +115,7 @@
                                 <div class="col-md-4">
                                     <a href="patients/exportdb.php">
                                         <div class="services">
-                                            <div class="icon"> <img src="img/patient.png" style="max-height:125px;max-width:125px;"> </div>
+                                            <div class="icon"> <img src="img/exportdb.png" style="max-height:125px;max-width:125px;"> </div>
                                             <div class="services-body">
                                                 <h5 style="font-weight: bold;">Exportar datos</h5>
                                                 <p>Guarda los datos de la consulta realizada de forma sencilla.</p>
