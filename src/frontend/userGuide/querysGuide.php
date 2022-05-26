@@ -38,9 +38,9 @@
     <p>Los valores correspondientes de cada columna se describen en el archivo descargable que se encuentra en la 
         página de <b>Pacientes</b> pulsando el botón <b>Descargar descripción de variables</b>.</p>
     
-    <p>Una vez que la consulta se ha realizado se puede, además de ver la tabla, el usuario puede:</p>
+    <p>Una vez que la consulta se ha realizado, además de ver la tabla, el usuario puede:</p>
     <ul>
-        <li><b>Ver estadísticas</b>: Se muestran gráficas sobre las variables <b>ETNIA, EDAD, TABACO, OBESIDAD, RBQ, ECOTR, TACTOR y HEREDA</b> sobre la consulta realizada.</li><br>
+        <li><b>Ver estadísticas</b>: Se muestran gráficas sobre las variables <i>ETNIA, EDAD, TABACO, OBESIDAD, RBQ, ECOTR, TACTOR y HEREDA</i> sobre la consulta realizada.</li><br>
         <img src="../img/userGuide5.png" class="d-block w-100" style="border: 20px solid #FFF;" alt="userGuide5"><br>
 
         <li><b>Ver detalles</b>: En esta página se muestran todas las variables que hay 
