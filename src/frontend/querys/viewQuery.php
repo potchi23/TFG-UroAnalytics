@@ -5,7 +5,6 @@
     session_start();
 
     $user = $_SESSION["user"];
-    $_SESSION["error"] = array();
 
     $_SESSION["page"] = isset($_GET["page"]) ? $_GET["page"] : 1;
     
@@ -16,16 +15,6 @@
     if(isset($_POST["fromIndex"])){
         unset($_POST["fromIndex"]);
         unset($_SESSION["get_req"]);
-    }
-
-    if(!isset($_POST["boolBiopsy"]) && !isset($_POST["boolCIR"]) && !isset($_POST["boolClinic"]) &&
-       !isset($_POST["boolEvolve"]) && !isset($_POST["boolMarkers"]) && !isset($_POST["boolProstate"]) &&
-       !isset($_POST["boolSociodemographic"])) {
-        array_push($_SESSION["error"], "Seleccionar al menos un filtro");
-    } 
-
-    if (count($_SESSION["error"]) > 0) {
-        header("Location: queryIndex.php");
     }
 ?>
 

@@ -73,17 +73,6 @@
                     <div class="jumbotron" id="indexQuery">
                         <h1 style="font-weight: 600">Realizador de consultas</h1>
                         <hr class="my-4">
-                        <?php
-                            if (isset($_SESSION["error"]) && count($_SESSION["error"]) > 0){
-                                echo"<div class='alert-message' style='width: fit-content;'><div class='alert alert-danger'>";
-                                foreach($_SESSION["error"] as $error){
-                                    echo "<div>$error</div>";
-                                }
-                                echo"</div></div>";
-                                unset($_SESSION["error"]);
-                            }
-                        ?> 
-
                         <p>Para realizar una consulta debe seleccionar los filtros que desee que se muestran a continuación.
                             Una vez seleccionados los filtros, pulsar el botón "Realizar consulta" que se encuentra en la barra lateral izquierda.
                         </p>
