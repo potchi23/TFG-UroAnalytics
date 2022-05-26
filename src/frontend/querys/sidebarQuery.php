@@ -47,7 +47,7 @@
       </a>
     </li>
     <li>
-      <a href="../queryIndex.php">
+      <a href="queryIndex.php">
         <i aria-hidden="true"></i> Reiniciar filtros
       </a>
     </li>
