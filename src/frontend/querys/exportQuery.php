@@ -28,9 +28,12 @@
             <div class="container-fluid">
                 <div class="jumbotron">
                     <?php                         
-                        if (isset($_SESSION["error"])) {
-                            $error = $_SESSION["error"];
-                            echo"<div class='alert-message'><div class='alert alert-danger'>$error</div></div>";
+                        if (isset($_SESSION["error"]) && count($_SESSION["error"]) > 0) {
+                            echo"<div class='alert-message' style='width: fit-content;'><div class='alert alert-danger'>";
+                            foreach($_SESSION["error"] as $error){
+                                echo "<div>$error</div>";
+                            }
+                            echo"</div></div>";
                             unset($_SESSION["error"]);
                         }
                     ?>
