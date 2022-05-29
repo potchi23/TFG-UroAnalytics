@@ -5,22 +5,23 @@
     session_start();
 
     if(isset($_GET["patientId"]) && $_GET["patientId"] == null){
-        header("Location: ../patients/patientsIndex.php");
+        header("Location: patientsIndex.php");
     }
 ?>
 
 <html>
     <head>
         <title>Entorno pacientes</title>
-        <link rel="stylesheet" href="../css/predictions.css"></link>
         <?php include_once("../common/includes.php");?>
     </head>
     <body>  
         <div class="header">
-            <?php require("../common/header.php");?>
+            <div class="fixed-top">
+                <?php include_once("../common/header.php");?>
+            </div>
         </div>
         <div class="sidebar-container">
-            <?php require("../patients/sidebarPatients.php")?>
+            <?php include_once("sidebarPatients.php");?>
         </div>
         <div class="content-container">
             <div class="container-fluid">

@@ -4,18 +4,18 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-      <a class="navbar-brand" href="../homePage.php">
+      <a id="homePage" class="navbar-brand" href="../homePage.php">
         <img src="../img/logo.png" alt="logo" width="40" height="40">
       </a>
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
         <li class="nav-item">
-          <a class="nav-link" href="../querys/queryIndex.php">Consultas <span class="sr-only">(current)</span></a>
+          <a id="querysPage" class="nav-link" href="../querys/queryIndex.php">Consultas <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../predictions/predictions.php">Predicciones</a>
+          <a id="predictionsPage" class="nav-link" href="../predictions/predictions.php">Predicciones</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../patients/patientsIndex.php?page=1">Pacientes</a>
+          <a id="patientsPage" class="nav-link" href="../patients/patientsIndex.php?page=1">Pacientes</a>
         </li>
         <?php
             $user = $_SESSION["user"];
@@ -25,7 +25,7 @@
             }
         ?>
         <li class="nav-item">
-          <a class="nav-link" href="../userGuide/userGuideIndex.php">Manual de usuario</a>
+          <a id="userGuidePage" class="nav-link" href="../userGuide/userGuideIndex.php">Manual de usuario</a>
         </li> 
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -71,12 +71,37 @@
   var currentLocation = location.href;
   var menuItem = document.getElementsByClassName('nav-link');
   var menuLength = menuItem.length;
+  var active = false;
 
-  for(let i = 0; i < menuLength; i++) {      
+  for(var i = 0; i < menuLength; i++) { 
     if(menuItem[i].href === currentLocation) {
-        menuItem[i].className = "active";
+      menuItem[i].className += " active";
+      active = true;
     }
   }
-  
+
+  if(!active) {        
+    if(currentLocation.toLowerCase().includes('query'.toLowerCase())) {
+      var queryItem = document.getElementById("querysPage");
+      queryItem.className += " active";
+      active = true;
+    }
+    else if(currentLocation.toLowerCase().includes('prediction'.toLowerCase())) {
+      var predictionItem = document.getElementById("predictionsPage");
+      predictionItem.className += " active";
+      active = true;
+    }
+    else if(currentLocation.toLowerCase().includes('patients'.toLowerCase())) {
+      var patientItem = document.getElementById("patientsPage");
+      patientItem.className += " active";
+      active = true;
+    }
+    else if(currentLocation.toLowerCase().includes('homePage'.toLowerCase())) {
+      var homePageItem = document.getElementById("homePage");
+      homePageItem.className += " active";
+      active = true;
+    }    
+  }
+    
   </script>
 </nav>

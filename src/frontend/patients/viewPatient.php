@@ -19,21 +19,20 @@
 <html>
     <head>
         <title>Pacientes</title>
-        <link rel="stylesheet" href="../css/forms.css"/>
+        <link rel="stylesheet" href="../css/form.css"/>
         <link rel="stylesheet" href="../css/registerPetitions.css"/>
         <?php require("../common/includes.php");?>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="../css/formUserProfile.css"/>
        
-
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://smtpjs.com/v3/smtp.js"></script>
     </head>
     <body>
-        <div class="header">
-            <?php require("../common/header.php");?>
-        </div>   
+    <div class="header">
+                <div class="fixed-top">
+                    <?php include_once("../common/header.php");?>
+                </div>
+            </div>  
 
         <?php
             $http_requests = new HttpRequests();
