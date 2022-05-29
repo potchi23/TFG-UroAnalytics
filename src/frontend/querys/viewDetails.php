@@ -12,13 +12,16 @@
         
         $columns = array_keys($_POST);
 
+        for($i = 0; $i < count($_POST); $i++){
+            if($columns[$i] != "extended"){
+                $get_req["drop".$columns[$i]] = $columns[$i];
+            }
+        }
+
         isset($_POST["extended"]) ? $get_req["extended"] = False: $get_req["extended"] = True;
 
         unset($_POST["extended"]);
         
-        for($i = 0; $i < count($_POST); $i++){
-            $get_req["drop".$columns[$i]] = $columns[$i];
-        }
 
         $http_requests = new HttpRequests();
         $response = $http_requests->getResponse("$BACKEND_URL/getDetails", "GET", $get_req, $user->get_token());

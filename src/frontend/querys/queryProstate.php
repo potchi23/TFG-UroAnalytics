@@ -66,7 +66,7 @@
                             <label class="custom-control-label" for="volop2">Igual</label>
                         </div>
                         <div class="custom-control custom-switch">
-                            <input type="checkbox" value=">" class="custom-control-input" naem="prostate3op" id="volop3" onclick="toggleCB(document.getElementById('volop1'))">
+                            <input type="checkbox" value=">" class="custom-control-input" name="prostate3op" id="volop3" onclick="toggleCB(document.getElementById('volop1'))">
                             <label class="custom-control-label" for="volop3">Mayor que</label>
                         </div>
                     </div>

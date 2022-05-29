@@ -548,7 +548,6 @@ def doQuery():
         if len(request.form) > 2:
             offset = request.form['offset']
             num_elems = request.form['num_elems']
-            
             queryWhere, num_entries = buildQuery(request.form); 
             queryWhere += ' LIMIT %s, %s' % (offset, num_elems)
 
