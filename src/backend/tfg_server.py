@@ -717,7 +717,7 @@ def viewPatients(current_user):
             "num_entries" : 0
         }
 
-        if(all(value == '' for value in request.form.values())):
+        if(len(request.form) <= 0):
             response["errorMSG"] = "Tiene que rellenar al menos uno de los campos."
         else:
             
