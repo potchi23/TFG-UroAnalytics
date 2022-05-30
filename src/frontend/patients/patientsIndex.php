@@ -35,31 +35,27 @@
                 </div>
                 
                 <div id="viewPatient">
-                    <div class="content-container" style="padding:0px;">
-                        <div class="container-fluid">
-                            <div class="jumbotron">
-                                <h1 style="font-weight:600;">Pacientes</h1>
-                                <hr class="my-8">
+                    <div class="jumbotron">
+                        <h1 style="font-weight:600;">Pacientes</h1>
+                        <hr class="my-8">
 
-                                <div class="search">
-                                    <form action="../requests/postSearchPatient.php" method="POST">
-                                        <input id="patientId" name="patientId" type="number" placeholder="Buscar paciente por ID..."/>
-                                        <button class="btn btn-primary ml-4" type="submit">Buscar paciente</button>
-                                    </form>
+                        <div class="search">
+                            <form action="../requests/postSearchPatient.php" method="POST">
+                                <input id="patientId" name="patientId" type="number" placeholder="Buscar paciente por ID..."/>
+                                <button class="btn btn-primary ml-4" type="submit">Buscar paciente</button>
+                            </form>
 
-                                    <form action="../patients/patientsIndex.php">
-                                        <button class="btn btn-primary ml-4" type="submit">Limpiar búsqueda</button>
-                                    </form>
-                                </div>
-                                <br>
-                                <a href="../resources/descripcion_variables.pdf" download="descripcion_variables">
-                                    <button id="descripcion_variables" class="btn btn-success">Descargar descripción variables</button>
-                                </a>
-                                <?php 
-                                    require("viewPatient.php"); 
-                                ?>
-                            </div>
+                            <form action="../patients/patientsIndex.php">
+                                <button class="btn btn-primary ml-4" type="submit">Limpiar búsqueda</button>
+                            </form>
                         </div>
+                        <br>
+                        <a href="../resources/descripcion_variables.pdf" download="descripcion_variables">
+                            <button id="descripcion_variables" class="btn btn-success">Descargar descripción variables</button>
+                        </a>
+                        <?php 
+                            require("viewPatient.php"); 
+                        ?>
                     </div>
                 </div>
             </div>

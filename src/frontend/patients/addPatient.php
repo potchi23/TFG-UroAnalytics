@@ -29,15 +29,16 @@
         <div class="content-container">
             <div class="container-fluid">
                 <div class="jumbotron">
-                <?php 
+                    <?php 
+                    
                         if (isset($_SESSION["message"])){
                             $message = $_SESSION["message"];
-                            echo "<div class='alert-message'><p></p><p class='alert alert-success'>$message</p></div>";
+                            echo "<div class='alert-message' style='width: fit-content;'><p></p><p class='alert alert-success'>$message</p></div>";
                             unset($_SESSION["message"]);
                         }
                         
                         if (isset($_SESSION["error"]) && count($_SESSION["error"]) > 0) {
-                            echo"</p><div class='alert-message'><div class='alert alert-danger'>";
+                            echo"<div class='alert-message' style='width: fit-content;'><div class='alert alert-danger'>";
                             foreach($_SESSION["error"] as $error){
                                 echo "<div>$error</div>";
                             }

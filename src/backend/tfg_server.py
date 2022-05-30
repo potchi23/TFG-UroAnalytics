@@ -715,14 +715,19 @@ def viewPatients(current_user):
             "errorMSG" : "",
             "num_entries" : 0
         }
-        df, response["errorMSG"] = insertDF(request.form)
 
-        try:
-            df.to_sql(name='patients', con=engine, if_exists='append', index=False)
-            status = 200        
-            response["num_entries"] = 1
-        except:
-            response["errorMSG"] = "Error al insertar en la base de datos."   
+        if(all(value == '' for value in request.form.values())):
+            response["errorMSG"] = "Tiene que rellenar al menos uno de los campos."
+        else:
+            
+            df, response["errorMSG"] = insertDF(request.form)
+
+            try:
+                df.to_sql(name='patients', con=engine, if_exists='append', index=False)
+                status = 200        
+                response["num_entries"] = 1
+            except:
+                response["errorMSG"] = "Error al insertar en la base de datos."   
              
         return response, status
 

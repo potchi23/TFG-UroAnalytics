@@ -93,22 +93,20 @@
 
         $db_errno = $data->errno;
 
-        if($response["status"] == 200){
+        if($response["status"] == 200) {
             header("Location:  ../patients/addPatient.php");
             $_SESSION["message"] = "El paciente se ha introducido correctamente";
         }
-        else{
-            $_SESSION["error"] = array();
-
-                array_push($_SESSION["error"], "Hay un error desconocido en el servidor. Póngase en contacto con el administrador.");
-            
-            header("Location: ../patients/patientsIndex.php");
-        }
-    }
-
-    function append_error_message($is_not_valid, $error_msg){
-        if($is_not_valid){
-            array_push($_SESSION["error"], $error_msg);
+        else {
+            if($response["status"] == 401) {
+                unset($_SESSION["user"]);
+                $_SESSION["error"] = "La sesión ha caducado";
+                header("Location: ../login.php");
+            }
+            else {
+                array_push($_SESSION["error"], $response["data"]->errorMSG);
+                header("Location: ../patients/addPatient.php");                
+            }
         }
     }
 ?>
