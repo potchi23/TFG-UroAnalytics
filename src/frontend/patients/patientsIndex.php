@@ -41,12 +41,12 @@
 
                         <div class="search">
                             <form action="../requests/postSearchPatient.php" method="POST">
-                                <input id="patientId" name="patientId" type="number" placeholder="Buscar paciente por ID..."/>
+                                <input id="patientId" name="patientId" type="number" placeholder="Buscar paciente por ID..." style="width:15rem;"/>
                                 <button class="btn btn-primary ml-4" type="submit">Buscar paciente</button>
-                            </form>
 
-                            <form action="../patients/patientsIndex.php">
-                                <button class="btn btn-primary ml-4" type="submit">Limpiar búsqueda</button>
+                                <a href="../patients/patientsIndex.php" draggable="false">
+                                    <button class="btn btn-primary ml-4">Limpiar búsqueda</button>
+                                </a>
                             </form>
                         </div>
                         <br>
