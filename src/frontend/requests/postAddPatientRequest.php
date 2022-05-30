@@ -94,7 +94,8 @@
         $db_errno = $data->errno;
 
         if($response["status"] == 200){
-            header("Location:  ../patients/patientsIndex.php");
+            header("Location:  ../patients/addPatient.php");
+            $_SESSION["message"] = "El paciente se ha introducido correctamente";
         }
         else{
             $_SESSION["error"] = array();

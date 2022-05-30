@@ -29,6 +29,22 @@
         <div class="content-container">
             <div class="container-fluid">
                 <div class="jumbotron">
+                <?php 
+                        if (isset($_SESSION["message"])){
+                            $message = $_SESSION["message"];
+                            echo "<div class='alert-message'><p></p><p class='alert alert-success'>$message</p></div>";
+                            unset($_SESSION["message"]);
+                        }
+                        
+                        if (isset($_SESSION["error"]) && count($_SESSION["error"]) > 0) {
+                            echo"</p><div class='alert-message'><div class='alert alert-danger'>";
+                            foreach($_SESSION["error"] as $error){
+                                echo "<div>$error</div>";
+                            }
+                            echo"</div></div>";
+                            unset($_SESSION["error"]);
+                        }
+                    ?>
                     <h1 style="font-weight:600;">Añadir un paciente</h1>
                     <hr class="my-4">
                     <div class="form-content">
@@ -553,5 +569,6 @@
                 </div>
             </div>
         </div>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     </body>
 </html>
