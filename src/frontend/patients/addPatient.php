@@ -509,14 +509,6 @@
                             </div>
                             <div class="row">
                                 <div class='col-md-auto' style="width: 8em">
-                                    <label for="NOTAS">NOTAS</label>
-                                </div>
-                                <div class='col-md-auto'>
-                                    <input type="text" id="NOTAS" name="NOTAS" ><br><br>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class='col-md-auto' style="width: 8em">
                                     <label for="IMC">IMC</label>
                                 </div>
                                 <div class='col-md-auto'>

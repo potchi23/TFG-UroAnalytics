@@ -10,8 +10,8 @@
     $_SESSION["error"] = array();
 
     function isNull($arg){
-        $aux = "";
-        if(isset($_POST[$arg])){
+        $aux = NULL;
+        if($_POST[$arg] != ""){
             $aux = $_POST[$arg];
         }
         return $aux;
@@ -22,7 +22,7 @@
     }
     else {
         $post_req = array(
-            "FECHACIR" =>isNull("FECHACIR"), 
+            "FECHACIR" => isNull("FECHACIR"), 
             "EDAD" =>isNull("EDAD"), 
             "ETNIA" =>isNull("ETNIA"),
             "OBESO" =>isNull("OBESO"), 
@@ -78,7 +78,6 @@
             "KI-67" =>isNull("KI-67"),
             "SPINK1" =>isNull("SPINK1"),
             "C-MYC" =>isNull("C-MYC"),
-            "NOTAS" =>isNull("NOTAS"),
             "IMC" =>isNull("IMC"),
             "ASA" =>isNull("ASA"),
             "GR" =>isNull("GR"),
@@ -88,9 +87,8 @@
         );
 
         $http_requests = new HttpRequests();
-        $response = $http_requests->getResponse("$BACKEND_URL/patients", "POST", $post_req,  $user->get_token());
+        $response = $http_requests->getResponse("$BACKEND_URL/patients", "POST", http_build_query($post_req), $user->get_token());        
         $data = $response["data"];
-
         $db_errno = $data->errno;
 
         if($response["status"] == 200) {

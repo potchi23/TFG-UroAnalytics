@@ -711,6 +711,7 @@ def viewPatients(current_user):
         return response, status
 
     elif  request.method == 'POST':
+        print(request.form)
         response = {
             "errorMSG" : "",
             "num_entries" : 0
@@ -723,17 +724,29 @@ def viewPatients(current_user):
             df, response["errorMSG"] = insertDF(request.form)
 
             try:
-                df.to_sql(name='patients', con=engine, if_exists='append', index=False)
-                status = 200        
-                response["num_entries"] = 1
+                if not df.empty:
+                    df.to_sql(name='patients', con=engine, if_exists='append', index=False)
+                    status = 200        
+                    response["num_entries"] = 1
+                else:
+                    response["errorMSG"] = "El paciente introducido ya existe."
             except:
                 response["errorMSG"] = "Error al insertar en la base de datos."   
              
         return response, status
 
 def insertDF(req):
+
     req = dict(req)
+
     df = pd.DataFrame([req.values()], columns=list(req.keys())).replace({"": np.nan})
+
+    #casteo de valores
+    df_db = pd.read_sql("SELECT * FROM patients", engine).iloc[:1]
+
+    for col in df_db.columns:
+        if col in df.columns:
+            df[col] = df[col].astype(df_db[col].dtype)
 
     errorMSG = ""
     df, errorMSG = newPatientsDF(df)
