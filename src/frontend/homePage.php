@@ -147,7 +147,6 @@
                         ?>
                     </div> 
                 </div>   
-                </div>
                 <div class="jumbotron">
                     <blockquote class="blockquote text-center bg-light py-3 px-0" style="border-radius:20px;">
                         <div class="h5 mb-1 font-weight-bold font-italic">
