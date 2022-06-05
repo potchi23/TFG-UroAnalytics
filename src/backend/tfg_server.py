@@ -502,7 +502,7 @@ def newPatientsDF(df):
         
         if len(invalidColumns) == 0:
             if not df_db.empty:
-                df = pd.concat([df_db.drop(columns="N"), df]).drop_duplicates(keep=False, ignore_index=True)
+                df = pd.concat([df_db.drop(columns="N"), df, df_db.drop(columns="N")]).drop_duplicates(keep=False, ignore_index=True)
             else:
                 df = df.drop_duplicates(ignore_index=True)
         else:
