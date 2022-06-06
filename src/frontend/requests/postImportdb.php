@@ -6,20 +6,19 @@
 
     session_start();
     $user = $_SESSION["user"];
-    $_SESSION["error"] = array();
 
     $target_dir = "tmp/";
     $target_file = $target_dir . basename($_FILES["import-data"]["name"]);
 
     if($_FILES['import-data']['size'] == 0) {
-        array_push($_SESSION["error"], "No se ha seleccionado ningun un fichero");
+        $_SESSION["error"] = "No se ha seleccionado ningun un fichero";
         header("Location: ../patients/importdb.php");
     }
     else {
         $fileType = strtolower(pathinfo($_FILES['import-data']['name'], PATHINFO_EXTENSION));
         
         if($fileType != "xls" && $fileType != "xlsx") {
-            array_push($_SESSION["error"], "Solo se permiten ficheros con formato .xls y .xlsx");
+            $_SESSION["error"] = "Solo se permiten ficheros con formato .xls y .xlsx";
             header("Location: ../patients/importdb.php");
         }
         else {

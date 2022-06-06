@@ -28,7 +28,7 @@
             <div class="container-fluid">
                 <div class="jumbotron">
                     <?php                         
-                        if (isset($_SESSION["error"]) && count($_SESSION["error"]) > 0) {
+                        if (isset($_SESSION["error"])) {
                             $error = $_SESSION["error"];
                             echo"<div class='alert-message'><div class='alert alert-danger'>$error</div></div>";
                             unset($_SESSION["error"]);
