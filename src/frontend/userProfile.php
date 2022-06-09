@@ -42,10 +42,10 @@
                                 unset($_SESSION["message"]);
                             }
     
-                            if (isset($_SESSION["error"]) && count($_SESSION["error"]) > 0){
+                            if (isset($_SESSION["error"]) && !empty($_SESSION["error"])){
                                 echo"</p><div class='alert-message'><div class='alert alert-danger'>";
                                 foreach($_SESSION["error"] as $error){
-                                    echo "<div>$error</div>";
+                                    echo $error . "<br>";
                                 }
                                 echo"</div></div>";
                                 unset($_SESSION["error"]);

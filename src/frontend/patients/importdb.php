@@ -30,13 +30,16 @@
                     <?php 
                         if (isset($_SESSION["message"])){
                             $message = $_SESSION["message"];
-                            echo "<div class='alert-message'><p></p><p class='alert alert-success'>$message</p></div>";
+                            echo "<div class='alert-message' style='width: fit-content;'><p></p><p class='alert alert-success'>$message</p></div>";
                             unset($_SESSION["message"]);
                         }
                         
-                        if (isset($_SESSION["error"])) {
-                            $error = $_SESSION["error"];
-                            echo"<div class='alert-message'><div class='alert alert-danger'>$error</div></div>";
+                        if (isset($_SESSION["error"]) && !empty($_SESSION["error"])) {
+                            echo"<div class='alert-message' style='width: fit-content;'><div class='alert alert-danger'>";
+                            foreach($_SESSION["error"] as $error){
+                                echo $error . "<br>";
+                            }
+                            echo"</div></div>";                            
                             unset($_SESSION["error"]);
                         }
                     ?>

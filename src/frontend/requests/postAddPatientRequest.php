@@ -98,7 +98,7 @@
         else {
             if($response["status"] == 401) {
                 unset($_SESSION["user"]);
-                $_SESSION["error"] = "La sesión ha caducado";
+                array_push($_SESSION["error"], "La sesión ha caducado");
                 header("Location: ../login.php");
             }
             else {

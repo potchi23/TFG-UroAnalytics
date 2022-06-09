@@ -87,11 +87,11 @@
                     unset($_SESSION["dataInputs"]);
                     if($response["status"] == 401) {
                         unset($_SESSION["user"]);
-                        $_SESSION["error"] = "La sesión ha caducado";
+                        array_push($_SESSION["error"], "La sesión ha caducado");
                         header("Location: ../login.php");
                     }
                     else {
-                        $_SESSION["error"] = "Error. El excel importado no cumple con los requisitos. ".$response["data"]->errorMSG;
+                        array_push($_SESSION["error"], "ERROR: El excel importado no cumple con los requisitos. ".$response["data"]->errorMSG);
                     
                         header("Location: ../predictions/predictions.php");
                     }

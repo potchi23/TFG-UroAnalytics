@@ -10,6 +10,7 @@
 
     session_start();
     $user = $_SESSION["user"];
+    $_SESSION["error"] = array();
 
     $get_req = NULL;
 
@@ -58,11 +59,11 @@
     else {
         if($response["status"] == 401) {
             unset($_SESSION["user"]);
-            $_SESSION["error"] = "La sesión ha caducado";
+            array_push($_SESSION["error"], "La sesión ha caducado");
             header("Location: ../login.php");
         }
         else {
-            $_SESSION["error"] = "Error al exportar los datos de los pacientes";
+            array_push($_SESSION["error"], "Error al exportar los datos de los pacientes");
             if(isset($_GET["father"])){
                 header("Location: ../querys/exportQuery.php");
             }else{
