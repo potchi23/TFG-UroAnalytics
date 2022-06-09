@@ -25,7 +25,9 @@
     </head>
     <body>
         <div class="header">
-            <?php require_once("common/header.php");?>
+            <div class="fixed-top">
+                <?php require_once("common/header.php");?>
+            </div>
         </div>   
         
         <div class="content-container">

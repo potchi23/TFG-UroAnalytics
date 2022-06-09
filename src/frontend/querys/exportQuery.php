@@ -19,7 +19,9 @@
     </head>
     <body>
         <div class="header">
-            <?php include_once("../common/header.php");?>
+            <div class="fixed-top">
+                <?php include_once("../common/header.php");?>
+            </div>
         </div> 
         <div class="sidebar-container">
             <?php include_once("sidebarQueryResult.php")?>

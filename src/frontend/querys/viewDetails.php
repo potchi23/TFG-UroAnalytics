@@ -61,7 +61,9 @@
         </script> 
             
         <div class="header">
-            <?php require("../common/header.php");?>
+            <div class="fixed-top">
+                <?php require("../common/header.php");?>
+            </div>
         </div>
         
         <div class="sidebar-container" id="list-example">

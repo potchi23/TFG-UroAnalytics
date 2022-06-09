@@ -3,7 +3,9 @@ DIFERENTES CLASES PARA EL CONTENIDO DEL PROYECTO
 Para poner el header simplemente ponemos:
 
   <div class="header">
+    <div class="fixed-top">
       <?php include_once("common/header.php");?>
+    </div>
   </div>
 
 La sidebar, en este caso la de las consultas (Si quereis realizar la sidebar de otra vista seguid el esquema de la mía cambiando los campos):

@@ -28,11 +28,11 @@
         <script src="https://smtpjs.com/v3/smtp.js"></script>
     </head>
     <body>
-    <div class="header">
-                <div class="fixed-top">
-                    <?php include_once("../common/header.php");?>
-                </div>
-            </div>  
+        <div class="header">
+            <div class="fixed-top">
+                <?php include_once("../common/header.php");?>
+            </div>
+        </div>  
 
         <?php
             $http_requests = new HttpRequests();

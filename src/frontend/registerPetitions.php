@@ -37,7 +37,9 @@
     </head>
     <body>
         <div class="header">
-            <?php require("common/header.php");?>
+            <div class="fixed-top">
+                <?php require("common/header.php");?>
+            </div>
         </div>   
 
         <div class="content-container">
